@@ -1,0 +1,7 @@
+*.exe
+*.dll
+*.pdb
+*/bin/*
+*/obj/*
+*.csproj.user
+*.suo
