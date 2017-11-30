@@ -30,6 +30,7 @@
         {
             this.btnBase64 = new System.Windows.Forms.Button();
             this.btnProxyCmd = new System.Windows.Forms.Button();
+            this.btnWebcam = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnBase64
@@ -52,11 +53,22 @@
             this.btnProxyCmd.UseVisualStyleBackColor = true;
             this.btnProxyCmd.Click += new System.EventHandler(this.btnProxyCmd_Click);
             // 
+            // btnWebcam
+            // 
+            this.btnWebcam.Location = new System.Drawing.Point(12, 94);
+            this.btnWebcam.Name = "btnWebcam";
+            this.btnWebcam.Size = new System.Drawing.Size(209, 36);
+            this.btnWebcam.TabIndex = 2;
+            this.btnWebcam.Text = "Webcam";
+            this.btnWebcam.UseVisualStyleBackColor = true;
+            this.btnWebcam.Click += new System.EventHandler(this.btnWebcam_Click);
+            // 
             // FrmToolbox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(233, 391);
+            this.Controls.Add(this.btnWebcam);
             this.Controls.Add(this.btnProxyCmd);
             this.Controls.Add(this.btnBase64);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -71,6 +83,7 @@
 
         private System.Windows.Forms.Button btnBase64;
         private System.Windows.Forms.Button btnProxyCmd;
+        private System.Windows.Forms.Button btnWebcam;
     }
 }
 

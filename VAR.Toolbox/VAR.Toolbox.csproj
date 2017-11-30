@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,6 +47,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\DirectShow\CameraControlProperty.cs" />
+    <Compile Include="Code\DirectShow\IAMCameraControl.cs" />
+    <Compile Include="Code\DirectShow\IAMCrossbar.cs" />
+    <Compile Include="Code\DirectShow\IAMStreamConfig.cs" />
+    <Compile Include="Code\DirectShow\IAMVideoControl.cs" />
+    <Compile Include="Code\DirectShow\IBaseFilter.cs" />
+    <Compile Include="Code\DirectShow\ICaptureGraphBuilder2.cs" />
+    <Compile Include="Code\DirectShow\ICreateDevEnum.cs" />
+    <Compile Include="Code\DirectShow\IEnumFilters.cs" />
+    <Compile Include="Code\DirectShow\IEnumPins.cs" />
+    <Compile Include="Code\DirectShow\IFileSourceFilter.cs" />
+    <Compile Include="Code\DirectShow\IFilterGraph.cs" />
+    <Compile Include="Code\DirectShow\IFilterGraph2.cs" />
+    <Compile Include="Code\DirectShow\IGraphBuilder.cs" />
+    <Compile Include="Code\DirectShow\IMediaControl.cs" />
+    <Compile Include="Code\DirectShow\IMediaEventEx.cs" />
+    <Compile Include="Code\DirectShow\IMediaFilter.cs" />
+    <Compile Include="Code\DirectShow\IPersist.cs" />
+    <Compile Include="Code\DirectShow\IPin.cs" />
+    <Compile Include="Code\DirectShow\IPropertyBag.cs" />
+    <Compile Include="Code\DirectShow\IReferenceClock.cs" />
+    <Compile Include="Code\DirectShow\ISampleGrabber.cs" />
+    <Compile Include="Code\DirectShow\ISampleGrabberCB.cs" />
+    <Compile Include="Code\DirectShow\ISpecifyPropertyPages.cs" />
+    <Compile Include="Code\DirectShow\IVideoWindow.cs" />
+    <Compile Include="Code\DirectShow\PhysicalConnectorType.cs" />
+    <Compile Include="Code\DirectShow\Structures.cs" />
+    <Compile Include="Code\DirectShow\Tools.cs" />
+    <Compile Include="Code\DirectShow\Uuids.cs" />
+    <Compile Include="Code\DirectShow\Win32.cs" />
+    <Compile Include="Code\Webcam.cs" />
+    <Compile Include="Controls\CtrImageViewer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\FrmBase64.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +106,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="UI\FrmWebcam.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmWebcam.Designer.cs">
+      <DependentUpon>FrmWebcam.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\FrmBase64.resx">
@@ -81,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmToolbox.resx">
       <DependentUpon>FrmToolbox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmWebcam.resx">
+      <DependentUpon>FrmWebcam.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

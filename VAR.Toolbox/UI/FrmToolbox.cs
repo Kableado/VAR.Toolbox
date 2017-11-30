@@ -21,5 +21,11 @@ namespace VAR.Toolbox.UI
             var frmProxyCmd = new FrmProxyCmd();
             frmProxyCmd.Show();
         }
+
+        private void btnWebcam_Click(object sender, EventArgs e)
+        {
+            var frmWebcam = new FrmWebcam();
+            frmWebcam.Show();
+        }
     }
 }
