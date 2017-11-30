@@ -22,5 +22,11 @@ namespace VAR.Toolbox
             var frmBase64 = new FrmBase64();
             frmBase64.Show();
         }
+
+        private void btnProxyCmd_Click(object sender, EventArgs e)
+        {
+            var frmProxyCmd = new FrmProxyCmd();
+            frmProxyCmd.Show();
+        }
     }
 }
