@@ -2,7 +2,7 @@
 using System.Text;
 using System.Windows.Forms;
 
-namespace VAR.Toolbox
+namespace VAR.Toolbox.UI
 {
     public partial class FrmBase64 : Form
     {

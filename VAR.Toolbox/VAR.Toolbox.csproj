@@ -46,22 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmBase64.cs">
+    <Compile Include="UI\FrmBase64.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmBase64.Designer.cs">
+    <Compile Include="UI\FrmBase64.Designer.cs">
       <DependentUpon>FrmBase64.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmProxyCmd.cs">
+    <Compile Include="UI\FrmProxyCmd.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmProxyCmd.Designer.cs">
+    <Compile Include="UI\FrmProxyCmd.Designer.cs">
       <DependentUpon>FrmProxyCmd.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmToolbox.cs">
+    <Compile Include="UI\FrmToolbox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmToolbox.Designer.cs">
+    <Compile Include="UI\FrmToolbox.Designer.cs">
       <DependentUpon>FrmToolbox.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -73,13 +73,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FrmBase64.resx">
+    <EmbeddedResource Include="UI\FrmBase64.resx">
       <DependentUpon>FrmBase64.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmProxyCmd.resx">
+    <EmbeddedResource Include="UI\FrmProxyCmd.resx">
       <DependentUpon>FrmProxyCmd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmToolbox.resx">
+    <EmbeddedResource Include="UI\FrmToolbox.resx">
       <DependentUpon>FrmToolbox.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

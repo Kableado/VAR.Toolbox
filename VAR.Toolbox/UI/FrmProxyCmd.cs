@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace VAR.Toolbox
+namespace VAR.Toolbox.UI
 {
     public partial class FrmProxyCmd : Form
     {

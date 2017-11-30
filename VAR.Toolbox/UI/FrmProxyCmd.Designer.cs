@@ -1,4 +1,4 @@
-﻿namespace VAR.Toolbox
+﻿namespace VAR.Toolbox.UI
 {
     partial class FrmProxyCmd
     {
