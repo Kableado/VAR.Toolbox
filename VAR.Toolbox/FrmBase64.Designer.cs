@@ -94,7 +94,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(743, 418);
             this.splitContainer1.SplitterDistance = 368;
             this.splitContainer1.TabIndex = 3;
-            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
             // btnEncodeBase64
             // 
