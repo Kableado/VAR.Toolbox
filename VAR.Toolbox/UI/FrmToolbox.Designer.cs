@@ -75,6 +75,8 @@
             this.MaximizeBox = false;
             this.Name = "FrmToolbox";
             this.Text = "Toolbox";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmToolbox_FormClosing);
+            this.Resize += new System.EventHandler(this.FrmToolbox_Resize);
             this.ResumeLayout(false);
 
         }
