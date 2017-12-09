@@ -129,23 +129,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UI\FrmBase64.resx">
-      <DependentUpon>FrmBase64.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmProxyCmd.resx">
-      <DependentUpon>FrmProxyCmd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmToolbox.resx">
-      <DependentUpon>FrmToolbox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\FrmWebcam.resx">
-      <DependentUpon>FrmWebcam.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\PnlCover.resx">
-      <DependentUpon>PnlCover.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
