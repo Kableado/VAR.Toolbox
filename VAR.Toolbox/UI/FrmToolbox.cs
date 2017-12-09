@@ -79,5 +79,6 @@ namespace VAR.Toolbox.UI
         }
 
         #endregion Window handling
+        
     }
 }

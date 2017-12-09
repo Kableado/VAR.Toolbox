@@ -80,7 +80,10 @@
     <Compile Include="Code\DirectShow\Tools.cs" />
     <Compile Include="Code\DirectShow\Uuids.cs" />
     <Compile Include="Code\DirectShow\Win32.cs" />
+    <Compile Include="Code\Mouse.cs" />
+    <Compile Include="Code\User32.cs" />
     <Compile Include="Code\Webcam.cs" />
+    <Compile Include="Code\Win32API.cs" />
     <Compile Include="Controls\CtrImageViewer.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -89,6 +92,9 @@
     </Compile>
     <Compile Include="UI\FrmBase64.Designer.cs">
       <DependentUpon>FrmBase64.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FrmCover.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\FrmProxyCmd.cs">
       <SubType>Form</SubType>
@@ -115,6 +121,12 @@
     <Compile Include="UI\FrmWebcam.Designer.cs">
       <DependentUpon>FrmWebcam.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\PnlCover.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\PnlCover.Designer.cs">
+      <DependentUpon>PnlCover.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\FrmBase64.resx">
@@ -128,6 +140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmWebcam.resx">
       <DependentUpon>FrmWebcam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\PnlCover.resx">
+      <DependentUpon>PnlCover.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
