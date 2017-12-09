@@ -127,6 +127,12 @@
     <Compile Include="UI\PnlCover.Designer.cs">
       <DependentUpon>PnlCover.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\PnlSuspension.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\PnlSuspension.Designer.cs">
+      <DependentUpon>PnlSuspension.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
