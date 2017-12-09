@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using VAR.Toolbox.UI;
+using VAR.Toolbox.Code;
 
 namespace VAR.Toolbox
 {
@@ -12,9 +13,25 @@ namespace VAR.Toolbox
         [STAThread]
         static void Main()
         {
+            Application.ThreadException += Application_ThreadException;
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmToolbox());
+            try
+            {
+                Application.Run(new FrmToolbox());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                Application.Exit();
+            }
+        }
+
+        private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        {
+            Logger.Log(e.Exception);
+            Application.Exit();
         }
     }
 }

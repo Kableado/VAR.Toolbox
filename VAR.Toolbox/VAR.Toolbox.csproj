@@ -80,6 +80,7 @@
     <Compile Include="Code\DirectShow\Tools.cs" />
     <Compile Include="Code\DirectShow\Uuids.cs" />
     <Compile Include="Code\DirectShow\Win32.cs" />
+    <Compile Include="Code\Logger.cs" />
     <Compile Include="Code\Mouse.cs" />
     <Compile Include="Code\User32.cs" />
     <Compile Include="Code\Webcam.cs" />
