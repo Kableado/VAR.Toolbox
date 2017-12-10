@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace VAR.Toolbox.UI
 {
@@ -9,6 +10,11 @@ namespace VAR.Toolbox.UI
         public FrmToolbox()
         {
             InitializeComponent();
+        }
+
+        private void FrmToolbox_Load(object sender, EventArgs e)
+        {
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
 
         private void btnBase64_Click(object sender, EventArgs e)
@@ -79,6 +85,6 @@ namespace VAR.Toolbox.UI
         }
 
         #endregion Window handling
-        
+
     }
 }

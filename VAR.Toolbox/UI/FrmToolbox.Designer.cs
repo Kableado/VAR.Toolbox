@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmToolbox));
             this.btnBase64 = new System.Windows.Forms.Button();
             this.btnProxyCmd = new System.Windows.Forms.Button();
             this.btnWebcam = new System.Windows.Forms.Button();
@@ -108,6 +109,7 @@
             this.Name = "FrmToolbox";
             this.Text = "Toolbox";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmToolbox_FormClosing);
+            this.Load += new System.EventHandler(this.FrmToolbox_Load);
             this.Resize += new System.EventHandler(this.FrmToolbox_Resize);
             this.ResumeLayout(false);
 
