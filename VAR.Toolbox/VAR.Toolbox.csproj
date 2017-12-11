@@ -131,6 +131,7 @@
     <Compile Include="UI\FrmWebcam.Designer.cs">
       <DependentUpon>FrmWebcam.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\IFormWithIcon.cs" />
     <Compile Include="UI\PnlCover.cs">
       <SubType>UserControl</SubType>
     </Compile>

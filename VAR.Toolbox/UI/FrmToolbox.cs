@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
+using VAR.Toolbox.Code;
 
 namespace VAR.Toolbox.UI
 {
@@ -10,6 +11,9 @@ namespace VAR.Toolbox.UI
         public FrmToolbox()
         {
             InitializeComponent();
+
+            MouseDown += DragWindow_MouseDown;
+            lblToolbox.MouseDown += DragWindow_MouseDown;
         }
 
         private void FrmToolbox_Load(object sender, EventArgs e)
@@ -37,6 +41,14 @@ namespace VAR.Toolbox.UI
             CreateWindow(typeof(FrmTunnelTCP));
         }
 
+        private void DragWindow_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                User32.ReleaseCapture();
+                User32.SendMessage(Handle, User32.WM_NCLBUTTONDOWN, User32.HT_CAPTION, 0);
+            }
+        }
         #region Window handling
 
         private Form CreateWindow(Type type)
@@ -48,6 +60,10 @@ namespace VAR.Toolbox.UI
             }
             _forms.Add(frm);
             frm.FormClosing += frmChild_FormClosing;
+            if ((frm is IFormWithIcon) == false)
+            {
+                frm.Icon = Icon;
+            }
             frm.Show();
             return frm;
         }
