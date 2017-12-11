@@ -106,6 +106,12 @@
     <Compile Include="UI\FrmProxyCmd.Designer.cs">
       <DependentUpon>FrmProxyCmd.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FrmTunnelTCP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmTunnelTCP.Designer.cs">
+      <DependentUpon>FrmTunnelTCP.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FrmToolbox.cs">
       <SubType>Form</SubType>
     </Compile>

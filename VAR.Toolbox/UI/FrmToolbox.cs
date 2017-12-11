@@ -32,6 +32,11 @@ namespace VAR.Toolbox.UI
             CreateWindow(typeof(FrmWebcam));
         }
 
+        private void btnTunnelTCP_Click(object sender, EventArgs e)
+        {
+            CreateWindow(typeof(FrmTunnelTCP));
+        }
+
         #region Window handling
 
         private Form CreateWindow(Type type)
@@ -85,6 +90,5 @@ namespace VAR.Toolbox.UI
         }
 
         #endregion Window handling
-
     }
 }

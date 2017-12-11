@@ -32,6 +32,7 @@
             this.btnBase64 = new System.Windows.Forms.Button();
             this.btnProxyCmd = new System.Windows.Forms.Button();
             this.btnWebcam = new System.Windows.Forms.Button();
+            this.btnTunnelTCP = new System.Windows.Forms.Button();
             this.pnlSuspension1 = new VAR.Toolbox.UI.PnlSuspension();
             this.pnlCover1 = new VAR.Toolbox.UI.PnlCover();
             this.SuspendLayout();
@@ -75,11 +76,23 @@
             this.btnWebcam.UseVisualStyleBackColor = true;
             this.btnWebcam.Click += new System.EventHandler(this.btnWebcam_Click);
             // 
+            // btnTunnelTCP
+            // 
+            this.btnTunnelTCP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTunnelTCP.Location = new System.Drawing.Point(18, 208);
+            this.btnTunnelTCP.Name = "btnTunnelTCP";
+            this.btnTunnelTCP.Size = new System.Drawing.Size(278, 55);
+            this.btnTunnelTCP.TabIndex = 5;
+            this.btnTunnelTCP.Text = "TunnelTCP";
+            this.btnTunnelTCP.UseVisualStyleBackColor = true;
+            this.btnTunnelTCP.Click += new System.EventHandler(this.btnTunnelTCP_Click);
+            // 
             // pnlSuspension1
             // 
             this.pnlSuspension1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlSuspension1.Location = new System.Drawing.Point(18, 373);
+            this.pnlSuspension1.Location = new System.Drawing.Point(18, 432);
             this.pnlSuspension1.Name = "pnlSuspension1";
             this.pnlSuspension1.Size = new System.Drawing.Size(278, 175);
             this.pnlSuspension1.TabIndex = 4;
@@ -88,7 +101,7 @@
             // 
             this.pnlCover1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlCover1.Location = new System.Drawing.Point(18, 219);
+            this.pnlCover1.Location = new System.Drawing.Point(18, 278);
             this.pnlCover1.Name = "pnlCover1";
             this.pnlCover1.Size = new System.Drawing.Size(278, 148);
             this.pnlCover1.TabIndex = 3;
@@ -97,7 +110,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(309, 560);
+            this.ClientSize = new System.Drawing.Size(309, 619);
+            this.Controls.Add(this.btnTunnelTCP);
             this.Controls.Add(this.pnlSuspension1);
             this.Controls.Add(this.pnlCover1);
             this.Controls.Add(this.btnWebcam);
@@ -122,6 +136,7 @@
         private System.Windows.Forms.Button btnWebcam;
         private PnlCover pnlCover1;
         private PnlSuspension pnlSuspension1;
+        private System.Windows.Forms.Button btnTunnelTCP;
     }
 }
 
