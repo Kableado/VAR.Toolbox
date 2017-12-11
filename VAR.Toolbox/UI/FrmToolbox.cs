@@ -8,6 +8,14 @@ namespace VAR.Toolbox.UI
 {
     public partial class FrmToolbox : Form
     {
+        #region Declarations
+
+        private bool _closing = false;
+
+        #endregion Declarations
+
+        #region Form life cycle
+
         public FrmToolbox()
         {
             InitializeComponent();
@@ -18,7 +26,53 @@ namespace VAR.Toolbox.UI
 
         private void FrmToolbox_Load(object sender, EventArgs e)
         {
-            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            Icon ico = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            Icon = ico;
+            niTray.Icon = ico;
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.WindowsShutDown || _closing)
+            {
+                base.OnFormClosing(e);
+                return;
+            }
+
+            HideChildWindows();
+            Hide();
+            e.Cancel = true;
+        }
+
+        #endregion Form life cycle
+
+        #region UI events
+
+        private void DragWindow_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                User32.ReleaseCapture();
+                User32.SendMessage(Handle, User32.WM_NCLBUTTONDOWN, User32.HT_CAPTION, 0);
+            }
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure want to exit?", "Exit?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                _closing = true;
+                CloseChildWindows();
+                Close();
+            }
+        }
+
+        private void niTray_MouseClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            ShowChildWindows();
+            WindowState = FormWindowState.Normal;
         }
 
         private void btnBase64_Click(object sender, EventArgs e)
@@ -41,14 +95,8 @@ namespace VAR.Toolbox.UI
             CreateWindow(typeof(FrmTunnelTCP));
         }
 
-        private void DragWindow_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                User32.ReleaseCapture();
-                User32.SendMessage(Handle, User32.WM_NCLBUTTONDOWN, User32.HT_CAPTION, 0);
-            }
-        }
+        #endregion UI events
+
         #region Window handling
 
         private Form CreateWindow(Type type)
@@ -77,10 +125,7 @@ namespace VAR.Toolbox.UI
 
         private void FrmToolbox_FormClosing(object sender, FormClosingEventArgs e)
         {
-            while (_forms.Count > 0)
-            {
-                _forms[0].Close();
-            }
+            CloseChildWindows();
         }
 
         private bool _wasMinimized = false;
@@ -90,18 +135,36 @@ namespace VAR.Toolbox.UI
             if (FormWindowState.Minimized == WindowState)
             {
                 _wasMinimized = true;
-                foreach(Form frm in _forms)
-                {
-                    frm.Hide();
-                }
+                HideChildWindows();
             }
             if (FormWindowState.Normal == WindowState && _wasMinimized)
             {
                 _wasMinimized = false;
-                foreach (Form frm in _forms)
-                {
-                    frm.Show();
-                }
+                ShowChildWindows();
+            }
+        }
+
+        private void CloseChildWindows()
+        {
+            while (_forms.Count > 0)
+            {
+                _forms[0].Close();
+            }
+        }
+
+        private void ShowChildWindows()
+        {
+            foreach (Form frm in _forms)
+            {
+                frm.Show();
+            }
+        }
+
+        private void HideChildWindows()
+        {
+            foreach (Form frm in _forms)
+            {
+                frm.Hide();
             }
         }
 
