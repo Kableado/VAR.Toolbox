@@ -100,6 +100,11 @@ namespace VAR.Toolbox.UI
             CreateWindow(typeof(FrmTestSoapService));
         }
 
+        private void btnTestRestService_Click(object sender, EventArgs e)
+        {
+            CreateWindow(typeof(FrmTestRestService));
+        }
+
         #endregion UI events
 
         #region Window handling

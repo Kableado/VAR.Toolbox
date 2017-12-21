@@ -39,6 +39,7 @@
             this.niTray = new System.Windows.Forms.NotifyIcon(this.components);
             this.btnExit = new System.Windows.Forms.Button();
             this.btnTestSoapService = new System.Windows.Forms.Button();
+            this.btnTestRestService = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnBase64
@@ -137,11 +138,22 @@
             this.btnTestSoapService.UseVisualStyleBackColor = true;
             this.btnTestSoapService.Click += new System.EventHandler(this.btnTestSoapService_Click);
             // 
+            // btnTestRestService
+            // 
+            this.btnTestRestService.Location = new System.Drawing.Point(180, 92);
+            this.btnTestRestService.Name = "btnTestRestService";
+            this.btnTestRestService.Size = new System.Drawing.Size(165, 36);
+            this.btnTestRestService.TabIndex = 9;
+            this.btnTestRestService.Text = "TestRestService";
+            this.btnTestRestService.UseVisualStyleBackColor = true;
+            this.btnTestRestService.Click += new System.EventHandler(this.btnTestRestService_Click);
+            // 
             // FrmToolbox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(352, 400);
+            this.Controls.Add(this.btnTestRestService);
             this.Controls.Add(this.btnTestSoapService);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lblToolbox);
@@ -174,6 +186,7 @@
         private System.Windows.Forms.NotifyIcon niTray;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnTestSoapService;
+        private System.Windows.Forms.Button btnTestRestService;
     }
 }
 
