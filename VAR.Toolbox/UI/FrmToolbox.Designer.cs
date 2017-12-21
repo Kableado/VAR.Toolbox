@@ -38,15 +38,14 @@
             this.pnlCover1 = new VAR.Toolbox.UI.PnlCover();
             this.niTray = new System.Windows.Forms.NotifyIcon(this.components);
             this.btnExit = new System.Windows.Forms.Button();
+            this.btnTestSoapService = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnBase64
             // 
-            this.btnBase64.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBase64.Location = new System.Drawing.Point(9, 52);
             this.btnBase64.Name = "btnBase64";
-            this.btnBase64.Size = new System.Drawing.Size(159, 34);
+            this.btnBase64.Size = new System.Drawing.Size(165, 34);
             this.btnBase64.TabIndex = 0;
             this.btnBase64.Text = "Base64";
             this.btnBase64.UseVisualStyleBackColor = true;
@@ -54,11 +53,9 @@
             // 
             // btnProxyCmd
             // 
-            this.btnProxyCmd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnProxyCmd.Location = new System.Drawing.Point(9, 92);
             this.btnProxyCmd.Name = "btnProxyCmd";
-            this.btnProxyCmd.Size = new System.Drawing.Size(159, 36);
+            this.btnProxyCmd.Size = new System.Drawing.Size(165, 36);
             this.btnProxyCmd.TabIndex = 1;
             this.btnProxyCmd.Text = "ProxyCmd";
             this.btnProxyCmd.UseVisualStyleBackColor = true;
@@ -66,11 +63,9 @@
             // 
             // btnWebcam
             // 
-            this.btnWebcam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnWebcam.Location = new System.Drawing.Point(9, 135);
             this.btnWebcam.Name = "btnWebcam";
-            this.btnWebcam.Size = new System.Drawing.Size(159, 36);
+            this.btnWebcam.Size = new System.Drawing.Size(165, 36);
             this.btnWebcam.TabIndex = 2;
             this.btnWebcam.Text = "Webcam";
             this.btnWebcam.UseVisualStyleBackColor = true;
@@ -78,12 +73,10 @@
             // 
             // btnTunnelTCP
             // 
-            this.btnTunnelTCP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTunnelTCP.Location = new System.Drawing.Point(9, 175);
             this.btnTunnelTCP.Margin = new System.Windows.Forms.Padding(2);
             this.btnTunnelTCP.Name = "btnTunnelTCP";
-            this.btnTunnelTCP.Size = new System.Drawing.Size(159, 36);
+            this.btnTunnelTCP.Size = new System.Drawing.Size(165, 36);
             this.btnTunnelTCP.TabIndex = 5;
             this.btnTunnelTCP.Text = "TunnelTCP";
             this.btnTunnelTCP.UseVisualStyleBackColor = true;
@@ -97,29 +90,25 @@
             this.lblToolbox.Location = new System.Drawing.Point(9, 9);
             this.lblToolbox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblToolbox.Name = "lblToolbox";
-            this.lblToolbox.Size = new System.Drawing.Size(159, 40);
+            this.lblToolbox.Size = new System.Drawing.Size(336, 40);
             this.lblToolbox.TabIndex = 6;
             this.lblToolbox.Text = "Toolbox";
             this.lblToolbox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pnlSuspension1
             // 
-            this.pnlSuspension1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlSuspension1.Location = new System.Drawing.Point(10, 323);
+            this.pnlSuspension1.Location = new System.Drawing.Point(180, 241);
             this.pnlSuspension1.Margin = new System.Windows.Forms.Padding(1);
             this.pnlSuspension1.Name = "pnlSuspension1";
-            this.pnlSuspension1.Size = new System.Drawing.Size(155, 114);
+            this.pnlSuspension1.Size = new System.Drawing.Size(165, 114);
             this.pnlSuspension1.TabIndex = 4;
             // 
             // pnlCover1
             // 
-            this.pnlCover1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlCover1.Location = new System.Drawing.Point(10, 225);
+            this.pnlCover1.Location = new System.Drawing.Point(12, 241);
             this.pnlCover1.Margin = new System.Windows.Forms.Padding(1);
             this.pnlCover1.Name = "pnlCover1";
-            this.pnlCover1.Size = new System.Drawing.Size(155, 96);
+            this.pnlCover1.Size = new System.Drawing.Size(162, 114);
             this.pnlCover1.TabIndex = 3;
             // 
             // niTray
@@ -130,21 +119,30 @@
             // 
             // btnExit
             // 
-            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.Location = new System.Drawing.Point(12, 441);
+            this.btnExit.Location = new System.Drawing.Point(12, 359);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(152, 29);
+            this.btnExit.Size = new System.Drawing.Size(333, 29);
             this.btnExit.TabIndex = 7;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
+            // btnTestSoapService
+            // 
+            this.btnTestSoapService.Location = new System.Drawing.Point(180, 52);
+            this.btnTestSoapService.Name = "btnTestSoapService";
+            this.btnTestSoapService.Size = new System.Drawing.Size(165, 34);
+            this.btnTestSoapService.TabIndex = 8;
+            this.btnTestSoapService.Text = "TestSoapService";
+            this.btnTestSoapService.UseVisualStyleBackColor = true;
+            this.btnTestSoapService.Click += new System.EventHandler(this.btnTestSoapService_Click);
+            // 
             // FrmToolbox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(175, 482);
+            this.ClientSize = new System.Drawing.Size(352, 400);
+            this.Controls.Add(this.btnTestSoapService);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lblToolbox);
             this.Controls.Add(this.btnTunnelTCP);
@@ -175,6 +173,7 @@
         private System.Windows.Forms.Label lblToolbox;
         private System.Windows.Forms.NotifyIcon niTray;
         private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Button btnTestSoapService;
     }
 }
 

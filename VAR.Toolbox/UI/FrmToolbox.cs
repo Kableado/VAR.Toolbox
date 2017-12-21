@@ -95,6 +95,11 @@ namespace VAR.Toolbox.UI
             CreateWindow(typeof(FrmTunnelTCP));
         }
 
+        private void btnTestSoapService_Click(object sender, EventArgs e)
+        {
+            CreateWindow(typeof(FrmTestSoapService));
+        }
+
         #endregion UI events
 
         #region Window handling
@@ -169,5 +174,6 @@ namespace VAR.Toolbox.UI
         }
 
         #endregion Window handling
+
     }
 }
