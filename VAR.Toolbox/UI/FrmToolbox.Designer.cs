@@ -41,6 +41,7 @@
             this.btnTestSoapService = new System.Windows.Forms.Button();
             this.btnTestRestService = new System.Windows.Forms.Button();
             this.btnScreenshooter = new System.Windows.Forms.Button();
+            this.btnIPScan = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnBase64
@@ -78,7 +79,7 @@
             // 
             // btnTunnelTCP
             // 
-            this.btnTunnelTCP.Location = new System.Drawing.Point(14, 269);
+            this.btnTunnelTCP.Location = new System.Drawing.Point(12, 271);
             this.btnTunnelTCP.Name = "btnTunnelTCP";
             this.btnTunnelTCP.Size = new System.Drawing.Size(248, 55);
             this.btnTunnelTCP.TabIndex = 5;
@@ -101,7 +102,7 @@
             // pnlSuspension1
             // 
             this.pnlSuspension1.Location = new System.Drawing.Point(270, 371);
-            this.pnlSuspension1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pnlSuspension1.Margin = new System.Windows.Forms.Padding(2);
             this.pnlSuspension1.Name = "pnlSuspension1";
             this.pnlSuspension1.Size = new System.Drawing.Size(248, 175);
             this.pnlSuspension1.TabIndex = 4;
@@ -109,7 +110,7 @@
             // pnlCover1
             // 
             this.pnlCover1.Location = new System.Drawing.Point(18, 371);
-            this.pnlCover1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pnlCover1.Margin = new System.Windows.Forms.Padding(2);
             this.pnlCover1.Name = "pnlCover1";
             this.pnlCover1.Size = new System.Drawing.Size(243, 175);
             this.pnlCover1.TabIndex = 3;
@@ -164,11 +165,23 @@
             this.btnScreenshooter.UseVisualStyleBackColor = true;
             this.btnScreenshooter.Click += new System.EventHandler(this.btnScreenshooter_Click);
             // 
+            // btnIPScan
+            // 
+            this.btnIPScan.Location = new System.Drawing.Point(270, 271);
+            this.btnIPScan.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnIPScan.Name = "btnIPScan";
+            this.btnIPScan.Size = new System.Drawing.Size(248, 55);
+            this.btnIPScan.TabIndex = 11;
+            this.btnIPScan.Text = "IPScan";
+            this.btnIPScan.UseVisualStyleBackColor = true;
+            this.btnIPScan.Click += new System.EventHandler(this.btnIPScan_Click);
+            // 
             // FrmToolbox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(528, 615);
+            this.Controls.Add(this.btnIPScan);
             this.Controls.Add(this.btnScreenshooter);
             this.Controls.Add(this.btnTestRestService);
             this.Controls.Add(this.btnTestSoapService);
@@ -206,6 +219,7 @@
         private System.Windows.Forms.Button btnTestSoapService;
         private System.Windows.Forms.Button btnTestRestService;
         private System.Windows.Forms.Button btnScreenshooter;
+        private System.Windows.Forms.Button btnIPScan;
     }
 }
 

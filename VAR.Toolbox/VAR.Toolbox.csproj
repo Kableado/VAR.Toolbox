@@ -102,6 +102,12 @@
     <Compile Include="UI\FrmCover.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UI\FrmIPScan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmIPScan.Designer.cs">
+      <DependentUpon>FrmIPScan.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FrmProxyCmd.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -110,6 +110,11 @@ namespace VAR.Toolbox.UI
             CreateWindow(typeof(FrmScreenshooter));
         }
 
+        private void btnIPScan_Click(object sender, EventArgs e)
+        {
+            CreateWindow(typeof(FrmIPScan));
+        }
+
         #endregion UI events
 
         #region Window handling
@@ -184,6 +189,5 @@ namespace VAR.Toolbox.UI
         }
 
         #endregion Window handling
-
     }
 }
