@@ -105,6 +105,11 @@ namespace VAR.Toolbox.UI
             CreateWindow(typeof(FrmTestRestService));
         }
 
+        private void btnScreenshooter_Click(object sender, EventArgs e)
+        {
+            CreateWindow(typeof(FrmScreenshooter));
+        }
+
         #endregion UI events
 
         #region Window handling
