@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using VAR.Toolbox.UI;
 using VAR.Toolbox.Code;
+using VAR.Toolbox.UI;
 
 namespace VAR.Toolbox
 {

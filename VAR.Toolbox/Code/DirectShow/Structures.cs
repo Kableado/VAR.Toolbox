@@ -1,8 +1,8 @@
 namespace VAR.Toolbox.Code.DirectShow
 {
     using System;
-    using System.Runtime.InteropServices;
     using System.Drawing;
+    using System.Runtime.InteropServices;
 
     // PIN_DIRECTION
 

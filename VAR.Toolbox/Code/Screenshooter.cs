@@ -6,16 +6,6 @@ namespace VAR.Toolbox.Code
 {
     public class Screenshooter
     {
-
-        ///// <summary>
-        ///// Creates an Image object containing a screen shot of the entire desktop
-        ///// </summary>
-        ///// <returns></returns>
-        //public static Image CaptureScreen()
-        //{
-        //    return CaptureWindow(User32.GetDesktopWindow());
-        //}
-
         public static Bitmap CaptureScreen()
         {
             // Determine the size of the "virtual screen", which includes all monitors.

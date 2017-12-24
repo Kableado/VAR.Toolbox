@@ -3,9 +3,9 @@ namespace VAR.Toolbox.Code.DirectShow
     using System;
     using System.Runtime.InteropServices;
 
-	/// <summary>
-	/// DirectShow class IDs.
-	/// </summary>
+    /// <summary>
+    /// DirectShow class IDs.
+    /// </summary>
     [ComVisible( false )]
     static internal class Clsid
     {

@@ -1,6 +1,5 @@
 namespace VAR.Toolbox.Code.DirectShow
 {
-    using System;
     using System.Runtime.InteropServices;
 
     /// <summary>

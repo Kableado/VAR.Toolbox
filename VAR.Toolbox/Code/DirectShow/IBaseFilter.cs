@@ -2,7 +2,7 @@ namespace VAR.Toolbox.Code.DirectShow
 {
     using System;
     using System.Runtime.InteropServices;
-    
+
     /// <summary>
     /// The IBaseFilter interface provides methods for controlling a filter.
     /// All DirectShow filters expose this interface
