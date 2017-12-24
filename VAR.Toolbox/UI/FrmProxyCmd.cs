@@ -1,27 +1,17 @@
 ﻿using System;
-using System.Data.SqlClient;
 using System.Threading;
 using System.Windows.Forms;
+using VAR.Toolbox.Code;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmProxyCmd : Form
+    public partial class FrmProxyCmd : Form, IOutputHandler
     {
         public FrmProxyCmd()
         {
             InitializeComponent();
         }
-
-        private void txtOutput_AppendLine(string line)
-        {
-            BeginInvoke(new MethodInvoker(delegate
-            {
-                txtOutput.AppendText(line);
-                txtOutput.AppendText(Environment.NewLine);
-                Application.DoEvents();
-            }));
-        }
-
+        
         private object _executionLock = new object();
 
         private void txtInput_KeyDown(object sender, KeyEventArgs e)
@@ -32,15 +22,25 @@ namespace VAR.Toolbox.UI
                 Application.DoEvents();
                 return;
             }
-
             if (e.KeyCode == Keys.Return)
             {
                 e.Handled = true;
-                Application.DoEvents();
                 string cmd = txtInput.Text.Replace("\n", "").Replace("\r", "");
-                txtOutput_AppendLine(cmd);
                 txtInput.Text = string.Empty;
+                Application.DoEvents();
+                txtInput.Text = string.Empty;
+                OutputLine(cmd);
                 new Thread(() => ExecuteCmd(cmd)).Start();
+                return;
+            }
+            if(e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                return;
+            }
+            if (e.KeyCode == Keys.LineFeed)
+            {
+                e.Handled = true;
                 return;
             }
             if (e.KeyCode == Keys.Up)
@@ -55,22 +55,35 @@ namespace VAR.Toolbox.UI
             }
         }
 
+        private IProxyCmdExecutor _proxyCmdExecutor = null;
+
         private void ExecuteCmd(string cmdString)
         {
-            Monitor.Enter(_executionLock);
-            SqlConnection cnx = new SqlConnection(Properties.Settings.Default.ProxyCmdConfig);
-            SqlCommand cmd = cnx.CreateCommand();
-            cmd.CommandText = "exec master.dbo.xp_cmdshell @cmd";
-            cmd.Parameters.Add(new SqlParameter("cmd", cmdString));
-            cnx.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
+            if (_proxyCmdExecutor == null)
             {
-                string output = Convert.ToString(reader[0]);
-                txtOutput_AppendLine(output);
+                _proxyCmdExecutor = ProxyCmdExecutorFactory.CreateFromConfig(Properties.Settings.Default.ProxyCmdConfig);
             }
-            cnx.Close();
+            Monitor.Enter(_executionLock);
+            try
+            {
+                _proxyCmdExecutor.ExecuteCmd(cmdString, this);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                OutputLine(ex.Message);
+            }
             Monitor.Exit(_executionLock);
+        }
+        
+        public void OutputLine(string line)
+        {
+            BeginInvoke(new MethodInvoker(delegate
+            {
+                txtOutput.AppendText(line);
+                txtOutput.AppendText(Environment.NewLine);
+                Application.DoEvents();
+            }));
         }
     }
 }

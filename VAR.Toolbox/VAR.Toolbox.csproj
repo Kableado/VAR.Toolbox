@@ -84,8 +84,13 @@
     <Compile Include="Code\DirectShow\Uuids.cs" />
     <Compile Include="Code\DirectShow\Win32.cs" />
     <Compile Include="Code\GDI32.cs" />
+    <Compile Include="Code\IOutputHandler.cs" />
+    <Compile Include="Code\IProxyCmdExecutor.cs" />
     <Compile Include="Code\Logger.cs" />
     <Compile Include="Code\Mouse.cs" />
+    <Compile Include="Code\ProxyCmdExecutorFactory.cs" />
+    <Compile Include="Code\ProxyCmdExecutorDummy.cs" />
+    <Compile Include="Code\ProxyCmdExecutorThroughSQLServer.cs" />
     <Compile Include="Code\Screenshooter.cs" />
     <Compile Include="Code\User32.cs" />
     <Compile Include="Code\Webcam.cs" />
