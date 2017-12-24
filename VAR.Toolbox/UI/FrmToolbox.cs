@@ -75,9 +75,9 @@ namespace VAR.Toolbox.UI
             WindowState = FormWindowState.Normal;
         }
 
-        private void btnBase64_Click(object sender, EventArgs e)
+        private void btnCoder_Click(object sender, EventArgs e)
         {
-            CreateWindow(typeof(FrmBase64));
+            CreateWindow(typeof(FrmCoder));
         }
 
         private void btnProxyCmd_Click(object sender, EventArgs e)

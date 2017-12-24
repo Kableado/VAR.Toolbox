@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.btnBase64 = new System.Windows.Forms.Button();
+            this.btnCoder = new System.Windows.Forms.Button();
             this.btnProxyCmd = new System.Windows.Forms.Button();
             this.btnWebcam = new System.Windows.Forms.Button();
             this.btnTunnelTCP = new System.Windows.Forms.Button();
@@ -44,16 +44,16 @@
             this.btnIPScan = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btnBase64
+            // btnCoder
             // 
-            this.btnBase64.Location = new System.Drawing.Point(14, 80);
-            this.btnBase64.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnBase64.Name = "btnBase64";
-            this.btnBase64.Size = new System.Drawing.Size(248, 52);
-            this.btnBase64.TabIndex = 0;
-            this.btnBase64.Text = "Base64";
-            this.btnBase64.UseVisualStyleBackColor = true;
-            this.btnBase64.Click += new System.EventHandler(this.btnBase64_Click);
+            this.btnCoder.Location = new System.Drawing.Point(14, 80);
+            this.btnCoder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnCoder.Name = "btnCoder";
+            this.btnCoder.Size = new System.Drawing.Size(248, 52);
+            this.btnCoder.TabIndex = 0;
+            this.btnCoder.Text = "Coder";
+            this.btnCoder.UseVisualStyleBackColor = true;
+            this.btnCoder.Click += new System.EventHandler(this.btnCoder_Click);
             // 
             // btnProxyCmd
             // 
@@ -192,7 +192,7 @@
             this.Controls.Add(this.pnlCover1);
             this.Controls.Add(this.btnWebcam);
             this.Controls.Add(this.btnProxyCmd);
-            this.Controls.Add(this.btnBase64);
+            this.Controls.Add(this.btnCoder);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
@@ -207,7 +207,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnBase64;
+        private System.Windows.Forms.Button btnCoder;
         private System.Windows.Forms.Button btnProxyCmd;
         private System.Windows.Forms.Button btnWebcam;
         private PnlCover pnlCover1;
