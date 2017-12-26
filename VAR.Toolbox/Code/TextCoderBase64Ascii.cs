@@ -3,7 +3,7 @@ using System.Text;
 
 namespace VAR.Toolbox.Code
 {
-    public class CoderBase64 : ICoder
+    public class TextCoderBase64Ascii : ITextCoder
     {
         public string Decode(string input, string key)
         {

@@ -53,7 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code\CoderBase64.cs" />
+    <Compile Include="Code\TextCoderBase64Utf8.cs" />
+    <Compile Include="Code\TextCoderBase64Ascii.cs" />
     <Compile Include="Code\DirectShow\CameraControlProperty.cs" />
     <Compile Include="Code\DirectShow\IAMCameraControl.cs" />
     <Compile Include="Code\DirectShow\IAMCrossbar.cs" />
@@ -85,7 +86,7 @@
     <Compile Include="Code\DirectShow\Uuids.cs" />
     <Compile Include="Code\DirectShow\Win32.cs" />
     <Compile Include="Code\GDI32.cs" />
-    <Compile Include="Code\ICoder.cs" />
+    <Compile Include="Code\ITextCoder.cs" />
     <Compile Include="Code\IOutputHandler.cs" />
     <Compile Include="Code\IProxyCmdExecutor.cs" />
     <Compile Include="Code\Logger.cs" />
@@ -190,6 +191,11 @@
     <Content Include="Images\Toolbox.png" />
     <Content Include="Images\toolbox.svg" />
     <Content Include="Toolbox.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\FrmCoder.resx">
+      <DependentUpon>FrmCoder.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

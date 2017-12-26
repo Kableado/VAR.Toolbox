@@ -32,10 +32,10 @@
             this.btnDecode = new System.Windows.Forms.Button();
             this.txtOutput = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.btnEncode = new System.Windows.Forms.Button();
-            this.cboCode = new System.Windows.Forms.ComboBox();
-            this.btnSwap = new System.Windows.Forms.Button();
             this.txtKey = new System.Windows.Forms.TextBox();
+            this.cboCode = new System.Windows.Forms.ComboBox();
+            this.btnEncode = new System.Windows.Forms.Button();
+            this.btnSwap = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -47,21 +47,19 @@
             this.txtInput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtInput.Location = new System.Drawing.Point(13, 14);
-            this.txtInput.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtInput.Location = new System.Drawing.Point(9, 9);
             this.txtInput.Multiline = true;
             this.txtInput.Name = "txtInput";
             this.txtInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtInput.Size = new System.Drawing.Size(527, 463);
+            this.txtInput.Size = new System.Drawing.Size(353, 310);
             this.txtInput.TabIndex = 0;
             // 
             // btnDecode
             // 
             this.btnDecode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDecode.Location = new System.Drawing.Point(219, 593);
-            this.btnDecode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnDecode.Location = new System.Drawing.Point(146, 393);
             this.btnDecode.Name = "btnDecode";
-            this.btnDecode.Size = new System.Drawing.Size(94, 35);
+            this.btnDecode.Size = new System.Drawing.Size(63, 23);
             this.btnDecode.TabIndex = 1;
             this.btnDecode.Text = "Decode";
             this.btnDecode.UseVisualStyleBackColor = true;
@@ -72,13 +70,12 @@
             this.txtOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOutput.Location = new System.Drawing.Point(11, 14);
-            this.txtOutput.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtOutput.Location = new System.Drawing.Point(7, 9);
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ReadOnly = true;
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtOutput.Size = new System.Drawing.Size(533, 558);
+            this.txtOutput.Size = new System.Drawing.Size(356, 372);
             this.txtOutput.TabIndex = 2;
             // 
             // splitContainer1
@@ -87,7 +84,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -102,67 +98,61 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.btnSwap);
             this.splitContainer1.Panel2.Controls.Add(this.txtOutput);
-            this.splitContainer1.Size = new System.Drawing.Size(1114, 643);
-            this.splitContainer1.SplitterDistance = 551;
-            this.splitContainer1.SplitterWidth = 6;
+            this.splitContainer1.Size = new System.Drawing.Size(743, 426);
+            this.splitContainer1.SplitterDistance = 367;
             this.splitContainer1.TabIndex = 3;
             // 
-            // btnEncode
+            // txtKey
             // 
-            this.btnEncode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnEncode.Location = new System.Drawing.Point(321, 593);
-            this.btnEncode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnEncode.Name = "btnEncode";
-            this.btnEncode.Size = new System.Drawing.Size(94, 35);
-            this.btnEncode.TabIndex = 3;
-            this.btnEncode.Text = "Encode";
-            this.btnEncode.UseVisualStyleBackColor = true;
-            this.btnEncode.Click += new System.EventHandler(this.btnEncodeBase64_Click);
+            this.txtKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtKey.Location = new System.Drawing.Point(9, 325);
+            this.txtKey.Multiline = true;
+            this.txtKey.Name = "txtKey";
+            this.txtKey.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtKey.Size = new System.Drawing.Size(353, 59);
+            this.txtKey.TabIndex = 5;
             // 
             // cboCode
             // 
             this.cboCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cboCode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboCode.FormattingEnabled = true;
-            this.cboCode.Items.AddRange(new object[] {
-            "Base64"});
-            this.cboCode.Location = new System.Drawing.Point(18, 597);
+            this.cboCode.Location = new System.Drawing.Point(12, 396);
+            this.cboCode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cboCode.Name = "cboCode";
-            this.cboCode.Size = new System.Drawing.Size(194, 28);
+            this.cboCode.Size = new System.Drawing.Size(131, 21);
             this.cboCode.TabIndex = 4;
             this.cboCode.SelectedIndexChanged += new System.EventHandler(this.cboCode_SelectedIndexChanged);
+            // 
+            // btnEncode
+            // 
+            this.btnEncode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnEncode.Location = new System.Drawing.Point(214, 393);
+            this.btnEncode.Name = "btnEncode";
+            this.btnEncode.Size = new System.Drawing.Size(63, 23);
+            this.btnEncode.TabIndex = 3;
+            this.btnEncode.Text = "Encode";
+            this.btnEncode.UseVisualStyleBackColor = true;
+            this.btnEncode.Click += new System.EventHandler(this.btnEncodeBase64_Click);
             // 
             // btnSwap
             // 
             this.btnSwap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSwap.Location = new System.Drawing.Point(4, 593);
-            this.btnSwap.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnSwap.Location = new System.Drawing.Point(3, 393);
             this.btnSwap.Name = "btnSwap";
-            this.btnSwap.Size = new System.Drawing.Size(94, 35);
+            this.btnSwap.Size = new System.Drawing.Size(63, 23);
             this.btnSwap.TabIndex = 4;
             this.btnSwap.Text = "Swap";
             this.btnSwap.UseVisualStyleBackColor = true;
             this.btnSwap.Click += new System.EventHandler(this.btnSwap_Click);
             // 
-            // txtKey
-            // 
-            this.txtKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtKey.Location = new System.Drawing.Point(13, 487);
-            this.txtKey.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtKey.Multiline = true;
-            this.txtKey.Name = "txtKey";
-            this.txtKey.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtKey.Size = new System.Drawing.Size(527, 89);
-            this.txtKey.TabIndex = 5;
-            // 
             // FrmCoder
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1114, 642);
+            this.ClientSize = new System.Drawing.Size(743, 425);
             this.Controls.Add(this.splitContainer1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FrmCoder";
             this.Text = "Coder";
             this.splitContainer1.Panel1.ResumeLayout(false);
