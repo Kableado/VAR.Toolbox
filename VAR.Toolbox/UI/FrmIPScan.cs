@@ -57,7 +57,7 @@ namespace VAR.Toolbox.UI
 
         private void btnScan_Click(object sender, EventArgs e)
         {
-            Thread thread = new Thread(() => { IPScan(); });
+            Thread thread = new Thread(() => { IPScan(txtSubnet.Text); });
             thread.Start();
         }
 
@@ -68,12 +68,11 @@ namespace VAR.Toolbox.UI
 
         private bool running = false;
 
-        private void IPScan()
+        private void IPScan(string ipBase)
         {
             Control_SetEnabled(btnScan, false);
             running = true;
             ResultsAddLine(string.Format("IPScan started at {0}", DateTime.UtcNow.ToString("s")));
-            string ipBase = "192.168.0.";
             for (int i = 1; i < 255 && running; i++)
             {
                 string ip = ipBase + i.ToString();
