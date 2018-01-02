@@ -82,11 +82,19 @@ namespace VAR.Toolbox.UI
 
         private void niTray_MouseClick(object sender, MouseEventArgs e)
         {
+            if (Visible)
+            {
+                HideChildWindows();
+                Hide();
+                return;
+            }
+
+            WindowState = FormWindowState.Minimized;
             Show();
             ShowChildWindows();
             WindowState = FormWindowState.Normal;
         }
-
+        
         private void btnCoder_Click(object sender, EventArgs e)
         {
             CreateWindow(typeof(FrmCoder));
@@ -201,5 +209,6 @@ namespace VAR.Toolbox.UI
         }
 
         #endregion Window handling
+
     }
 }
