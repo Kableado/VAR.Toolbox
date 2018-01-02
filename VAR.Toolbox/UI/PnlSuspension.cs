@@ -98,7 +98,7 @@ namespace VAR.Toolbox.UI
 
         private void RandomizeOffset()
         {
-            numOffset.Value = (rnd.Next() % 600);
+            numOffset.Value = (rnd.Next() % 599) + 1;
         }
 
         private void ResetCountdown()
