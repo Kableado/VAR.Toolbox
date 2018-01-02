@@ -12,6 +12,8 @@ namespace VAR.Toolbox.UI
 
         private bool _closing = false;
 
+        private NotifyIcon niTray = null;
+
         #endregion Declarations
 
         #region Form life cycle
@@ -20,8 +22,18 @@ namespace VAR.Toolbox.UI
         {
             InitializeComponent();
 
+            InitializeCustomControls();
+
             MouseDown += DragWindow_MouseDown;
             lblToolbox.MouseDown += DragWindow_MouseDown;
+        }
+
+        private void InitializeCustomControls()
+        {
+            niTray = new NotifyIcon();
+            niTray.Text = "VAR.Toolbox";
+            niTray.Visible = true;
+            niTray.MouseClick += niTray_MouseClick;
         }
 
         private void FrmToolbox_Load(object sender, EventArgs e)

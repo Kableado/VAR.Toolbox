@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.btnCoder = new System.Windows.Forms.Button();
             this.btnProxyCmd = new System.Windows.Forms.Button();
             this.btnWebcam = new System.Windows.Forms.Button();
@@ -36,7 +35,6 @@
             this.lblToolbox = new System.Windows.Forms.Label();
             this.pnlSuspension1 = new VAR.Toolbox.UI.PnlSuspension();
             this.pnlCover1 = new VAR.Toolbox.UI.PnlCover();
-            this.niTray = new System.Windows.Forms.NotifyIcon(this.components);
             this.btnExit = new System.Windows.Forms.Button();
             this.btnTestSoapService = new System.Windows.Forms.Button();
             this.btnTestRestService = new System.Windows.Forms.Button();
@@ -46,10 +44,9 @@
             // 
             // btnCoder
             // 
-            this.btnCoder.Location = new System.Drawing.Point(14, 80);
-            this.btnCoder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnCoder.Location = new System.Drawing.Point(9, 52);
             this.btnCoder.Name = "btnCoder";
-            this.btnCoder.Size = new System.Drawing.Size(248, 52);
+            this.btnCoder.Size = new System.Drawing.Size(165, 34);
             this.btnCoder.TabIndex = 0;
             this.btnCoder.Text = "Coder";
             this.btnCoder.UseVisualStyleBackColor = true;
@@ -57,10 +54,9 @@
             // 
             // btnProxyCmd
             // 
-            this.btnProxyCmd.Location = new System.Drawing.Point(14, 142);
-            this.btnProxyCmd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnProxyCmd.Location = new System.Drawing.Point(9, 92);
             this.btnProxyCmd.Name = "btnProxyCmd";
-            this.btnProxyCmd.Size = new System.Drawing.Size(248, 55);
+            this.btnProxyCmd.Size = new System.Drawing.Size(165, 36);
             this.btnProxyCmd.TabIndex = 1;
             this.btnProxyCmd.Text = "ProxyCmd";
             this.btnProxyCmd.UseVisualStyleBackColor = true;
@@ -68,10 +64,9 @@
             // 
             // btnWebcam
             // 
-            this.btnWebcam.Location = new System.Drawing.Point(14, 208);
-            this.btnWebcam.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnWebcam.Location = new System.Drawing.Point(9, 135);
             this.btnWebcam.Name = "btnWebcam";
-            this.btnWebcam.Size = new System.Drawing.Size(248, 55);
+            this.btnWebcam.Size = new System.Drawing.Size(165, 36);
             this.btnWebcam.TabIndex = 2;
             this.btnWebcam.Text = "Webcam";
             this.btnWebcam.UseVisualStyleBackColor = true;
@@ -79,9 +74,10 @@
             // 
             // btnTunnelTCP
             // 
-            this.btnTunnelTCP.Location = new System.Drawing.Point(12, 271);
+            this.btnTunnelTCP.Location = new System.Drawing.Point(8, 176);
+            this.btnTunnelTCP.Margin = new System.Windows.Forms.Padding(2);
             this.btnTunnelTCP.Name = "btnTunnelTCP";
-            this.btnTunnelTCP.Size = new System.Drawing.Size(248, 55);
+            this.btnTunnelTCP.Size = new System.Drawing.Size(165, 36);
             this.btnTunnelTCP.TabIndex = 5;
             this.btnTunnelTCP.Text = "TunnelTCP";
             this.btnTunnelTCP.UseVisualStyleBackColor = true;
@@ -92,41 +88,35 @@
             this.lblToolbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblToolbox.Font = new System.Drawing.Font("Arial Narrow", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblToolbox.Location = new System.Drawing.Point(14, 14);
+            this.lblToolbox.Location = new System.Drawing.Point(9, 9);
+            this.lblToolbox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblToolbox.Name = "lblToolbox";
-            this.lblToolbox.Size = new System.Drawing.Size(504, 62);
+            this.lblToolbox.Size = new System.Drawing.Size(336, 40);
             this.lblToolbox.TabIndex = 6;
             this.lblToolbox.Text = "Toolbox";
             this.lblToolbox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pnlSuspension1
             // 
-            this.pnlSuspension1.Location = new System.Drawing.Point(270, 371);
-            this.pnlSuspension1.Margin = new System.Windows.Forms.Padding(2);
+            this.pnlSuspension1.Location = new System.Drawing.Point(180, 241);
+            this.pnlSuspension1.Margin = new System.Windows.Forms.Padding(1);
             this.pnlSuspension1.Name = "pnlSuspension1";
-            this.pnlSuspension1.Size = new System.Drawing.Size(248, 175);
+            this.pnlSuspension1.Size = new System.Drawing.Size(165, 114);
             this.pnlSuspension1.TabIndex = 4;
             // 
             // pnlCover1
             // 
-            this.pnlCover1.Location = new System.Drawing.Point(18, 371);
-            this.pnlCover1.Margin = new System.Windows.Forms.Padding(2);
+            this.pnlCover1.Location = new System.Drawing.Point(12, 241);
+            this.pnlCover1.Margin = new System.Windows.Forms.Padding(1);
             this.pnlCover1.Name = "pnlCover1";
-            this.pnlCover1.Size = new System.Drawing.Size(243, 175);
+            this.pnlCover1.Size = new System.Drawing.Size(162, 114);
             this.pnlCover1.TabIndex = 3;
-            // 
-            // niTray
-            // 
-            this.niTray.Text = "VAR.Toolbox";
-            this.niTray.Visible = true;
-            this.niTray.MouseClick += new System.Windows.Forms.MouseEventHandler(this.niTray_MouseClick);
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(18, 552);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnExit.Location = new System.Drawing.Point(12, 359);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(500, 45);
+            this.btnExit.Size = new System.Drawing.Size(333, 29);
             this.btnExit.TabIndex = 7;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -134,10 +124,9 @@
             // 
             // btnTestSoapService
             // 
-            this.btnTestSoapService.Location = new System.Drawing.Point(270, 80);
-            this.btnTestSoapService.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnTestSoapService.Location = new System.Drawing.Point(180, 52);
             this.btnTestSoapService.Name = "btnTestSoapService";
-            this.btnTestSoapService.Size = new System.Drawing.Size(248, 52);
+            this.btnTestSoapService.Size = new System.Drawing.Size(165, 34);
             this.btnTestSoapService.TabIndex = 8;
             this.btnTestSoapService.Text = "TestSoapService";
             this.btnTestSoapService.UseVisualStyleBackColor = true;
@@ -145,10 +134,9 @@
             // 
             // btnTestRestService
             // 
-            this.btnTestRestService.Location = new System.Drawing.Point(270, 142);
-            this.btnTestRestService.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnTestRestService.Location = new System.Drawing.Point(180, 92);
             this.btnTestRestService.Name = "btnTestRestService";
-            this.btnTestRestService.Size = new System.Drawing.Size(248, 55);
+            this.btnTestRestService.Size = new System.Drawing.Size(165, 36);
             this.btnTestRestService.TabIndex = 9;
             this.btnTestRestService.Text = "TestRestService";
             this.btnTestRestService.UseVisualStyleBackColor = true;
@@ -156,10 +144,9 @@
             // 
             // btnScreenshooter
             // 
-            this.btnScreenshooter.Location = new System.Drawing.Point(270, 208);
-            this.btnScreenshooter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnScreenshooter.Location = new System.Drawing.Point(180, 135);
             this.btnScreenshooter.Name = "btnScreenshooter";
-            this.btnScreenshooter.Size = new System.Drawing.Size(248, 55);
+            this.btnScreenshooter.Size = new System.Drawing.Size(165, 36);
             this.btnScreenshooter.TabIndex = 10;
             this.btnScreenshooter.Text = "Screenshooter";
             this.btnScreenshooter.UseVisualStyleBackColor = true;
@@ -167,10 +154,9 @@
             // 
             // btnIPScan
             // 
-            this.btnIPScan.Location = new System.Drawing.Point(270, 271);
-            this.btnIPScan.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnIPScan.Location = new System.Drawing.Point(180, 176);
             this.btnIPScan.Name = "btnIPScan";
-            this.btnIPScan.Size = new System.Drawing.Size(248, 55);
+            this.btnIPScan.Size = new System.Drawing.Size(165, 36);
             this.btnIPScan.TabIndex = 11;
             this.btnIPScan.Text = "IPScan";
             this.btnIPScan.UseVisualStyleBackColor = true;
@@ -178,9 +164,9 @@
             // 
             // FrmToolbox
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(528, 615);
+            this.ClientSize = new System.Drawing.Size(352, 400);
             this.Controls.Add(this.btnIPScan);
             this.Controls.Add(this.btnScreenshooter);
             this.Controls.Add(this.btnTestRestService);
@@ -194,7 +180,6 @@
             this.Controls.Add(this.btnProxyCmd);
             this.Controls.Add(this.btnCoder);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.Name = "FrmToolbox";
             this.Text = "Toolbox";
@@ -214,7 +199,6 @@
         private PnlSuspension pnlSuspension1;
         private System.Windows.Forms.Button btnTunnelTCP;
         private System.Windows.Forms.Label lblToolbox;
-        private System.Windows.Forms.NotifyIcon niTray;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnTestSoapService;
         private System.Windows.Forms.Button btnTestRestService;
