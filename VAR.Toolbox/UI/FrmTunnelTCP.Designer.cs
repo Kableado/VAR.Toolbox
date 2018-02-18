@@ -36,7 +36,7 @@
             this.txtRemoteHost = new System.Windows.Forms.TextBox();
             this.txtRemotePort = new System.Windows.Forms.TextBox();
             this.txtLocalPort = new System.Windows.Forms.TextBox();
-            this.lsbOutput = new System.Windows.Forms.ListBox();
+            this.ctrOutput = new VAR.Toolbox.Controls.CtrOutput();
             this.SuspendLayout();
             // 
             // btnRun
@@ -113,22 +113,20 @@
             // 
             // lsbOutput
             // 
-            this.lsbOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ctrOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lsbOutput.FormattingEnabled = true;
-            this.lsbOutput.ItemHeight = 20;
-            this.lsbOutput.Location = new System.Drawing.Point(12, 108);
-            this.lsbOutput.Name = "lsbOutput";
-            this.lsbOutput.Size = new System.Drawing.Size(427, 244);
-            this.lsbOutput.TabIndex = 8;
+            this.ctrOutput.Location = new System.Drawing.Point(12, 108);
+            this.ctrOutput.Name = "lsbOutput";
+            this.ctrOutput.Size = new System.Drawing.Size(427, 244);
+            this.ctrOutput.TabIndex = 8;
             // 
             // FrmTunnelTCP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(451, 425);
-            this.Controls.Add(this.lsbOutput);
+            this.Controls.Add(this.ctrOutput);
             this.Controls.Add(this.txtLocalPort);
             this.Controls.Add(this.txtRemotePort);
             this.Controls.Add(this.txtRemoteHost);
@@ -156,6 +154,6 @@
         private System.Windows.Forms.TextBox txtRemoteHost;
         private System.Windows.Forms.TextBox txtRemotePort;
         private System.Windows.Forms.TextBox txtLocalPort;
-        private System.Windows.Forms.ListBox lsbOutput;
+        private VAR.Toolbox.Controls.CtrOutput ctrOutput;
     }
 }

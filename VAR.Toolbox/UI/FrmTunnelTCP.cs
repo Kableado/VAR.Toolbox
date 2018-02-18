@@ -44,7 +44,7 @@ namespace VAR.Toolbox.UI
             _running = true;
             btnStop.Enabled = true;
             btnRun.Enabled = false;
-            lsbOutput.Items.Clear();
+            ctrOutput.Clean();
 
             string remoteHost = txtRemoteHost.Text;
             int remotePort = Convert.ToInt32(txtRemotePort.Text);
@@ -57,18 +57,6 @@ namespace VAR.Toolbox.UI
             thread.Start();
         }
         
-        private void lblOutput_AddText(string text)
-        {
-            if (lsbOutput.InvokeRequired)
-            {
-                lsbOutput.Invoke((MethodInvoker)(() => { lsbOutput.Items.Add(text); }));
-            }
-            else
-            {
-                lsbOutput.Items.Add(text);
-            }
-        }
-
         private void TunnelTCP(string remoteHost, int remotePort, int localPort)
         {
             try
@@ -105,9 +93,9 @@ namespace VAR.Toolbox.UI
             }
             catch (Exception ex)
             {
-                lblOutput_AddText("Excepcion: " + ex.Message);
-                lblOutput_AddText("Backtrace:");
-                lblOutput_AddText(ex.StackTrace);
+                ctrOutput.AddLine("Excepcion: " + ex.Message);
+                ctrOutput.AddLine("Backtrace:");
+                ctrOutput.AddLine(ex.StackTrace);
             }
         }
 
@@ -124,7 +112,7 @@ namespace VAR.Toolbox.UI
                 long totalRecv = 0;
 
                 // Info
-                lblOutput_AddText(
+                ctrOutput.AddLine(
                     DateTime.Now.ToString() +
                     " Nuevo Cliente: " +
                     ((IPEndPoint)clientSock.RemoteEndPoint).Address);
@@ -169,7 +157,7 @@ namespace VAR.Toolbox.UI
                                 }
                                 catch (Exception ex)
                                 {
-                                    lblOutput_AddText("No se pudo enviar... (" + ex.Message + ")");
+                                    ctrOutput.AddLine("No se pudo enviar... (" + ex.Message + ")");
                                 }
                                 totalRecv += enviado;
                             } while (enviado <= 0 && remoteSock.Connected);
@@ -197,7 +185,7 @@ namespace VAR.Toolbox.UI
                                 }
                                 catch (Exception ex)
                                 {
-                                    lblOutput_AddText("No se pudo enviar... (" + ex.Message + ")");
+                                    ctrOutput.AddLine("No se pudo enviar... (" + ex.Message + ")");
                                     Thread.Sleep(10);
                                 }
                                 totalSent += enviado;
@@ -207,7 +195,7 @@ namespace VAR.Toolbox.UI
                 }
 
                 // Info
-                lblOutput_AddText(
+                ctrOutput.AddLine(
                     DateTime.Now.ToString() +
                     " Desconexion de cliente: " +
                     ((IPEndPoint)clientSock.RemoteEndPoint).Address +
@@ -219,9 +207,9 @@ namespace VAR.Toolbox.UI
             }
             catch (Exception ex)
             {
-                lblOutput_AddText("Excepcion: " + ex.Message);
-                lblOutput_AddText("Backtrace:");
-                lblOutput_AddText(ex.StackTrace);
+                ctrOutput.AddLine("Excepcion: " + ex.Message);
+                ctrOutput.AddLine("Backtrace:");
+                ctrOutput.AddLine(ex.StackTrace);
             }
         }
 
