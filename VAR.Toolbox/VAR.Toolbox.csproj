@@ -101,6 +101,9 @@
     <Compile Include="Controls\CtrImageViewer.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\CtrOutput.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\FrmCoder.cs">
       <SubType>Form</SubType>
     </Compile>
