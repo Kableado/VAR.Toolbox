@@ -12,12 +12,19 @@ namespace VAR.Toolbox.UI
         public FrmIPScan()
         {
             InitializeComponent();
+            Disposed += FrmIPScan_Disposed;
 
             PrintStatus("Idle");
         }
 
+        private void FrmIPScan_Disposed(object sender, EventArgs e)
+        {
+            running = false;
+        }
+
         private void PrintStatus(string status)
         {
+            if (lblStatus.IsDisposed) { return; } 
             if (lblStatus.InvokeRequired)
             {
                 lblStatus.Invoke((MethodInvoker)(() => { lblStatus.Text = string.Format("Status: {0}", status); }));
@@ -28,22 +35,10 @@ namespace VAR.Toolbox.UI
                 Application.DoEvents();
             }
         }
-
-        private void ResultsAddLine(string line)
-        {
-            if (lsvResult.InvokeRequired)
-            {
-                lsvResult.Invoke((MethodInvoker)(() => { lsvResult.Items.Add(line); }));
-            }
-            else
-            {
-                lsvResult.Items.Add(line);
-                Application.DoEvents();
-            }
-        }
-
+        
         private void Control_SetEnabled(Control ctrl, bool enabled)
         {
+            if (ctrl.IsDisposed) { return; }
             if (ctrl.InvokeRequired)
             {
                 ctrl.Invoke((MethodInvoker)(() => { ctrl.Enabled = enabled; }));
@@ -72,7 +67,7 @@ namespace VAR.Toolbox.UI
         {
             Control_SetEnabled(btnScan, false);
             running = true;
-            ResultsAddLine(string.Format("IPScan started at {0}", DateTime.UtcNow.ToString("s")));
+            ctrOutput.AddLine(string.Format("IPScan started at {0}", DateTime.UtcNow.ToString("s")));
             for (int i = 1; i < 255 && running; i++)
             {
                 string ip = ipBase + i.ToString();
@@ -88,12 +83,12 @@ namespace VAR.Toolbox.UI
                         name = hostEntry.HostName;
                     }
                     catch (SocketException) { }
-                    ResultsAddLine(string.Format("{0} ({1}) is up: ({2} ms)", ip, name, pingReply.RoundtripTime));
+                    ctrOutput.AddLine(string.Format("{0} ({1}) is up: ({2} ms)", ip, name, pingReply.RoundtripTime));
                 }
                 Application.DoEvents();
             }
             PrintStatus("Idle");
-            ResultsAddLine(string.Format("IPScan ended at {0}", DateTime.UtcNow.ToString("s")));
+            ctrOutput.AddLine(string.Format("IPScan ended at {0}", DateTime.UtcNow.ToString("s")));
             Control_SetEnabled(btnScan, true);
         }
 

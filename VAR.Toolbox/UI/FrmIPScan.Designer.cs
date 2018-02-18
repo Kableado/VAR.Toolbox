@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lsvResult = new System.Windows.Forms.ListBox();
+            this.ctrOutput = new VAR.Toolbox.Controls.CtrOutput();
             this.btnScan = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
             this.btnStop = new System.Windows.Forms.Button();
@@ -37,15 +37,14 @@
             // 
             // lsvResult
             // 
-            this.lsvResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ctrOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lsvResult.FormattingEnabled = true;
-            this.lsvResult.Location = new System.Drawing.Point(9, 59);
-            this.lsvResult.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.lsvResult.Name = "lsvResult";
-            this.lsvResult.Size = new System.Drawing.Size(350, 238);
-            this.lsvResult.TabIndex = 0;
+            this.ctrOutput.Location = new System.Drawing.Point(9, 59);
+            this.ctrOutput.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ctrOutput.Name = "lsvResult";
+            this.ctrOutput.Size = new System.Drawing.Size(350, 238);
+            this.ctrOutput.TabIndex = 0;
             // 
             // btnScan
             // 
@@ -96,7 +95,7 @@
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.btnScan);
-            this.Controls.Add(this.lsvResult);
+            this.Controls.Add(this.ctrOutput);
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FrmIPScan";
             this.Text = "IPScan";
@@ -107,7 +106,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox lsvResult;
+        private VAR.Toolbox.Controls.CtrOutput ctrOutput;
         private System.Windows.Forms.Button btnScan;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Button btnStop;
