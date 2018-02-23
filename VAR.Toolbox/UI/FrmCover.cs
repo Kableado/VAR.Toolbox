@@ -66,10 +66,13 @@ namespace VAR.Toolbox.UI
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            Mouse.Move(
-                (rnd.Next() % 11) - 5,
-                (rnd.Next() % 11) - 5);
-
+            try
+            {
+                Mouse.Move(
+                    (rnd.Next() % 11) - 5,
+                    (rnd.Next() % 11) - 5);
+            }
+            catch (Exception) { } // ignore exceptions moving mouse
             _timer.Stop();
             _timer.Start();
         }
