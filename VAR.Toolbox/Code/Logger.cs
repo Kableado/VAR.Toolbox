@@ -17,7 +17,7 @@ namespace VAR.Toolbox.Code
                 string path = Path.GetDirectoryName(location);
                 string filenameWithoutExtension = Path.GetFileNameWithoutExtension(location);
 
-                string fileOut = String.Format("{0}/{1}.{2}.txt", path, filenameWithoutExtension,
+                string fileOut = string.Format("{0}/{1}.{2}.txt", path, filenameWithoutExtension,
                                                DateTime.UtcNow.ToString("yyyy-MM"));
                 return File.AppendText(fileOut);
             }

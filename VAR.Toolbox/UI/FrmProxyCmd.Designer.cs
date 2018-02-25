@@ -31,6 +31,8 @@
             this.splitMain = new System.Windows.Forms.SplitContainer();
             this.txtOutput = new System.Windows.Forms.TextBox();
             this.txtInput = new System.Windows.Forms.TextBox();
+            this.ddlCurrentConfig = new System.Windows.Forms.ComboBox();
+            this.btnConfig = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.Panel1.SuspendLayout();
             this.splitMain.Panel2.SuspendLayout();
@@ -39,9 +41,11 @@
             // 
             // splitMain
             // 
+            this.splitMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitMain.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.splitMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitMain.Location = new System.Drawing.Point(0, 0);
+            this.splitMain.Location = new System.Drawing.Point(0, 28);
             this.splitMain.Name = "splitMain";
             this.splitMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -52,8 +56,8 @@
             // splitMain.Panel2
             // 
             this.splitMain.Panel2.Controls.Add(this.txtInput);
-            this.splitMain.Size = new System.Drawing.Size(392, 369);
-            this.splitMain.SplitterDistance = 313;
+            this.splitMain.Size = new System.Drawing.Size(413, 418);
+            this.splitMain.SplitterDistance = 353;
             this.splitMain.SplitterWidth = 10;
             this.splitMain.TabIndex = 3;
             this.splitMain.TabStop = false;
@@ -69,7 +73,7 @@
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ReadOnly = true;
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtOutput.Size = new System.Drawing.Size(392, 313);
+            this.txtOutput.Size = new System.Drawing.Size(413, 353);
             this.txtOutput.TabIndex = 1;
             this.txtOutput.TabStop = false;
             // 
@@ -83,15 +87,40 @@
             this.txtInput.Multiline = true;
             this.txtInput.Name = "txtInput";
             this.txtInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtInput.Size = new System.Drawing.Size(392, 46);
+            this.txtInput.Size = new System.Drawing.Size(413, 55);
             this.txtInput.TabIndex = 0;
             this.txtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtInput_KeyDown);
+            // 
+            // ddlCurrentConfig
+            // 
+            this.ddlCurrentConfig.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ddlCurrentConfig.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ddlCurrentConfig.FormattingEnabled = true;
+            this.ddlCurrentConfig.Location = new System.Drawing.Point(0, 1);
+            this.ddlCurrentConfig.Name = "ddlCurrentConfig";
+            this.ddlCurrentConfig.Size = new System.Drawing.Size(342, 21);
+            this.ddlCurrentConfig.TabIndex = 4;
+            this.ddlCurrentConfig.SelectedIndexChanged += new System.EventHandler(this.ddlCurrentConfig_SelectedIndexChanged);
+            // 
+            // btnConfig
+            // 
+            this.btnConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConfig.Location = new System.Drawing.Point(348, 1);
+            this.btnConfig.Name = "btnConfig";
+            this.btnConfig.Size = new System.Drawing.Size(65, 23);
+            this.btnConfig.TabIndex = 5;
+            this.btnConfig.Text = "Config";
+            this.btnConfig.UseVisualStyleBackColor = true;
+            this.btnConfig.Click += new System.EventHandler(this.btnConfig_Click);
             // 
             // FrmProxyCmd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 369);
+            this.ClientSize = new System.Drawing.Size(413, 446);
+            this.Controls.Add(this.btnConfig);
+            this.Controls.Add(this.ddlCurrentConfig);
             this.Controls.Add(this.splitMain);
             this.Name = "FrmProxyCmd";
             this.Text = "ProxyCmd";
@@ -110,5 +139,7 @@
         private System.Windows.Forms.SplitContainer splitMain;
         private System.Windows.Forms.TextBox txtOutput;
         private System.Windows.Forms.TextBox txtInput;
+        private System.Windows.Forms.ComboBox ddlCurrentConfig;
+        private System.Windows.Forms.Button btnConfig;
     }
 }
