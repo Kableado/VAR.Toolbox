@@ -57,7 +57,7 @@
             // btnDecode
             // 
             this.btnDecode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDecode.Location = new System.Drawing.Point(146, 393);
+            this.btnDecode.Location = new System.Drawing.Point(147, 390);
             this.btnDecode.Name = "btnDecode";
             this.btnDecode.Size = new System.Drawing.Size(63, 23);
             this.btnDecode.TabIndex = 1;
@@ -118,8 +118,8 @@
             this.cboCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cboCode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboCode.FormattingEnabled = true;
-            this.cboCode.Location = new System.Drawing.Point(12, 396);
-            this.cboCode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cboCode.Location = new System.Drawing.Point(11, 393);
+            this.cboCode.Margin = new System.Windows.Forms.Padding(2);
             this.cboCode.Name = "cboCode";
             this.cboCode.Size = new System.Drawing.Size(131, 21);
             this.cboCode.TabIndex = 4;
@@ -128,7 +128,7 @@
             // btnEncode
             // 
             this.btnEncode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnEncode.Location = new System.Drawing.Point(214, 393);
+            this.btnEncode.Location = new System.Drawing.Point(216, 390);
             this.btnEncode.Name = "btnEncode";
             this.btnEncode.Size = new System.Drawing.Size(63, 23);
             this.btnEncode.TabIndex = 3;
@@ -139,7 +139,7 @@
             // btnSwap
             // 
             this.btnSwap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSwap.Location = new System.Drawing.Point(3, 393);
+            this.btnSwap.Location = new System.Drawing.Point(7, 390);
             this.btnSwap.Name = "btnSwap";
             this.btnSwap.Size = new System.Drawing.Size(63, 23);
             this.btnSwap.TabIndex = 4;

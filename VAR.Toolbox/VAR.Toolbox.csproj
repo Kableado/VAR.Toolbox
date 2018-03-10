@@ -95,6 +95,7 @@
     <Compile Include="Code\ProxyCmdExecutorDummy.cs" />
     <Compile Include="Code\ProxyCmdExecutorThroughSQLServer.cs" />
     <Compile Include="Code\Screenshooter.cs" />
+    <Compile Include="Code\TextCoderFactory.cs" />
     <Compile Include="Code\User32.cs" />
     <Compile Include="Code\Webcam.cs" />
     <Compile Include="Code\Win32API.cs" />
@@ -184,11 +185,6 @@
     <Content Include="Images\Toolbox.png" />
     <Content Include="Images\toolbox.svg" />
     <Content Include="Toolbox.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="UI\FrmCoder.resx">
-      <DependentUpon>FrmCoder.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

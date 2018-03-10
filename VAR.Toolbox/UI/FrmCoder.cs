@@ -10,15 +10,13 @@ namespace VAR.Toolbox.UI
         {
             InitializeComponent();
 
-            cboCode.Items.Add("Base64Ascii");
-            cboCode.Items.Add("Base64Utf8");
-
-            cboCode.SelectedItem = "Base64Ascii";
+            cboCode.Items.AddRange(TextCoderFactory.GetSupportedCoders());
+            cboCode.SelectedIndex = 1;
             
         }
 
         private ITextCoder _coder = null;
-        
+
         private void btnDecodeBase64_Click(object sender, EventArgs e)
         {
             string output = string.Empty;
@@ -32,7 +30,7 @@ namespace VAR.Toolbox.UI
             }
             txtOutput.Text = output;
         }
-        
+
         private void btnEncodeBase64_Click(object sender, EventArgs e)
         {
             string output = string.Empty;
@@ -57,18 +55,8 @@ namespace VAR.Toolbox.UI
         private void cboCode_SelectedIndexChanged(object sender, EventArgs e)
         {
             string code = (string)cboCode.SelectedItem;
-            if(code == "Base64Ascii")
-            {
-                txtKey.Enabled = false;
-                _coder = new TextCoderBase64Ascii();
-                return;
-            }
-            if (code == "Base64Utf8")
-            {
-                txtKey.Enabled = false;
-                _coder = new TextCoderBase64Utf8();
-                return;
-            }
+            _coder = TextCoderFactory.CreateFromName(code);
+            txtKey.Enabled = _coder.NeedsKey;
         }
     }
 }
