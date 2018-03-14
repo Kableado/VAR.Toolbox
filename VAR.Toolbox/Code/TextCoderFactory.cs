@@ -7,20 +7,30 @@ namespace VAR.Toolbox.Code
         public static string[] GetSupportedCoders()
         {
             return new string[] {
-                "Base64Ascii",
-                "Base64Utf8",
+                TextCoderBase64ToAscii.Name,
+                TextCoderBase64ToUtf8.Name,
+                TextCoderHexToUtf8.Name,
+                TextCoderHexToAscii.Name,
             };
         }
 
         public static ITextCoder CreateFromName(string name)
         {
-            if (name == "Base64Ascii")
+            if (name == TextCoderBase64ToAscii.Name)
             {
-                return new TextCoderBase64Ascii();
+                return new TextCoderBase64ToAscii();
             }
-            if (name == "Base64Utf8")
+            if (name == TextCoderBase64ToUtf8.Name)
             {
-                return new TextCoderBase64Utf8();
+                return new TextCoderBase64ToUtf8();
+            }
+            if (name == TextCoderHexToUtf8.Name)
+            {
+                return new TextCoderHexToUtf8();
+            }
+            if (name == TextCoderHexToAscii.Name)
+            {
+                return new TextCoderHexToAscii();
             }
             throw new NotImplementedException(string.Format("Cant create ITextCoder with this name: {0}", name));
         }

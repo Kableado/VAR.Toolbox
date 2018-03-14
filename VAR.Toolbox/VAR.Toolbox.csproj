@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\HexUtils.cs" />
     <Compile Include="Code\TextCoderBase64Utf8.cs" />
     <Compile Include="Code\TextCoderBase64Ascii.cs" />
     <Compile Include="Code\DirectShow\CameraControlProperty.cs" />
@@ -96,6 +97,8 @@
     <Compile Include="Code\ProxyCmdExecutorThroughSQLServer.cs" />
     <Compile Include="Code\Screenshooter.cs" />
     <Compile Include="Code\TextCoderFactory.cs" />
+    <Compile Include="Code\TextCoderHexToAscii.cs" />
+    <Compile Include="Code\TextCoderHexToUtf8.cs" />
     <Compile Include="Code\User32.cs" />
     <Compile Include="Code\Webcam.cs" />
     <Compile Include="Code\Win32API.cs" />

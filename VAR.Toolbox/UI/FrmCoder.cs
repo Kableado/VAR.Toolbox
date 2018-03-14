@@ -12,7 +12,6 @@ namespace VAR.Toolbox.UI
 
             cboCode.Items.AddRange(TextCoderFactory.GetSupportedCoders());
             cboCode.SelectedIndex = 1;
-            
         }
 
         private ITextCoder _coder = null;

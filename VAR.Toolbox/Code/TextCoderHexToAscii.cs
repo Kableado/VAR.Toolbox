@@ -3,24 +3,24 @@ using System.Text;
 
 namespace VAR.Toolbox.Code
 {
-    public class TextCoderBase64ToAscii : ITextCoder
+    class TextCoderHexToAscii : ITextCoder
     {
-        public const string Name = "Base64ToAscii";
+        public const string Name = "HexToAscii";
 
         public bool NeedsKey { get { return false; } }
 
         public string Decode(string input, string key)
         {
-            byte[] encodedDataAsBytes = Convert.FromBase64String(input);
-            string returnValue = Encoding.ASCII.GetString(encodedDataAsBytes);
+            byte[] bytes = HexUtils.HexStringToBytes(input);
+            string returnValue = Encoding.ASCII.GetString(bytes);
             return returnValue;
         }
 
         public string Encode(string input, string key)
         {
             byte[] toEncodeAsBytes = Encoding.ASCII.GetBytes(input);
-            string returnValue = Convert.ToBase64String(toEncodeAsBytes);
-            return returnValue;
+            return HexUtils.BytesToHexString(toEncodeAsBytes);
         }
+
     }
 }
