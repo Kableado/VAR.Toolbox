@@ -87,7 +87,7 @@
             // 
             this.lblToolbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblToolbox.Font = new System.Drawing.Font("Arial Narrow", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblToolbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblToolbox.Location = new System.Drawing.Point(9, 9);
             this.lblToolbox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblToolbox.Name = "lblToolbox";
@@ -98,22 +98,26 @@
             // 
             // pnlSuspension1
             // 
-            this.pnlSuspension1.Location = new System.Drawing.Point(180, 241);
+            this.pnlSuspension1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlSuspension1.Location = new System.Drawing.Point(180, 230);
             this.pnlSuspension1.Margin = new System.Windows.Forms.Padding(1);
             this.pnlSuspension1.Name = "pnlSuspension1";
-            this.pnlSuspension1.Size = new System.Drawing.Size(165, 114);
+            this.pnlSuspension1.Size = new System.Drawing.Size(165, 125);
             this.pnlSuspension1.TabIndex = 4;
             // 
             // pnlCover1
             // 
-            this.pnlCover1.Location = new System.Drawing.Point(12, 241);
+            this.pnlCover1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pnlCover1.Location = new System.Drawing.Point(12, 230);
             this.pnlCover1.Margin = new System.Windows.Forms.Padding(1);
             this.pnlCover1.Name = "pnlCover1";
-            this.pnlCover1.Size = new System.Drawing.Size(162, 114);
+            this.pnlCover1.Size = new System.Drawing.Size(162, 125);
             this.pnlCover1.TabIndex = 3;
             // 
             // btnExit
             // 
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExit.Location = new System.Drawing.Point(12, 359);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(333, 29);
@@ -124,6 +128,7 @@
             // 
             // btnTestSoapService
             // 
+            this.btnTestSoapService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTestSoapService.Location = new System.Drawing.Point(180, 52);
             this.btnTestSoapService.Name = "btnTestSoapService";
             this.btnTestSoapService.Size = new System.Drawing.Size(165, 34);
@@ -134,6 +139,7 @@
             // 
             // btnTestRestService
             // 
+            this.btnTestRestService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTestRestService.Location = new System.Drawing.Point(180, 92);
             this.btnTestRestService.Name = "btnTestRestService";
             this.btnTestRestService.Size = new System.Drawing.Size(165, 36);
@@ -144,6 +150,7 @@
             // 
             // btnScreenshooter
             // 
+            this.btnScreenshooter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnScreenshooter.Location = new System.Drawing.Point(180, 135);
             this.btnScreenshooter.Name = "btnScreenshooter";
             this.btnScreenshooter.Size = new System.Drawing.Size(165, 36);
@@ -154,6 +161,7 @@
             // 
             // btnIPScan
             // 
+            this.btnIPScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnIPScan.Location = new System.Drawing.Point(180, 176);
             this.btnIPScan.Name = "btnIPScan";
             this.btnIPScan.Size = new System.Drawing.Size(165, 36);
