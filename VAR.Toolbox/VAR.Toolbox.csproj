@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\HexUtils.cs" />
+    <Compile Include="Code\ProxyCmdExecutorWMIC.cs" />
     <Compile Include="Code\TextCoderBase64Utf8.cs" />
     <Compile Include="Code\TextCoderBase64Ascii.cs" />
     <Compile Include="Code\DirectShow\CameraControlProperty.cs" />

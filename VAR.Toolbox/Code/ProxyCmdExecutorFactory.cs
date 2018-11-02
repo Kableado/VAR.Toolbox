@@ -15,6 +15,11 @@ namespace VAR.Toolbox.Code
                 string configSqlServer = config.Substring("SqlServer:".Length);
                 return new ProxyCmdExecutorThroughSQLServer(configSqlServer);
             }
+            if (config.StartsWith("WMIC:"))
+            {
+                string configWMIC = config.Substring("WMIC:".Length);
+                return new ProxyCmdExecutorWMIC(configWMIC);
+            }
             throw new NotImplementedException(string.Format("Cant create IProxyCmdExecutor with this config: {0}", config));
         }
     }
