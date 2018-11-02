@@ -129,6 +129,12 @@
     <Compile Include="UI\FrmProxyCmd.Designer.cs">
       <DependentUpon>FrmProxyCmd.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FrmProxyCmdConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmProxyCmdConfig.Designer.cs">
+      <DependentUpon>FrmProxyCmdConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FrmScreenshooter.cs">
       <SubType>Form</SubType>
     </Compile>

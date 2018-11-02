@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using VAR.Toolbox.Code;
@@ -53,7 +52,7 @@ namespace VAR.Toolbox.UI
                 }
                 return;
             }
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 e.Handled = true;
                 return;
@@ -72,7 +71,7 @@ namespace VAR.Toolbox.UI
                 {
                     _currentHistoryIndex = 0;
                 }
-                if (_currentHistoryIndex>=0 && _currentHistoryIndex < _cmdHistory.Count)
+                if (_currentHistoryIndex >= 0 && _currentHistoryIndex < _cmdHistory.Count)
                 {
                     txtInput.Text = _cmdHistory[_currentHistoryIndex];
                     txtInput.SelectionStart = txtInput.Text.Length;
@@ -109,7 +108,7 @@ namespace VAR.Toolbox.UI
 
         private void btnConfig_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException("Implement btnConfig_Click");
+            FrmToolbox.StaticCreateWindow(typeof(FrmProxyCmdConfig));
         }
 
         #endregion UI events
@@ -128,7 +127,7 @@ namespace VAR.Toolbox.UI
         private void CleanProxyCmdExecutor()
         {
             IDisposable disposableProxyCmdExecutor = _proxyCmdExecutor as IDisposable;
-            if (disposableProxyCmdExecutor !=null)
+            if (disposableProxyCmdExecutor != null)
             {
                 disposableProxyCmdExecutor.Dispose();
             }
@@ -155,7 +154,7 @@ namespace VAR.Toolbox.UI
             }
             Monitor.Exit(_executionLock);
         }
-        
+
         public void OutputLine(string line)
         {
             BeginInvoke(new MethodInvoker(delegate
@@ -173,59 +172,26 @@ namespace VAR.Toolbox.UI
         public void LoadConfig()
         {
             CleanProxyCmdExecutor();
-            string configFile = GetConfigFileName();
-            string[] config = null;
-            if (File.Exists(configFile) == false)
-            {
-                config = new string[] { "Dummy|Dummy:" };
-            }
-            else
-            {
-                config = File.ReadAllLines(configFile);
-            }
-            SetLoadedConfig(config);
-        }
+            
+            List<ProxyCmdConfigItem> configItems = FrmProxyCmdConfig.GetConfigurationItems();
 
-        private void SetLoadedConfig(string[] configLines)
-        {
             string previousSelectedName = null;
             ProxyCmdConfigItem selectedConfig = ddlCurrentConfig.SelectedItem as ProxyCmdConfigItem;
             if (selectedConfig != null) { previousSelectedName = selectedConfig.Name; }
-
             ddlCurrentConfig.Items.Clear();
-            foreach (string configLine in configLines)
+            ddlCurrentConfig.Items.AddRange(configItems.ToArray());
+            ddlCurrentConfig.SelectedIndex = 0;
+            if (string.IsNullOrEmpty(previousSelectedName) == false)
             {
-                int idxSplit = configLine.IndexOf('|');
-                if(idxSplit < 0) { continue; }
-                string configName = configLine.Substring(0, idxSplit);
-                string configData = configLine.Substring(idxSplit + 1);
-
-                ddlCurrentConfig.Items.Add(new ProxyCmdConfigItem { Name = configName, Config = configData, });
-            }
-            if (string.IsNullOrEmpty(previousSelectedName))
-            {
-                ddlCurrentConfig.SelectedIndex = 0;
-                return;
-            }
-            
-            foreach(ProxyCmdConfigItem configItem in ddlCurrentConfig.Items)
-            {
-                if(configItem.Name == previousSelectedName)
+                foreach (ProxyCmdConfigItem configItem in ddlCurrentConfig.Items)
                 {
-                    ddlCurrentConfig.SelectedItem = configItem;
-                    break;
+                    if (configItem.Name == previousSelectedName)
+                    {
+                        ddlCurrentConfig.SelectedItem = configItem;
+                        break;
+                    }
                 }
             }
-        }
-
-        private string GetConfigFileName()
-        {
-            string location = System.Reflection.Assembly.GetEntryAssembly().Location;
-            string path = Path.GetDirectoryName(location);
-            string filenameWithoutExtension = Path.GetFileNameWithoutExtension(location);
-
-            string configFile = string.Format("{0}/{1}.ProxyCmd.cfg", path, filenameWithoutExtension);
-            return configFile;
         }
 
         private string GetCurrentConfig()
@@ -236,12 +202,5 @@ namespace VAR.Toolbox.UI
         }
 
         #endregion Config
-    }
-
-    public class ProxyCmdConfigItem
-    {
-        public string Name { get; set; }
-        public string Config { get; set; }
-        public override string ToString() { return Name; }
     }
 }

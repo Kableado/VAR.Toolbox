@@ -14,6 +14,8 @@ namespace VAR.Toolbox.UI
 
         private NotifyIcon niTray = null;
 
+        private static FrmToolbox _currentInstance = null;
+
         #endregion Declarations
 
         #region Form life cycle
@@ -26,6 +28,8 @@ namespace VAR.Toolbox.UI
 
             MouseDown += DragWindow_MouseDown;
             lblToolbox.MouseDown += DragWindow_MouseDown;
+
+            _currentInstance = this;
         }
 
         private void InitializeCustomControls()
@@ -94,7 +98,7 @@ namespace VAR.Toolbox.UI
             ShowChildWindows();
             WindowState = FormWindowState.Normal;
         }
-        
+
         private void btnCoder_Click(object sender, EventArgs e)
         {
             CreateWindow(typeof(FrmCoder));
@@ -142,7 +146,7 @@ namespace VAR.Toolbox.UI
         private Form CreateWindow(Type type)
         {
             Form frm = Activator.CreateInstance(type) as Form;
-            if(frm== null)
+            if (frm == null)
             {
                 return null;
             }
@@ -155,7 +159,7 @@ namespace VAR.Toolbox.UI
             frm.Show();
             return frm;
         }
-        
+
         private List<Form> _forms = new List<Form>();
 
         private void frmChild_FormClosing(object sender, FormClosingEventArgs e)
@@ -206,6 +210,25 @@ namespace VAR.Toolbox.UI
             {
                 frm.Hide();
             }
+        }
+
+        public static void StaticCreateWindow(Type type)
+        {
+            _currentInstance?.CreateWindow(type);
+        }
+
+        public static List<T> StaticGetWindowsOfType<T>()
+        {
+            List<T> list = new List<T>();
+            if (_currentInstance == null) { return list; }
+            foreach (Form frm in _currentInstance._forms)
+            {
+                if (frm is T)
+                {
+                    list.Add((T)(object)frm);
+                }
+            }
+            return list;
         }
 
         #endregion Window handling
