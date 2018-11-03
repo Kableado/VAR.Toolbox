@@ -137,17 +137,11 @@
     <Compile Include="UI\FrmScreenshooter.Designer.cs">
       <DependentUpon>FrmScreenshooter.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmTestRestService.cs">
+    <Compile Include="UI\FrmTestWebService.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmTestRestService.Designer.cs">
-      <DependentUpon>FrmTestRestService.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\FrmTestSoapService.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\FrmTestSoapService.Designer.cs">
-      <DependentUpon>FrmTestSoapService.cs</DependentUpon>
+    <Compile Include="UI\FrmTestWebService.Designer.cs">
+      <DependentUpon>FrmTestWebService.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FrmTunnelTCP.cs">
       <SubType>Form</SubType>

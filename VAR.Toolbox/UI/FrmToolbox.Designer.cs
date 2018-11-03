@@ -36,8 +36,7 @@
             this.pnlSuspension1 = new VAR.Toolbox.UI.PnlSuspension();
             this.pnlCover1 = new VAR.Toolbox.UI.PnlCover();
             this.btnExit = new System.Windows.Forms.Button();
-            this.btnTestSoapService = new System.Windows.Forms.Button();
-            this.btnTestRestService = new System.Windows.Forms.Button();
+            this.btnTestWebService = new System.Windows.Forms.Button();
             this.btnScreenshooter = new System.Windows.Forms.Button();
             this.btnIPScan = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -85,7 +84,7 @@
             // 
             // lblToolbox
             // 
-            this.lblToolbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lblToolbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblToolbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblToolbox.Location = new System.Drawing.Point(9, 9);
@@ -116,7 +115,7 @@
             // 
             // btnExit
             // 
-            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExit.Location = new System.Drawing.Point(12, 359);
             this.btnExit.Name = "btnExit";
@@ -126,27 +125,16 @@
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // btnTestSoapService
+            // btnTestWebService
             // 
-            this.btnTestSoapService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTestSoapService.Location = new System.Drawing.Point(180, 52);
-            this.btnTestSoapService.Name = "btnTestSoapService";
-            this.btnTestSoapService.Size = new System.Drawing.Size(165, 34);
-            this.btnTestSoapService.TabIndex = 8;
-            this.btnTestSoapService.Text = "TestSoapService";
-            this.btnTestSoapService.UseVisualStyleBackColor = true;
-            this.btnTestSoapService.Click += new System.EventHandler(this.btnTestSoapService_Click);
-            // 
-            // btnTestRestService
-            // 
-            this.btnTestRestService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTestRestService.Location = new System.Drawing.Point(180, 92);
-            this.btnTestRestService.Name = "btnTestRestService";
-            this.btnTestRestService.Size = new System.Drawing.Size(165, 36);
-            this.btnTestRestService.TabIndex = 9;
-            this.btnTestRestService.Text = "TestRestService";
-            this.btnTestRestService.UseVisualStyleBackColor = true;
-            this.btnTestRestService.Click += new System.EventHandler(this.btnTestRestService_Click);
+            this.btnTestWebService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTestWebService.Location = new System.Drawing.Point(180, 52);
+            this.btnTestWebService.Name = "btnTestWebService";
+            this.btnTestWebService.Size = new System.Drawing.Size(165, 34);
+            this.btnTestWebService.TabIndex = 8;
+            this.btnTestWebService.Text = "TestWebService";
+            this.btnTestWebService.UseVisualStyleBackColor = true;
+            this.btnTestWebService.Click += new System.EventHandler(this.btnTestWebService_Click);
             // 
             // btnScreenshooter
             // 
@@ -177,8 +165,7 @@
             this.ClientSize = new System.Drawing.Size(352, 400);
             this.Controls.Add(this.btnIPScan);
             this.Controls.Add(this.btnScreenshooter);
-            this.Controls.Add(this.btnTestRestService);
-            this.Controls.Add(this.btnTestSoapService);
+            this.Controls.Add(this.btnTestWebService);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lblToolbox);
             this.Controls.Add(this.btnTunnelTCP);
@@ -208,8 +195,7 @@
         private System.Windows.Forms.Button btnTunnelTCP;
         private System.Windows.Forms.Label lblToolbox;
         private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.Button btnTestSoapService;
-        private System.Windows.Forms.Button btnTestRestService;
+        private System.Windows.Forms.Button btnTestWebService;
         private System.Windows.Forms.Button btnScreenshooter;
         private System.Windows.Forms.Button btnIPScan;
     }

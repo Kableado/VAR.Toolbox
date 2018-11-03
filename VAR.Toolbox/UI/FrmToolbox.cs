@@ -119,14 +119,9 @@ namespace VAR.Toolbox.UI
             CreateWindow(typeof(FrmTunnelTCP));
         }
 
-        private void btnTestSoapService_Click(object sender, EventArgs e)
+        private void btnTestWebService_Click(object sender, EventArgs e)
         {
-            CreateWindow(typeof(FrmTestSoapService));
-        }
-
-        private void btnTestRestService_Click(object sender, EventArgs e)
-        {
-            CreateWindow(typeof(FrmTestRestService));
+            CreateWindow(typeof(FrmTestWebService));
         }
 
         private void btnScreenshooter_Click(object sender, EventArgs e)
