@@ -30,7 +30,7 @@ namespace VAR.Toolbox.UI
             catch (Exception ex)
             {
                 StringBuilder sbException = new StringBuilder();
-                while(ex != null)
+                while (ex != null)
                 {
                     sbException.AppendFormat("{0}\r\n{1}\r\n\r\n", ex.Message, ex.StackTrace);
                     ex = ex.InnerException;
@@ -104,7 +104,7 @@ namespace VAR.Toolbox.UI
 
             return strs;
         }
-        
+
         /// <summary>
         /// Llama a un metodo SOAP. Esto requiere que el binding del servicio WCF sea de tipo "basicHttpBinding"
         /// </summary>
@@ -132,7 +132,7 @@ namespace VAR.Toolbox.UI
             foreach (KeyValuePair<string, string> parm in parms)
             {
                 sbData.AppendFormat("<{0}>{1}</{0}>\n", parm.Key, parm.Value);
-                
+
                 // FIXME: Accept null values
                 //sbData.AppendFormat("<{0} i:nil=\"true\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" />\n", parm.Key);
             }

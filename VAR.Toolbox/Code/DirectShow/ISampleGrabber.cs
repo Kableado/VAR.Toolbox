@@ -9,10 +9,10 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
 	[ComImport,
-	Guid("6B652FFF-11FE-4FCE-92AD-0266B5D7C78F"),
-	InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    Guid("6B652FFF-11FE-4FCE-92AD-0266B5D7C78F"),
+    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface ISampleGrabber
-	{
+    {
         /// <summary>
         /// Specifies whether the filter should stop the graph after receiving one sample.
         /// </summary>
@@ -22,7 +22,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int SetOneShot( [In, MarshalAs( UnmanagedType.Bool )] bool oneShot );
+        int SetOneShot([In, MarshalAs(UnmanagedType.Bool)] bool oneShot);
 
         /// <summary>
         /// Specifies the media type for the connection on the Sample Grabber's input pin.
@@ -33,7 +33,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int SetMediaType( [In, MarshalAs( UnmanagedType.LPStruct )] AMMediaType mediaType );
+        int SetMediaType([In, MarshalAs(UnmanagedType.LPStruct)] AMMediaType mediaType);
 
         /// <summary>
         /// Retrieves the media type for the connection on the Sample Grabber's input pin.
@@ -44,7 +44,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetConnectedMediaType( [Out, MarshalAs( UnmanagedType.LPStruct )] AMMediaType mediaType );
+        int GetConnectedMediaType([Out, MarshalAs(UnmanagedType.LPStruct)] AMMediaType mediaType);
 
         /// <summary>
         /// Specifies whether to copy sample data into a buffer as it goes through the filter.
@@ -56,7 +56,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int SetBufferSamples( [In, MarshalAs( UnmanagedType.Bool )] bool bufferThem );
+        int SetBufferSamples([In, MarshalAs(UnmanagedType.Bool)] bool bufferThem);
 
         /// <summary>
         /// Retrieves a copy of the sample that the filter received most recently.
@@ -68,7 +68,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetCurrentBuffer( ref int bufferSize, IntPtr buffer );
+        int GetCurrentBuffer(ref int bufferSize, IntPtr buffer);
 
         /// <summary>
         /// Not currently implemented.
@@ -79,7 +79,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetCurrentSample( IntPtr sample );
+        int GetCurrentSample(IntPtr sample);
 
         /// <summary>
         /// Specifies a callback method to call on incoming samples.
@@ -91,6 +91,6 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int SetCallback( ISampleGrabberCB callback, int whichMethodToCallback );
+        int SetCallback(ISampleGrabberCB callback, int whichMethodToCallback);
     }
 }

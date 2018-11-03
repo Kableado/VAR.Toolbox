@@ -172,7 +172,7 @@ namespace VAR.Toolbox.UI
         public void LoadConfig()
         {
             CleanProxyCmdExecutor();
-            
+
             List<ProxyCmdConfigItem> configItems = FrmProxyCmdConfig.GetConfigurationItems();
 
             string previousSelectedName = null;

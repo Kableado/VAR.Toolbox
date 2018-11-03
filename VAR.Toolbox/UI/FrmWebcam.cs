@@ -20,14 +20,15 @@ namespace VAR.Toolbox
             cboWebcams_LoadData();
         }
 
-        void webcam_NewFrame(object sender, Bitmap frame)
+        private void webcam_NewFrame(object sender, Bitmap frame)
         {
             picWebcam.ImageShow = frame;
         }
 
         private void FrmWebcam_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if(webcam!=null){
+            if (webcam != null)
+            {
                 webcam.Stop();
             }
         }

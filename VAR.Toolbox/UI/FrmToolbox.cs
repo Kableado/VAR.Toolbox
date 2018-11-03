@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using VAR.Toolbox.Code;
+using VAR.Toolbox.Code.Windows;
 
 namespace VAR.Toolbox.UI
 {

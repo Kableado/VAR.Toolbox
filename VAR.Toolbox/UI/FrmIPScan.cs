@@ -24,7 +24,7 @@ namespace VAR.Toolbox.UI
 
         private void PrintStatus(string status)
         {
-            if (lblStatus.IsDisposed) { return; } 
+            if (lblStatus.IsDisposed) { return; }
             if (lblStatus.InvokeRequired)
             {
                 lblStatus.Invoke((MethodInvoker)(() => { lblStatus.Text = string.Format("Status: {0}", status); }));
@@ -35,7 +35,7 @@ namespace VAR.Toolbox.UI
                 Application.DoEvents();
             }
         }
-        
+
         private void Control_SetEnabled(Control ctrl, bool enabled)
         {
             if (ctrl.IsDisposed) { return; }

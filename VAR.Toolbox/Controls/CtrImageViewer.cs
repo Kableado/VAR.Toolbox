@@ -8,7 +8,7 @@ namespace VAR.Toolbox.Controls
     {
         #region Declarations
 
-        Image _imageShow = null;
+        private Image _imageShow = null;
 
         // Image projection
         private double offsetX = 0;
@@ -34,14 +34,14 @@ namespace VAR.Toolbox.Controls
         }
 
         #endregion
-        
+
         #region Control life cycle
 
         public CtrImageViewer()
         {
             BackColor = Color.Black;
         }
-        
+
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace VAR.Toolbox.Code
+namespace VAR.Toolbox.Code.Windows
 {
-    public class User32
+    public static class User32
     {
         [StructLayout(LayoutKind.Sequential)]
         public struct INPUT
@@ -142,7 +142,7 @@ namespace VAR.Toolbox.Code
 
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
-        
+
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
         {

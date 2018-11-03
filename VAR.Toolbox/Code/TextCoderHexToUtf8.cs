@@ -1,9 +1,8 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace VAR.Toolbox.Code
 {
-    class TextCoderHexToUtf8 : ITextCoder
+    public class TextCoderHexToUtf8 : ITextCoder
     {
         public const string Name = "HexToUtf8";
 

@@ -10,8 +10,8 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComImport,
-    Guid( "29840822-5B84-11D0-BD3B-00A0C911CE86" ),
-    InterfaceType( ComInterfaceType.InterfaceIsIUnknown )]
+    Guid("29840822-5B84-11D0-BD3B-00A0C911CE86"),
+    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface ICreateDevEnum
     {
         /// <summary>
@@ -25,6 +25,6 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int CreateClassEnumerator( [In] ref Guid type, [Out] out IEnumMoniker enumMoniker, [In] int flags );
+        int CreateClassEnumerator([In] ref Guid type, [Out] out IEnumMoniker enumMoniker, [In] int flags);
     }
 }

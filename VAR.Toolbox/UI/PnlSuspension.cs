@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
-using VAR.Toolbox.Code;
+using VAR.Toolbox.Code.Windows;
 
 namespace VAR.Toolbox.UI
 {
     public partial class PnlSuspension : UserControl
     {
         private Random rnd = new Random();
-        
+
         public PnlSuspension()
         {
             InitializeComponent();
@@ -38,16 +38,16 @@ namespace VAR.Toolbox.UI
 
             if (ddlCustomHour.SelectedIndex >= 0 && ddlCustomMinute.SelectedIndex >= 0)
             {
-                DateTime dtSuspendAtCustom = 
+                DateTime dtSuspendAtCustom =
                     new DateTime(
-                        now.Year, 
-                        now.Month, 
+                        now.Year,
+                        now.Month,
                         now.Day,
                         ddlCustomHour.SelectedIndex,
-                        ddlCustomMinute.SelectedIndex, 
+                        ddlCustomMinute.SelectedIndex,
                         0)
                     .AddSeconds(Convert.ToInt32(numOffset.Value));
-                
+
                 if (DateTime.Compare(now, dtSuspendAtCustom) > 0)
                 {
                     if (chkSuspendAtCustom.Checked)
@@ -139,7 +139,7 @@ namespace VAR.Toolbox.UI
 
         private void SuspendSystem()
         {
-            Win32API.SetSuspendState(false, true, false);
+            Win32.SetSuspendState(false, true, false);
         }
 
     }

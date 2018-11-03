@@ -8,8 +8,8 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
 	[ComImport,
-	Guid("0579154A-2B53-4994-B0D0-E773148EFF85"),
-	InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    Guid("0579154A-2B53-4994-B0D0-E773148EFF85"),
+    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface ISampleGrabberCB
     {
         /// <summary>
@@ -22,7 +22,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int SampleCB( double sampleTime, IntPtr sample );
+        int SampleCB(double sampleTime, IntPtr sample);
 
         /// <summary>
         /// Callback method that receives a pointer to the sample bufferþ
@@ -35,6 +35,6 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int BufferCB( double sampleTime, IntPtr buffer, int bufferLen );
+        int BufferCB(double sampleTime, IntPtr buffer, int bufferLen);
     }
 }

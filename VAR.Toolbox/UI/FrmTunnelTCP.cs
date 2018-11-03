@@ -56,17 +56,17 @@ namespace VAR.Toolbox.UI
             });
             thread.Start();
         }
-        
+
         private void TunnelTCP(string remoteHost, int remotePort, int localPort)
         {
             try
             {
                 Socket sock;
-                
+
                 sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 sock.Bind(new IPEndPoint(IPAddress.Any, localPort));
                 sock.Listen(1000);
-                
+
                 while (_running)
                 {
                     if (sock.Poll(100, SelectMode.SelectRead))
@@ -74,7 +74,7 @@ namespace VAR.Toolbox.UI
                         Socket sockCliente = sock.Accept();
                         sockCliente.Blocking = false;
                         sockCliente.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.NoDelay, true);
-                        
+
                         ConnectedClient client = new ConnectedClient
                         {
                             hostRemoto = remoteHost,

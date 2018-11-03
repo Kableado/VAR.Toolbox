@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace VAR.Toolbox.Code
+namespace VAR.Toolbox.Code.Windows
 {
-    public class GDI32
+    public static class GDI32
     {
         public const int SRCCOPY = 0x00CC0020; // BitBlt dwRop parameter
 

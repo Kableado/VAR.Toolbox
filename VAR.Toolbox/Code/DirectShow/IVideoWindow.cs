@@ -8,10 +8,10 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
 	[ComImport,
-	Guid("56A868B4-0AD4-11CE-B03A-0020AF0BA770"),
-	InterfaceType(ComInterfaceType.InterfaceIsDual)]
+    Guid("56A868B4-0AD4-11CE-B03A-0020AF0BA770"),
+    InterfaceType(ComInterfaceType.InterfaceIsDual)]
     internal interface IVideoWindow
-	{
+    {
         /// <summary>
         /// Sets the video window caption.
         /// </summary>
@@ -21,7 +21,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_Caption( string caption );
+        int put_Caption(string caption);
 
         /// <summary>
         /// Retrieves the video window caption.
@@ -32,7 +32,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_Caption( [Out] out string caption );
+        int get_Caption([Out] out string caption);
 
         /// <summary>
         /// Sets the window style on the video window.
@@ -43,7 +43,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_WindowStyle( int windowStyle );
+        int put_WindowStyle(int windowStyle);
 
         /// <summary>
         /// Retrieves the window style on the video window.
@@ -54,7 +54,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_WindowStyle( out int windowStyle );
+        int get_WindowStyle(out int windowStyle);
 
         /// <summary>
         /// Sets the extended window style on the video window.
@@ -65,7 +65,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_WindowStyleEx( int windowStyleEx );
+        int put_WindowStyleEx(int windowStyleEx);
 
         /// <summary>
         /// Retrieves the extended window style on the video window.
@@ -76,7 +76,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_WindowStyleEx( out int windowStyleEx );
+        int get_WindowStyleEx(out int windowStyleEx);
 
         /// <summary>
         /// Specifies whether the video renderer automatically shows the video window when it receives video data.
@@ -87,7 +87,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_AutoShow( [In, MarshalAs( UnmanagedType.Bool )] bool autoShow );
+        int put_AutoShow([In, MarshalAs(UnmanagedType.Bool)] bool autoShow);
 
         /// <summary>
         /// Queries whether the video renderer automatically shows the video window when it receives video data.
@@ -98,7 +98,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_AutoShow( [Out, MarshalAs( UnmanagedType.Bool )] out bool autoShow );
+        int get_AutoShow([Out, MarshalAs(UnmanagedType.Bool)] out bool autoShow);
 
         /// <summary>
         /// Shows, hides, minimizes, or maximizes the video window.
@@ -109,7 +109,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_WindowState( int windowState );
+        int put_WindowState(int windowState);
 
         /// <summary>
         /// Queries whether the video window is visible, hidden, minimized, or maximized.
@@ -120,7 +120,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_WindowState( out int windowState );
+        int get_WindowState(out int windowState);
 
         /// <summary>
         /// Specifies whether the video window realizes its palette in the background.
@@ -131,7 +131,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_BackgroundPalette( [In, MarshalAs( UnmanagedType.Bool )] bool backgroundPalette );
+        int put_BackgroundPalette([In, MarshalAs(UnmanagedType.Bool)] bool backgroundPalette);
 
         /// <summary>
         /// Queries whether the video window realizes its palette in the background.
@@ -142,7 +142,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_BackgroundPalette( [Out, MarshalAs( UnmanagedType.Bool )] out bool backgroundPalette );
+        int get_BackgroundPalette([Out, MarshalAs(UnmanagedType.Bool)] out bool backgroundPalette);
 
         /// <summary>
         /// Shows or hides the video window.
@@ -153,7 +153,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_Visible( [In, MarshalAs( UnmanagedType.Bool )] bool visible );
+        int put_Visible([In, MarshalAs(UnmanagedType.Bool)] bool visible);
 
         /// <summary>
         /// Queries whether the video window is visible.
@@ -164,7 +164,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_Visible( [Out, MarshalAs( UnmanagedType.Bool )] out bool visible );
+        int get_Visible([Out, MarshalAs(UnmanagedType.Bool)] out bool visible);
 
         /// <summary>
         /// Sets the video window's x-coordinate.
@@ -175,7 +175,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_Left( int left );
+        int put_Left(int left);
 
         /// <summary>
         /// Retrieves the video window's x-coordinate.
@@ -186,7 +186,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_Left( out int left );
+        int get_Left(out int left);
 
         /// <summary>
         /// Sets the width of the video window.
@@ -197,7 +197,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_Width( int width );
+        int put_Width(int width);
 
         /// <summary>
         /// Retrieves the width of the video window.
@@ -208,7 +208,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_Width( out int width );
+        int get_Width(out int width);
 
         /// <summary>
         /// Sets the video window's y-coordinate.
@@ -219,7 +219,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_Top( int top );
+        int put_Top(int top);
 
         /// <summary>
         /// Retrieves the video window's y-coordinate.
@@ -230,7 +230,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_Top( out int top );
+        int get_Top(out int top);
 
         /// <summary>
         /// Sets the height of the video window.
@@ -241,7 +241,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_Height( int height );
+        int put_Height(int height);
 
         /// <summary>
         /// Retrieves the height of the video window.
@@ -252,7 +252,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_Height( out int height );
+        int get_Height(out int height);
 
         /// <summary>
         /// Specifies a parent window for the video windowþ
@@ -263,7 +263,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_Owner( IntPtr owner );
+        int put_Owner(IntPtr owner);
 
         /// <summary>
         /// Retrieves the video window's parent window, if anyþ
@@ -274,7 +274,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_Owner( out IntPtr owner );
+        int get_Owner(out IntPtr owner);
 
         /// <summary>
         /// Specifies a window to receive mouse and keyboard messages from the video window.
@@ -285,7 +285,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_MessageDrain( IntPtr drain );
+        int put_MessageDrain(IntPtr drain);
 
         /// <summary>
         /// Retrieves the window that receives mouse and keyboard messages from the video window, if any.
@@ -296,7 +296,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_MessageDrain( out IntPtr drain );
+        int get_MessageDrain(out IntPtr drain);
 
         /// <summary>
         /// Retrieves the color that appears around the edges of the destination rectangle.
@@ -307,7 +307,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_BorderColor( out int color );
+        int get_BorderColor(out int color);
 
         /// <summary>
         /// Sets the color that appears around the edges of the destination rectangle.
@@ -318,7 +318,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_BorderColor( int color );
+        int put_BorderColor(int color);
 
         /// <summary>
         /// Queries whether the video renderer is in full-screen mode.
@@ -330,7 +330,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int get_FullScreenMode(
-            [Out, MarshalAs( UnmanagedType.Bool )] out bool fullScreenMode );
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool fullScreenMode);
 
         /// <summary>
         /// Enables or disables full-screen mode.
@@ -341,7 +341,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_FullScreenMode( [In, MarshalAs( UnmanagedType.Bool )] bool fullScreenMode );
+        int put_FullScreenMode([In, MarshalAs(UnmanagedType.Bool)] bool fullScreenMode);
 
         /// <summary>
         /// Places the video window at the top of the Z order.
@@ -352,7 +352,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int SetWindowForeground( int focus );
+        int SetWindowForeground(int focus);
 
         /// <summary>
         /// Forwards a message to the video window.
@@ -366,7 +366,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int NotifyOwnerMessage( IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam );
+        int NotifyOwnerMessage(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam);
 
         /// <summary>
         /// Sets the position of the video windowþ
@@ -380,7 +380,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int SetWindowPosition( int left, int top, int width, int height );
+        int SetWindowPosition(int left, int top, int width, int height);
 
         /// <summary>
         /// Retrieves the position of the video window.
@@ -394,7 +394,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetWindowPosition( out int left, out int top, out int width, out int height );
+        int GetWindowPosition(out int left, out int top, out int width, out int height);
 
         /// <summary>
         /// Retrieves the minimum ideal size for the video image.
@@ -406,7 +406,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetMinIdealImageSize( out int width, out int height );
+        int GetMinIdealImageSize(out int width, out int height);
 
         /// <summary>
         /// Retrieves the maximum ideal size for the video image.
@@ -418,7 +418,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetMaxIdealImageSize( out int width, out int height );
+        int GetMaxIdealImageSize(out int width, out int height);
 
         /// <summary>
         /// Retrieves the restored window position.
@@ -432,7 +432,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetRestorePosition( out int left, out int top, out int width, out int height );
+        int GetRestorePosition(out int left, out int top, out int width, out int height);
 
         /// <summary>
         /// Hides the cursor.
@@ -443,7 +443,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int HideCursor( [In, MarshalAs( UnmanagedType.Bool )] bool hideCursor );
+        int HideCursor([In, MarshalAs(UnmanagedType.Bool)] bool hideCursor);
 
         /// <summary>
         /// Queries whether the cursor is hidden.
@@ -454,6 +454,6 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int IsCursorHidden( [Out, MarshalAs( UnmanagedType.Bool )] out bool hideCursor );
+        int IsCursorHidden([Out, MarshalAs(UnmanagedType.Bool)] out bool hideCursor);
     }
 }

@@ -5,13 +5,13 @@ using VAR.Toolbox.UI;
 
 namespace VAR.Toolbox
 {
-    static class Program
+    public static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.ThreadException += Application_ThreadException;
 

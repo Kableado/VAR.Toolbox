@@ -48,7 +48,7 @@
             // 
             // cboWebcams
             // 
-            this.cboWebcams.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.cboWebcams.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cboWebcams.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboWebcams.FormattingEnabled = true;
@@ -60,8 +60,8 @@
             // 
             // picWebcam
             // 
-            this.picWebcam.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.picWebcam.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picWebcam.BackColor = System.Drawing.Color.Black;
             this.picWebcam.ImageShow = null;

@@ -41,8 +41,8 @@
             // 
             // splitMain
             // 
-            this.splitMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.splitMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitMain.BackColor = System.Drawing.SystemColors.ControlDark;
             this.splitMain.Location = new System.Drawing.Point(0, 28);
@@ -93,7 +93,7 @@
             // 
             // ddlCurrentConfig
             // 
-            this.ddlCurrentConfig.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.ddlCurrentConfig.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ddlCurrentConfig.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlCurrentConfig.FormattingEnabled = true;

@@ -9,8 +9,8 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComImport,
-    Guid( "55272A00-42CB-11CE-8135-00AA004BB851" ),
-    InterfaceType( ComInterfaceType.InterfaceIsIUnknown )]
+    Guid("55272A00-42CB-11CE-8135-00AA004BB851"),
+    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface IPropertyBag
     {
         /// <summary>
@@ -25,9 +25,9 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int Read(
-            [In, MarshalAs( UnmanagedType.LPWStr )] string propertyName,
-            [In, Out, MarshalAs( UnmanagedType.Struct )] ref object pVar,
-            [In] IntPtr pErrorLog );
+            [In, MarshalAs(UnmanagedType.LPWStr)] string propertyName,
+            [In, Out, MarshalAs(UnmanagedType.Struct)] ref object pVar,
+            [In] IntPtr pErrorLog);
 
         /// <summary>
         /// Write property to property bag.
@@ -40,7 +40,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int Write(
-            [In, MarshalAs( UnmanagedType.LPWStr )] string propertyName,
-            [In, MarshalAs( UnmanagedType.Struct )] ref object pVar );
+            [In, MarshalAs(UnmanagedType.LPWStr)] string propertyName,
+            [In, MarshalAs(UnmanagedType.Struct)] ref object pVar);
     }
 }

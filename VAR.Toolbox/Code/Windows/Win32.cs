@@ -1,14 +1,10 @@
-namespace VAR.Toolbox.Code.DirectShow
-{
-    using System;
-    using System.Runtime.InteropServices;
-    using System.Runtime.InteropServices.ComTypes;
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 
-    /// <summary>
-    /// Some Win32 API used internally.
-    /// </summary>
-    /// 
-    internal static class Win32
+namespace VAR.Toolbox.Code.Windows
+{
+    public static class Win32
     {
         /// <summary>
         /// Supplies a pointer to an implementation of <b>IBindCtx</b> (a bind context object).
@@ -21,9 +17,9 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         /// <returns>Returns <b>S_OK</b> on success.</returns>
         /// 
-        [DllImport( "ole32.dll" )]
+        [DllImport("ole32.dll")]
         public static extern
-        int CreateBindCtx( int reserved, out IBindCtx ppbc );
+        int CreateBindCtx(int reserved, out IBindCtx ppbc);
 
         /// <summary>
         /// Converts a string into a moniker that identifies the object named by the string.
@@ -37,10 +33,10 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         /// <returns>Returns <b>S_OK</b> on success.</returns>
         /// 
-        [DllImport( "ole32.dll", CharSet = CharSet.Unicode )]
+        [DllImport("ole32.dll", CharSet = CharSet.Unicode)]
         public static extern
-        int MkParseDisplayName( IBindCtx pbc, string szUserName,
-            ref int pchEaten, out IMoniker ppmk );
+        int MkParseDisplayName(IBindCtx pbc, string szUserName,
+            ref int pchEaten, out IMoniker ppmk);
 
         /// <summary>
         /// Copy a block of memory.
@@ -76,19 +72,37 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         /// <returns>Returns <b>S_OK</b> on success.</returns>
         /// 
-        [DllImport( "oleaut32.dll" )]
+        [DllImport("oleaut32.dll")]
         public static extern int OleCreatePropertyFrame(
             IntPtr hwndOwner,
             int x,
             int y,
-            [MarshalAs( UnmanagedType.LPWStr )] string caption,
+            [MarshalAs(UnmanagedType.LPWStr)] string caption,
             int cObjects,
-            [MarshalAs( UnmanagedType.Interface, ArraySubType = UnmanagedType.IUnknown )] 
+            [MarshalAs( UnmanagedType.Interface, ArraySubType = UnmanagedType.IUnknown )]
             ref object ppUnk,
             int cPages,
             IntPtr lpPageClsID,
             int lcid,
             int dwReserved,
-            IntPtr lpvReserved );
+            IntPtr lpvReserved);
+
+        [DllImport("PowrProf.dll")]
+        public static extern Boolean SetSuspendState(Boolean Hibernate, Boolean ForceCritical, Boolean DisableWakeEvent);
+
+        public static uint GetLastInputTime()
+        {
+            uint idleTime = 0;
+            User32.LASTINPUTINFO lastInputInfo = new User32.LASTINPUTINFO();
+            lastInputInfo.cbSize = (uint)Marshal.SizeOf(lastInputInfo);
+            lastInputInfo.dwTime = 0;
+            uint envTicks = (uint)Environment.TickCount;
+            if (User32.GetLastInputInfo(ref lastInputInfo))
+            {
+                uint lastInputTick = lastInputInfo.dwTime;
+                idleTime = envTicks - lastInputTick;
+            }
+            return ((idleTime > 0) ? (idleTime / 1000) : 0);
+        }
     }
 }

@@ -5,7 +5,7 @@ using VAR.Toolbox.Code;
 
 namespace VAR.Toolbox.UI
 {
-    internal class FrmCover : Form
+    public class FrmCover : Form
     {
         #region Declarations
 

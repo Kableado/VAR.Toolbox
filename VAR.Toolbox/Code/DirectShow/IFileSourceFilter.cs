@@ -8,8 +8,8 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComImport,
-    Guid( "56A868A6-0Ad4-11CE-B03A-0020AF0BA770" ),
-    InterfaceType( ComInterfaceType.InterfaceIsIUnknown )]
+    Guid("56A868A6-0Ad4-11CE-B03A-0020AF0BA770"),
+    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface IFileSourceFilter
     {
         /// <summary>
@@ -22,8 +22,8 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int Load( [In, MarshalAs( UnmanagedType.LPWStr )] string fileName,
-            [In, MarshalAs( UnmanagedType.LPStruct )] AMMediaType mediaType );
+        int Load([In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
+            [In, MarshalAs(UnmanagedType.LPStruct)] AMMediaType mediaType);
 
         /// <summary>
         /// Retrieves the current file.
@@ -35,7 +35,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetCurFile([Out, MarshalAs( UnmanagedType.LPWStr )] out string fileName,
-            [Out, MarshalAs( UnmanagedType.LPStruct )] AMMediaType mediaType );
+        int GetCurFile([Out, MarshalAs(UnmanagedType.LPWStr)] out string fileName,
+            [Out, MarshalAs(UnmanagedType.LPStruct)] AMMediaType mediaType);
     }
 }

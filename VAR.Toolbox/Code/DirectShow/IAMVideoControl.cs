@@ -9,8 +9,8 @@
     /// </summary>
     /// 
     [ComImport,
-    Guid( "6A2E0670-28E4-11D0-A18c-00A0C9118956" ),
-    InterfaceType( ComInterfaceType.InterfaceIsIUnknown )]
+    Guid("6A2E0670-28E4-11D0-A18c-00A0C9118956"),
+    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface IAMVideoControl
     {
         /// <summary>
@@ -23,7 +23,7 @@
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetCaps( [In] IPin pin, [Out, MarshalAs( UnmanagedType.I4 )] out VideoControlFlags flags );
+        int GetCaps([In] IPin pin, [Out, MarshalAs(UnmanagedType.I4)] out VideoControlFlags flags);
 
         /// <summary>
         /// Sets the video control mode of operation.
@@ -35,7 +35,7 @@
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int SetMode( [In] IPin pin, [In, MarshalAs( UnmanagedType.I4 )] VideoControlFlags mode );
+        int SetMode([In] IPin pin, [In, MarshalAs(UnmanagedType.I4)] VideoControlFlags mode);
 
         /// <summary>
         /// Retrieves the video control mode of operation.
@@ -47,7 +47,7 @@
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetMode( [In] IPin pin, [Out, MarshalAs( UnmanagedType.I4 )] out VideoControlFlags mode );
+        int GetMode([In] IPin pin, [Out, MarshalAs(UnmanagedType.I4)] out VideoControlFlags mode);
 
         /// <summary>
         /// The method retrieves the actual frame rate, expressed as a frame duration in 100-nanosecond units.
@@ -61,8 +61,8 @@
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetCurrentActualFrameRate( [In] IPin pin, [Out, MarshalAs( UnmanagedType.I8 )] out long actualFrameRate );
-        
+        int GetCurrentActualFrameRate([In] IPin pin, [Out, MarshalAs(UnmanagedType.I8)] out long actualFrameRate);
+
         /// <summary>
         /// Retrieves the maximum frame rate currently available based on bus bandwidth usage for connections
         /// such as USB and IEEE 1394 camera devices where the maximum frame rate can be limited by bandwidth
@@ -78,9 +78,9 @@
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetMaxAvailableFrameRate( [In] IPin pin, [In] int index, 
+        int GetMaxAvailableFrameRate([In] IPin pin, [In] int index,
             [In] System.Drawing.Size dimensions,
-            [Out] out long maxAvailableFrameRate );
+            [Out] out long maxAvailableFrameRate);
 
         /// <summary>
         /// Retrieves a list of available frame rates.
@@ -96,9 +96,9 @@
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetFrameRateList( [In] IPin pin, [In] int index,
+        int GetFrameRateList([In] IPin pin, [In] int index,
             [In] System.Drawing.Size dimensions,
             [Out] out int listSize,
-            [Out] out IntPtr frameRate );
+            [Out] out IntPtr frameRate);
     }
 }

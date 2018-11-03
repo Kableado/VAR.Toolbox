@@ -38,7 +38,7 @@
             // 
             // lsvCmdProxyConfigs
             // 
-            this.lsvCmdProxyConfigs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lsvCmdProxyConfigs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lsvCmdProxyConfigs.FormattingEnabled = true;
             this.lsvCmdProxyConfigs.Location = new System.Drawing.Point(13, 13);
@@ -49,7 +49,7 @@
             // 
             // txtCmdProxyConfigName
             // 
-            this.txtCmdProxyConfigName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtCmdProxyConfigName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCmdProxyConfigName.Location = new System.Drawing.Point(169, 13);
             this.txtCmdProxyConfigName.Name = "txtCmdProxyConfigName";
@@ -91,8 +91,8 @@
             // 
             // txtCmdProxyConfigContent
             // 
-            this.txtCmdProxyConfigContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtCmdProxyConfigContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCmdProxyConfigContent.Location = new System.Drawing.Point(168, 39);
             this.txtCmdProxyConfigContent.Multiline = true;

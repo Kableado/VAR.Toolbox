@@ -26,7 +26,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int AddFilter( [In] IBaseFilter filter, [In, MarshalAs( UnmanagedType.LPWStr )] string name );
+        int AddFilter([In] IBaseFilter filter, [In, MarshalAs(UnmanagedType.LPWStr)] string name);
 
         /// <summary>
         /// Removes a filter from the graph.
@@ -37,7 +37,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int RemoveFilter( [In] IBaseFilter filter );
+        int RemoveFilter([In] IBaseFilter filter);
 
         /// <summary>
         /// Provides an enumerator for all filters in the graph.
@@ -48,7 +48,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int EnumFilters( [Out] out IEnumFilters enumerator );
+        int EnumFilters([Out] out IEnumFilters enumerator);
 
         /// <summary>
         /// Finds a filter that was added with a specified name.
@@ -60,7 +60,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int FindFilterByName( [In, MarshalAs( UnmanagedType.LPWStr )] string name, [Out] out IBaseFilter filter );
+        int FindFilterByName([In, MarshalAs(UnmanagedType.LPWStr)] string name, [Out] out IBaseFilter filter);
 
         /// <summary>
         /// Connects two pins directly (without intervening filters).
@@ -73,7 +73,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int ConnectDirect( [In] IPin pinOut, [In] IPin pinIn, [In, MarshalAs( UnmanagedType.LPStruct )] AMMediaType mediaType );
+        int ConnectDirect([In] IPin pinOut, [In] IPin pinIn, [In, MarshalAs(UnmanagedType.LPStruct)] AMMediaType mediaType);
 
         /// <summary>
         /// Breaks the existing pin connection and reconnects it to the same pin.
@@ -84,7 +84,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int Reconnect( [In] IPin pin );
+        int Reconnect([In] IPin pin);
 
         /// <summary>
         /// Disconnects a specified pin.
@@ -95,7 +95,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int Disconnect( [In] IPin pin );
+        int Disconnect([In] IPin pin);
 
         /// <summary>
         /// Sets the reference clock to the default clock.
@@ -104,7 +104,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int SetDefaultSyncSource( );
+        int SetDefaultSyncSource();
 
         // --- IGraphBuilder methods
 
@@ -118,7 +118,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int Connect( [In] IPin pinOut, [In] IPin pinIn );
+        int Connect([In] IPin pinOut, [In] IPin pinIn);
 
         /// <summary>
         /// Adds a chain of filters to a specified output pin to render it.
@@ -129,7 +129,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int Render( [In] IPin pinOut );
+        int Render([In] IPin pinOut);
 
         /// <summary>
         /// Builds a filter graph that renders the specified file.
@@ -142,8 +142,8 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int RenderFile(
-            [In, MarshalAs( UnmanagedType.LPWStr )] string file,
-            [In, MarshalAs( UnmanagedType.LPWStr )] string playList );
+            [In, MarshalAs(UnmanagedType.LPWStr)] string file,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string playList);
 
         /// <summary>
         /// Adds a source filter to the filter graph for a specific file.
@@ -157,9 +157,9 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int AddSourceFilter(
-            [In, MarshalAs( UnmanagedType.LPWStr )] string fileName,
-            [In, MarshalAs( UnmanagedType.LPWStr )] string filterName,
-            [Out] out IBaseFilter filter );
+            [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string filterName,
+            [Out] out IBaseFilter filter);
 
         /// <summary>
         /// Sets the file for logging actions taken when attempting to perform an operation.
@@ -170,7 +170,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int SetLogFile( IntPtr hFile );
+        int SetLogFile(IntPtr hFile);
 
         /// <summary>
         /// Requests that the graph builder return as soon as possible from its current task.
@@ -179,7 +179,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int Abort( );
+        int Abort();
 
         /// <summary>
         /// Queries whether the current operation should continue.
@@ -188,7 +188,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int ShouldOperationContinue( );
+        int ShouldOperationContinue();
 
 
         // --- IFilterGraph2 methods
@@ -209,7 +209,7 @@ namespace VAR.Toolbox.Code.DirectShow
         int AddSourceFilterForMoniker(
             [In] IMoniker moniker,
             [In] IBindCtx bindContext,
-            [In, MarshalAs( UnmanagedType.LPWStr )] string filterName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string filterName,
             [Out] out IBaseFilter filter
         );
 
@@ -226,7 +226,7 @@ namespace VAR.Toolbox.Code.DirectShow
         [PreserveSig]
         int ReconnectEx(
             [In] IPin pin,
-            [In, MarshalAs( UnmanagedType.LPStruct )] AMMediaType mediaType
+            [In, MarshalAs(UnmanagedType.LPStruct)] AMMediaType mediaType
             );
 
         /// <summary>

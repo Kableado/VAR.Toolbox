@@ -11,8 +11,8 @@ namespace VAR.Toolbox.Code.DirectShow
     /// retrieve the current reference time, or to request notification of an elapsed time.
     /// </summary>
     [ComImport, System.Security.SuppressUnmanagedCodeSecurity,
-    Guid( "56a86897-0ad4-11ce-b03a-0020af0ba770" ),
-    InterfaceType( ComInterfaceType.InterfaceIsIUnknown )]
+    Guid("56a86897-0ad4-11ce-b03a-0020af0ba770"),
+    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface IReferenceClock
     {
         /// <summary>
@@ -24,7 +24,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetTime( [Out] out long pTime );
+        int GetTime([Out] out long pTime);
 
         /// <summary>
         /// The AdviseTime method creates a one-shot advise request.
@@ -42,7 +42,7 @@ namespace VAR.Toolbox.Code.DirectShow
             [In] long baseTime,
             [In] long streamTime,
             [In] IntPtr hEvent,
-            [Out] out int pdwAdviseCookie );
+            [Out] out int pdwAdviseCookie);
 
         /// <summary>
         /// The AdvisePeriodic method creates a periodic advise request.
@@ -60,7 +60,7 @@ namespace VAR.Toolbox.Code.DirectShow
             [In] long startTime,
             [In] long periodTime,
             [In] IntPtr hSemaphore,
-            [Out] out int pdwAdviseCookie );
+            [Out] out int pdwAdviseCookie);
 
         /// <summary>
         /// The Unadvise method removes a pending advise request.
@@ -71,6 +71,6 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int Unadvise( [In] int dwAdviseCookie );
+        int Unadvise([In] int dwAdviseCookie);
     }
 }

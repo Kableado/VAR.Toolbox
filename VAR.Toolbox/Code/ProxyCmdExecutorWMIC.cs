@@ -2,7 +2,7 @@
 
 namespace VAR.Toolbox.Code
 {
-    internal class ProxyCmdExecutorWMIC : IProxyCmdExecutor
+    public class ProxyCmdExecutorWMIC : IProxyCmdExecutor
     {
         private string _configWMIC;
 

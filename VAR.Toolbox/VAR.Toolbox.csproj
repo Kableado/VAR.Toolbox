@@ -42,13 +42,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -86,8 +82,7 @@
     <Compile Include="Code\DirectShow\Structures.cs" />
     <Compile Include="Code\DirectShow\Tools.cs" />
     <Compile Include="Code\DirectShow\Uuids.cs" />
-    <Compile Include="Code\DirectShow\Win32.cs" />
-    <Compile Include="Code\GDI32.cs" />
+    <Compile Include="Code\Windows\GDI32.cs" />
     <Compile Include="Code\ITextCoder.cs" />
     <Compile Include="Code\IOutputHandler.cs" />
     <Compile Include="Code\IProxyCmdExecutor.cs" />
@@ -100,9 +95,9 @@
     <Compile Include="Code\TextCoderFactory.cs" />
     <Compile Include="Code\TextCoderHexToAscii.cs" />
     <Compile Include="Code\TextCoderHexToUtf8.cs" />
-    <Compile Include="Code\User32.cs" />
+    <Compile Include="Code\Windows\User32.cs" />
     <Compile Include="Code\Webcam.cs" />
-    <Compile Include="Code\Win32API.cs" />
+    <Compile Include="Code\Windows\Win32.cs" />
     <Compile Include="Controls\CtrImageViewer.cs">
       <SubType>Component</SubType>
     </Compile>

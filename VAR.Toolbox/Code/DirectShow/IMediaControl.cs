@@ -9,7 +9,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComImport,
-    Guid( "56A868B1-0AD4-11CE-B03A-0020AF0BA770" ),
+    Guid("56A868B1-0AD4-11CE-B03A-0020AF0BA770"),
     InterfaceType(ComInterfaceType.InterfaceIsDual)]
     internal interface IMediaControl
     {
@@ -20,7 +20,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int Run( );
+        int Run();
 
         /// <summary>
         /// Pauses all filters in the filter graph.
@@ -29,7 +29,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int Pause( );
+        int Pause();
 
         /// <summary>
         /// Stops all the filters in the filter graph.
@@ -38,7 +38,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int Stop( );
+        int Stop();
 
         /// <summary>
         /// Retrieves the state of the filter graph.
@@ -50,7 +50,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetState( int timeout, out int filterState );
+        int GetState(int timeout, out int filterState);
 
         /// <summary>
         /// Builds a filter graph that renders the specified file.
@@ -61,7 +61,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int RenderFile( string fileName );
+        int RenderFile(string fileName);
 
         /// <summary>
         /// Adds a source filter to the filter graph, for a specified file.
@@ -73,7 +73,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int AddSourceFilter( [In] string fileName, [Out, MarshalAs( UnmanagedType.IDispatch )] out object filterInfo );
+        int AddSourceFilter([In] string fileName, [Out, MarshalAs(UnmanagedType.IDispatch)] out object filterInfo);
 
         /// <summary>
         /// Retrieves a collection of the filters in the filter graph.
@@ -85,7 +85,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int get_FilterCollection(
-            [Out, MarshalAs( UnmanagedType.IDispatch )] out object collection );
+            [Out, MarshalAs(UnmanagedType.IDispatch)] out object collection);
 
         /// <summary>
         /// Retrieves a collection of all the filters listed in the registry.
@@ -97,7 +97,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int get_RegFilterCollection(
-            [Out, MarshalAs( UnmanagedType.IDispatch )] out object collection );
+            [Out, MarshalAs(UnmanagedType.IDispatch)] out object collection);
 
         /// <summary>
         /// Pauses the filter graph, allowing filters to queue data, and then stops the filter graph.
@@ -106,6 +106,6 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int StopWhenReady( );
+        int StopWhenReady();
     }
 }

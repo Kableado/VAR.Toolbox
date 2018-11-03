@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using VAR.Toolbox.Code;
+using VAR.Toolbox.Code.Windows;
 
 namespace VAR.Toolbox.UI
 {
@@ -15,7 +15,7 @@ namespace VAR.Toolbox.UI
         {
             if (DesignMode) { return; }
             bool userInactive = false;
-            uint inactiveTime = Win32API.GetLastInputTime();
+            uint inactiveTime = Win32.GetLastInputTime();
 
             lblInactive.Text = String.Format("Inactive by {0} seconds", inactiveTime);
 
@@ -45,7 +45,7 @@ namespace VAR.Toolbox.UI
         private void CoverScreen()
         {
             if (DesignMode) { return; }
-            if(_frmCover != null)
+            if (_frmCover != null)
             {
                 _frmCover.Show();
                 return;

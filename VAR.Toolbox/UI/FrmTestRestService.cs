@@ -39,7 +39,7 @@ namespace VAR.Toolbox.UI
                 txtResult.Text = sbException.ToString();
             }
         }
-        
+
         /// <summary>
         /// Deseria una cadena a un diccionario string,string
         /// </summary>
@@ -105,7 +105,7 @@ namespace VAR.Toolbox.UI
 
             return strs;
         }
-        
+
         private static CookieContainer _cookieJar = new CookieContainer();
 
         public static string CallApi(string urlService, string urlApiMethod, Dictionary<string, string> prms, string content)
@@ -130,7 +130,7 @@ namespace VAR.Toolbox.UI
             http.Accept = "application/json";
             http.ContentType = "application/json; charset=utf-8";
             http.Method = "POST";
-            
+
             UTF8Encoding encoding = new UTF8Encoding();
             byte[] bytes = encoding.GetBytes(content);
 
@@ -147,6 +147,6 @@ namespace VAR.Toolbox.UI
             var sr = new StreamReader(stream);
             return sr.ReadToEnd();
         }
-        
+
     }
 }
