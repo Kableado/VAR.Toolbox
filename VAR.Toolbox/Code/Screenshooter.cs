@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using VAR.Toolbox.Code.Windows;
 
@@ -7,7 +8,7 @@ namespace VAR.Toolbox.Code
 {
     public class Screenshooter
     {
-        public static Bitmap CaptureScreen()
+        public static Bitmap CaptureScreen(Bitmap bmp = null)
         {
             // Determine the size of the "virtual screen", which includes all monitors.
             int screenLeft = SystemInformation.VirtualScreen.Left;
@@ -16,7 +17,10 @@ namespace VAR.Toolbox.Code
             int screenHeight = SystemInformation.VirtualScreen.Height;
 
             // Create a bitmap of the appropriate size to receive the screenshot.
-            Bitmap bmp = new Bitmap(screenWidth, screenHeight);
+            if (bmp == null || bmp?.Width != screenWidth || bmp?.Height != screenHeight)
+            {
+                bmp = new Bitmap(screenWidth, screenHeight);
+            }
 
             // Draw the screenshot into our bitmap.
             using (Graphics g = Graphics.FromImage(bmp))
@@ -24,6 +28,14 @@ namespace VAR.Toolbox.Code
                 g.CopyFromScreen(screenLeft, screenTop, 0, 0, bmp.Size);
             }
             return bmp;
+        }
+
+        [DllImport("user32.dll", SetLastError = false)]
+        private static extern IntPtr GetDesktopWindow();
+
+        public static Image CaptureDesktop()
+        {
+            return CaptureWindow(GetDesktopWindow());
         }
 
         /// <summary>
@@ -38,6 +50,8 @@ namespace VAR.Toolbox.Code
             // get the size
             User32.RECT windowRect = new User32.RECT();
             User32.GetWindowRect(handle, ref windowRect);
+            int left = windowRect.left;
+            int top = windowRect.top;
             int width = windowRect.right - windowRect.left;
             int height = windowRect.bottom - windowRect.top;
             // create a device context we can copy to
