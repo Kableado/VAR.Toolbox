@@ -14,6 +14,7 @@ namespace VAR.Toolbox.UI
         private void timTicker_Tick(object sender, EventArgs e)
         {
             if (DesignMode) { return; }
+            timTicker.Stop();
             bool userInactive = false;
             uint inactiveTime = Win32.GetLastInputTime();
 
@@ -31,7 +32,6 @@ namespace VAR.Toolbox.UI
                     userInactive = false;
                 }
             }
-            timTicker.Stop();
             timTicker.Start();
         }
 
