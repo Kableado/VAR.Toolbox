@@ -8,7 +8,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// individual media samples as they move through the filter graph.
     /// </summary>
     /// 
-	[ComImport,
+    [ComImport,
     Guid("6B652FFF-11FE-4FCE-92AD-0266B5D7C78F"),
     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface ISampleGrabber

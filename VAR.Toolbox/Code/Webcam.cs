@@ -252,12 +252,6 @@ namespace VAR.Toolbox.Code
 
         public event NewFrameEventHandler NewFrame;
 
-        private void OnNewFrame(Bitmap frame)
-        {
-            if (NewFrame != null)
-                NewFrame(this, frame);
-        }
-
         #endregion NewFrameEvent
 
         #region Grabber
@@ -266,9 +260,26 @@ namespace VAR.Toolbox.Code
         {
             private Webcam _parent;
 
+            private Bitmap[] _frames = null;
+            private int _numFrames = 10;
+            private int _currentFrameIndex = -1;
+
             public Grabber(Webcam parent)
             {
                 _parent = parent;
+                _frames = new Bitmap[_numFrames];
+            }
+
+            private Bitmap GetNextFrame()
+            {
+                _currentFrameIndex = (_currentFrameIndex + 1) % _numFrames;
+                Bitmap currentBitmap = _frames[_currentFrameIndex];
+                if (currentBitmap == null || currentBitmap?.Width != _parent.width || currentBitmap?.Height != _parent.height)
+                {
+                    currentBitmap = new Bitmap(_parent.width, _parent.height, PixelFormat.Format24bppRgb);
+                    _frames[_currentFrameIndex] = currentBitmap;
+                }
+                return currentBitmap;
             }
 
             public int SampleCB(double sampleTime, IntPtr sample)
@@ -281,7 +292,7 @@ namespace VAR.Toolbox.Code
                 if (_parent.NewFrame != null)
                 {
                     // create new image
-                    Bitmap _image = new Bitmap(_parent.width, _parent.height, PixelFormat.Format24bppRgb);
+                    Bitmap _image = GetNextFrame();
                     Rectangle _imageRect = new Rectangle(0, 0, _parent.width, _parent.height);
 
                     // lock bitmap data
@@ -311,7 +322,7 @@ namespace VAR.Toolbox.Code
                     _image.UnlockBits(imageData);
 
                     // notify parent
-                    _parent.OnNewFrame(_image);
+                    _parent.NewFrame?.Invoke(this, _image);
                 }
 
                 return 0;

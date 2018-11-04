@@ -7,7 +7,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// The interface provides callback methods for the <see cref="ISampleGrabber.SetCallback"/> method.
     /// </summary>
     /// 
-	[ComImport,
+    [ComImport,
     Guid("0579154A-2B53-4994-B0D0-E773148EFF85"),
     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface ISampleGrabberCB
