@@ -79,6 +79,7 @@ namespace VAR.Toolbox.UI
             if (dialogResult == DialogResult.Yes)
             {
                 _closing = true;
+                niTray.Visible = false;
                 CloseChildWindows();
                 Close();
             }
