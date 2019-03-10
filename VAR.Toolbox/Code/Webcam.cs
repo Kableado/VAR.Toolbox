@@ -114,6 +114,7 @@ namespace VAR.Toolbox.Code
 
         public void Start()
         {
+            control.Run();
             int result;
             result = nullrenderer.Run(0);
             if (result < 0) throw new Exception("Webcam Start failure");
@@ -133,6 +134,7 @@ namespace VAR.Toolbox.Code
             if (result < 0) throw new Exception("Webcam Stop failure");
             result = nullrenderer.Stop();
             if (result < 0) throw new Exception("Webcam Stop failure");
+            control.Stop();
             active = false;
         }
 
