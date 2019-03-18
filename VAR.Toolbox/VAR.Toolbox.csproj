@@ -119,6 +119,12 @@
     <Compile Include="UI\FrmIPScan.Designer.cs">
       <DependentUpon>FrmIPScan.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FrmNetworkInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmNetworkInfo.Designer.cs">
+      <DependentUpon>FrmNetworkInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FrmProxyCmd.cs">
       <SubType>Form</SubType>
     </Compile>

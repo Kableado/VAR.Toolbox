@@ -135,6 +135,11 @@ namespace VAR.Toolbox.UI
             CreateWindow(typeof(FrmIPScan));
         }
 
+        private void btnNetworkInfo_MouseClick(object sender, MouseEventArgs e)
+        {
+            CreateWindow(typeof(FrmNetworkInfo));
+        }
+
         #endregion UI events
 
         #region Window handling

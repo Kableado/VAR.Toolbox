@@ -39,6 +39,7 @@
             this.btnTestWebService = new System.Windows.Forms.Button();
             this.btnScreenshooter = new System.Windows.Forms.Button();
             this.btnIPScan = new System.Windows.Forms.Button();
+            this.btnNetworkInfo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCoder
@@ -158,11 +159,23 @@
             this.btnIPScan.UseVisualStyleBackColor = true;
             this.btnIPScan.Click += new System.EventHandler(this.btnIPScan_Click);
             // 
+            // btnNetworkInfo
+            // 
+            this.btnNetworkInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNetworkInfo.Location = new System.Drawing.Point(180, 92);
+            this.btnNetworkInfo.Name = "btnNetworkInfo";
+            this.btnNetworkInfo.Size = new System.Drawing.Size(165, 34);
+            this.btnNetworkInfo.TabIndex = 12;
+            this.btnNetworkInfo.Text = "NetworkInfo";
+            this.btnNetworkInfo.UseVisualStyleBackColor = true;
+            this.btnNetworkInfo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnNetworkInfo_MouseClick);
+            // 
             // FrmToolbox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(352, 400);
+            this.Controls.Add(this.btnNetworkInfo);
             this.Controls.Add(this.btnIPScan);
             this.Controls.Add(this.btnScreenshooter);
             this.Controls.Add(this.btnTestWebService);
@@ -198,6 +211,7 @@
         private System.Windows.Forms.Button btnTestWebService;
         private System.Windows.Forms.Button btnScreenshooter;
         private System.Windows.Forms.Button btnIPScan;
+        private System.Windows.Forms.Button btnNetworkInfo;
     }
 }
 
