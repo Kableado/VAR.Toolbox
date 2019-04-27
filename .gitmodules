@@ -1,0 +1,4 @@
+[submodule "VAR.Json"]
+	path = VAR.Json
+	url = https://github.com/Kableado/VAR.Json.git
+	branch = master

@@ -49,6 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\VAR.Json\VAR.Json\JsonParser.cs">
+      <Link>Code\Json\JsonParser.cs</Link>
+    </Compile>
+    <Compile Include="..\VAR.Json\VAR.Json\JsonWriter.cs">
+      <Link>Code\Json\JsonWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\VAR.Json\VAR.Json\ObjectActivator.cs">
+      <Link>Code\Json\ObjectActivator.cs</Link>
+    </Compile>
+    <Compile Include="..\VAR.Json\VAR.Json\ParserContext.cs">
+      <Link>Code\Json\ParserContext.cs</Link>
+    </Compile>
     <Compile Include="Code\HexUtils.cs" />
     <Compile Include="Code\ProxyCmdExecutorWMIC.cs" />
     <Compile Include="Code\TextCoderBase64Utf8.cs" />
