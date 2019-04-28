@@ -49,6 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\VAR.HttpServer\VAR.HttpServer\HttpProcessor.cs">
+      <Link>Code\HttpServer\HttpProcessor.cs</Link>
+    </Compile>
+    <Compile Include="..\VAR.HttpServer\VAR.HttpServer\HttpServer.cs">
+      <Link>Code\HttpServer\HttpServer.cs</Link>
+    </Compile>
+    <Compile Include="..\VAR.HttpServer\VAR.HttpServer\HttpUtility.cs">
+      <Link>Code\HttpServer\HttpUtility.cs</Link>
+    </Compile>
+    <Compile Include="..\VAR.HttpServer\VAR.HttpServer\IHttpHandler.cs">
+      <Link>Code\HttpServer\IHttpHandler.cs</Link>
+    </Compile>
     <Compile Include="..\VAR.Json\VAR.Json\JsonParser.cs">
       <Link>Code\Json\JsonParser.cs</Link>
     </Compile>

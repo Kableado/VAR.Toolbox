@@ -2,3 +2,7 @@
 	path = VAR.Json
 	url = https://github.com/Kableado/VAR.Json.git
 	branch = master
+[submodule "VAR.HttpServer"]
+	path = VAR.HttpServer
+	url = https://github.com/Kableado/VAR.HttpServer.git
+	branch = master
