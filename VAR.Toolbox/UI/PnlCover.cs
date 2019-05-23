@@ -18,7 +18,7 @@ namespace VAR.Toolbox.UI
             bool userInactive = false;
             uint inactiveTime = Win32.GetLastInputTime();
 
-            lblInactive.Text = String.Format("Inactive by {0} seconds", inactiveTime);
+            lblInactive.Text = string.Format("Inactive by {0} seconds", inactiveTime);
 
             if (chkAutoCover.Checked)
             {

@@ -193,7 +193,7 @@ namespace VAR.Toolbox.UI
             {
                 if (xmlReader.NodeType == XmlNodeType.Element)
                 {
-                    String name = xmlReader.Name;
+                    string name = xmlReader.Name;
                     if (name.Contains(":"))
                     {
                         name = name.Split(':')[1];

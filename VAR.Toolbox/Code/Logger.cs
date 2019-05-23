@@ -57,14 +57,14 @@ namespace VAR.Toolbox.Code
         /// Logea el marcador
         /// </summary>
         /// <param name="text">The text.</param>
-        public static void Marker(String text)
+        public static void Marker(string text)
         {
             try
             {
                 StreamWriter outStream = GetOutputStreamWritter();
                 WriteLine(outStream, string.Empty);
-                WriteLine(outStream, String.Format("---------------------------- {0} -----------------------", text));
-                WriteLine(outStream, String.Format("\\- Date: {0}", DateTime.UtcNow.ToString("s")));
+                WriteLine(outStream, string.Format("---------------------------- {0} -----------------------", text));
+                WriteLine(outStream, string.Format("\\- Date: {0}", DateTime.UtcNow.ToString("s")));
                 WriteLine(outStream, string.Empty);
                 CloseOutputStreamWritter(outStream);
             }
@@ -75,12 +75,12 @@ namespace VAR.Toolbox.Code
         /// Logea el texto especificado
         /// </summary>
         /// <param name="text">The text.</param>
-        public static void Log(String text)
+        public static void Log(string text)
         {
             try
             {
                 StreamWriter outStream = GetOutputStreamWritter();
-                WriteLine(outStream, String.Format("{0} -- {1}", DateTime.UtcNow.ToString("s"), text));
+                WriteLine(outStream, string.Format("{0} -- {1}", DateTime.UtcNow.ToString("s"), text));
                 CloseOutputStreamWritter(outStream);
             }
             catch (Exception) { /* Nom Nom Nom */}
@@ -97,14 +97,14 @@ namespace VAR.Toolbox.Code
             {
                 StreamWriter outStream = GetOutputStreamWritter();
                 WriteLine(outStream, string.Empty);
-                WriteLine(outStream, String.Format("!!!!!!!!!!!!!!!!!!!!!!!!!!!! {0} !!!!!!!!!!!!!!!!!!!!!!!", "Exception"));
-                WriteLine(outStream, String.Format("\\- Date: {0}", DateTime.UtcNow.ToString("s")));
+                WriteLine(outStream, string.Format("!!!!!!!!!!!!!!!!!!!!!!!!!!!! {0} !!!!!!!!!!!!!!!!!!!!!!!", "Exception"));
+                WriteLine(outStream, string.Format("\\- Date: {0}", DateTime.UtcNow.ToString("s")));
                 WriteLine(outStream, string.Empty);
                 Exception exAux = ex;
                 while (exAux != null)
                 {
-                    WriteLine(outStream, String.Format("Message: {0}", exAux.Message));
-                    WriteLine(outStream, String.Format("Stacktrace: {0}", exAux.StackTrace));
+                    WriteLine(outStream, string.Format("Message: {0}", exAux.Message));
+                    WriteLine(outStream, string.Format("Stacktrace: {0}", exAux.StackTrace));
                     exAux = exAux.InnerException;
                 }
                 CloseOutputStreamWritter(outStream);

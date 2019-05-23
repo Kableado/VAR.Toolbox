@@ -162,8 +162,8 @@ namespace VAR.Toolbox.Code
                     break;
 
                 // Add device description
-                string deviceName = new String(GetMonikerName(devMoniker[0]).ToCharArray());
-                string deviceString = new String(GetMonikerString(devMoniker[0]).ToCharArray());
+                string deviceName = new string(GetMonikerName(devMoniker[0]).ToCharArray());
+                string deviceString = new string(GetMonikerString(devMoniker[0]).ToCharArray());
                 devices.Add(deviceName, deviceString);
 
                 // Release COM object
