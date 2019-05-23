@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using VAR.Toolbox.Code;
+using VAR.Toolbox.Code.Windows;
 
 namespace VAR.Toolbox.UI
 {
@@ -12,8 +13,8 @@ namespace VAR.Toolbox.UI
         private Random rnd = new Random();
         private Timer _timer = new Timer();
 
-        private UInt32 _mouseX = 0;
-        private UInt32 _mouseY = 0;
+        private uint _mouseX = 0;
+        private uint _mouseY = 0;
 
         #endregion Declarations
 
@@ -23,12 +24,15 @@ namespace VAR.Toolbox.UI
         {
             Mouse.GetPosition(out _mouseX, out _mouseY);
 
+            Text = User32.GetActiveWindowTitle();
+
             TopMost = true;
             FormBorderStyle = FormBorderStyle.None;
             BackColor = Color.Black;
 
             Load += FrmCover_Load;
             Click += FrmCover_Click;
+            KeyPress += FrmCover_KeyPress;
 
             _timer.Interval = 1000;
             _timer.Enabled = true;
@@ -48,6 +52,7 @@ namespace VAR.Toolbox.UI
             Height = r.Height;
             Cursor.Hide();
             _timer.Start();
+            User32.SetForegroundWindow(Handle);
         }
 
         #endregion Form life cycle
@@ -64,8 +69,19 @@ namespace VAR.Toolbox.UI
             Close();
         }
 
+        private void FrmCover_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Cursor.Show();
+            _timer.Stop();
+            _timer.Enabled = false;
+            Mouse.SetPosition(_mouseX, _mouseY);
+
+            Close();
+        }
+
         private void timer_Tick(object sender, EventArgs e)
         {
+            User32.SetForegroundWindow(Handle);
             try
             {
                 Mouse.Move(
