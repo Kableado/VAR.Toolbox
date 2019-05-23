@@ -6,8 +6,10 @@ using System.Windows.Forms;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmTunnelTCP : Form
+    public partial class FrmTunnelTCP : Form, IToolForm
     {
+        public string ToolName { get { return "TunnelTCP"; } }
+
         private bool _running = false;
 
         private class ConnectedClient

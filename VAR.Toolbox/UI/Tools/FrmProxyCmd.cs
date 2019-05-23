@@ -6,8 +6,10 @@ using VAR.Toolbox.Code;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmProxyCmd : Form, IOutputHandler
+    public partial class FrmProxyCmd : Form, IOutputHandler, IToolForm
     {
+        public string ToolName { get { return "ProxyCmd"; } }
+
         #region Declarations
 
         private object _executionLock = new object();

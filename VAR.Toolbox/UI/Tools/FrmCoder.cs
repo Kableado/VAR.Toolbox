@@ -4,8 +4,10 @@ using VAR.Toolbox.Code;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmCoder : Form
+    public partial class FrmCoder : Form, IToolForm
     {
+        public string ToolName { get { return "Coder"; } }
+
         public FrmCoder()
         {
             InitializeComponent();

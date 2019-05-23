@@ -4,10 +4,12 @@ using System.Drawing;
 using System.Windows.Forms;
 using VAR.Toolbox.Code;
 
-namespace VAR.Toolbox
+namespace VAR.Toolbox.UI
 {
-    public partial class FrmWebcam : Form
+    public partial class FrmWebcam : Form, IToolForm
     {
+        public string ToolName { get { return "Webcam"; } }
+
         private Webcam webcam = null;
 
         public FrmWebcam()

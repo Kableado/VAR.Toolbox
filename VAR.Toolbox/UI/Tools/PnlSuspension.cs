@@ -4,7 +4,7 @@ using VAR.Toolbox.Code.Windows;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class PnlSuspension : UserControl
+    public partial class PnlSuspension : UserControl, IToolPanel
     {
         private Random rnd = new Random();
 

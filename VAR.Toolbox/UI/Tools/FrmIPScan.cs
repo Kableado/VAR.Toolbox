@@ -7,8 +7,10 @@ using System.Windows.Forms;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmIPScan : Form
+    public partial class FrmIPScan : Form, IToolForm
     {
+        public string ToolName { get { return "IPScan"; } }
+
         public FrmIPScan()
         {
             InitializeComponent();

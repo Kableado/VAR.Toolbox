@@ -128,55 +128,56 @@
     <Compile Include="Controls\CtrOutput.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\FrmCoder.cs">
+    <Compile Include="UI\IToolPanel.cs" />
+    <Compile Include="UI\Tools\FrmCoder.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmCoder.Designer.cs">
+    <Compile Include="UI\Tools\FrmCoder.Designer.cs">
       <DependentUpon>FrmCoder.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmCover.cs">
+    <Compile Include="UI\Tools\FrmCover.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmIPScan.cs">
+    <Compile Include="UI\Tools\FrmIPScan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmIPScan.Designer.cs">
+    <Compile Include="UI\Tools\FrmIPScan.Designer.cs">
       <DependentUpon>FrmIPScan.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmNetworkInfo.cs">
+    <Compile Include="UI\Tools\FrmNetworkInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmNetworkInfo.Designer.cs">
+    <Compile Include="UI\Tools\FrmNetworkInfo.Designer.cs">
       <DependentUpon>FrmNetworkInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmProxyCmd.cs">
+    <Compile Include="UI\Tools\FrmProxyCmd.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmProxyCmd.Designer.cs">
+    <Compile Include="UI\Tools\FrmProxyCmd.Designer.cs">
       <DependentUpon>FrmProxyCmd.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmProxyCmdConfig.cs">
+    <Compile Include="UI\Tools\FrmProxyCmdConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmProxyCmdConfig.Designer.cs">
+    <Compile Include="UI\Tools\FrmProxyCmdConfig.Designer.cs">
       <DependentUpon>FrmProxyCmdConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmScreenshooter.cs">
+    <Compile Include="UI\Tools\FrmScreenshooter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmScreenshooter.Designer.cs">
+    <Compile Include="UI\Tools\FrmScreenshooter.Designer.cs">
       <DependentUpon>FrmScreenshooter.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmTestWebService.cs">
+    <Compile Include="UI\Tools\FrmTestWebService.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmTestWebService.Designer.cs">
+    <Compile Include="UI\Tools\FrmTestWebService.Designer.cs">
       <DependentUpon>FrmTestWebService.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FrmTunnelTCP.cs">
+    <Compile Include="UI\Tools\FrmTunnelTCP.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmTunnelTCP.Designer.cs">
+    <Compile Include="UI\Tools\FrmTunnelTCP.Designer.cs">
       <DependentUpon>FrmTunnelTCP.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FrmToolbox.cs">
@@ -187,23 +188,24 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\FrmWebcam.cs">
+    <Compile Include="UI\Tools\FrmWebcam.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FrmWebcam.Designer.cs">
+    <Compile Include="UI\Tools\FrmWebcam.Designer.cs">
       <DependentUpon>FrmWebcam.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\IFormWithIcon.cs" />
-    <Compile Include="UI\PnlCover.cs">
+    <Compile Include="UI\IToolForm.cs" />
+    <Compile Include="UI\Tools\PnlCover.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\PnlCover.Designer.cs">
+    <Compile Include="UI\Tools\PnlCover.Designer.cs">
       <DependentUpon>PnlCover.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\PnlSuspension.cs">
+    <Compile Include="UI\Tools\PnlSuspension.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\PnlSuspension.Designer.cs">
+    <Compile Include="UI\Tools\PnlSuspension.Designer.cs">
       <DependentUpon>PnlSuspension.cs</DependentUpon>
     </Compile>
   </ItemGroup>

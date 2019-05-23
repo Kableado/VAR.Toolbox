@@ -6,8 +6,10 @@ using VAR.Toolbox.Code;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmScreenshooter : Form
+    public partial class FrmScreenshooter : Form, IToolForm
     {
+        public string ToolName { get { return "Screenshooter"; } }
+
         private bool _repetitiveScreenshots = false;
         private Timer timTicker;
         private Bitmap bmpScreen = null;

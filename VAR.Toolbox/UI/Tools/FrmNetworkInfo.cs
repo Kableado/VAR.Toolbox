@@ -6,8 +6,10 @@ using System.Windows.Forms;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmNetworkInfo : Form
+    public partial class FrmNetworkInfo : Form, IToolForm
     {
+        public string ToolName { get { return "NetworkInfo"; } }
+
         public FrmNetworkInfo()
         {
             InitializeComponent();

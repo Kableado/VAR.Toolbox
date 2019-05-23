@@ -4,7 +4,7 @@ using VAR.Toolbox.Code.Windows;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class PnlCover : UserControl
+    public partial class PnlCover : UserControl, IToolPanel
     {
         public PnlCover()
         {
