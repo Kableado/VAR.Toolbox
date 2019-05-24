@@ -20,7 +20,7 @@ namespace VAR.Toolbox.UI
 
         private ITextCoder _coder = null;
 
-        private void btnDecodeBase64_Click(object sender, EventArgs e)
+        private void BtnDecode_Click(object sender, EventArgs e)
         {
             string output = string.Empty;
             try
@@ -34,7 +34,7 @@ namespace VAR.Toolbox.UI
             txtOutput.Text = output;
         }
 
-        private void btnEncodeBase64_Click(object sender, EventArgs e)
+        private void BtnEncode_Click(object sender, EventArgs e)
         {
             string output = string.Empty;
             try
@@ -48,14 +48,14 @@ namespace VAR.Toolbox.UI
             txtOutput.Text = output;
         }
 
-        private void btnSwap_Click(object sender, EventArgs e)
+        private void BtnSwap_Click(object sender, EventArgs e)
         {
             string temp = txtOutput.Text;
             txtOutput.Text = txtInput.Text;
             txtInput.Text = temp;
         }
 
-        private void cboCode_SelectedIndexChanged(object sender, EventArgs e)
+        private void CboCode_SelectedIndexChanged(object sender, EventArgs e)
         {
             string code = (string)cboCode.SelectedItem;
             _coder = TextCoderFactory.CreateFromName(code);

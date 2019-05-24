@@ -89,7 +89,7 @@
             this.txtInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtInput.Size = new System.Drawing.Size(413, 55);
             this.txtInput.TabIndex = 0;
-            this.txtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtInput_KeyDown);
+            this.txtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtInput_KeyDown);
             // 
             // ddlCurrentConfig
             // 
@@ -101,7 +101,7 @@
             this.ddlCurrentConfig.Name = "ddlCurrentConfig";
             this.ddlCurrentConfig.Size = new System.Drawing.Size(342, 21);
             this.ddlCurrentConfig.TabIndex = 4;
-            this.ddlCurrentConfig.SelectedIndexChanged += new System.EventHandler(this.ddlCurrentConfig_SelectedIndexChanged);
+            this.ddlCurrentConfig.SelectedIndexChanged += new System.EventHandler(this.DdlCurrentConfig_SelectedIndexChanged);
             // 
             // btnConfig
             // 
@@ -112,7 +112,7 @@
             this.btnConfig.TabIndex = 5;
             this.btnConfig.Text = "Config";
             this.btnConfig.UseVisualStyleBackColor = true;
-            this.btnConfig.Click += new System.EventHandler(this.btnConfig_Click);
+            this.btnConfig.Click += new System.EventHandler(this.BtnConfig_Click);
             // 
             // FrmProxyCmd
             // 

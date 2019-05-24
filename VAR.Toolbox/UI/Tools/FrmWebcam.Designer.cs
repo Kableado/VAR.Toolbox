@@ -44,7 +44,7 @@
             this.btnStartStop.TabIndex = 4;
             this.btnStartStop.Text = "Start";
             this.btnStartStop.UseVisualStyleBackColor = true;
-            this.btnStartStop.Click += new System.EventHandler(this.btnStartStop_Click);
+            this.btnStartStop.Click += new System.EventHandler(this.BtnStartStop_Click);
             // 
             // cboWebcams
             // 

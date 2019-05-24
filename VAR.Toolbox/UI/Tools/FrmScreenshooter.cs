@@ -13,7 +13,7 @@ namespace VAR.Toolbox.UI
         public bool HasIcon { get { return false; } }
 
         private bool _repetitiveScreenshots = false;
-        private Timer timTicker;
+        private readonly Timer timTicker;
         private Bitmap bmpScreen = null;
 
         public FrmScreenshooter()
@@ -21,13 +21,15 @@ namespace VAR.Toolbox.UI
             InitializeComponent();
 
             if (components == null) { components = new Container(); }
-            timTicker = new Timer(components);
-            timTicker.Interval = 16;
-            timTicker.Enabled = false;
+            timTicker = new Timer(components)
+            {
+                Interval = 16,
+                Enabled = false
+            };
             timTicker.Tick += TimTicker_Tick;
         }
 
-        private void btnScreenshoot_Click(object sender, EventArgs e)
+        private void BtnScreenshoot_Click(object sender, EventArgs e)
         {
             bmpScreen = Screenshooter.CaptureScreen(bmpScreen);
             picViewer.ImageShow = bmpScreen;
@@ -41,7 +43,7 @@ namespace VAR.Toolbox.UI
             timTicker.Start();
         }
 
-        private void btnStartStop_Click(object sender, EventArgs e)
+        private void BtnStartStop_Click(object sender, EventArgs e)
         {
             GC.Collect();
             if (_repetitiveScreenshots)

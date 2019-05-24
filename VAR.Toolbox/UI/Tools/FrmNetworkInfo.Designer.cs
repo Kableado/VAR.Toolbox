@@ -59,7 +59,7 @@
             this.ddlNetworkInterfaces.Name = "ddlNetworkInterfaces";
             this.ddlNetworkInterfaces.Size = new System.Drawing.Size(510, 21);
             this.ddlNetworkInterfaces.TabIndex = 0;
-            this.ddlNetworkInterfaces.SelectedIndexChanged += new System.EventHandler(this.ddlNetworkInterfaces_SelectedIndexChanged);
+            this.ddlNetworkInterfaces.SelectedIndexChanged += new System.EventHandler(this.DdlNetworkInterfaces_SelectedIndexChanged);
             // 
             // lblID
             // 
@@ -226,7 +226,7 @@
             // timRefresh
             // 
             this.timRefresh.Interval = 500;
-            this.timRefresh.Tick += new System.EventHandler(this.timRefresh_Tick);
+            this.timRefresh.Tick += new System.EventHandler(this.TimRefresh_Tick);
             // 
             // FrmNetworkInfo
             // 

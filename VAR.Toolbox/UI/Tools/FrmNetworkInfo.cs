@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable IDE0019
+
+using System;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -32,14 +34,14 @@ namespace VAR.Toolbox.UI
             timRefresh.Stop();
         }
 
-        private void ddlNetworkInterfaces_SelectedIndexChanged(object sender, EventArgs e)
+        private void DdlNetworkInterfaces_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ListItem listItem = ddlNetworkInterfaces.SelectedItem as ListItem;
+            var listItem = ddlNetworkInterfaces.SelectedItem as ListItem;
             if (listItem == null) { return; }
             RefreshInterface(listItem.ID);
         }
 
-        private void timRefresh_Tick(object sender, EventArgs e)
+        private void TimRefresh_Tick(object sender, EventArgs e)
         {
             RefreshInterfaces();
             RefreshInterface();
@@ -135,17 +137,17 @@ namespace VAR.Toolbox.UI
             {
                 return string.Format("{0}kbps", Math.Round(dSpeed, 2));
             }
-            dSpeed = dSpeed / 1000;
+            dSpeed /= 1000;
             if (dSpeed < 1000)
             {
                 return string.Format("{0}mbps", Math.Round(dSpeed, 2));
             }
-            dSpeed = dSpeed / 1000;
+            dSpeed /= 1000;
             if (dSpeed < 1000)
             {
                 return string.Format("{0}gbps", Math.Round(dSpeed, 2));
             }
-            dSpeed = dSpeed / 1000;
+            dSpeed /= 1000;
             return string.Format("{0}tbps", Math.Round(dSpeed, 2));
         }
 

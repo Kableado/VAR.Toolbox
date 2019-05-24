@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable IDE0019
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -34,10 +36,12 @@ namespace VAR.Toolbox.UI
 
         private void InitializeCustomControls()
         {
-            niTray = new NotifyIcon();
-            niTray.Text = "VAR.Toolbox";
-            niTray.Visible = true;
-            niTray.MouseClick += niTray_MouseClick;
+            niTray = new NotifyIcon
+            {
+                Text = "VAR.Toolbox",
+                Visible = true
+            };
+            niTray.MouseClick += NiTray_MouseClick;
         }
 
         private void FrmToolbox_Load(object sender, EventArgs e)
@@ -73,7 +77,7 @@ namespace VAR.Toolbox.UI
             }
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void BtnExit_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show("Are you sure want to exit?", "Exit?", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
@@ -85,7 +89,7 @@ namespace VAR.Toolbox.UI
             }
         }
 
-        private void niTray_MouseClick(object sender, MouseEventArgs e)
+        private void NiTray_MouseClick(object sender, MouseEventArgs e)
         {
             if (Visible)
             {
@@ -100,42 +104,42 @@ namespace VAR.Toolbox.UI
             WindowState = FormWindowState.Normal;
         }
 
-        private void btnCoder_Click(object sender, EventArgs e)
+        private void BtnCoder_Click(object sender, EventArgs e)
         {
             CreateWindow(typeof(FrmCoder));
         }
 
-        private void btnProxyCmd_Click(object sender, EventArgs e)
+        private void BtnProxyCmd_Click(object sender, EventArgs e)
         {
             CreateWindow(typeof(FrmProxyCmd));
         }
 
-        private void btnWebcam_Click(object sender, EventArgs e)
+        private void BtnWebcam_Click(object sender, EventArgs e)
         {
             CreateWindow(typeof(FrmWebcam));
         }
 
-        private void btnTunnelTCP_Click(object sender, EventArgs e)
+        private void BtnTunnelTCP_Click(object sender, EventArgs e)
         {
             CreateWindow(typeof(FrmTunnelTCP));
         }
 
-        private void btnTestWebService_Click(object sender, EventArgs e)
+        private void BtnTestWebService_Click(object sender, EventArgs e)
         {
             CreateWindow(typeof(FrmTestWebService));
         }
 
-        private void btnScreenshooter_Click(object sender, EventArgs e)
+        private void BtnScreenshooter_Click(object sender, EventArgs e)
         {
             CreateWindow(typeof(FrmScreenshooter));
         }
 
-        private void btnIPScan_Click(object sender, EventArgs e)
+        private void BtnIPScan_Click(object sender, EventArgs e)
         {
             CreateWindow(typeof(FrmIPScan));
         }
 
-        private void btnNetworkInfo_MouseClick(object sender, MouseEventArgs e)
+        private void BtnNetworkInfo_MouseClick(object sender, MouseEventArgs e)
         {
             CreateWindow(typeof(FrmNetworkInfo));
         }
@@ -146,13 +150,13 @@ namespace VAR.Toolbox.UI
 
         private Form CreateWindow(Type type)
         {
-            Form frm = Activator.CreateInstance(type) as Form;
+            var frm = Activator.CreateInstance(type) as Form;
             if (frm == null)
             {
                 return null;
             }
             _forms.Add(frm);
-            frm.FormClosing += frmChild_FormClosing;
+            frm.FormClosing += FrmChild_FormClosing;
             if ((frm as IToolForm)?.HasIcon == false)
             {
                 frm.Icon = Icon;
@@ -161,9 +165,9 @@ namespace VAR.Toolbox.UI
             return frm;
         }
 
-        private List<Form> _forms = new List<Form>();
+        private readonly List<Form> _forms = new List<Form>();
 
-        private void frmChild_FormClosing(object sender, FormClosingEventArgs e)
+        private void FrmChild_FormClosing(object sender, FormClosingEventArgs e)
         {
             _forms.Remove((Form)sender);
         }

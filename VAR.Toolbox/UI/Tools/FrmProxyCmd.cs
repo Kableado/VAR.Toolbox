@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable IDE0019
+
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
@@ -14,9 +16,9 @@ namespace VAR.Toolbox.UI
 
         #region Declarations
 
-        private object _executionLock = new object();
+        private readonly object _executionLock = new object();
 
-        private List<string> _cmdHistory = new List<string>();
+        private readonly List<string> _cmdHistory = new List<string>();
         private int _currentHistoryIndex = -1;
 
         #endregion Declarations
@@ -33,7 +35,7 @@ namespace VAR.Toolbox.UI
 
         #region UI events
 
-        private void txtInput_KeyDown(object sender, KeyEventArgs e)
+        private void TxtInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (Monitor.IsEntered(_executionLock))
             {
@@ -105,12 +107,12 @@ namespace VAR.Toolbox.UI
             }
         }
 
-        private void ddlCurrentConfig_SelectedIndexChanged(object sender, EventArgs e)
+        private void DdlCurrentConfig_SelectedIndexChanged(object sender, EventArgs e)
         {
             CleanProxyCmdExecutor();
         }
 
-        private void btnConfig_Click(object sender, EventArgs e)
+        private void BtnConfig_Click(object sender, EventArgs e)
         {
             FrmToolbox.StaticCreateWindow(typeof(FrmProxyCmdConfig));
         }
@@ -130,8 +132,7 @@ namespace VAR.Toolbox.UI
         }
         private void CleanProxyCmdExecutor()
         {
-            IDisposable disposableProxyCmdExecutor = _proxyCmdExecutor as IDisposable;
-            if (disposableProxyCmdExecutor != null)
+            if (_proxyCmdExecutor is IDisposable disposableProxyCmdExecutor)
             {
                 disposableProxyCmdExecutor.Dispose();
             }
@@ -180,8 +181,10 @@ namespace VAR.Toolbox.UI
             List<ProxyCmdConfigItem> configItems = FrmProxyCmdConfig.GetConfigurationItems();
 
             string previousSelectedName = null;
-            ProxyCmdConfigItem selectedConfig = ddlCurrentConfig.SelectedItem as ProxyCmdConfigItem;
-            if (selectedConfig != null) { previousSelectedName = selectedConfig.Name; }
+            if (ddlCurrentConfig.SelectedItem is ProxyCmdConfigItem selectedConfig)
+            {
+                previousSelectedName = selectedConfig.Name;
+            }
             ddlCurrentConfig.Items.Clear();
             ddlCurrentConfig.Items.AddRange(configItems.ToArray());
             ddlCurrentConfig.SelectedIndex = 0;
@@ -200,7 +203,7 @@ namespace VAR.Toolbox.UI
 
         private string GetCurrentConfig()
         {
-            ProxyCmdConfigItem selectedConfig = ddlCurrentConfig.SelectedItem as ProxyCmdConfigItem;
+            var selectedConfig = ddlCurrentConfig.SelectedItem as ProxyCmdConfigItem;
             if (selectedConfig == null) { return null; }
             return selectedConfig.Config;
         }

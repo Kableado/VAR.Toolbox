@@ -55,7 +55,7 @@
             this.btnScan.TabIndex = 1;
             this.btnScan.Text = "Scan";
             this.btnScan.UseVisualStyleBackColor = true;
-            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
+            this.btnScan.Click += new System.EventHandler(this.BtnScan_Click);
             // 
             // lblStatus
             // 
@@ -76,7 +76,7 @@
             this.btnStop.TabIndex = 3;
             this.btnStop.Text = "Stop";
             this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            this.btnStop.Click += new System.EventHandler(this.BtnStop_Click);
             // 
             // txtSubnet
             // 

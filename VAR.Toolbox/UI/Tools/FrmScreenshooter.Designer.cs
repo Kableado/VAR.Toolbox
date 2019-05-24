@@ -43,7 +43,7 @@
             this.btnScreenshoot.TabIndex = 1;
             this.btnScreenshoot.Text = "Screenshoot";
             this.btnScreenshoot.UseVisualStyleBackColor = true;
-            this.btnScreenshoot.Click += new System.EventHandler(this.btnScreenshoot_Click);
+            this.btnScreenshoot.Click += new System.EventHandler(this.BtnScreenshoot_Click);
             // 
             // picViewer
             // 
@@ -67,7 +67,7 @@
             this.btnStartStop.TabIndex = 2;
             this.btnStartStop.Text = "Start";
             this.btnStartStop.UseVisualStyleBackColor = true;
-            this.btnStartStop.Click += new System.EventHandler(this.btnStartStop_Click);
+            this.btnStartStop.Click += new System.EventHandler(this.BtnStartStop_Click);
             // 
             // FrmScreenshooter
             // 

@@ -54,13 +54,13 @@ namespace VAR.Toolbox.UI
             }
         }
 
-        private void btnScan_Click(object sender, EventArgs e)
+        private void BtnScan_Click(object sender, EventArgs e)
         {
             Thread thread = new Thread(() => { IPScan(txtSubnet.Text); });
             thread.Start();
         }
 
-        private void btnStop_Click(object sender, EventArgs e)
+        private void BtnStop_Click(object sender, EventArgs e)
         {
             running = false;
         }

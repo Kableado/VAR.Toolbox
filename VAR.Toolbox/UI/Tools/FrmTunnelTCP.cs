@@ -32,7 +32,7 @@ namespace VAR.Toolbox.UI
             btnRun.Enabled = true;
         }
 
-        private void btnStop_Click(object sender, EventArgs e)
+        private void BtnStop_Click(object sender, EventArgs e)
         {
             if (_running == false) { return; }
 
@@ -41,7 +41,7 @@ namespace VAR.Toolbox.UI
             btnRun.Enabled = true;
         }
 
-        private void btnRun_Click(object sender, EventArgs e)
+        private void BtnRun_Click(object sender, EventArgs e)
         {
             if (_running == true) { return; }
 

@@ -50,7 +50,7 @@
             this.btnCoder.TabIndex = 0;
             this.btnCoder.Text = "Coder";
             this.btnCoder.UseVisualStyleBackColor = true;
-            this.btnCoder.Click += new System.EventHandler(this.btnCoder_Click);
+            this.btnCoder.Click += new System.EventHandler(this.BtnCoder_Click);
             // 
             // btnProxyCmd
             // 
@@ -60,7 +60,7 @@
             this.btnProxyCmd.TabIndex = 1;
             this.btnProxyCmd.Text = "ProxyCmd";
             this.btnProxyCmd.UseVisualStyleBackColor = true;
-            this.btnProxyCmd.Click += new System.EventHandler(this.btnProxyCmd_Click);
+            this.btnProxyCmd.Click += new System.EventHandler(this.BtnProxyCmd_Click);
             // 
             // btnWebcam
             // 
@@ -70,7 +70,7 @@
             this.btnWebcam.TabIndex = 2;
             this.btnWebcam.Text = "Webcam";
             this.btnWebcam.UseVisualStyleBackColor = true;
-            this.btnWebcam.Click += new System.EventHandler(this.btnWebcam_Click);
+            this.btnWebcam.Click += new System.EventHandler(this.BtnWebcam_Click);
             // 
             // btnTunnelTCP
             // 
@@ -81,7 +81,7 @@
             this.btnTunnelTCP.TabIndex = 5;
             this.btnTunnelTCP.Text = "TunnelTCP";
             this.btnTunnelTCP.UseVisualStyleBackColor = true;
-            this.btnTunnelTCP.Click += new System.EventHandler(this.btnTunnelTCP_Click);
+            this.btnTunnelTCP.Click += new System.EventHandler(this.BtnTunnelTCP_Click);
             // 
             // lblToolbox
             // 
@@ -124,7 +124,7 @@
             this.btnExit.TabIndex = 7;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // btnTestWebService
             // 
@@ -135,7 +135,7 @@
             this.btnTestWebService.TabIndex = 8;
             this.btnTestWebService.Text = "TestWebService";
             this.btnTestWebService.UseVisualStyleBackColor = true;
-            this.btnTestWebService.Click += new System.EventHandler(this.btnTestWebService_Click);
+            this.btnTestWebService.Click += new System.EventHandler(this.BtnTestWebService_Click);
             // 
             // btnScreenshooter
             // 
@@ -146,7 +146,7 @@
             this.btnScreenshooter.TabIndex = 10;
             this.btnScreenshooter.Text = "Screenshooter";
             this.btnScreenshooter.UseVisualStyleBackColor = true;
-            this.btnScreenshooter.Click += new System.EventHandler(this.btnScreenshooter_Click);
+            this.btnScreenshooter.Click += new System.EventHandler(this.BtnScreenshooter_Click);
             // 
             // btnIPScan
             // 
@@ -157,7 +157,7 @@
             this.btnIPScan.TabIndex = 11;
             this.btnIPScan.Text = "IPScan";
             this.btnIPScan.UseVisualStyleBackColor = true;
-            this.btnIPScan.Click += new System.EventHandler(this.btnIPScan_Click);
+            this.btnIPScan.Click += new System.EventHandler(this.BtnIPScan_Click);
             // 
             // btnNetworkInfo
             // 
@@ -168,7 +168,7 @@
             this.btnNetworkInfo.TabIndex = 12;
             this.btnNetworkInfo.Text = "NetworkInfo";
             this.btnNetworkInfo.UseVisualStyleBackColor = true;
-            this.btnNetworkInfo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnNetworkInfo_MouseClick);
+            this.btnNetworkInfo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.BtnNetworkInfo_MouseClick);
             // 
             // FrmToolbox
             // 

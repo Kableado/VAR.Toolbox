@@ -63,7 +63,7 @@
             this.btnDecode.TabIndex = 1;
             this.btnDecode.Text = "Decode";
             this.btnDecode.UseVisualStyleBackColor = true;
-            this.btnDecode.Click += new System.EventHandler(this.btnDecodeBase64_Click);
+            this.btnDecode.Click += new System.EventHandler(this.BtnDecode_Click);
             // 
             // txtOutput
             // 
@@ -123,7 +123,7 @@
             this.cboCode.Name = "cboCode";
             this.cboCode.Size = new System.Drawing.Size(131, 21);
             this.cboCode.TabIndex = 4;
-            this.cboCode.SelectedIndexChanged += new System.EventHandler(this.cboCode_SelectedIndexChanged);
+            this.cboCode.SelectedIndexChanged += new System.EventHandler(this.CboCode_SelectedIndexChanged);
             // 
             // btnEncode
             // 
@@ -134,7 +134,7 @@
             this.btnEncode.TabIndex = 3;
             this.btnEncode.Text = "Encode";
             this.btnEncode.UseVisualStyleBackColor = true;
-            this.btnEncode.Click += new System.EventHandler(this.btnEncodeBase64_Click);
+            this.btnEncode.Click += new System.EventHandler(this.BtnEncode_Click);
             // 
             // btnSwap
             // 
@@ -145,7 +145,7 @@
             this.btnSwap.TabIndex = 4;
             this.btnSwap.Text = "Swap";
             this.btnSwap.UseVisualStyleBackColor = true;
-            this.btnSwap.Click += new System.EventHandler(this.btnSwap_Click);
+            this.btnSwap.Click += new System.EventHandler(this.BtnSwap_Click);
             // 
             // FrmCoder
             // 

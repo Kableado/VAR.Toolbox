@@ -21,10 +21,10 @@ namespace VAR.Toolbox.UI
 
         private void FrmWebcam_Load(object sender, EventArgs e)
         {
-            cboWebcams_LoadData();
+            CboWebcams_LoadData();
         }
 
-        private void webcam_NewFrame(object sender, Bitmap frame)
+        private void Webcam_NewFrame(object sender, Bitmap frame)
         {
             picWebcam.ImageShow = frame;
         }
@@ -37,7 +37,7 @@ namespace VAR.Toolbox.UI
             }
         }
 
-        private void btnStartStop_Click(object sender, EventArgs e)
+        private void BtnStartStop_Click(object sender, EventArgs e)
         {
             if (webcam == null)
             {
@@ -65,7 +65,7 @@ namespace VAR.Toolbox.UI
             if (cboWebcams.SelectedIndex < 0) { return; }
             WebcamObject webcamObject = (WebcamObject)cboWebcams.SelectedItem;
             webcam = new Webcam(webcamObject.Moniker);
-            webcam.NewFrame += webcam_NewFrame;
+            webcam.NewFrame += Webcam_NewFrame;
         }
 
         private class WebcamObject
@@ -79,7 +79,7 @@ namespace VAR.Toolbox.UI
             }
         };
 
-        private void cboWebcams_LoadData()
+        private void CboWebcams_LoadData()
         {
             try
             {
