@@ -10,6 +10,8 @@ namespace VAR.Toolbox.UI
     {
         public string ToolName { get { return "Screenshooter"; } }
 
+        public bool HasIcon { get { return false; } }
+
         private bool _repetitiveScreenshots = false;
         private Timer timTicker;
         private Bitmap bmpScreen = null;

@@ -3,5 +3,6 @@
     public interface IToolForm
     {
         string ToolName { get; }
+        bool HasIcon { get; }
     }
 }

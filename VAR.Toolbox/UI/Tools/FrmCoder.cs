@@ -8,6 +8,8 @@ namespace VAR.Toolbox.UI
     {
         public string ToolName { get { return "Coder"; } }
 
+        public bool HasIcon { get { return false; } }
+
         public FrmCoder()
         {
             InitializeComponent();

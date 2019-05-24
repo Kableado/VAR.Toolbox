@@ -10,6 +10,8 @@ namespace VAR.Toolbox.UI
     {
         public string ToolName { get { return "ProxyCmd"; } }
 
+        public bool HasIcon { get { return false; } }
+
         #region Declarations
 
         private object _executionLock = new object();

@@ -11,6 +11,8 @@ namespace VAR.Toolbox.UI
     {
         public string ToolName { get { return "IPScan"; } }
 
+        public bool HasIcon { get { return false; } }
+
         public FrmIPScan()
         {
             InitializeComponent();

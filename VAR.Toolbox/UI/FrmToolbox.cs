@@ -153,7 +153,7 @@ namespace VAR.Toolbox.UI
             }
             _forms.Add(frm);
             frm.FormClosing += frmChild_FormClosing;
-            if ((frm is IFormWithIcon) == false)
+            if ((frm as IToolForm)?.HasIcon == false)
             {
                 frm.Icon = Icon;
             }

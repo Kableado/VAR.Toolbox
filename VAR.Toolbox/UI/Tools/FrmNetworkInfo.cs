@@ -10,6 +10,8 @@ namespace VAR.Toolbox.UI
     {
         public string ToolName { get { return "NetworkInfo"; } }
 
+        public bool HasIcon { get { return false; } }
+
         public FrmNetworkInfo()
         {
             InitializeComponent();

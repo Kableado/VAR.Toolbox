@@ -10,6 +10,8 @@ namespace VAR.Toolbox.UI
     {
         public string ToolName { get { return "Webcam"; } }
 
+        public bool HasIcon { get { return false; } }
+
         private Webcam webcam = null;
 
         public FrmWebcam()

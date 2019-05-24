@@ -10,6 +10,8 @@ namespace VAR.Toolbox.UI
     {
         public string ToolName { get { return "TunnelTCP"; } }
 
+        public bool HasIcon { get { return false; } }
+
         private bool _running = false;
 
         private class ConnectedClient
@@ -229,25 +231,25 @@ namespace VAR.Toolbox.UI
                 return string.Format("{0} B", number);
             }
 
-            number = number / 1024.0;
+            number /= 1024.0;
             if (number < 1024)
             {
                 return string.Format("{0:#.00} KiB", number);
             }
 
-            number = number / 1024.0;
+            number /= 1024.0;
             if (number < 1024)
             {
                 return string.Format("{0:#.00} MiB", number);
             }
 
-            number = number / 1024.0;
+            number /= 1024.0;
             if (number < 1024)
             {
                 return string.Format("{0:#.00} GiB", number);
             }
 
-            number = number / 1024.0;
+            number /= 1024.0;
 
             return string.Format("{0:#.00} TiB", number);
         }
