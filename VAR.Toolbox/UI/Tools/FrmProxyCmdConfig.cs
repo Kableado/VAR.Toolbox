@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable IDE0019
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -16,24 +18,24 @@ namespace VAR.Toolbox.UI
         }
 
 
-        private void lsvCmdProxyConfigs_SelectedIndexChanged(object sender, EventArgs e)
+        private void LsvCmdProxyConfigs_SelectedIndexChanged(object sender, EventArgs e)
         {
             ProxyCmdConfigItem selectedConfig = lsvCmdProxyConfigs.SelectedItem as ProxyCmdConfigItem;
             if (selectedConfig == null) { CleanConfig(); return; }
             ShowConfig(selectedConfig);
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             SaveConfig();
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void BtnDelete_Click(object sender, EventArgs e)
         {
             DeleteSelected();
         }
 
-        private void btnNew_Click(object sender, EventArgs e)
+        private void BtnNew_Click(object sender, EventArgs e)
         {
             CreateNew();
         }
@@ -81,9 +83,11 @@ namespace VAR.Toolbox.UI
             ProxyCmdConfigItem selectedConfig = lsvCmdProxyConfigs.SelectedItem as ProxyCmdConfigItem;
             if (selectedConfig == null)
             {
-                selectedConfig = new ProxyCmdConfigItem();
-                selectedConfig.Name = txtCmdProxyConfigName.Text;
-                selectedConfig.Config = txtCmdProxyConfigContent.Text;
+                selectedConfig = new ProxyCmdConfigItem
+                {
+                    Name = txtCmdProxyConfigName.Text,
+                    Config = txtCmdProxyConfigContent.Text
+                };
                 lsvCmdProxyConfigs.Items.Add(selectedConfig);
             }
             else

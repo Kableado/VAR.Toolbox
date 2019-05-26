@@ -5,7 +5,7 @@ namespace VAR.Toolbox.Code
 {
     public class ProxyCmdExecutorThroughSQLServer : IProxyCmdExecutor
     {
-        private string _connectionString = null;
+        private readonly string _connectionString = null;
 
         public ProxyCmdExecutorThroughSQLServer(string connectionString)
         {

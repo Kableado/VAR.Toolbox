@@ -100,7 +100,7 @@
             this.btnTestSoap.TabIndex = 21;
             this.btnTestSoap.Text = "Test";
             this.btnTestSoap.UseVisualStyleBackColor = true;
-            this.btnTestSoap.Click += new System.EventHandler(this.btnTestSoap_Click);
+            this.btnTestSoap.Click += new System.EventHandler(this.BtnTestSoap_Click);
             // 
             // label5
             // 
@@ -248,7 +248,7 @@
             this.btnTestRest.TabIndex = 19;
             this.btnTestRest.Text = "Test";
             this.btnTestRest.UseVisualStyleBackColor = true;
-            this.btnTestRest.Click += new System.EventHandler(this.btnTestRest_Click);
+            this.btnTestRest.Click += new System.EventHandler(this.BtnTestRest_Click);
             // 
             // label7
             // 

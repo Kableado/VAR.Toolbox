@@ -1,7 +1,9 @@
+#pragma warning disable IDE0018
+
+using System.Runtime.InteropServices;
+
 namespace VAR.Toolbox.Code.DirectShow
 {
-    using System.Runtime.InteropServices;
-
     /// <summary>
     /// Some miscellaneous functions.
     /// </summary>

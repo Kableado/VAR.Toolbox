@@ -45,7 +45,7 @@
             this.lsvCmdProxyConfigs.Name = "lsvCmdProxyConfigs";
             this.lsvCmdProxyConfigs.Size = new System.Drawing.Size(149, 355);
             this.lsvCmdProxyConfigs.TabIndex = 0;
-            this.lsvCmdProxyConfigs.SelectedIndexChanged += new System.EventHandler(this.lsvCmdProxyConfigs_SelectedIndexChanged);
+            this.lsvCmdProxyConfigs.SelectedIndexChanged += new System.EventHandler(this.LsvCmdProxyConfigs_SelectedIndexChanged);
             // 
             // txtCmdProxyConfigName
             // 
@@ -65,7 +65,7 @@
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // btnDelete
             // 
@@ -76,7 +76,7 @@
             this.btnDelete.TabIndex = 4;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            this.btnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
             // btnNew
             // 
@@ -87,7 +87,7 @@
             this.btnNew.TabIndex = 5;
             this.btnNew.Text = "New";
             this.btnNew.UseVisualStyleBackColor = true;
-            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            this.btnNew.Click += new System.EventHandler(this.BtnNew_Click);
             // 
             // txtCmdProxyConfigContent
             // 

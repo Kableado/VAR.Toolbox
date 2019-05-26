@@ -54,12 +54,11 @@ namespace VAR.Toolbox.UI
             _frmCover.FormClosing += (sender, e) => { _frmCover = null; };
             _frmCover.Show();
 
-            Form frmParent = Parent as Form;
-            if (frmParent != null)
+            if (Parent is Form frmParent)
             {
                 frmParent.WindowState = FormWindowState.Minimized;
             }
         }
-        
+
     }
 }

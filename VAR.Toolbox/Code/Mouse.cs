@@ -8,8 +8,10 @@ namespace VAR.Toolbox.Code
     {
         public static void Move(int dx, int dy)
         {
-            User32.INPUT input = new User32.INPUT();
-            input.Type = User32.INPUT_MOUSE;
+            User32.INPUT input = new User32.INPUT
+            {
+                Type = User32.INPUT_MOUSE
+            };
             input.Data.Mouse.X = dx;
             input.Data.Mouse.Y = dy;
             input.Data.Mouse.Flags = User32.MOUSEEVENTF_MOVE;
@@ -27,8 +29,10 @@ namespace VAR.Toolbox.Code
 
         public static void SetButton(MouseButtons button, bool down)
         {
-            User32.INPUT input = new User32.INPUT();
-            input.Type = User32.INPUT_MOUSE;
+            User32.INPUT input = new User32.INPUT
+            {
+                Type = User32.INPUT_MOUSE
+            };
             input.Data.Mouse.X = 0;
             input.Data.Mouse.Y = 0;
             if (button == MouseButtons.Left)
@@ -57,8 +61,7 @@ namespace VAR.Toolbox.Code
 
         public static void GetPosition(out UInt32 x, out UInt32 y)
         {
-            User32.POINT lpPoint;
-            User32.GetCursorPos(out lpPoint);
+            User32.GetCursorPos(out User32.POINT lpPoint);
             x = lpPoint.X;
             y = lpPoint.Y;
         }

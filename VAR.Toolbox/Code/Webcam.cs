@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable IDE0018
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -20,11 +22,11 @@ namespace VAR.Toolbox.Code
         private IBaseFilter samplegrabberfilter;
         private IBaseFilter nullrenderer;
 
-        private Grabber grabber;
+        private readonly Grabber grabber;
 
         private int width = 0;
         private int height = 0;
-        private int bpp = 0;
+        private readonly int bpp = 0;
 
         private bool active = false;
 
@@ -75,9 +77,11 @@ namespace VAR.Toolbox.Code
             ISampleGrabber sampleGrabber = (ISampleGrabber)samplegrabberfilter;
 
             // Set media type
-            AMMediaType mediaType = new AMMediaType();
-            mediaType.MajorType = MediaType.Video;
-            mediaType.SubType = MediaSubType.RGB24;
+            AMMediaType mediaType = new AMMediaType
+            {
+                MajorType = MediaType.Video,
+                SubType = MediaSubType.RGB24
+            };
             sampleGrabber.SetMediaType(mediaType);
 
             grabber = new Grabber(this);
@@ -262,8 +266,8 @@ namespace VAR.Toolbox.Code
         {
             private Webcam _parent;
 
-            private Bitmap[] _frames = null;
-            private int _numFrames = 10;
+            private readonly Bitmap[] _frames = null;
+            private readonly int _numFrames = 10;
             private int _currentFrameIndex = -1;
 
             public Grabber(Webcam parent)

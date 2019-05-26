@@ -1,13 +1,15 @@
+#pragma warning disable IDE1006
+
+using System;
+using System.Runtime.InteropServices;
+
 namespace VAR.Toolbox.Code.DirectShow
 {
-    using System;
-    using System.Runtime.InteropServices;
-
     /// <summary>
     /// The interface sets properties on the video window.
     /// </summary>
     /// 
-	[ComImport,
+    [ComImport,
     Guid("56A868B4-0AD4-11CE-B03A-0020AF0BA770"),
     InterfaceType(ComInterfaceType.InterfaceIsDual)]
     internal interface IVideoWindow

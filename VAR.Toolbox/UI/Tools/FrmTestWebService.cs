@@ -20,7 +20,7 @@ namespace VAR.Toolbox.UI
             InitializeComponent();
         }
 
-        private void btnTestSoap_Click(object sender, EventArgs e)
+        private void BtnTestSoap_Click(object sender, EventArgs e)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace VAR.Toolbox.UI
             }
         }
 
-        private void btnTestRest_Click(object sender, EventArgs e)
+        private void BtnTestRest_Click(object sender, EventArgs e)
         {
             try
             {

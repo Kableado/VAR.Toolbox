@@ -1,8 +1,10 @@
+#pragma warning disable IDE1006
+
+using System;
+using System.Runtime.InteropServices;
+
 namespace VAR.Toolbox.Code.DirectShow
 {
-    using System;
-    using System.Runtime.InteropServices;
-
     /// <summary>
     /// The interface provides methods for controlling the flow of data through the filter graph.
     /// It includes methods for running, pausing, and stopping the graph.

@@ -13,8 +13,8 @@ namespace VAR.Toolbox.UI
         private Random rnd = new Random();
         private Timer _timer = new Timer();
 
-        private uint _mouseX = 0;
-        private uint _mouseY = 0;
+        private readonly uint _mouseX = 0;
+        private readonly uint _mouseY = 0;
 
         #endregion Declarations
 
@@ -36,7 +36,7 @@ namespace VAR.Toolbox.UI
 
             _timer.Interval = 1000;
             _timer.Enabled = true;
-            _timer.Tick += timer_Tick;
+            _timer.Tick += Timer_Tick;
         }
 
         private void FrmCover_Load(object sender, EventArgs e)
@@ -79,7 +79,7 @@ namespace VAR.Toolbox.UI
             Close();
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             User32.SetForegroundWindow(Handle);
             try
