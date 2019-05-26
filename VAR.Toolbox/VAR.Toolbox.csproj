@@ -74,10 +74,10 @@
       <Link>Code\Json\ParserContext.cs</Link>
     </Compile>
     <Compile Include="Code\HexUtils.cs" />
-    <Compile Include="Code\ProxyCmdExecutorWMIC.cs" />
+    <Compile Include="Code\ProxyCmdExecutors\ProxyCmdExecutorWMIC.cs" />
     <Compile Include="Code\ReflectionUtils.cs" />
-    <Compile Include="Code\TextCoderBase64Utf8.cs" />
-    <Compile Include="Code\TextCoderBase64Ascii.cs" />
+    <Compile Include="Code\TextCoders\TextCoderBase64Utf8.cs" />
+    <Compile Include="Code\TextCoders\TextCoderBase64Ascii.cs" />
     <Compile Include="Code\DirectShow\CameraControlProperty.cs" />
     <Compile Include="Code\DirectShow\IAMCameraControl.cs" />
     <Compile Include="Code\DirectShow\IAMCrossbar.cs" />
@@ -108,18 +108,18 @@
     <Compile Include="Code\DirectShow\Tools.cs" />
     <Compile Include="Code\DirectShow\Uuids.cs" />
     <Compile Include="Code\Windows\GDI32.cs" />
-    <Compile Include="Code\ITextCoder.cs" />
+    <Compile Include="Code\TextCoders\ITextCoder.cs" />
     <Compile Include="Code\IOutputHandler.cs" />
-    <Compile Include="Code\IProxyCmdExecutor.cs" />
+    <Compile Include="Code\ProxyCmdExecutors\IProxyCmdExecutor.cs" />
     <Compile Include="Code\Logger.cs" />
     <Compile Include="Code\Mouse.cs" />
-    <Compile Include="Code\ProxyCmdExecutorFactory.cs" />
-    <Compile Include="Code\ProxyCmdExecutorDummy.cs" />
-    <Compile Include="Code\ProxyCmdExecutorThroughSQLServer.cs" />
+    <Compile Include="Code\ProxyCmdExecutors\ProxyCmdExecutorFactory.cs" />
+    <Compile Include="Code\ProxyCmdExecutors\ProxyCmdExecutorDummy.cs" />
+    <Compile Include="Code\ProxyCmdExecutors\ProxyCmdExecutorThroughSQLServer.cs" />
     <Compile Include="Code\Screenshooter.cs" />
-    <Compile Include="Code\TextCoderFactory.cs" />
-    <Compile Include="Code\TextCoderHexToAscii.cs" />
-    <Compile Include="Code\TextCoderHexToUtf8.cs" />
+    <Compile Include="Code\TextCoders\TextCoderFactory.cs" />
+    <Compile Include="Code\TextCoders\TextCoderHexToAscii.cs" />
+    <Compile Include="Code\TextCoders\TextCoderHexToUtf8.cs" />
     <Compile Include="Code\Windows\User32.cs" />
     <Compile Include="Code\Webcam.cs" />
     <Compile Include="Code\Windows\Win32.cs" />
@@ -214,6 +214,7 @@
     <Content Include="Images\toolbox.svg" />
     <Content Include="Toolbox.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

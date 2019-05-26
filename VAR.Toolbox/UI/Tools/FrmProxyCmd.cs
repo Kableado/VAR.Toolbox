@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 using VAR.Toolbox.Code;
+using VAR.Toolbox.Code.ProxyCmdExecutors;
 
 namespace VAR.Toolbox.UI
 {

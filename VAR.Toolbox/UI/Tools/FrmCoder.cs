@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using VAR.Toolbox.Code;
+using VAR.Toolbox.Code.TextCoders;
 
 namespace VAR.Toolbox.UI
 {

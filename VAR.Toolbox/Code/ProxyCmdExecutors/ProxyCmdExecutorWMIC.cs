@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
 
-namespace VAR.Toolbox.Code
+namespace VAR.Toolbox.Code.ProxyCmdExecutors
 {
     public class ProxyCmdExecutorWMIC : IProxyCmdExecutor
     {
+        public string Name { get { return "WMIC"; } }
+
         private string _configWMIC;
 
         public ProxyCmdExecutorWMIC(string configWMIC)

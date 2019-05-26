@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Data.SqlClient;
 
-namespace VAR.Toolbox.Code
+namespace VAR.Toolbox.Code.ProxyCmdExecutors
 {
     public class ProxyCmdExecutorThroughSQLServer : IProxyCmdExecutor
     {
+        public string Name { get { return "SqlServer"; } }
+
         private readonly string _connectionString = null;
 
         public ProxyCmdExecutorThroughSQLServer(string connectionString)
