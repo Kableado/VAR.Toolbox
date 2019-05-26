@@ -9,8 +9,12 @@ using System.Xml;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmTestWebService : Form
+    public partial class FrmTestWebService : Form, IToolForm
     {
+        public string ToolName { get { return "TestWebService"; } }
+
+        public bool HasIcon { get { return false; } }
+
         public FrmTestWebService()
         {
             InitializeComponent();

@@ -75,6 +75,7 @@
     </Compile>
     <Compile Include="Code\HexUtils.cs" />
     <Compile Include="Code\ProxyCmdExecutorWMIC.cs" />
+    <Compile Include="Code\ReflectionUtils.cs" />
     <Compile Include="Code\TextCoderBase64Utf8.cs" />
     <Compile Include="Code\TextCoderBase64Ascii.cs" />
     <Compile Include="Code\DirectShow\CameraControlProperty.cs" />
@@ -182,9 +183,6 @@
     </Compile>
     <Compile Include="UI\FrmToolbox.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\FrmToolbox.Designer.cs">
-      <DependentUpon>FrmToolbox.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -3,16 +3,21 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Windows;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmToolbox : Form
+    public class FrmToolbox : Form
     {
         #region Declarations
 
         private bool _closing = false;
+
+        private Label lblToolbox;
+        private Button btnExit;
 
         private NotifyIcon niTray = null;
 
@@ -25,23 +30,11 @@ namespace VAR.Toolbox.UI
         public FrmToolbox()
         {
             InitializeComponent();
-
-            InitializeCustomControls();
-
-            MouseDown += DragWindow_MouseDown;
-            lblToolbox.MouseDown += DragWindow_MouseDown;
-
             _currentInstance = this;
         }
 
         private void InitializeCustomControls()
         {
-            niTray = new NotifyIcon
-            {
-                Text = "VAR.Toolbox",
-                Visible = true
-            };
-            niTray.MouseClick += NiTray_MouseClick;
         }
 
         private void FrmToolbox_Load(object sender, EventArgs e)
@@ -68,7 +61,7 @@ namespace VAR.Toolbox.UI
 
         #region UI events
 
-        private void DragWindow_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void DragWindow_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -104,47 +97,142 @@ namespace VAR.Toolbox.UI
             WindowState = FormWindowState.Normal;
         }
 
-        private void BtnCoder_Click(object sender, EventArgs e)
-        {
-            CreateWindow(typeof(FrmCoder));
-        }
-
-        private void BtnProxyCmd_Click(object sender, EventArgs e)
-        {
-            CreateWindow(typeof(FrmProxyCmd));
-        }
-
-        private void BtnWebcam_Click(object sender, EventArgs e)
-        {
-            CreateWindow(typeof(FrmWebcam));
-        }
-
-        private void BtnTunnelTCP_Click(object sender, EventArgs e)
-        {
-            CreateWindow(typeof(FrmTunnelTCP));
-        }
-
-        private void BtnTestWebService_Click(object sender, EventArgs e)
-        {
-            CreateWindow(typeof(FrmTestWebService));
-        }
-
-        private void BtnScreenshooter_Click(object sender, EventArgs e)
-        {
-            CreateWindow(typeof(FrmScreenshooter));
-        }
-
-        private void BtnIPScan_Click(object sender, EventArgs e)
-        {
-            CreateWindow(typeof(FrmIPScan));
-        }
-
-        private void BtnNetworkInfo_MouseClick(object sender, MouseEventArgs e)
-        {
-            CreateWindow(typeof(FrmNetworkInfo));
-        }
-
         #endregion UI events
+
+        #region Dynamic layout
+
+        private void InitializeComponent()
+        {
+            SuspendLayout();
+            const int toolSpacing = 5;
+            const int toolWidth = 200;
+            const int windowSpacing = 10;
+            int nextYLocation = 0;
+
+            // Get list of ToolForms
+            Type iToolForm = typeof(IToolForm);
+            IEnumerable<Type> toolFormTypes = ReflectionUtils.GetTypesOfInterface(iToolForm);
+            Dictionary<string, Type> dictToolFormTypes = toolFormTypes.ToDictionary(t =>
+            {
+                IToolForm toolForm = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(t) as IToolForm;
+                return toolForm.ToolName;
+            });
+
+            // Get list of ToolPanels
+            Type iToolPanel = typeof(IToolPanel);
+            IEnumerable<Type> toolPanelTypes = ReflectionUtils.GetTypesOfInterface(iToolPanel);
+
+            // lblToolbox
+            lblToolbox = new Label
+            {
+                Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right),
+                Font = new Font("Microsoft Sans Serif", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0),
+                Location = new Point(windowSpacing, windowSpacing),
+                Margin = new Padding(0, 0, 0, 0),
+                Name = "lblToolbox",
+                Size = new Size(toolWidth * 2 + toolSpacing, 50),
+                TabIndex = 6,
+                Text = "Toolbox",
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+            lblToolbox.MouseDown += DragWindow_MouseDown;
+            nextYLocation = lblToolbox.Location.Y + lblToolbox.Size.Height + windowSpacing;
+
+            // Tool buttons
+            int idxButton = 0;
+            int xStartButtons = windowSpacing;
+            int xStepButtons = toolWidth + toolSpacing;
+            int yStartButtons = nextYLocation;
+            int yStepButtons = 40 + toolSpacing;
+            IEnumerable<KeyValuePair<string, Type>> sortedToolForms = dictToolFormTypes.OrderBy(p => p.Key);
+            foreach (KeyValuePair<string, Type> p in sortedToolForms)
+            {
+                int x = xStartButtons + (idxButton % 2) * xStepButtons;
+                int y = yStartButtons + (idxButton / 2) * yStepButtons;
+                Button btn = new Button
+                {
+                    Location = new Point(x, y),
+                    Name = string.Format("btn{0}", p.Key),
+                    Size = new Size(toolWidth, 40),
+                    TabIndex = idxButton,
+                    Text = p.Key,
+                    UseVisualStyleBackColor = true
+                };
+                btn.Click += (s, e) => { CreateWindow(p.Value); };
+                Controls.Add(btn);
+
+                nextYLocation = btn.Location.Y + btn.Size.Height + windowSpacing;
+
+                idxButton++;
+            }
+
+            // Tool panels
+            int idxPanel = 0;
+            int yStartPanels = nextYLocation;
+            int xStartPanels = windowSpacing;
+            int xNextPanels = xStartPanels;
+            foreach (Type t in toolPanelTypes)
+            {
+                ContainerControl pnl = Activator.CreateInstance(t) as ContainerControl;
+                if (pnl == null) { continue; }
+                pnl.Location = new Point(xNextPanels, yStartPanels);
+                Controls.Add(pnl);
+
+                int tempNextYLocation = pnl.Location.Y + pnl.Size.Height + windowSpacing;
+                if (nextYLocation < tempNextYLocation)
+                {
+                    nextYLocation = tempNextYLocation;
+                }
+                xNextPanels = pnl.Location.X + pnl.Size.Width + toolSpacing;
+
+                if ((idxPanel % 2) == 1)
+                {
+                    yStartPanels = nextYLocation;
+                    xNextPanels = xStartPanels;
+                }
+                idxPanel++;
+            }
+
+            // btnExit
+            btnExit = new Button
+            {
+                Anchor = ((AnchorStyles.Bottom | AnchorStyles.Left)
+            | AnchorStyles.Right),
+                Location = new Point(windowSpacing, nextYLocation),
+                Name = "btnExit",
+                Size = new Size(toolWidth * 2 + toolSpacing, 40),
+                TabIndex = 7,
+                Text = "Exit",
+                UseVisualStyleBackColor = true
+            };
+            btnExit.Click += BtnExit_Click;
+            nextYLocation = btnExit.Location.Y + btnExit.Size.Height + windowSpacing;
+
+            // FrmToolbox
+            AutoScaleMode = AutoScaleMode.None;
+            ClientSize = new Size(425, nextYLocation);
+            Controls.Add(btnExit);
+            Controls.Add(lblToolbox);
+            FormBorderStyle = FormBorderStyle.Fixed3D;
+            MaximizeBox = false;
+            Name = "FrmToolbox";
+            Text = "Toolbox";
+            FormClosing += FrmToolbox_FormClosing;
+            Load += FrmToolbox_Load;
+            Resize += FrmToolbox_Resize;
+            MouseDown += DragWindow_MouseDown;
+            ResumeLayout(false);
+
+            // niTray
+            niTray = new NotifyIcon
+            {
+                Text = "VAR.Toolbox",
+                Visible = true
+            };
+            niTray.MouseClick += NiTray_MouseClick;
+        }
+
+        #endregion Dynamic layout
 
         #region Window handling
 

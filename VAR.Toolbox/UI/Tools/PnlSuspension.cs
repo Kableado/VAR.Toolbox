@@ -15,22 +15,22 @@ namespace VAR.Toolbox.UI
 
         private void PnlSuspension_Load(object sender, EventArgs e)
         {
-            ddlCustomHour_Load();
-            ddlCustomMinute_Load();
+            DdlCustomHour_Load();
+            DdlCustomMinute_Load();
             RandomizeOffset();
         }
 
-        private void btnCustomSuspenedNow_Click(object sender, EventArgs e)
+        private void BtnCustomSuspenedNow_Click(object sender, EventArgs e)
         {
             CustomHourMinute_SetNow();
         }
 
-        private void btnRandOffset_Click(object sender, EventArgs e)
+        private void BtnRandOffset_Click(object sender, EventArgs e)
         {
             RandomizeOffset();
         }
 
-        private void timTicker_Tick(object sender, EventArgs e)
+        private void TimTicker_Tick(object sender, EventArgs e)
         {
             if (DesignMode) { return; }
             ResetCountdown();
@@ -73,7 +73,7 @@ namespace VAR.Toolbox.UI
         }
 
 
-        private void ddlCustomHour_Load()
+        private void DdlCustomHour_Load()
         {
             for (int i = 0; i < 24; i++)
             {
@@ -81,7 +81,7 @@ namespace VAR.Toolbox.UI
             }
         }
 
-        private void ddlCustomMinute_Load()
+        private void DdlCustomMinute_Load()
         {
             for (int i = 0; i < 60; i++)
             {

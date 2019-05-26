@@ -11,7 +11,7 @@ namespace VAR.Toolbox.UI
             InitializeComponent();
         }
 
-        private void timTicker_Tick(object sender, EventArgs e)
+        private void TimTicker_Tick(object sender, EventArgs e)
         {
             if (DesignMode) { return; }
             timTicker.Stop();
@@ -35,7 +35,7 @@ namespace VAR.Toolbox.UI
             timTicker.Start();
         }
 
-        private void btnCover_Click(object sender, EventArgs e)
+        private void BtnCover_Click(object sender, EventArgs e)
         {
             CoverScreen();
         }
@@ -60,5 +60,6 @@ namespace VAR.Toolbox.UI
                 frmParent.WindowState = FormWindowState.Minimized;
             }
         }
+        
     }
 }

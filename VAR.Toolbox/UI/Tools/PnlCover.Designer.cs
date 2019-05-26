@@ -47,29 +47,29 @@
             this.grpCover.Controls.Add(this.chkAutoCover);
             this.grpCover.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpCover.Location = new System.Drawing.Point(0, 0);
-            this.grpCover.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.grpCover.Margin = new System.Windows.Forms.Padding(4);
             this.grpCover.Name = "grpCover";
-            this.grpCover.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.grpCover.Size = new System.Drawing.Size(262, 160);
+            this.grpCover.Padding = new System.Windows.Forms.Padding(4);
+            this.grpCover.Size = new System.Drawing.Size(200, 123);
             this.grpCover.TabIndex = 14;
             this.grpCover.TabStop = false;
             this.grpCover.Text = "Cover";
             // 
             // btnCover
             // 
-            this.btnCover.Location = new System.Drawing.Point(8, 83);
-            this.btnCover.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnCover.Location = new System.Drawing.Point(7, 66);
+            this.btnCover.Margin = new System.Windows.Forms.Padding(4);
             this.btnCover.Name = "btnCover";
-            this.btnCover.Size = new System.Drawing.Size(181, 35);
+            this.btnCover.Size = new System.Drawing.Size(161, 28);
             this.btnCover.TabIndex = 7;
             this.btnCover.Text = "Cover";
             this.btnCover.UseVisualStyleBackColor = true;
-            this.btnCover.Click += new System.EventHandler(this.btnCover_Click);
+            this.btnCover.Click += new System.EventHandler(this.BtnCover_Click);
             // 
             // numInactive
             // 
-            this.numInactive.Location = new System.Drawing.Point(131, 27);
-            this.numInactive.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numInactive.Location = new System.Drawing.Point(116, 22);
+            this.numInactive.Margin = new System.Windows.Forms.Padding(4);
             this.numInactive.Maximum = new decimal(new int[] {
             300,
             0,
@@ -81,7 +81,7 @@
             0,
             0});
             this.numInactive.Name = "numInactive";
-            this.numInactive.Size = new System.Drawing.Size(58, 26);
+            this.numInactive.Size = new System.Drawing.Size(52, 22);
             this.numInactive.TabIndex = 10;
             this.numInactive.Value = new decimal(new int[] {
             180,
@@ -92,10 +92,10 @@
             // lblInactive
             // 
             this.lblInactive.AutoSize = true;
-            this.lblInactive.Location = new System.Drawing.Point(8, 58);
+            this.lblInactive.Location = new System.Drawing.Point(7, 46);
             this.lblInactive.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblInactive.Name = "lblInactive";
-            this.lblInactive.Size = new System.Drawing.Size(79, 20);
+            this.lblInactive.Size = new System.Drawing.Size(70, 17);
             this.lblInactive.TabIndex = 8;
             this.lblInactive.Text = "lblInactive";
             // 
@@ -104,10 +104,10 @@
             this.chkAutoCover.AutoSize = true;
             this.chkAutoCover.Checked = true;
             this.chkAutoCover.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAutoCover.Location = new System.Drawing.Point(8, 29);
-            this.chkAutoCover.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chkAutoCover.Location = new System.Drawing.Point(7, 23);
+            this.chkAutoCover.Margin = new System.Windows.Forms.Padding(4);
             this.chkAutoCover.Name = "chkAutoCover";
-            this.chkAutoCover.Size = new System.Drawing.Size(110, 24);
+            this.chkAutoCover.Size = new System.Drawing.Size(96, 21);
             this.chkAutoCover.TabIndex = 9;
             this.chkAutoCover.Text = "AutoCover";
             this.chkAutoCover.UseVisualStyleBackColor = true;
@@ -115,15 +115,15 @@
             // timTicker
             // 
             this.timTicker.Enabled = true;
-            this.timTicker.Tick += new System.EventHandler(this.timTicker_Tick);
+            this.timTicker.Tick += new System.EventHandler(this.TimTicker_Tick);
             // 
             // PnlCover
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Controls.Add(this.grpCover);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "PnlCover";
-            this.Size = new System.Drawing.Size(262, 160);
+            this.Size = new System.Drawing.Size(200, 123);
             this.grpCover.ResumeLayout(false);
             this.grpCover.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numInactive)).EndInit();
