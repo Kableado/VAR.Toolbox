@@ -6,7 +6,7 @@ namespace VAR.Toolbox.Code.ProxyCmdExecutors
     {
         public string Name { get { return "WMIC"; } }
 
-        private string _configWMIC;
+        private readonly string _configWMIC;
 
         public ProxyCmdExecutorWMIC(string configWMIC)
         {

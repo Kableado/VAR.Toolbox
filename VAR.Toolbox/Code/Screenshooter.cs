@@ -52,8 +52,8 @@ namespace VAR.Toolbox.Code
             User32.GetWindowRect(handle, ref windowRect);
             int left = windowRect.left;
             int top = windowRect.top;
-            int width = windowRect.right - windowRect.left;
-            int height = windowRect.bottom - windowRect.top;
+            int width = windowRect.right - left;
+            int height = windowRect.bottom - top;
             // create a device context we can copy to
             IntPtr hdcDest = GDI32.CreateCompatibleDC(hdcSrc);
             // create a bitmap we can copy it to,

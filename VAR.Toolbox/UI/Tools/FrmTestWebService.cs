@@ -209,7 +209,7 @@ namespace VAR.Toolbox.UI
         }
 
 
-        private static CookieContainer _cookieJar = new CookieContainer();
+        private static readonly CookieContainer _cookieJar = new CookieContainer();
 
         public static string CallApi(string urlService, string urlApiMethod, Dictionary<string, string> prms, string content)
         {

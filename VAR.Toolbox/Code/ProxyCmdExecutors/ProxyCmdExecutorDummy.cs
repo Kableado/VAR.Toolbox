@@ -4,7 +4,13 @@
     {
         public string Name { get { return "Dummy"; } }
 
-        public ProxyCmdExecutorDummy(string config) { }
+        public ProxyCmdExecutorDummy(string config)
+        {
+            if (config == null)
+            {
+                throw new System.ArgumentNullException(nameof(config));
+            }
+        }
 
         public bool ExecuteCmd(string cmdString, IOutputHandler outputHandler)
         {

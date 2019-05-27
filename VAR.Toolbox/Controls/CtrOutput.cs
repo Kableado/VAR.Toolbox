@@ -41,8 +41,8 @@ namespace VAR.Toolbox.Controls
                 ForeColor = Color.Gray,
                 SelectionMode = SelectionMode.MultiExtended,
             };
-            _listBox.MouseDoubleClick += _listBox_MouseDoubleClick;
-            _listBox.KeyDown += _listBox_KeyDown;
+            _listBox.MouseDoubleClick += ListBox_MouseDoubleClick;
+            _listBox.KeyDown += ListBox_KeyDown;
             Controls.Add(_listBox);
 
             _timer = new Timer
@@ -50,7 +50,7 @@ namespace VAR.Toolbox.Controls
                 Interval = 100,
                 Enabled = true
             };
-            _timer.Tick += _timer_Tick;
+            _timer.Tick += Timer_Tick;
 
             Disposed += CtrOutput_Disposed;
         }
@@ -71,7 +71,7 @@ namespace VAR.Toolbox.Controls
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void _listBox_KeyDown(object sender, KeyEventArgs e)
+        private void ListBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.C)
             {
@@ -92,12 +92,12 @@ namespace VAR.Toolbox.Controls
             }
         }
 
-        private void _listBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void ListBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             DoubleClick?.Invoke(sender, e);
         }
 
-        private void _timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             if (_updated)
             {
@@ -106,7 +106,7 @@ namespace VAR.Toolbox.Controls
         }
 
         private bool _updated = false;
-        private List<OutputItem> _pendingOutput = new List<OutputItem>();
+        private readonly List<OutputItem> _pendingOutput = new List<OutputItem>();
 
         private void UpdatePosition()
         {

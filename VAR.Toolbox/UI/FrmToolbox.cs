@@ -33,10 +33,6 @@ namespace VAR.Toolbox.UI
             _currentInstance = this;
         }
 
-        private void InitializeCustomControls()
-        {
-        }
-
         private void FrmToolbox_Load(object sender, EventArgs e)
         {
             Icon ico = Icon.ExtractAssociatedIcon(Application.ExecutablePath);

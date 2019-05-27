@@ -135,7 +135,7 @@ namespace VAR.Toolbox.UI
         public static string[] GetConfigurationLines()
         {
             string configFile = GetConfigFileName();
-            string[] config = null;
+            string[] config;
             if (File.Exists(configFile) == false)
             {
                 config = new string[] { "Dummy|Dummy:" };

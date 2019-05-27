@@ -1,4 +1,5 @@
 ﻿#pragma warning disable IDE0018
+#pragma warning disable IDE0059
 
 using System;
 using System.Collections.Generic;
@@ -15,17 +16,17 @@ namespace VAR.Toolbox.Code
     {
         #region Declarations
 
-        private IFilterGraph2 graph;
-        private ICaptureGraphBuilder2 capture;
-        private IMediaControl control;
-        private IBaseFilter sourceFilter;
-        private IBaseFilter samplegrabberfilter;
-        private IBaseFilter nullrenderer;
+        private readonly IFilterGraph2 graph;
+        private readonly ICaptureGraphBuilder2 capture;
+        private readonly IMediaControl control;
+        private readonly IBaseFilter sourceFilter;
+        private readonly IBaseFilter samplegrabberfilter;
+        private readonly IBaseFilter nullrenderer;
 
         private readonly Grabber grabber;
 
-        private int width = 0;
-        private int height = 0;
+        private readonly int width = 0;
+        private readonly int height = 0;
         private readonly int bpp = 0;
 
         private bool active = false;
@@ -264,7 +265,7 @@ namespace VAR.Toolbox.Code
 
         private class Grabber : ISampleGrabberCB
         {
-            private Webcam _parent;
+            private readonly Webcam _parent;
 
             private readonly Bitmap[] _frames = null;
             private readonly int _numFrames = 10;

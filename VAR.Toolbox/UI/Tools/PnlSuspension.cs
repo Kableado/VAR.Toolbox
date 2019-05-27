@@ -6,7 +6,7 @@ namespace VAR.Toolbox.UI
 {
     public partial class PnlSuspension : UserControl, IToolPanel
     {
-        private Random rnd = new Random();
+        private readonly Random _rnd = new Random();
 
         public PnlSuspension()
         {
@@ -48,30 +48,12 @@ namespace VAR.Toolbox.UI
                         0)
                     .AddSeconds(Convert.ToInt32(numOffset.Value));
 
-                if (DateTime.Compare(now, dtSuspendAtCustom) > 0)
-                {
-                    if (chkSuspendAtCustom.Checked)
-                    {
-                        chkSuspendAtCustom.Checked = false;
-                        RandomizeOffset();
-                        SuspendSystem();
-                    }
-                    else
-                    {
-                        chkSuspendAtCustom.Enabled = false;
-                    }
-                }
-                else
-                {
-                    SetCountdown(dtSuspendAtCustom, now);
-                    chkSuspendAtCustom.Enabled = true;
-                }
+                CheckTime(chkSuspendAtCustom, dtSuspendAtCustom, now);
             }
 
             timTicker.Stop();
             timTicker.Start();
         }
-
 
         private void DdlCustomHour_Load()
         {
@@ -98,7 +80,7 @@ namespace VAR.Toolbox.UI
 
         private void RandomizeOffset()
         {
-            numOffset.Value = (rnd.Next() % 599) + 1;
+            numOffset.Value = (_rnd.Next() % 599) + 1;
         }
 
         private void ResetCountdown()
@@ -112,11 +94,11 @@ namespace VAR.Toolbox.UI
             lblCountdown.Text = string.Format("{0:00}:{1:00}:{2:00}:{3:00}", timeSpan.Days, timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
         }
 
-        private void CheckTime(CheckBox checkBox, DateTime dtSuspension, DateTime now)
+        private void CheckTime(CheckBox chkSuspendAtCustom, DateTime dtSuspendAtCustom, DateTime now)
         {
-            if (DateTime.Compare(now, dtSuspension) > 0)
+            if (DateTime.Compare(now, dtSuspendAtCustom) > 0)
             {
-                if (checkBox.Checked)
+                if (chkSuspendAtCustom.Checked)
                 {
                     chkSuspendAtCustom.Checked = false;
                     RandomizeOffset();
@@ -124,16 +106,13 @@ namespace VAR.Toolbox.UI
                 }
                 else
                 {
-                    checkBox.Enabled = false;
+                    chkSuspendAtCustom.Enabled = false;
                 }
             }
             else
             {
-                checkBox.Enabled = true;
-            }
-            if (dtSuspension > now)
-            {
-                SetCountdown(dtSuspension, now);
+                SetCountdown(dtSuspendAtCustom, now);
+                chkSuspendAtCustom.Enabled = true;
             }
         }
 
@@ -141,6 +120,5 @@ namespace VAR.Toolbox.UI
         {
             Win32.SetSuspendState(false, true, false);
         }
-
     }
 }

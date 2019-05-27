@@ -10,8 +10,8 @@ namespace VAR.Toolbox.UI
     {
         #region Declarations
 
-        private Random rnd = new Random();
-        private Timer _timer = new Timer();
+        private readonly Random _rnd = new Random();
+        private readonly Timer _timer = new Timer();
 
         private readonly uint _mouseX = 0;
         private readonly uint _mouseY = 0;
@@ -85,8 +85,8 @@ namespace VAR.Toolbox.UI
             try
             {
                 Mouse.Move(
-                    (rnd.Next() % 11) - 5,
-                    (rnd.Next() % 11) - 5);
+                    (_rnd.Next() % 11) - 5,
+                    (_rnd.Next() % 11) - 5);
             }
             catch (Exception) { } // ignore exceptions moving mouse
             _timer.Stop();

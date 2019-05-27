@@ -15,21 +15,15 @@ namespace VAR.Toolbox.UI
         {
             if (DesignMode) { return; }
             timTicker.Stop();
-            bool userInactive = false;
             uint inactiveTime = Win32.GetLastInputTime();
 
             lblInactive.Text = string.Format("Inactive by {0} seconds", inactiveTime);
 
             if (chkAutoCover.Checked)
             {
-                if (!userInactive && inactiveTime > numInactive.Value)
+                if (inactiveTime > numInactive.Value)
                 {
-                    userInactive = true;
                     CoverScreen();
-                }
-                if (inactiveTime < 1)
-                {
-                    userInactive = false;
                 }
             }
             timTicker.Start();
