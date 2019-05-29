@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28917.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VAR.Toolbox", "VAR.Toolbox\VAR.Toolbox.csproj", "{E8DAB98D-4FD0-4D40-B29A-62B4C2FCA4D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VAR.Toolbox.TestPlugin", "VAR.Toolbox.TestPlugin\VAR.Toolbox.TestPlugin.csproj", "{74FE172A-D63C-460E-B15F-DEBF4150BAB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{E8DAB98D-4FD0-4D40-B29A-62B4C2FCA4D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8DAB98D-4FD0-4D40-B29A-62B4C2FCA4D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8DAB98D-4FD0-4D40-B29A-62B4C2FCA4D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74FE172A-D63C-460E-B15F-DEBF4150BAB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74FE172A-D63C-460E-B15F-DEBF4150BAB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74FE172A-D63C-460E-B15F-DEBF4150BAB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74FE172A-D63C-460E-B15F-DEBF4150BAB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {08F0DAFF-33C5-4164-9454-62623789F7EB}
 	EndGlobalSection
 EndGlobal
