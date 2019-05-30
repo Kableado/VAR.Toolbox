@@ -29,7 +29,7 @@ namespace VAR.Toolbox.UI
 
         public FrmToolbox()
         {
-            InitializeComponent();
+            InitializeDynamicComponents();
             _currentInstance = this;
         }
 
@@ -97,7 +97,7 @@ namespace VAR.Toolbox.UI
 
         #region Dynamic layout
 
-        private void InitializeComponent()
+        private void InitializeDynamicComponents()
         {
             SuspendLayout();
             const int toolSpacing = 5;
@@ -116,7 +116,7 @@ namespace VAR.Toolbox.UI
 
             // Get list of ToolPanels
             Type iToolPanel = typeof(IToolPanel);
-            IEnumerable<Type> toolPanelTypes = ReflectionUtils.GetTypesOfInterface(iToolPanel);
+            IEnumerable<Type> toolPanelTypes = ReflectionUtils.GetTypesOfInterface(iToolPanel).OrderBy(t => t.Name);
 
             // lblToolbox
             lblToolbox = new Label
