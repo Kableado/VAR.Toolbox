@@ -193,6 +193,12 @@
       <DependentUpon>FrmWebcam.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\IToolForm.cs" />
+    <Compile Include="UI\Tools\PnlActivity.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Tools\PnlActivity.Designer.cs">
+      <DependentUpon>PnlActivity.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Tools\PnlCover.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -214,7 +220,6 @@
     <Content Include="Images\toolbox.svg" />
     <Content Include="Toolbox.ico" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
