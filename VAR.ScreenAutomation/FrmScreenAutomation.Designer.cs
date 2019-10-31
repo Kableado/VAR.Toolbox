@@ -31,8 +31,9 @@
             this.picCapturer = new System.Windows.Forms.PictureBox();
             this.splitMain = new System.Windows.Forms.SplitContainer();
             this.splitOutput = new System.Windows.Forms.SplitContainer();
-            this.picPreview = new VAR.ScreenAutomation.Controls.CtrImageViewer();
+            this.ddlAutomationBot = new System.Windows.Forms.ComboBox();
             this.btnStartEnd = new System.Windows.Forms.Button();
+            this.picPreview = new VAR.ScreenAutomation.Controls.CtrImageViewer();
             this.ctrOutput = new VAR.ScreenAutomation.Controls.CtrOutput();
             ((System.ComponentModel.ISupportInitialize)(this.picCapturer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
@@ -48,8 +49,8 @@
             // 
             // picCapturer
             // 
-            this.picCapturer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.picCapturer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picCapturer.Location = new System.Drawing.Point(4, 4);
             this.picCapturer.Margin = new System.Windows.Forms.Padding(4);
@@ -91,16 +92,41 @@
             // 
             // splitOutput.Panel2
             // 
+            this.splitOutput.Panel2.Controls.Add(this.ddlAutomationBot);
             this.splitOutput.Panel2.Controls.Add(this.btnStartEnd);
             this.splitOutput.Panel2.Controls.Add(this.ctrOutput);
             this.splitOutput.Size = new System.Drawing.Size(309, 816);
             this.splitOutput.SplitterDistance = 371;
             this.splitOutput.TabIndex = 4;
             // 
+            // ddlAutomationBot
+            // 
+            this.ddlAutomationBot.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ddlAutomationBot.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ddlAutomationBot.FormattingEnabled = true;
+            this.ddlAutomationBot.Location = new System.Drawing.Point(13, 4);
+            this.ddlAutomationBot.Name = "ddlAutomationBot";
+            this.ddlAutomationBot.Size = new System.Drawing.Size(293, 24);
+            this.ddlAutomationBot.TabIndex = 4;
+            // 
+            // btnStartEnd
+            // 
+            this.btnStartEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnStartEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStartEnd.Location = new System.Drawing.Point(15, 34);
+            this.btnStartEnd.Name = "btnStartEnd";
+            this.btnStartEnd.Size = new System.Drawing.Size(294, 39);
+            this.btnStartEnd.TabIndex = 3;
+            this.btnStartEnd.Text = "Start";
+            this.btnStartEnd.UseVisualStyleBackColor = true;
+            this.btnStartEnd.Click += new System.EventHandler(this.BtnStartEnd_Click);
+            // 
             // picPreview
             // 
-            this.picPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.picPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picPreview.BackColor = System.Drawing.Color.Black;
             this.picPreview.ImageShow = null;
@@ -110,25 +136,14 @@
             this.picPreview.TabIndex = 1;
             this.picPreview.TabStop = false;
             // 
-            // btnStartEnd
-            // 
-            this.btnStartEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStartEnd.Location = new System.Drawing.Point(12, 3);
-            this.btnStartEnd.Name = "btnStartEnd";
-            this.btnStartEnd.Size = new System.Drawing.Size(294, 39);
-            this.btnStartEnd.TabIndex = 3;
-            this.btnStartEnd.Text = "Start";
-            this.btnStartEnd.UseVisualStyleBackColor = true;
-            this.btnStartEnd.Click += new System.EventHandler(this.BtnStartEnd_Click);
-            // 
             // ctrOutput
             // 
-            this.ctrOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.ctrOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ctrOutput.Location = new System.Drawing.Point(12, 48);
+            this.ctrOutput.Location = new System.Drawing.Point(12, 79);
             this.ctrOutput.Name = "ctrOutput";
-            this.ctrOutput.Size = new System.Drawing.Size(294, 380);
+            this.ctrOutput.Size = new System.Drawing.Size(294, 349);
             this.ctrOutput.TabIndex = 2;
             this.ctrOutput.Text = "ctrOutput1";
             // 
@@ -164,6 +179,7 @@
         private System.Windows.Forms.SplitContainer splitMain;
         private System.Windows.Forms.SplitContainer splitOutput;
         private System.Windows.Forms.Button btnStartEnd;
+        private System.Windows.Forms.ComboBox ddlAutomationBot;
     }
 }
 

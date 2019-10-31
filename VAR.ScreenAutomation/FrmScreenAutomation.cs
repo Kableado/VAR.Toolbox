@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using VAR.ScreenAutomation.Bots;
 using VAR.ScreenAutomation.Code;
 using VAR.ScreenAutomation.Interfaces;
 
@@ -11,7 +10,7 @@ namespace VAR.ScreenAutomation
     public partial class FrmScreenAutomation : Form
     {
         private bool _running = false;
-        private IAutomationBot _automationBot = new DummyBot();
+        private IAutomationBot _automationBot = null;
 
         private Timer timTicker;
         private Bitmap bmpScreen = null;
@@ -30,6 +29,11 @@ namespace VAR.ScreenAutomation
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             TransparencyKey = Color.LimeGreen;
             picCapturer.BackColor = Color.LimeGreen;
+
+
+            ddlAutomationBot.Items.AddRange(AutomationBotFactory.GetAllAutomationBots());
+            ddlAutomationBot.SelectedIndex = 0;
+
 
             if (components == null) { components = new Container(); }
             timTicker = new Timer(components)
@@ -80,6 +84,7 @@ namespace VAR.ScreenAutomation
             if (_running) { return; }
             _running = true;
             btnStartEnd.Text = "End";
+            _automationBot = AutomationBotFactory.CreateFromName((string)ddlAutomationBot.SelectedItem);
             _automationBot?.Init(ctrOutput);
             Point pointCapturerCenter = picCapturer.PointToScreen(new Point(picCapturer.Width / 2, picCapturer.Height / 2));
             Mouse.SetPosition((uint)pointCapturerCenter.X, (uint)pointCapturerCenter.Y);

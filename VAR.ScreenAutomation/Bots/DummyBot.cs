@@ -7,6 +7,8 @@ namespace VAR.ScreenAutomation.Bots
     {
         private int frameCount = 0;
 
+        public string Name => "Dummy";
+
         public void Init(IOutputHandler output)
         {
             frameCount = 0;
