@@ -33,6 +33,8 @@ namespace VAR.ScreenAutomation
 
             ddlAutomationBot.Items.AddRange(AutomationBotFactory.GetAllAutomationBots());
             ddlAutomationBot.SelectedIndex = 0;
+            _automationBot = AutomationBotFactory.CreateFromName((string)ddlAutomationBot.SelectedItem);
+            _automationBot?.Init(ctrOutput);
 
 
             if (components == null) { components = new Container(); }
@@ -53,13 +55,16 @@ namespace VAR.ScreenAutomation
 
             bmpScreen = Screenshoter.CaptureControl(picCapturer, bmpScreen);
 
-            if (_automationBot != null && _running)
+            if (_automationBot != null)
             {
                 bmpScreen = _automationBot.Process(bmpScreen, ctrOutput);
-                string responseKeys = _automationBot.ResponseKeys();
-                if (string.IsNullOrEmpty(responseKeys) == false && WindowHandling.ApplicationIsActivated() == false)
+                if (_running)
                 {
-                    SendKeys.Send(responseKeys);
+                    string responseKeys = _automationBot.ResponseKeys();
+                    if (string.IsNullOrEmpty(responseKeys) == false && WindowHandling.ApplicationIsActivated() == false)
+                    {
+                        SendKeys.Send(responseKeys);
+                    }
                 }
             }
             picPreview.ImageShow = bmpScreen;
@@ -96,6 +101,12 @@ namespace VAR.ScreenAutomation
             if (_running == false) { return; }
             _running = false;
             btnStartEnd.Text = "Start";
+        }
+
+        private void DdlAutomationBot_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _automationBot = AutomationBotFactory.CreateFromName((string)ddlAutomationBot.SelectedItem);
+            _automationBot?.Init(ctrOutput);
         }
     }
 }

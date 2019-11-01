@@ -109,6 +109,7 @@
             this.ddlAutomationBot.Name = "ddlAutomationBot";
             this.ddlAutomationBot.Size = new System.Drawing.Size(293, 24);
             this.ddlAutomationBot.TabIndex = 4;
+            this.ddlAutomationBot.SelectedIndexChanged += new System.EventHandler(this.DdlAutomationBot_SelectedIndexChanged);
             // 
             // btnStartEnd
             // 
