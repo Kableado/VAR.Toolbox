@@ -40,7 +40,7 @@ namespace VAR.ScreenAutomation
             if (components == null) { components = new Container(); }
             timTicker = new Timer(components)
             {
-                Interval = 16,
+                Interval = 100,
             };
             timTicker.Tick += TimTicker_Tick;
             timTicker.Enabled = true;
@@ -51,6 +51,7 @@ namespace VAR.ScreenAutomation
 
         private void TimTicker_Tick(object sender, EventArgs e)
         {
+            timTicker.Enabled = false;
             timTicker.Stop();
 
             bmpScreen = Screenshoter.CaptureControl(picCapturer, bmpScreen);
@@ -69,6 +70,7 @@ namespace VAR.ScreenAutomation
             }
             picPreview.ImageShow = bmpScreen;
 
+            timTicker.Enabled = true;
             timTicker.Start();
         }
 
