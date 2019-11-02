@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bots\DummyBot.cs" />
+    <Compile Include="Bots\TetrisBot.cs" />
     <Compile Include="Code\AutomationBotFactory.cs" />
     <Compile Include="Code\Mouse.cs" />
     <Compile Include="Code\Screenshoter.cs" />
