@@ -40,7 +40,7 @@ namespace VAR.ScreenAutomation
             if (components == null) { components = new Container(); }
             timTicker = new Timer(components)
             {
-                Interval = 100,
+                Interval = Convert.ToInt32(1000 / numFPS.Value),
             };
             timTicker.Tick += TimTicker_Tick;
             timTicker.Enabled = true;
@@ -70,6 +70,7 @@ namespace VAR.ScreenAutomation
             }
             picPreview.ImageShow = bmpScreen;
 
+            timTicker.Interval = Convert.ToInt32(1000 / numFPS.Value);
             timTicker.Enabled = true;
             timTicker.Start();
         }
