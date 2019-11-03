@@ -132,12 +132,6 @@ namespace VAR.ScreenAutomation.Bots
 
         private double EvaluateWorkingGrid()
         {
-            //return _workGrid.Evaluate(
-            //    aggregateHeightWeight: -0.510066,
-            //    completeLinesWeight: 0.760666,
-            //    holesWeight: -0.35663,
-            //    bumpinessWeight: -0.184483,
-            //    maxHeightWeight: 0);
             return _workGrid.Evaluate(
                 aggregateHeightWeight: -0.6,
                 completeLinesWeight: 0.8,
@@ -159,7 +153,7 @@ namespace VAR.ScreenAutomation.Bots
                 _canShot = true;
             }
 
-            if (_bestRotation == 0 && _bestXOffset == 0)
+            if (_bestRotation == 0 && _bestXOffset == 0 && _bestEvaluation > double.MinValue)
             {
                 if (_canShot)
                 {
@@ -170,6 +164,8 @@ namespace VAR.ScreenAutomation.Bots
                 }
             }
 
+            if (_bestRotation != 0 && _bestXOffset < 0) { return "{UP}{LEFT}"; }
+            if (_bestRotation != 0 && _bestXOffset > 0) { return "{UP}{RIGHT}"; }
             if (_bestRotation != 0) { return "{UP}"; }
             if (_bestXOffset < 0) { return "{LEFT}"; }
             if (_bestXOffset > 0) { return "{RIGHT}"; }
@@ -548,16 +544,46 @@ namespace VAR.ScreenAutomation.Bots
         {
             float xStep = bmp.Width / GridWidth;
             float yStep = bmp.Height / GridHeight;
+            float xOff0 = xStep / 2;
+            float xOff1 = xOff0 / 2;
+            float xOff2 = xOff0 + xOff1;
+            float yOff0 = yStep / 2;
+            float yOff1 = yOff0 / 2;
+            float yOff2 = yOff0 + yOff1;
             for (int y = 0; y < GridHeight; y++)
             {
                 for (int x = 0; x < GridWidth; x++)
                 {
                     Color color = bmp.GetPixel(
-                        x: (int)((x * xStep) + (xStep / 2)),
-                        y: (int)((y * yStep) + (yStep / 2)));
+                        x: (int)((x * xStep) + xOff0),
+                        y: (int)((y * yStep) + yOff0));
                     if (color.R > 128 || color.G > 128 || color.B > 128)
                     {
-                        _grid[y][x] = 1;
+                        Color color0 = bmp.GetPixel(
+                            x: (int)((x * xStep) + xOff1),
+                            y: (int)((y * yStep) + yOff1));
+                        Color color1 = bmp.GetPixel(
+                            x: (int)((x * xStep) + xOff1),
+                            y: (int)((y * yStep) + yOff2));
+                        Color color2 = bmp.GetPixel(
+                            x: (int)((x * xStep) + xOff2),
+                            y: (int)((y * yStep) + yOff1));
+                        Color color3 = bmp.GetPixel(
+                            x: (int)((x * xStep) + xOff2),
+                            y: (int)((y * yStep) + yOff2));
+                        if (
+                            (color0.R > 128 || color0.G > 128 || color0.B > 128) &&
+                            (color1.R > 128 || color1.G > 128 || color1.B > 128) &&
+                            (color2.R > 128 || color2.G > 128 || color2.B > 128) &&
+                            (color3.R > 128 || color3.G > 128 || color3.B > 128) &&
+                            true)
+                        {
+                            _grid[y][x] = 1;
+                        }
+                        else
+                        {
+                            _grid[y][x] = 0;
+                        }
                     }
                     else
                     {
@@ -641,6 +667,20 @@ namespace VAR.ScreenAutomation.Bots
             return true;
         }
 
+        public bool IsCompleteLine(int y)
+        {
+            bool complete = true;
+            for (int x = 0; x < GridWidth; x++)
+            {
+                if (_grid[y][x] == 0)
+                {
+                    complete = false;
+                    break;
+                }
+            }
+            return complete;
+        }
+
         public double Evaluate(double aggregateHeightWeight, double completeLinesWeight, double holesWeight, double bumpinessWeight, double maxHeightWeight)
         {
             // Calculte aggregate height
@@ -656,25 +696,21 @@ namespace VAR.ScreenAutomation.Bots
             int completeLines = 0;
             for (int y = 0; y < GridHeight; y++)
             {
-                bool complete = true;
-                for (int x = 0; x < GridWidth; x++)
-                {
-                    if (_grid[y][x] == 0)
-                    {
-                        complete = false;
-                        break;
-                    }
-                }
-                if (complete) { completeLines++; }
+                if (IsCompleteLine(y)) { completeLines++; }
             }
 
             // Calculate holes
             int holes = 0;
-            for (int y = 1; y < GridHeight; y++)
+            for (int x = 0; x < GridWidth; x++)
             {
-                for (int x = 0; x < GridWidth; x++)
+                bool block = false;
+                for (int y = 1; y < GridHeight; y++)
                 {
-                    if (_grid[y - 1][x] == 0 && _grid[y][x] != 0)
+                    if (_grid[y][x] != 0 && IsCompleteLine(y) == false)
+                    {
+                        block = true;
+                    }
+                    else if (_grid[y][x] == 0 && block)
                     {
                         holes++;
                     }
@@ -730,9 +766,14 @@ namespace VAR.ScreenAutomation.Bots
         {
             float xStep = bmp.Width / (float)GridWidth;
             float yStep = bmp.Height / (float)GridHeight;
+            float halfXStep = xStep / 2;
+            float halfYStep = yStep / 2;
+            float offX = halfXStep / 2;
+            float offY = halfYStep / 2;
+
             using (Graphics g = Graphics.FromImage(bmp))
             {
-                g.Clear(Color.Black);
+                //g.Clear(Color.Black);
                 for (int y = 0; y < GridHeight; y++)
                 {
                     for (int x = 0; x < GridWidth; x++)
@@ -744,14 +785,14 @@ namespace VAR.ScreenAutomation.Bots
                         }
                         else if (_grid[y][x] == 1)
                         {
-                            br = Brushes.Blue;
+                            br = Brushes.Red;
                         }
                         else
                         {
-                            br = Brushes.Red;
+                            br = Brushes.Blue;
                         }
                         if (br == null) { continue; }
-                        g.FillRectangle(br, xStep * x, yStep * y, xStep, yStep);
+                        g.FillRectangle(br, (xStep * x) + offX, (yStep * y) + offY, halfXStep, halfYStep);
                     }
                 }
             }
