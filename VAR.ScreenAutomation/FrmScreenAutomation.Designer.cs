@@ -183,6 +183,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmScreenAutomation";
             this.Text = "ScreenAutomation";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmScreenAutomation_FormClosing);
             this.Load += new System.EventHandler(this.FrmScreenAutomation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picCapturer)).EndInit();
             this.splitMain.Panel1.ResumeLayout(false);
