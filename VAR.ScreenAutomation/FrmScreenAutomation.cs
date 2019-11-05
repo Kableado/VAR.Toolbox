@@ -59,7 +59,6 @@ namespace VAR.ScreenAutomation
             timTicker.Enabled = true;
             timTicker.Start();
 
-            WindowHandling.WindowSetTopLevel(this);
         }
 
         private void FrmScreenAutomation_FormClosing(object sender, FormClosingEventArgs e)
@@ -118,6 +117,7 @@ namespace VAR.ScreenAutomation
         {
             if (_running) { return; }
             _running = true;
+            WindowHandling.WindowSetTopLevel(this);
             btnStartEnd.Text = "End";
             _automationBot = AutomationBotFactory.CreateFromName((string)ddlAutomationBot.SelectedItem);
             _automationBot?.Init(ctrOutput);
@@ -131,6 +131,7 @@ namespace VAR.ScreenAutomation
             if (_running == false) { return; }
             _running = false;
             btnStartEnd.Text = "Start";
+            WindowHandling.WindowSetTopLevel(this, false);
         }
 
         private void DdlAutomationBot_SelectedIndexChanged(object sender, EventArgs e)
