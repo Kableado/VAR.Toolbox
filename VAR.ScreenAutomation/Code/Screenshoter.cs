@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace VAR.ScreenAutomation.Code
@@ -29,11 +30,15 @@ namespace VAR.ScreenAutomation.Code
                 bmp = new Bitmap(width ?? 0, height ?? 0);
             }
 
-            // Draw the screenshot into our bitmap.
-            using (Graphics g = Graphics.FromImage(bmp))
+            try
             {
-                g.CopyFromScreen(left ?? 0, top ?? 0, 0, 0, bmp.Size);
+                // Draw the screenshot into our bitmap.
+                using (Graphics g = Graphics.FromImage(bmp))
+                {
+                    g.CopyFromScreen(left ?? 0, top ?? 0, 0, 0, bmp.Size);
+                }
             }
+            catch (Exception) { /* Nom Nom Nom */}
             return bmp;
         }
     }
