@@ -7,7 +7,12 @@ namespace VAR.ScreenAutomation.Bots
     {
         public string Name => "Dummy";
 
-        public void Init(IOutputHandler output)
+        public IConfiguration GetDefaultConfiguration()
+        {
+            return null;
+        }
+
+        public void Init(IOutputHandler output, IConfiguration config)
         {
             output.Clean();
         }

@@ -52,7 +52,15 @@
     <Compile Include="Bots\DummyBot.cs" />
     <Compile Include="Bots\TetrisBot.cs" />
     <Compile Include="Code\AutomationBotFactory.cs" />
-    <Compile Include="Code\Configuration.cs" />
+    <Compile Include="Code\FileBackedConfiguration.cs" />
+    <Compile Include="Code\MemoryBackedConfiguration.cs" />
+    <Compile Include="FrmAutomationBotParams.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAutomationBotParams.Designer.cs">
+      <DependentUpon>FrmAutomationBotParams.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IConfiguration.cs" />
     <Compile Include="Code\Mouse.cs" />
     <Compile Include="Code\Screenshoter.cs" />
     <Compile Include="Code\WindowHandling.cs" />
@@ -72,6 +80,9 @@
     <Compile Include="Interfaces\IOutputHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmAutomationBotParams.resx">
+      <DependentUpon>FrmAutomationBotParams.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmScreenAutomation.resx">
       <DependentUpon>FrmScreenAutomation.cs</DependentUpon>
     </EmbeddedResource>

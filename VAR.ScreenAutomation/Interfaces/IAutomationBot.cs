@@ -5,7 +5,8 @@ namespace VAR.ScreenAutomation.Interfaces
     public interface IAutomationBot
     {
         string Name { get; }
-        void Init(IOutputHandler output);
+        IConfiguration GetDefaultConfiguration();
+        void Init(IOutputHandler output, IConfiguration config);
         Bitmap Process(Bitmap bmpInput, IOutputHandler output);
         string ResponseKeys();
     }

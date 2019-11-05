@@ -24,7 +24,7 @@ namespace VAR.ScreenAutomation
 
         private void FrmScreenAutomation_Load(object sender, EventArgs e)
         {
-            var configuration = new Configuration();
+            var configuration = new FileBackedConfiguration();
             configuration.Load();
             Top = configuration.Get("Top", Top);
             Left = configuration.Get("Left", Left);
@@ -45,8 +45,7 @@ namespace VAR.ScreenAutomation
             {
                 ddlAutomationBot.SelectedIndex = 0;
             }
-            _automationBot = AutomationBotFactory.CreateFromName((string)ddlAutomationBot.SelectedItem);
-            _automationBot?.Init(ctrOutput);
+            InitBot((string)ddlAutomationBot.SelectedItem);
 
             numFPS.Value = configuration.Get("numFPS", (int)numFPS.Value);
 
@@ -63,7 +62,7 @@ namespace VAR.ScreenAutomation
 
         private void FrmScreenAutomation_FormClosing(object sender, FormClosingEventArgs e)
         {
-            var configuration = new Configuration();
+            var configuration = new FileBackedConfiguration();
             configuration.Set("Top", Top);
             configuration.Set("Left", Left);
             configuration.Set("Width", Width);
@@ -113,14 +112,32 @@ namespace VAR.ScreenAutomation
             }
         }
 
+        private void DdlAutomationBot_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            InitBot((string)ddlAutomationBot.SelectedItem);
+        }
+
+        private void btnAutomationBotConfig_Click(object sender, EventArgs e)
+        {
+            if (_automationBot == null) { return; }
+            IConfiguration defaultConfig = _automationBot.GetDefaultConfiguration();
+            var config = new FileBackedConfiguration(_automationBot.Name);
+            config.Load(defaultConfig);
+            var frmAutomationBotParameters = new FrmAutomationBotParams(config)
+            {
+                StartPosition = FormStartPosition.CenterParent
+            };
+            frmAutomationBotParameters.ShowDialog();
+            InitBot(_automationBot.Name);
+        }
+
         private void Start()
         {
             if (_running) { return; }
             _running = true;
             WindowHandling.WindowSetTopLevel(this);
             btnStartEnd.Text = "End";
-            _automationBot = AutomationBotFactory.CreateFromName((string)ddlAutomationBot.SelectedItem);
-            _automationBot?.Init(ctrOutput);
+            InitBot((string)ddlAutomationBot.SelectedItem);
             Point pointCapturerCenter = picCapturer.PointToScreen(new Point(picCapturer.Width / 2, picCapturer.Height / 2));
             Mouse.SetPosition((uint)pointCapturerCenter.X, (uint)pointCapturerCenter.Y);
             Mouse.Click(Mouse.MouseButtons.Left);
@@ -134,10 +151,12 @@ namespace VAR.ScreenAutomation
             WindowHandling.WindowSetTopLevel(this, false);
         }
 
-        private void DdlAutomationBot_SelectedIndexChanged(object sender, EventArgs e)
+        private void InitBot(string botName)
         {
-            _automationBot = AutomationBotFactory.CreateFromName((string)ddlAutomationBot.SelectedItem);
-            _automationBot?.Init(ctrOutput);
+            _automationBot = AutomationBotFactory.CreateFromName(botName);
+            var botConfiguration = new FileBackedConfiguration(botName);
+            botConfiguration.Load();
+            _automationBot?.Init(ctrOutput, botConfiguration);
         }
     }
 }

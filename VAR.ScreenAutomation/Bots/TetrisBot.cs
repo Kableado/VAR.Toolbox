@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using VAR.ScreenAutomation.Code;
 using VAR.ScreenAutomation.Interfaces;
 
 namespace VAR.ScreenAutomation.Bots
 {
     public class TetrisBot : IAutomationBot
     {
-        private TetrisGrid _grid = new TetrisGrid();
+        private TetrisGrid _grid;
 
-        private List<TetrisShape> _currentShape = new List<TetrisShape>();
-        private TetrisGrid _workGrid = new TetrisGrid();
+        private List<TetrisShape> _currentShape;
+        private TetrisGrid _workGrid;
 
         private bool _shapeFound = false;
         private int _shapeX;
@@ -23,12 +24,31 @@ namespace VAR.ScreenAutomation.Bots
 
         public string Name => "Tetris";
 
-        public void Init(IOutputHandler output)
+        private const int DefaultGridWidth = 10;
+        private const int DefaultGridHeight = 20;
+
+        public IConfiguration GetDefaultConfiguration()
         {
-            _currentShape.Add(new TetrisShape());
-            _currentShape.Add(new TetrisShape());
-            _currentShape.Add(new TetrisShape());
-            _currentShape.Add(new TetrisShape());
+            var defaultConfiguration = new MemoryBackedConfiguration();
+            defaultConfiguration.Set("GridWidth", DefaultGridWidth);
+            defaultConfiguration.Set("GridHeight", DefaultGridHeight);
+            return defaultConfiguration;
+        }
+
+        public void Init(IOutputHandler output, IConfiguration config)
+        {
+            int gridWidth = config.Get("GridWidth", DefaultGridWidth);
+            int gridHeight = config.Get("GridHeight", DefaultGridHeight);
+
+            _grid = new TetrisGrid(gridWidth, gridHeight);
+            _workGrid = new TetrisGrid(gridWidth, gridHeight);
+            _currentShape = new List<TetrisShape>
+            {
+                new TetrisShape(),
+                new TetrisShape(),
+                new TetrisShape(),
+                new TetrisShape(),
+            };
             output.Clean();
         }
 
@@ -509,50 +529,52 @@ namespace VAR.ScreenAutomation.Bots
 
     public class TetrisGrid
     {
-        public const int GridWidth = 10;
-        public const int GridHeight = 24;
+        private int _gridWidth;
+        private int _gridHeight;
 
         private byte[][] _grid = null;
 
         private int[] _heights = null;
 
-        public TetrisGrid()
+        public TetrisGrid(int gridWidth, int gridHeight)
         {
-            _grid = new byte[GridHeight][];
-            for (int y = 0; y < GridHeight; y++)
+            _gridWidth = gridWidth;
+            _gridHeight = gridHeight;
+            _grid = new byte[_gridHeight][];
+            for (int y = 0; y < _gridHeight; y++)
             {
-                _grid[y] = new byte[GridWidth];
+                _grid[y] = new byte[_gridWidth];
             }
-            _heights = new int[GridWidth];
+            _heights = new int[_gridWidth];
         }
 
         public byte Get(int x, int y)
         {
-            if (x >= GridWidth || x < 0) { return 0xFF; }
-            if (y >= GridHeight || y < 0) { return 0xFF; }
+            if (x >= _gridWidth || x < 0) { return 0xFF; }
+            if (y >= _gridHeight || y < 0) { return 0xFF; }
             return _grid[y][x];
         }
 
         public void Set(int x, int y, byte value)
         {
-            if (x >= GridWidth || x < 0) { return; }
-            if (y >= GridHeight || y < 0) { return; }
+            if (x >= _gridWidth || x < 0) { return; }
+            if (y >= _gridHeight || y < 0) { return; }
             _grid[y][x] = value;
         }
 
         public void SampleFromBitmap(Bitmap bmp)
         {
-            float xStep = bmp.Width / GridWidth;
-            float yStep = bmp.Height / GridHeight;
+            float xStep = bmp.Width / _gridWidth;
+            float yStep = bmp.Height / _gridHeight;
             float xOff0 = xStep / 2;
             float xOff1 = xOff0 / 2;
             float xOff2 = xOff0 + xOff1;
             float yOff0 = yStep / 2;
             float yOff1 = yOff0 / 2;
             float yOff2 = yOff0 + yOff1;
-            for (int y = 0; y < GridHeight; y++)
+            for (int y = 0; y < _gridHeight; y++)
             {
-                for (int x = 0; x < GridWidth; x++)
+                for (int x = 0; x < _gridWidth; x++)
                 {
                     Color color = bmp.GetPixel(
                         x: (int)((x * xStep) + xOff0),
@@ -595,19 +617,19 @@ namespace VAR.ScreenAutomation.Bots
 
         public void MarkGround()
         {
-            for (int i = 0; i < GridWidth; i++)
+            for (int i = 0; i < _gridWidth; i++)
             {
-                if (_grid[GridHeight - 1][i] == 1)
+                if (_grid[_gridHeight - 1][i] == 1)
                 {
-                    FloodFill(i, GridHeight - 1, 1, 2);
+                    FloodFill(i, _gridHeight - 1, 1, 2);
                 }
             }
         }
 
         public void FloodFill(int x, int y, byte expectedValue, byte fillValue)
         {
-            if (x >= GridWidth || x < 0) { return; }
-            if (y >= GridHeight || y < 0) { return; }
+            if (x >= _gridWidth || x < 0) { return; }
+            if (y >= _gridHeight || y < 0) { return; }
             if (_grid[y][x] != expectedValue) { return; }
             _grid[y][x] = fillValue;
             FloodFill(x - 1, y - 1, expectedValue, fillValue);
@@ -622,9 +644,9 @@ namespace VAR.ScreenAutomation.Bots
 
         public void SampleOther(TetrisGrid grid, byte value, byte setValue = 1)
         {
-            for (int y = 0; y < GridHeight; y++)
+            for (int y = 0; y < _gridHeight; y++)
             {
-                for (int x = 0; x < GridWidth; x++)
+                for (int x = 0; x < _gridWidth; x++)
                 {
                     if (grid._grid[y][x] == value)
                     {
@@ -642,9 +664,9 @@ namespace VAR.ScreenAutomation.Bots
         {
             x = -1;
             y = -1;
-            for (int j = 0; j < GridHeight && y == -1; j++)
+            for (int j = 0; j < _gridHeight && y == -1; j++)
             {
-                for (int i = 0; i < GridWidth && y == -1; i++)
+                for (int i = 0; i < _gridWidth && y == -1; i++)
                 {
                     if (_grid[j][i] == value)
                     {
@@ -653,9 +675,9 @@ namespace VAR.ScreenAutomation.Bots
                 }
             }
             if (y == -1) { return false; }
-            for (int i = 0; i < GridWidth && x == -1; i++)
+            for (int i = 0; i < _gridWidth && x == -1; i++)
             {
-                for (int j = 0; j < GridHeight && x == -1; j++)
+                for (int j = 0; j < _gridHeight && x == -1; j++)
                 {
                     if (_grid[j][i] == value)
                     {
@@ -670,7 +692,7 @@ namespace VAR.ScreenAutomation.Bots
         public bool IsCompleteLine(int y)
         {
             bool complete = true;
-            for (int x = 0; x < GridWidth; x++)
+            for (int x = 0; x < _gridWidth; x++)
             {
                 if (_grid[y][x] == 0)
                 {
@@ -684,27 +706,27 @@ namespace VAR.ScreenAutomation.Bots
         public double Evaluate(double aggregateHeightWeight, double completeLinesWeight, double holesWeight, double bumpinessWeight, double maxHeightWeight)
         {
             // Calculte aggregate height
-            for (int i = 0; i < GridWidth; i++)
+            for (int i = 0; i < _gridWidth; i++)
             {
                 int j = 0;
-                while (j < GridHeight && _grid[j][i] == 0) { j++; }
-                _heights[i] = GridHeight - j;
+                while (j < _gridHeight && _grid[j][i] == 0) { j++; }
+                _heights[i] = _gridHeight - j;
             }
             double agregateHeight = _heights.Sum();
 
             // Calculate complete lines
             int completeLines = 0;
-            for (int y = 0; y < GridHeight; y++)
+            for (int y = 0; y < _gridHeight; y++)
             {
                 if (IsCompleteLine(y)) { completeLines++; }
             }
 
             // Calculate holes
             int holes = 0;
-            for (int x = 0; x < GridWidth; x++)
+            for (int x = 0; x < _gridWidth; x++)
             {
                 bool block = false;
-                for (int y = 1; y < GridHeight; y++)
+                for (int y = 1; y < _gridHeight; y++)
                 {
                     if (_grid[y][x] != 0 && IsCompleteLine(y) == false)
                     {
@@ -719,7 +741,7 @@ namespace VAR.ScreenAutomation.Bots
 
             // Calculate bumpiness
             int bumpines = 0;
-            for (int i = 1; i < GridWidth; i++)
+            for (int i = 1; i < _gridWidth; i++)
             {
                 bumpines += Math.Abs(_heights[i] - _heights[i - 1]);
             }
@@ -740,10 +762,10 @@ namespace VAR.ScreenAutomation.Bots
 
         public void Print(IOutputHandler output)
         {
-            for (int y = 0; y < GridHeight; y++)
+            for (int y = 0; y < _gridHeight; y++)
             {
                 StringBuilder sbLine = new StringBuilder();
-                for (int x = 0; x < GridWidth; x++)
+                for (int x = 0; x < _gridWidth; x++)
                 {
                     if (_grid[y][x] == 0)
                     {
@@ -764,8 +786,8 @@ namespace VAR.ScreenAutomation.Bots
 
         public void Draw(Bitmap bmp)
         {
-            float xStep = bmp.Width / (float)GridWidth;
-            float yStep = bmp.Height / (float)GridHeight;
+            float xStep = bmp.Width / (float)_gridWidth;
+            float yStep = bmp.Height / (float)_gridHeight;
             float halfXStep = xStep / 2;
             float halfYStep = yStep / 2;
             float offX = halfXStep / 2;
@@ -774,9 +796,9 @@ namespace VAR.ScreenAutomation.Bots
             using (Pen borderPen = new Pen(Color.DarkGray))
             using (Graphics g = Graphics.FromImage(bmp))
             {
-                for (int y = 0; y < GridHeight; y++)
+                for (int y = 0; y < _gridHeight; y++)
                 {
-                    for (int x = 0; x < GridWidth; x++)
+                    for (int x = 0; x < _gridWidth; x++)
                     {
                         Brush br;
                         if (_grid[y][x] == 0)

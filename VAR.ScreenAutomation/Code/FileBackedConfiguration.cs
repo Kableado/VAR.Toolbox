@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using VAR.ScreenAutomation.Interfaces;
 
 namespace VAR.ScreenAutomation.Code
 {
-    public class Configuration
+    public class FileBackedConfiguration : IConfiguration
     {
-        private Dictionary<string, string> _configItems = new Dictionary<string, string>();
+        private MemoryBackedConfiguration _config = new MemoryBackedConfiguration();
 
         private string _name = null;
 
-        public Configuration(string name = null)
+        public FileBackedConfiguration(string name = null)
         {
             _name = name;
         }
@@ -48,9 +48,16 @@ namespace VAR.ScreenAutomation.Code
             return config;
         }
 
-        public void Load()
+        public void Load(IConfiguration other = null)
         {
-            _configItems.Clear();
+            _config.Clear();
+            if (other != null)
+            {
+                foreach (string key in other.GetKeys())
+                {
+                    _config.Set(key, other.Get(key, null));
+                }
+            }
             string[] configLines = GetConfigurationLines(_name);
             foreach (string configLine in configLines)
             {
@@ -59,100 +66,59 @@ namespace VAR.ScreenAutomation.Code
                 string configName = configLine.Substring(0, idxSplit);
                 string configData = configLine.Substring(idxSplit + 1);
 
-                if (_configItems.ContainsKey(configName))
-                {
-                    _configItems[configName] = configData;
-                }
-                else
-                {
-                    _configItems.Add(configName, configData);
-                }
+                _config.Set(configName, configData);
             }
         }
 
         public void Save()
         {
             StringBuilder sbConfig = new StringBuilder();
-            foreach (KeyValuePair<string, string> pair in _configItems)
+            foreach (string key in _config.GetKeys())
             {
-                sbConfig.AppendFormat("{0}|{1}\n", pair.Key, pair.Value);
+                sbConfig.AppendFormat("{0}|{1}\n", key, _config.Get(key, string.Empty));
             }
             string configFileName = GetConfigFileName(_name);
             File.WriteAllText(configFileName, sbConfig.ToString());
         }
 
+        public IEnumerable<string> GetKeys()
+        {
+            return _config.GetKeys();
+        }
+
+        public void Clear()
+        {
+            _config.Clear();
+        }
+
         public string Get(string key, string defaultValue)
         {
-            if (_configItems == null) { return defaultValue; }
-            if (_configItems.ContainsKey(key))
-            {
-                return _configItems[key];
-            }
-            return defaultValue;
+            return _config.Get(key, defaultValue);
         }
 
         public int Get(string key, int defaultValue)
         {
-            if (_configItems == null) { return defaultValue; }
-            if (_configItems.ContainsKey(key))
-            {
-                if (int.TryParse(_configItems[key], out int value))
-                {
-                    return value;
-                }
-                return defaultValue;
-            }
-            return defaultValue;
+            return _config.Get(key, defaultValue);
         }
 
         public bool Get(string key, bool defaultValue)
         {
-            if (_configItems == null) { return defaultValue; }
-            if (_configItems.ContainsKey(key))
-            {
-                string value = _configItems[key];
-                return (value == "true");
-            }
-            return defaultValue;
+            return _config.Get(key, defaultValue);
         }
 
         public void Set(string key, string value)
         {
-            if (_configItems == null) { return; }
-            if (_configItems.ContainsKey(key))
-            {
-                _configItems[key] = value;
-            }
-            else
-            {
-                _configItems.Add(key, value);
-            }
+            _config.Set(key, value);
         }
 
         public void Set(string key, int value)
         {
-            if (_configItems == null) { return; }
-            if (_configItems.ContainsKey(key))
-            {
-                _configItems[key] = Convert.ToString(value);
-            }
-            else
-            {
-                _configItems.Add(key, Convert.ToString(value));
-            }
+            _config.Set(key, value);
         }
 
         public void Set(string key, bool value)
         {
-            if (_configItems == null) { return; }
-            if (_configItems.ContainsKey(key))
-            {
-                _configItems[key] = value ? "true" : "false";
-            }
-            else
-            {
-                _configItems.Add(key, value ? "true" : "false");
-            }
+            _config.Set(key, value);
         }
 
     }
