@@ -771,9 +771,9 @@ namespace VAR.ScreenAutomation.Bots
             float offX = halfXStep / 2;
             float offY = halfYStep / 2;
 
+            using (Pen borderPen = new Pen(Color.DarkGray))
             using (Graphics g = Graphics.FromImage(bmp))
             {
-                //g.Clear(Color.Black);
                 for (int y = 0; y < GridHeight; y++)
                 {
                     for (int x = 0; x < GridWidth; x++)
@@ -781,7 +781,7 @@ namespace VAR.ScreenAutomation.Bots
                         Brush br;
                         if (_grid[y][x] == 0)
                         {
-                            br = null;
+                            br = Brushes.Black;
                         }
                         else if (_grid[y][x] == 1)
                         {
@@ -792,6 +792,8 @@ namespace VAR.ScreenAutomation.Bots
                             br = Brushes.Blue;
                         }
                         if (br == null) { continue; }
+
+                        g.DrawRectangle(borderPen, (xStep * x) + offX - 1, (yStep * y) + offY - 1, halfXStep + 2, halfYStep + 2);
                         g.FillRectangle(br, (xStep * x) + offX, (yStep * y) + offY, halfXStep, halfYStep);
                     }
                 }
