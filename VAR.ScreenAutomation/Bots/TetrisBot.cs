@@ -249,12 +249,6 @@ namespace VAR.ScreenAutomation.Bots
                         new byte[]{ 1, },
                         new byte[]{ 1, },
                     }),
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 1, },
-                        new byte[]{ 1, },
-                        new byte[]{ 1, },
-                        new byte[]{ 1, },
-                    }),
 
                     // J
                     new TetrisShape(new byte[][]{
