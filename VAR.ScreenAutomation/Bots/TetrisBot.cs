@@ -50,19 +50,19 @@ namespace VAR.ScreenAutomation.Bots
                 new TetrisShape(),
             };
             output.Clean();
+            output.AddLine(string.Format("TetrisBot: Starting {0}", DateTime.UtcNow.ToString("s")));
         }
 
         public Bitmap Process(Bitmap bmpInput, IOutputHandler output)
         {
-            // Initialize grid
             _grid.SampleFromBitmap(bmpInput);
-            _grid.MarkGround();
 
-            // Identify current tetronino
-            _shapeFound = false;
-            if (_grid.SearchFirstCell(1, out _shapeX, out _shapeY))
+            // Search shape
+            _workGrid.SampleOther(_grid, 1, 1);
+            _workGrid.MarkGround();
+            if (_workGrid.SearchFirstCell(1, out _shapeX, out _shapeY))
             {
-                _currentShape[0].SampleFromGrid(_grid, _shapeX, _shapeY, 1);
+                _currentShape[0].SampleFromGrid(_workGrid, _shapeX, _shapeY, 1);
                 _shapeFound = _currentShape[0].IsValid();
                 for (int i = 1; i < 4; i++)
                 {
@@ -70,14 +70,31 @@ namespace VAR.ScreenAutomation.Bots
                 }
             }
 
-            // Search best action
+            SearchBestAction();
+
+            // DEBUG Show information
+            _workGrid.SampleOther(_grid, 1, 1);
+            if (_shapeFound)
+            {
+                _currentShape[0].PutOnGrid(_workGrid, _shapeX, _shapeY, 0);
+                _currentShape[_bestRotation].Drop(_workGrid, _shapeX + _bestXOffset, _shapeY, 2);
+            }
+            _workGrid.Draw(bmpInput);
+
+            return bmpInput;
+        }
+
+        private void SearchBestAction()
+        {
             _bestEvaluation = double.MinValue;
             _bestXOffset = 0;
             _bestRotation = 0;
             if (_shapeFound)
             {
-                _workGrid.SampleOther(_grid, 2, 2);
-                if (_currentShape[0].Drop(_workGrid, _shapeX, _shapeY, 1))
+                _workGrid.SampleOther(_grid, 1, 1);
+                _currentShape[0].PutOnGrid(_workGrid, _shapeX, _shapeY, 0);
+
+                if (_currentShape[0].Drop(_workGrid, _shapeX, _shapeY, 2))
                 {
                     _bestXOffset = 0;
                     _bestRotation = 0;
@@ -93,8 +110,10 @@ namespace VAR.ScreenAutomation.Bots
                     offsetX = 1;
                     do
                     {
-                        _workGrid.SampleOther(_grid, 2, 2);
-                        if (_currentShape[rotation].Drop(_workGrid, _shapeX + offsetX, _shapeY, 1))
+                        _workGrid.SampleOther(_grid, 1, 1);
+                        _currentShape[0].PutOnGrid(_workGrid, _shapeX, _shapeY, 0);
+
+                        if (_currentShape[rotation].Drop(_workGrid, _shapeX + offsetX, _shapeY, 2))
                         {
                             newEvaluation = EvaluateWorkingGrid();
                             if (newEvaluation > _bestEvaluation)
@@ -115,8 +134,10 @@ namespace VAR.ScreenAutomation.Bots
                     offsetX = -1;
                     do
                     {
-                        _workGrid.SampleOther(_grid, 2, 2);
-                        if (_currentShape[rotation].Drop(_workGrid, _shapeX + offsetX, _shapeY, 1))
+                        _workGrid.SampleOther(_grid, 1, 1);
+                        _currentShape[0].PutOnGrid(_workGrid, _shapeX, _shapeY, 0);
+
+                        if (_currentShape[rotation].Drop(_workGrid, _shapeX + offsetX, _shapeY, 2))
                         {
                             newEvaluation = EvaluateWorkingGrid();
                             if (newEvaluation > _bestEvaluation)
@@ -136,18 +157,8 @@ namespace VAR.ScreenAutomation.Bots
             }
             else
             {
-                _workGrid.SampleOther(_grid, 2, 2);
+                _workGrid.SampleOther(_grid, 1, 1);
             }
-
-            // DEBUG Show information
-            _workGrid.SampleOther(_grid, 2, 2);
-            if (_shapeFound)
-            {
-                _currentShape[_bestRotation].Drop(_workGrid, _shapeX + _bestXOffset, _shapeY, 1);
-            }
-            _workGrid.Draw(bmpInput);
-
-            return bmpInput;
         }
 
         private double EvaluateWorkingGrid()
@@ -794,18 +805,18 @@ namespace VAR.ScreenAutomation.Bots
                 {
                     for (int x = 0; x < _gridWidth; x++)
                     {
-                        Brush br;
+                        Brush br = null;
                         if (_grid[y][x] == 0)
                         {
                             br = Brushes.Black;
                         }
                         else if (_grid[y][x] == 1)
                         {
-                            br = Brushes.Red;
-                        }
-                        else
-                        {
                             br = Brushes.Blue;
+                        }
+                        else if (_grid[y][x] == 2)
+                        {
+                            br = Brushes.Red;
                         }
                         if (br == null) { continue; }
 
