@@ -242,115 +242,122 @@ namespace VAR.ScreenAutomation.Bots
 
         private static List<TetrisShape> _defaultShapes = null;
 
+        public static List<TetrisShape> DefaultShapes
+        {
+            get
+            {
+                if (_defaultShapes == null)
+                {
+                    _defaultShapes = new List<TetrisShape>
+                    {
+                        // I
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 1, 1, 1, 1, },
+                        }),
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 1, },
+                            new byte[]{ 1, },
+                            new byte[]{ 1, },
+                            new byte[]{ 1, },
+                        }),
+
+                        // J
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 1, },
+                            new byte[]{ 1, 1, 1, },
+                        }),
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 1, 1, },
+                            new byte[]{ 1, },
+                            new byte[]{ 1, },
+                        }),
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 1, 1, 1, },
+                            new byte[]{ 0, 0, 1, },
+                        }),
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 0, 1, },
+                            new byte[]{ 0, 1, },
+                            new byte[]{ 1, 1, },
+                        }),
+
+                        // L
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 0, 0, 1, },
+                            new byte[]{ 1, 1, 1, },
+                        }),
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 1, },
+                            new byte[]{ 1, },
+                            new byte[]{ 1, 1, },
+                        }),
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 1, 1, 1, },
+                            new byte[]{ 1, },
+                        }),
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 1, 1, },
+                            new byte[]{ 0, 1, },
+                            new byte[]{ 0, 1, },
+                        }),
+
+                        // S
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 0, 1, 1, },
+                            new byte[]{ 1, 1, },
+                        }),
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 1, },
+                            new byte[]{ 1, 1, },
+                            new byte[]{ 0, 1, },
+                        }),
+
+                        // T
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 0, 1, },
+                            new byte[]{ 1, 1, 1, },
+                        }),
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 1, },
+                            new byte[]{ 1, 1, },
+                            new byte[]{ 1, },
+                        }),
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 1, 1, 1, },
+                            new byte[]{ 0, 1, },
+                        }),
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 0, 1, },
+                            new byte[]{ 1, 1, },
+                            new byte[]{ 0, 1, },
+                        }),
+
+                        // Z
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 1, 1, },
+                            new byte[]{ 0, 1, 1, },
+                        }),
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 0, 1, },
+                            new byte[]{ 1, 1, },
+                            new byte[]{ 1, },
+                        }),
+
+                        // O
+                        new TetrisShape(new byte[][]{
+                            new byte[]{ 1, 1, },
+                            new byte[]{ 1, 1, },
+                        })
+                    };
+                }
+                return _defaultShapes;
+            }
+        }
+
         public bool IsValid()
         {
-            if (_defaultShapes == null)
-            {
-                _defaultShapes = new List<TetrisShape>
-                {
-                    // I
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 1, 1, 1, 1, },
-                    }),
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 1, },
-                        new byte[]{ 1, },
-                        new byte[]{ 1, },
-                        new byte[]{ 1, },
-                    }),
-
-                    // J
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 1, },
-                        new byte[]{ 1, 1, 1, },
-                    }),
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 1, 1, },
-                        new byte[]{ 1, },
-                        new byte[]{ 1, },
-                    }),
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 1, 1, 1, },
-                        new byte[]{ 0, 0, 1, },
-                    }),
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 0, 1, },
-                        new byte[]{ 0, 1, },
-                        new byte[]{ 1, 1, },
-                    }),
-
-                    // L
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 0, 0, 1, },
-                        new byte[]{ 1, 1, 1, },
-                    }),
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 1, },
-                        new byte[]{ 1, },
-                        new byte[]{ 1, 1, },
-                    }),
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 1, 1, 1, },
-                        new byte[]{ 1, },
-                    }),
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 1, 1, },
-                        new byte[]{ 0, 1, },
-                        new byte[]{ 0, 1, },
-                    }),
-
-                    // S
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 0, 1, 1, },
-                        new byte[]{ 1, 1, },
-                    }),
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 1, },
-                        new byte[]{ 1, 1, },
-                        new byte[]{ 0, 1, },
-                    }),
-
-                    // T
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 0, 1, },
-                        new byte[]{ 1, 1, 1, },
-                    }),
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 1, },
-                        new byte[]{ 1, 1, },
-                        new byte[]{ 1, },
-                    }),
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 1, 1, 1, },
-                        new byte[]{ 0, 1, },
-                    }),
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 0, 1, },
-                        new byte[]{ 1, 1, },
-                        new byte[]{ 0, 1, },
-                    }),
-
-                    // Z
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 1, 1, },
-                        new byte[]{ 0, 1, 1, },
-                    }),
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 0, 1, },
-                        new byte[]{ 1, 1, },
-                        new byte[]{ 1, },
-                    }),
-
-                    // O
-                    new TetrisShape(new byte[][]{
-                        new byte[]{ 1, 1, },
-                        new byte[]{ 1, 1, },
-                    })
-                };
-            }
-
             if (_count != 4) { return false; }
-            bool matchesAnyDefault = _defaultShapes.Any(ts => CompareShape(ts));
+            bool matchesAnyDefault = DefaultShapes.Any(ts => CompareShape(ts));
             return matchesAnyDefault;
         }
 
