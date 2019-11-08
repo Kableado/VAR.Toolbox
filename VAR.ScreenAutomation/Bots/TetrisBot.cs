@@ -164,11 +164,10 @@ namespace VAR.ScreenAutomation.Bots
         private double EvaluateWorkingGrid()
         {
             return _workGrid.Evaluate(
-                aggregateHeightWeight: -0.6,
-                completeLinesWeight: 0.8,
-                holesWeight: -0.5,
-                bumpinessWeight: -0.2,
-                maxHeightWeight: -0.25);
+                aggregateHeightWeight: -0.510066,
+                completeLinesWeight: 0.760666,
+                holesWeight: -0.35663,
+                bumpinessWeight: -0.184483);
         }
 
         private const int ShowCooldownFrames = 2;
@@ -707,7 +706,7 @@ namespace VAR.ScreenAutomation.Bots
             return complete;
         }
 
-        public double Evaluate(double aggregateHeightWeight, double completeLinesWeight, double holesWeight, double bumpinessWeight, double maxHeightWeight)
+        public double Evaluate(double aggregateHeightWeight, double completeLinesWeight, double holesWeight, double bumpinessWeight)
         {
             // Calculte aggregate height
             for (int i = 0; i < _gridWidth; i++)
@@ -750,16 +749,12 @@ namespace VAR.ScreenAutomation.Bots
                 bumpines += Math.Abs(_heights[i] - _heights[i - 1]);
             }
 
-            // Calculate max height
-            int maxHeight = _heights.Max();
-
             // Evaluate formula
             double evaluationValue =
                 aggregateHeightWeight * agregateHeight +
                 completeLinesWeight * completeLines +
                 holesWeight * holes +
                 bumpinessWeight * bumpines +
-                maxHeightWeight * maxHeight +
                 0;
             return evaluationValue;
         }
