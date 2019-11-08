@@ -33,9 +33,11 @@ namespace VAR.ScreenAutomation
             {
                 a.NewObject = new Pair { Parent = pairs };
             };
-            dgvParams = new DataGridView();
-            dgvParams.Dock = DockStyle.Fill;
-            dgvParams.DataSource = pairs;
+            dgvParams = new DataGridView
+            {
+                Dock = DockStyle.Fill,
+                DataSource = pairs
+            };
 
             Controls.Add(dgvParams);
         }

@@ -18,7 +18,7 @@ namespace VAR.ScreenAutomation
         public FrmScreenAutomation()
         {
             AutoScaleMode = AutoScaleMode.None;
-            AutoScaleDimensions = new SizeF(1, 1);
+            Font = new Font(Font.Name, 8.25f * 96f / CreateGraphics().DpiX, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont);
             InitializeComponent();
         }
 
@@ -45,9 +45,11 @@ namespace VAR.ScreenAutomation
             {
                 ddlAutomationBot.SelectedIndex = 0;
             }
-            InitBot((string)ddlAutomationBot.SelectedItem);
 
             numFPS.Value = configuration.Get("numFPS", (int)numFPS.Value);
+
+            chkKeepToplevel.Checked = configuration.Get("chkKeepToplevel", chkKeepToplevel.Checked);
+            chkClick.Checked = configuration.Get("chkClick", chkClick.Checked);
 
             if (components == null) { components = new Container(); }
             timTicker = new Timer(components)
@@ -71,6 +73,8 @@ namespace VAR.ScreenAutomation
             configuration.Set("splitOutput.SplitterDistance", splitOutput.SplitterDistance);
             configuration.Set("ddlAutomationBot", (string)ddlAutomationBot.SelectedItem);
             configuration.Set("numFPS", (int)numFPS.Value);
+            configuration.Set("chkKeepToplevel", chkKeepToplevel.Checked);
+            configuration.Set("chkClick", chkClick.Checked);
             configuration.Save();
         }
 
@@ -117,7 +121,7 @@ namespace VAR.ScreenAutomation
             InitBot((string)ddlAutomationBot.SelectedItem);
         }
 
-        private void btnAutomationBotConfig_Click(object sender, EventArgs e)
+        private void BtnAutomationBotConfig_Click(object sender, EventArgs e)
         {
             if (_automationBot == null) { return; }
             IConfiguration defaultConfig = _automationBot.GetDefaultConfiguration();
@@ -135,12 +139,14 @@ namespace VAR.ScreenAutomation
         {
             if (_running) { return; }
             _running = true;
-            WindowHandling.WindowSetTopLevel(this);
             btnStartEnd.Text = "End";
             InitBot((string)ddlAutomationBot.SelectedItem);
-            Point pointCapturerCenter = picCapturer.PointToScreen(new Point(picCapturer.Width / 2, picCapturer.Height / 2));
-            Mouse.SetPosition((uint)pointCapturerCenter.X, (uint)pointCapturerCenter.Y);
-            Mouse.Click(Mouse.MouseButtons.Left);
+            if (chkClick.Checked)
+            {
+                Point pointCapturerCenter = picCapturer.PointToScreen(new Point(picCapturer.Width / 2, picCapturer.Height / 2));
+                Mouse.SetPosition((uint)pointCapturerCenter.X, (uint)pointCapturerCenter.Y);
+                Mouse.Click(Mouse.MouseButtons.Left);
+            }
         }
 
         private void End()
@@ -148,7 +154,6 @@ namespace VAR.ScreenAutomation
             if (_running == false) { return; }
             _running = false;
             btnStartEnd.Text = "Start";
-            WindowHandling.WindowSetTopLevel(this, false);
         }
 
         private void InitBot(string botName)
@@ -157,6 +162,29 @@ namespace VAR.ScreenAutomation
             var botConfiguration = new FileBackedConfiguration(botName);
             botConfiguration.Load();
             _automationBot?.Init(ctrOutput, botConfiguration);
+        }
+
+        private void chkKeepToplevel_CheckedChanged(object sender, EventArgs e)
+        {
+            WindowSetTopLevel(chkKeepToplevel.Checked);
+        }
+
+        private bool _isToplevel = false;
+
+        private void WindowSetTopLevel(bool toplevel)
+        {
+            if (toplevel)
+            {
+                if (_isToplevel) { return; }
+                WindowHandling.WindowSetTopLevel(this);
+                _isToplevel = true;
+            }
+            else
+            {
+                if (_isToplevel == false) { return; }
+                WindowHandling.WindowSetTopLevel(this, false);
+                _isToplevel = false;
+            }
         }
     }
 }
