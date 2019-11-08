@@ -171,29 +171,28 @@ namespace VAR.ScreenAutomation.Bots
                 maxHeightWeight: -0.25);
         }
 
-        private bool _canShot = true;
-        private int _lastShotShapeY = 0;
-        private DateTime _lastShotDateTime;
+        private const int ShowCooldownFrames = 2;
+        private int _shotCooldown = ShowCooldownFrames;
 
         public string ResponseKeys()
         {
             if (_shapeFound == false) { return string.Empty; }
 
-            if (_canShot == false && (_shapeY < _lastShotShapeY || _lastShotDateTime.AddMilliseconds(500) < DateTime.UtcNow))
-            {
-                _canShot = true;
-            }
-
             if (_bestRotation == 0 && _bestXOffset == 0 && _bestEvaluation > double.MinValue)
             {
-                if (_canShot)
+                if (_shotCooldown <= 0)
                 {
-                    _canShot = false;
-                    _lastShotShapeY = _shapeY;
-                    _lastShotDateTime = DateTime.UtcNow;
+                    _shotCooldown = ShowCooldownFrames;
                     return " ";
                 }
+                else
+                {
+                    _shotCooldown--;
+                    return string.Empty;
+                }
             }
+
+            _shotCooldown = ShowCooldownFrames;
 
             if (_bestRotation != 0 && _bestXOffset < 0) { return "{UP}{LEFT}"; }
             if (_bestRotation != 0 && _bestXOffset > 0) { return "{UP}{RIGHT}"; }
