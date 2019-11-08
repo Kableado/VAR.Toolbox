@@ -542,6 +542,9 @@ namespace VAR.ScreenAutomation.Bots
         private int _gridWidth;
         private int _gridHeight;
 
+        public int Width { get { return _gridWidth; } }
+        public int Height { get { return _gridHeight; } }
+
         private byte[][] _grid = null;
 
         private int[] _heights = null;
