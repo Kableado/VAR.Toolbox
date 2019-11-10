@@ -64,15 +64,15 @@ namespace VAR.ScreenAutomation.Bots
             SearchBestAction();
 
             // Show information
-            _workGrid0.SampleOther(_grid, TetrisGrid.Solid, TetrisGrid.Solid);
+            _workGrid0.SampleOther(_grid, TetrisGrid.CellSolid, TetrisGrid.CellSolid);
             if (_shapeFound)
             {
-                _currentShape[0].PutOnGrid(_workGrid0, _shapeX, _shapeY, TetrisGrid.Empty);
-                _currentShape[_bestRotation].Drop(_workGrid0, _shapeX + _bestXOffset, _shapeY, TetrisGrid.ShapeA);
-                _currentShape[0].PutOnGrid(_workGrid0, _shapeX, _shapeY, TetrisGrid.ShapeB);
+                _currentShape[0].PutOnGrid(_workGrid0, _shapeX, _shapeY, TetrisGrid.CellEmpty);
+                _currentShape[_bestRotation].Drop(_workGrid0, _shapeX + _bestXOffset, _shapeY, TetrisGrid.CellShapeA);
+                _currentShape[0].PutOnGrid(_workGrid0, _shapeX, _shapeY, TetrisGrid.CellShapeB);
             }
             _workGrid0.Draw(bmpInput, 0.75f);
-            _workGrid0.SampleOther(_grid, TetrisGrid.Solid, TetrisGrid.Solid);
+            _workGrid0.SampleOther(_grid, TetrisGrid.CellSolid, TetrisGrid.CellSolid);
             _workGrid0.RemoveGround();
             _workGrid0.Draw(bmpInput, 0.25f);
 
@@ -81,7 +81,7 @@ namespace VAR.ScreenAutomation.Bots
 
         private void SearchShape()
         {
-            _workGrid0.SampleOther(_grid, TetrisGrid.Solid, TetrisGrid.Solid);
+            _workGrid0.SampleOther(_grid, TetrisGrid.CellSolid, TetrisGrid.CellSolid);
             _workGrid0.RemoveGround();
             _shapeFound = false;
             for (int y = 0; y < _grid.Height; y++)
@@ -91,8 +91,8 @@ namespace VAR.ScreenAutomation.Bots
                     TetrisShape matchedShape = TetrisShape.DefaultShapes.FirstOrDefault(s => s.MatchOnGrid(_workGrid0, x, y));
                     if (matchedShape != null)
                     {
-                        _workGrid1.SampleOther(_workGrid0, TetrisGrid.Solid, TetrisGrid.Solid);
-                        matchedShape.PutOnGrid(_workGrid1, x, y, TetrisGrid.Empty);
+                        _workGrid1.SampleOther(_workGrid0, TetrisGrid.CellSolid, TetrisGrid.CellSolid);
+                        matchedShape.PutOnGrid(_workGrid1, x, y, TetrisGrid.CellEmpty);
                         if (matchedShape.CheckIntersection(_workGrid1, x, y + 1)) { continue; }
 
                         // Shape found
@@ -118,7 +118,7 @@ namespace VAR.ScreenAutomation.Bots
             _bestRotation = 0;
             if (!_shapeFound)
             {
-                _workGrid0.SampleOther(_grid, TetrisGrid.Solid, TetrisGrid.Solid);
+                _workGrid0.SampleOther(_grid, TetrisGrid.CellSolid, TetrisGrid.CellSolid);
                 return;
             }
 
@@ -127,10 +127,10 @@ namespace VAR.ScreenAutomation.Bots
             {
                 for (int x = 0; x < _grid.Width; x++)
                 {
-                    _workGrid0.SampleOther(_grid, TetrisGrid.Solid, TetrisGrid.Solid);
-                    _currentShape[0].PutOnGrid(_workGrid0, _shapeX, _shapeY, TetrisGrid.Empty);
+                    _workGrid0.SampleOther(_grid, TetrisGrid.CellSolid, TetrisGrid.CellSolid);
+                    _currentShape[0].PutOnGrid(_workGrid0, _shapeX, _shapeY, TetrisGrid.CellEmpty);
 
-                    if (_currentShape[rotation].Drop(_workGrid0, x, _shapeY, TetrisGrid.ShapeA))
+                    if (_currentShape[rotation].Drop(_workGrid0, x, _shapeY, TetrisGrid.CellShapeA))
                     {
                         double newEvaluation = EvaluateWorkingGrid();
                         _columnEvaluation[x] = newEvaluation;
@@ -566,10 +566,10 @@ namespace VAR.ScreenAutomation.Bots
 
     public class TetrisGrid
     {
-        public const byte Empty = 0;
-        public const byte Solid = 1;
-        public const byte ShapeA = 2;
-        public const byte ShapeB = 3;
+        public const byte CellEmpty = 0;
+        public const byte CellSolid = 1;
+        public const byte CellShapeA = 2;
+        public const byte CellShapeB = 3;
 
         private int _gridWidth;
         private int _gridHeight;
@@ -666,7 +666,7 @@ namespace VAR.ScreenAutomation.Bots
             {
                 if (_grid[_gridHeight - 1][i] == 1)
                 {
-                    FloodFill(i, _gridHeight - 1, Solid, Empty);
+                    FloodFill(i, _gridHeight - 1, CellSolid, CellEmpty);
                 }
             }
         }
@@ -754,7 +754,7 @@ namespace VAR.ScreenAutomation.Bots
             for (int i = 0; i < _gridWidth; i++)
             {
                 int j = 0;
-                while (j < _gridHeight && _grid[j][i] == Empty) { j++; }
+                while (j < _gridHeight && _grid[j][i] == CellEmpty) { j++; }
                 _heights[i] = _gridHeight - j;
             }
             double agregateHeight = _heights.Sum();
@@ -773,11 +773,11 @@ namespace VAR.ScreenAutomation.Bots
                 bool block = false;
                 for (int y = 1; y < _gridHeight; y++)
                 {
-                    if (_grid[y][x] != Empty && IsCompleteLine(y) == false)
+                    if (_grid[y][x] != CellEmpty && IsCompleteLine(y) == false)
                     {
                         block = true;
                     }
-                    else if (_grid[y][x] == Empty && block)
+                    else if (_grid[y][x] == CellEmpty && block)
                     {
                         holes++;
                     }
@@ -818,19 +818,19 @@ namespace VAR.ScreenAutomation.Bots
                     for (int x = 0; x < _gridWidth; x++)
                     {
                         Brush br = null;
-                        if (_grid[y][x] == Empty)
+                        if (_grid[y][x] == CellEmpty)
                         {
                             br = Brushes.Black;
                         }
-                        else if (_grid[y][x] == Solid)
+                        else if (_grid[y][x] == CellSolid)
                         {
                             br = Brushes.Blue;
                         }
-                        else if (_grid[y][x] == ShapeA)
+                        else if (_grid[y][x] == CellShapeA)
                         {
                             br = Brushes.Red;
                         }
-                        else if (_grid[y][x] == ShapeB)
+                        else if (_grid[y][x] == CellShapeB)
                         {
                             br = Brushes.Green;
                         }
