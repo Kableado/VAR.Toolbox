@@ -132,7 +132,7 @@ namespace VAR.ScreenAutomation.Bots
 
                     if (_currentShape[rotation].Drop(_workGrid0, x, _shapeY, TetrisGrid.CellShapeA))
                     {
-                        double newEvaluation = EvaluateWorkingGrid();
+                        double newEvaluation = _workGrid0.Evaluate();
                         _columnEvaluation[x] = newEvaluation;
                     }
                     else
@@ -160,15 +160,6 @@ namespace VAR.ScreenAutomation.Bots
                     }
                 }
             }
-        }
-
-        private double EvaluateWorkingGrid()
-        {
-            return _workGrid0.Evaluate(
-                aggregateHeightWeight: -0.510066,
-                completeLinesWeight: 0.760666,
-                holesWeight: -0.35663,
-                bumpinessWeight: -0.184483);
         }
 
         private const int ShotCooldownFrames = 2;
@@ -748,7 +739,11 @@ namespace VAR.ScreenAutomation.Bots
             return complete;
         }
 
-        public double Evaluate(double aggregateHeightWeight, double completeLinesWeight, double holesWeight, double bumpinessWeight)
+        public double Evaluate(
+            double aggregateHeightWeight = -0.510066,
+            double completeLinesWeight = 0.760666,
+            double holesWeight = -0.35663,
+            double bumpinessWeight = -0.184483)
         {
             // Calculte aggregate height
             for (int i = 0; i < _gridWidth; i++)
