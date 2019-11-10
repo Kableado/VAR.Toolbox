@@ -28,12 +28,14 @@ namespace VAR.ScreenAutomation.Bots
 
         private const int DefaultGridWidth = 10;
         private const int DefaultGridHeight = 20;
+        private const int DefaultShotCooldownFrames = 2;
 
         public IConfiguration GetDefaultConfiguration()
         {
             var defaultConfiguration = new MemoryBackedConfiguration();
             defaultConfiguration.Set("GridWidth", DefaultGridWidth);
             defaultConfiguration.Set("GridHeight", DefaultGridHeight);
+            defaultConfiguration.Set("ShotCooldownFrames", DefaultShotCooldownFrames);
             return defaultConfiguration;
         }
 
@@ -41,6 +43,7 @@ namespace VAR.ScreenAutomation.Bots
         {
             int gridWidth = config.Get("GridWidth", DefaultGridWidth);
             int gridHeight = config.Get("GridHeight", DefaultGridHeight);
+            _shotCooldownFrames = config.Get("ShotCooldownFrames", DefaultShotCooldownFrames);
 
             _grid = new TetrisGrid(gridWidth, gridHeight);
             _workGrid0 = new TetrisGrid(gridWidth, gridHeight);
@@ -162,8 +165,8 @@ namespace VAR.ScreenAutomation.Bots
             }
         }
 
-        private const int ShotCooldownFrames = 2;
-        private int _shotCooldown = ShotCooldownFrames;
+        private int _shotCooldownFrames = 0;
+        private int _shotCooldown = 0;
 
         public string ResponseKeys()
         {
@@ -173,7 +176,7 @@ namespace VAR.ScreenAutomation.Bots
             {
                 if (_shotCooldown <= 0)
                 {
-                    _shotCooldown = ShotCooldownFrames;
+                    _shotCooldown = _shotCooldownFrames;
                     return " ";
                 }
                 else
@@ -183,7 +186,7 @@ namespace VAR.ScreenAutomation.Bots
                 }
             }
 
-            _shotCooldown = ShotCooldownFrames;
+            _shotCooldown = _shotCooldownFrames;
 
             if (_bestRotation != 0 && _bestXOffset < 0) { return "{UP}{LEFT}"; }
             if (_bestRotation != 0 && _bestXOffset > 0) { return "{UP}{RIGHT}"; }
@@ -837,6 +840,5 @@ namespace VAR.ScreenAutomation.Bots
                 }
             }
         }
-
     }
 }
