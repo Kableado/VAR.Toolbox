@@ -13,7 +13,9 @@ namespace VAR.ScreenAutomation.Bots
         private TetrisGrid _grid;
 
         private List<TetrisShape> _currentShape;
-        private TetrisGrid _workGrid;
+        private TetrisGrid _workGrid0;
+        private TetrisGrid _workGrid1;
+        private double[] _columnEvaluation;
 
         private bool _shapeFound = false;
         private int _shapeX;
@@ -41,7 +43,9 @@ namespace VAR.ScreenAutomation.Bots
             int gridHeight = config.Get("GridHeight", DefaultGridHeight);
 
             _grid = new TetrisGrid(gridWidth, gridHeight);
-            _workGrid = new TetrisGrid(gridWidth, gridHeight);
+            _workGrid0 = new TetrisGrid(gridWidth, gridHeight);
+            _workGrid1 = new TetrisGrid(gridWidth, gridHeight);
+            _columnEvaluation = new double[gridWidth];
             _currentShape = new List<TetrisShape>
             {
                 new TetrisShape(),
@@ -56,32 +60,55 @@ namespace VAR.ScreenAutomation.Bots
         public Bitmap Process(Bitmap bmpInput, IOutputHandler output)
         {
             _grid.SampleFromBitmap(bmpInput);
-
-            // Search shape
-            _workGrid.SampleOther(_grid, 1, 1);
-            _workGrid.MarkGround();
-            if (_workGrid.SearchFirstCell(1, out _shapeX, out _shapeY))
-            {
-                _currentShape[0].SampleFromGrid(_workGrid, _shapeX, _shapeY, 1);
-                _shapeFound = _currentShape[0].IsValid();
-                for (int i = 1; i < 4; i++)
-                {
-                    _currentShape[i].RotateCW(_currentShape[i - 1]);
-                }
-            }
-
+            SearchShape();
             SearchBestAction();
 
-            // DEBUG Show information
-            _workGrid.SampleOther(_grid, 1, 1);
+            // Show information
+            _workGrid0.SampleOther(_grid, TetrisGrid.Solid, TetrisGrid.Solid);
             if (_shapeFound)
             {
-                _currentShape[0].PutOnGrid(_workGrid, _shapeX, _shapeY, 0);
-                _currentShape[_bestRotation].Drop(_workGrid, _shapeX + _bestXOffset, _shapeY, 2);
+                _currentShape[0].PutOnGrid(_workGrid0, _shapeX, _shapeY, TetrisGrid.Empty);
+                _currentShape[_bestRotation].Drop(_workGrid0, _shapeX + _bestXOffset, _shapeY, TetrisGrid.ShapeA);
+                _currentShape[0].PutOnGrid(_workGrid0, _shapeX, _shapeY, TetrisGrid.ShapeB);
             }
-            _workGrid.Draw(bmpInput);
+            _workGrid0.Draw(bmpInput, 0.75f);
+            _workGrid0.SampleOther(_grid, TetrisGrid.Solid, TetrisGrid.Solid);
+            _workGrid0.RemoveGround();
+            _workGrid0.Draw(bmpInput, 0.25f);
 
             return bmpInput;
+        }
+
+        private void SearchShape()
+        {
+            _workGrid0.SampleOther(_grid, TetrisGrid.Solid, TetrisGrid.Solid);
+            _workGrid0.RemoveGround();
+            _shapeFound = false;
+            for (int y = 0; y < _grid.Height; y++)
+            {
+                for (int x = 0; x < _grid.Width; x++)
+                {
+                    TetrisShape matchedShape = TetrisShape.DefaultShapes.FirstOrDefault(s => s.MatchOnGrid(_workGrid0, x, y));
+                    if (matchedShape != null)
+                    {
+                        _workGrid1.SampleOther(_workGrid0, TetrisGrid.Solid, TetrisGrid.Solid);
+                        matchedShape.PutOnGrid(_workGrid1, x, y, TetrisGrid.Empty);
+                        if (matchedShape.CheckIntersection(_workGrid1, x, y + 1)) { continue; }
+
+                        // Shape found
+                        _currentShape[0].Copy(matchedShape);
+                        for (int i = 1; i < 4; i++)
+                        {
+                            _currentShape[i].RotateCW(_currentShape[i - 1]);
+                        }
+                        _shapeX = x;
+                        _shapeY = y;
+                        _shapeFound = true;
+                        break;
+                    }
+                }
+                if (_shapeFound) { break; }
+            }
         }
 
         private void SearchBestAction()
@@ -89,89 +116,63 @@ namespace VAR.ScreenAutomation.Bots
             _bestEvaluation = double.MinValue;
             _bestXOffset = 0;
             _bestRotation = 0;
-            if (_shapeFound)
+            if (!_shapeFound)
             {
-                _workGrid.SampleOther(_grid, 1, 1);
-                _currentShape[0].PutOnGrid(_workGrid, _shapeX, _shapeY, 0);
-
-                if (_currentShape[0].Drop(_workGrid, _shapeX, _shapeY, 2))
-                {
-                    _bestXOffset = 0;
-                    _bestRotation = 0;
-                    _bestEvaluation = EvaluateWorkingGrid();
-                }
-
-                int offsetX = 1;
-                double newEvaluation;
-
-                for (int rotation = 0; rotation < 4; rotation++)
-                {
-                    // Check positive offset
-                    offsetX = 1;
-                    do
-                    {
-                        _workGrid.SampleOther(_grid, 1, 1);
-                        _currentShape[0].PutOnGrid(_workGrid, _shapeX, _shapeY, 0);
-
-                        if (_currentShape[rotation].Drop(_workGrid, _shapeX + offsetX, _shapeY, 2))
-                        {
-                            newEvaluation = EvaluateWorkingGrid();
-                            if (newEvaluation > _bestEvaluation)
-                            {
-                                _bestEvaluation = newEvaluation;
-                                _bestXOffset = offsetX;
-                                _bestRotation = rotation;
-                            }
-                        }
-                        else
-                        {
-                            break;
-                        }
-                        offsetX++;
-                    } while (true);
-
-                    // Check negative offset
-                    offsetX = -1;
-                    do
-                    {
-                        _workGrid.SampleOther(_grid, 1, 1);
-                        _currentShape[0].PutOnGrid(_workGrid, _shapeX, _shapeY, 0);
-
-                        if (_currentShape[rotation].Drop(_workGrid, _shapeX + offsetX, _shapeY, 2))
-                        {
-                            newEvaluation = EvaluateWorkingGrid();
-                            if (newEvaluation > _bestEvaluation)
-                            {
-                                _bestEvaluation = newEvaluation;
-                                _bestXOffset = offsetX;
-                                _bestRotation = rotation;
-                            }
-                        }
-                        else
-                        {
-                            break;
-                        }
-                        offsetX--;
-                    } while (true);
-                }
+                _workGrid0.SampleOther(_grid, TetrisGrid.Solid, TetrisGrid.Solid);
+                return;
             }
-            else
+
+
+            for (int rotation = 0; rotation < 4; rotation++)
             {
-                _workGrid.SampleOther(_grid, 1, 1);
+                for (int x = 0; x < _grid.Width; x++)
+                {
+                    _workGrid0.SampleOther(_grid, TetrisGrid.Solid, TetrisGrid.Solid);
+                    _currentShape[0].PutOnGrid(_workGrid0, _shapeX, _shapeY, TetrisGrid.Empty);
+
+                    if (_currentShape[rotation].Drop(_workGrid0, x, _shapeY, TetrisGrid.ShapeA))
+                    {
+                        double newEvaluation = EvaluateWorkingGrid();
+                        _columnEvaluation[x] = newEvaluation;
+                    }
+                    else
+                    {
+                        _columnEvaluation[x] = double.MinValue;
+                    }
+                }
+
+                // Search valid X range
+                int minX = _shapeX;
+                while (minX >= 0 && _columnEvaluation[minX] > double.MinValue) { minX--; }
+                minX++;
+                int maxX = _shapeX;
+                while (maxX < _grid.Width && _columnEvaluation[maxX] > double.MinValue) { maxX++; }
+                maxX--;
+
+                // Apply best value inside valid X range
+                for (int x = minX; x <= maxX; x++)
+                {
+                    if (_columnEvaluation[x] > _bestEvaluation)
+                    {
+                        _bestEvaluation = _columnEvaluation[x];
+                        _bestXOffset = x - _shapeX;
+                        _bestRotation = rotation;
+                    }
+                }
             }
         }
 
         private double EvaluateWorkingGrid()
         {
-            return _workGrid.Evaluate(
+            return _workGrid0.Evaluate(
                 aggregateHeightWeight: -0.510066,
                 completeLinesWeight: 0.760666,
                 holesWeight: -0.35663,
                 bumpinessWeight: -0.184483);
         }
 
-        private const int ShowCooldownFrames = 2;
-        private int _shotCooldown = ShowCooldownFrames;
+        private const int ShotCooldownFrames = 2;
+        private int _shotCooldown = ShotCooldownFrames;
 
         public string ResponseKeys()
         {
@@ -181,7 +182,7 @@ namespace VAR.ScreenAutomation.Bots
             {
                 if (_shotCooldown <= 0)
                 {
-                    _shotCooldown = ShowCooldownFrames;
+                    _shotCooldown = ShotCooldownFrames;
                     return " ";
                 }
                 else
@@ -191,7 +192,7 @@ namespace VAR.ScreenAutomation.Bots
                 }
             }
 
-            _shotCooldown = ShowCooldownFrames;
+            _shotCooldown = ShotCooldownFrames;
 
             if (_bestRotation != 0 && _bestXOffset < 0) { return "{UP}{LEFT}"; }
             if (_bestRotation != 0 && _bestXOffset > 0) { return "{UP}{RIGHT}"; }
@@ -535,10 +536,41 @@ namespace VAR.ScreenAutomation.Bots
                 output.AddLine(sbLine.ToString());
             }
         }
+
+        public bool MatchOnGrid(TetrisGrid grid, int x, int y)
+        {
+            for (int j = 0; j < ShapeSize; j++)
+            {
+                for (int i = 0; i < ShapeSize; i++)
+                {
+                    int currentCell = grid.Get(x + i, y + j);
+                    if (_cells[j][i] == 0)
+                    {
+                        if (currentCell != 0 && currentCell != 0xFF)
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        if (currentCell == 0 || currentCell == 0xFF)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
     }
 
     public class TetrisGrid
     {
+        public const byte Empty = 0;
+        public const byte Solid = 1;
+        public const byte ShapeA = 2;
+        public const byte ShapeB = 3;
+
         private int _gridWidth;
         private int _gridHeight;
 
@@ -628,13 +660,13 @@ namespace VAR.ScreenAutomation.Bots
             }
         }
 
-        public void MarkGround()
+        public void RemoveGround()
         {
             for (int i = 0; i < _gridWidth; i++)
             {
                 if (_grid[_gridHeight - 1][i] == 1)
                 {
-                    FloodFill(i, _gridHeight - 1, 1, 2);
+                    FloodFill(i, _gridHeight - 1, Solid, Empty);
                 }
             }
         }
@@ -722,7 +754,7 @@ namespace VAR.ScreenAutomation.Bots
             for (int i = 0; i < _gridWidth; i++)
             {
                 int j = 0;
-                while (j < _gridHeight && _grid[j][i] == 0) { j++; }
+                while (j < _gridHeight && _grid[j][i] == Empty) { j++; }
                 _heights[i] = _gridHeight - j;
             }
             double agregateHeight = _heights.Sum();
@@ -741,11 +773,11 @@ namespace VAR.ScreenAutomation.Bots
                 bool block = false;
                 for (int y = 1; y < _gridHeight; y++)
                 {
-                    if (_grid[y][x] != 0 && IsCompleteLine(y) == false)
+                    if (_grid[y][x] != Empty && IsCompleteLine(y) == false)
                     {
                         block = true;
                     }
-                    else if (_grid[y][x] == 0 && block)
+                    else if (_grid[y][x] == Empty && block)
                     {
                         holes++;
                     }
@@ -769,38 +801,14 @@ namespace VAR.ScreenAutomation.Bots
             return evaluationValue;
         }
 
-        public void Print(IOutputHandler output)
-        {
-            for (int y = 0; y < _gridHeight; y++)
-            {
-                StringBuilder sbLine = new StringBuilder();
-                for (int x = 0; x < _gridWidth; x++)
-                {
-                    if (_grid[y][x] == 0)
-                    {
-                        sbLine.Append("..");
-                    }
-                    else if (_grid[y][x] == 1)
-                    {
-                        sbLine.Append("$$");
-                    }
-                    else
-                    {
-                        sbLine.Append("[]");
-                    }
-                }
-                output.AddLine(sbLine.ToString());
-            }
-        }
-
-        public void Draw(Bitmap bmp)
+        public void Draw(Bitmap bmp, float dotWith = 0.5f)
         {
             float xStep = bmp.Width / (float)_gridWidth;
             float yStep = bmp.Height / (float)_gridHeight;
-            float halfXStep = xStep / 2;
-            float halfYStep = yStep / 2;
-            float offX = halfXStep / 2;
-            float offY = halfYStep / 2;
+            float halfXStep = xStep * dotWith;
+            float halfYStep = yStep * dotWith;
+            float offX = (xStep - halfXStep) / 2;
+            float offY = (yStep - halfYStep) / 2;
 
             using (Pen borderPen = new Pen(Color.DarkGray))
             using (Graphics g = Graphics.FromImage(bmp))
@@ -810,17 +818,21 @@ namespace VAR.ScreenAutomation.Bots
                     for (int x = 0; x < _gridWidth; x++)
                     {
                         Brush br = null;
-                        if (_grid[y][x] == 0)
+                        if (_grid[y][x] == Empty)
                         {
                             br = Brushes.Black;
                         }
-                        else if (_grid[y][x] == 1)
+                        else if (_grid[y][x] == Solid)
                         {
                             br = Brushes.Blue;
                         }
-                        else if (_grid[y][x] == 2)
+                        else if (_grid[y][x] == ShapeA)
                         {
                             br = Brushes.Red;
+                        }
+                        else if (_grid[y][x] == ShapeB)
+                        {
+                            br = Brushes.Green;
                         }
                         if (br == null) { continue; }
 
