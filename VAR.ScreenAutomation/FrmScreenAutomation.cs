@@ -131,8 +131,16 @@ namespace VAR.ScreenAutomation
             {
                 StartPosition = FormStartPosition.CenterParent
             };
+            if (_isToplevel)
+            {
+                WindowHandling.WindowSetTopLevel(this, false);
+            }
             frmAutomationBotParameters.ShowDialog();
             InitBot(_automationBot.Name);
+            if (_isToplevel)
+            {
+                WindowHandling.WindowSetTopLevel(this);
+            }
         }
 
         private void Start()
