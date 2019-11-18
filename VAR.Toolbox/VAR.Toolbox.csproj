@@ -73,7 +73,9 @@
     <Compile Include="..\VAR.Json\VAR.Json\ParserContext.cs">
       <Link>Code\Json\ParserContext.cs</Link>
     </Compile>
+    <Compile Include="Code\EventDispatcher.cs" />
     <Compile Include="Code\HexUtils.cs" />
+    <Compile Include="Code\IEventListener.cs" />
     <Compile Include="Code\ProxyCmdExecutors\ProxyCmdExecutorWMIC.cs" />
     <Compile Include="Code\ReflectionUtils.cs" />
     <Compile Include="Code\TextCoders\TextCoderBase64Utf8.cs" />

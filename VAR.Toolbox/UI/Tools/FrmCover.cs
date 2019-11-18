@@ -67,6 +67,7 @@ namespace VAR.Toolbox.UI
             Mouse.SetPosition(_mouseX, _mouseY);
 
             Close();
+            EventDispatcher.EmitEvent(PnlCover.PostCoverEventName, null);
         }
 
         private void FrmCover_KeyPress(object sender, KeyPressEventArgs e)
@@ -77,6 +78,7 @@ namespace VAR.Toolbox.UI
             Mouse.SetPosition(_mouseX, _mouseY);
 
             Close();
+            EventDispatcher.EmitEvent(PnlCover.PostCoverEventName, null);
         }
 
         private void Timer_Tick(object sender, EventArgs e)

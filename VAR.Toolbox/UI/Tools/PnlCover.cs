@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Windows.Forms;
+using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Windows;
 
 namespace VAR.Toolbox.UI
 {
     public partial class PnlCover : UserControl, IToolPanel
     {
+        public const string PreCoverEventName = "PreCover";
+        public const string PostCoverEventName = "PostCover";
+
         public PnlCover()
         {
             InitializeComponent();
@@ -39,6 +43,9 @@ namespace VAR.Toolbox.UI
         private void CoverScreen()
         {
             if (DesignMode) { return; }
+
+            EventDispatcher.EmitEvent(PreCoverEventName, null);
+
             if (_frmCover != null)
             {
                 _frmCover.Show();

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Windows.Forms;
+using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Windows;
 
 namespace VAR.Toolbox.UI
 {
     public partial class PnlSuspension : UserControl, IToolPanel
     {
+        public const string PreSuspendEventName = "PreSuspend";
+
         private readonly Random _rnd = new Random();
 
         public PnlSuspension()
@@ -118,6 +121,7 @@ namespace VAR.Toolbox.UI
 
         private void SuspendSystem()
         {
+            EventDispatcher.EmitEvent(PreSuspendEventName, null);
             Win32.SetSuspendState(false, true, false);
         }
     }
