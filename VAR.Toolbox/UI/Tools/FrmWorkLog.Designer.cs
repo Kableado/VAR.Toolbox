@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.splitWindow = new System.Windows.Forms.SplitContainer();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.btnLoad = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.btnNextDay = new System.Windows.Forms.Button();
             this.btnPreviousDay = new System.Windows.Forms.Button();
             this.dtToday = new System.Windows.Forms.DateTimePicker();
@@ -53,6 +56,9 @@
             // 
             // splitWindow.Panel1
             // 
+            this.splitWindow.Panel1.Controls.Add(this.txtName);
+            this.splitWindow.Panel1.Controls.Add(this.btnLoad);
+            this.splitWindow.Panel1.Controls.Add(this.btnSave);
             this.splitWindow.Panel1.Controls.Add(this.btnNextDay);
             this.splitWindow.Panel1.Controls.Add(this.btnPreviousDay);
             this.splitWindow.Panel1.Controls.Add(this.dtToday);
@@ -69,6 +75,34 @@
             this.splitWindow.Size = new System.Drawing.Size(721, 603);
             this.splitWindow.SplitterDistance = 442;
             this.splitWindow.TabIndex = 0;
+            // 
+            // txtName
+            // 
+            this.txtName.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.txtName.Location = new System.Drawing.Point(3, 7);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(104, 20);
+            this.txtName.TabIndex = 5;
+            // 
+            // btnLoad
+            // 
+            this.btnLoad.Location = new System.Drawing.Point(113, 7);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(53, 20);
+            this.btnLoad.TabIndex = 4;
+            this.btnLoad.Text = "Load";
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(172, 7);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(57, 20);
+            this.btnSave.TabIndex = 3;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnNextDay
             // 
@@ -187,7 +221,9 @@
             this.Controls.Add(this.splitWindow);
             this.Name = "FrmWorkLog";
             this.Text = "WorkLog";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmWorkLog_FormClosing);
             this.splitWindow.Panel1.ResumeLayout(false);
+            this.splitWindow.Panel1.PerformLayout();
             this.splitWindow.Panel2.ResumeLayout(false);
             this.splitWindow.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitWindow)).EndInit();
@@ -209,5 +245,8 @@
         private System.Windows.Forms.DateTimePicker dtStart;
         private System.Windows.Forms.Button btnNextDay;
         private System.Windows.Forms.Button btnPreviousDay;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.Button btnLoad;
     }
 }

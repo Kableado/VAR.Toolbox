@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using VAR.Json;
 
 namespace VAR.Toolbox.UI.Tools
 {
@@ -21,7 +23,13 @@ namespace VAR.Toolbox.UI.Tools
         public FrmWorkLog()
         {
             InitializeComponent();
+            WorkLog_LoadConfig();
             WorkLog_LoadData();
+        }
+
+        private void FrmWorkLog_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            WorkLog_SaveConfig();
         }
 
         #endregion Form life cycle
@@ -29,6 +37,17 @@ namespace VAR.Toolbox.UI.Tools
         #region UI events
 
         private bool _selecting = false;
+
+
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            WorkLog_LoadData();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            WorkLog_SaveData();
+        }
 
         private void lsbWorkLog_SelectedIndexChanged(object sender, System.EventArgs e)
         {
@@ -79,6 +98,7 @@ namespace VAR.Toolbox.UI.Tools
             WorkLog_Refresh();
             WorkLog_SelectDate(item.DateStart);
             WorkLogItem_Show(item);
+            WorkLog_MarkDirty();
         }
 
         private void btnDelete_Click(object sender, System.EventArgs e)
@@ -92,6 +112,7 @@ namespace VAR.Toolbox.UI.Tools
             _workLog.Remove(_currentWorkLogItem);
             WorkLog_Refresh();
             WorkLogItem_Show(null);
+            WorkLog_MarkDirty();
         }
 
         private void dtStart_ValueChanged(object sender, EventArgs e)
@@ -133,13 +154,93 @@ namespace VAR.Toolbox.UI.Tools
 
         #region Private methods
 
+        private const string ConfigFile = "WorkLog.Config.json";
+        private WorkLogConfig _config = null;
+
+        private void WorkLog_LoadConfig()
+        {
+            if (File.Exists(ConfigFile))
+            {
+                JsonParser jsonParser = new JsonParser();
+                jsonParser.KnownTypes.Add(typeof(WorkLogConfig));
+                string jsonConfig = File.ReadAllText(ConfigFile);
+                _config = jsonParser.Parse(jsonConfig) as WorkLogConfig;
+            }
+            if (_config == null)
+            {
+                _config = new WorkLogConfig();
+            }
+
+            txtName.Text = _config.LastName;
+        }
+
+        private void WorkLog_SaveConfig()
+        {
+            _config.LastName = txtName.Text;
+
+            JsonWriter jsonWriter = new JsonWriter(new JsonWriterConfiguration(indent: true));
+            using (StreamWriter streamWriter = new StreamWriter(ConfigFile))
+            {
+                jsonWriter.Write(_config, streamWriter);
+            }
+        }
+
         private List<WorkLogItem> _workLog = null;
 
         private void WorkLog_LoadData()
         {
-            _workLog = new List<WorkLogItem>();
+            _workLog = null;
+            string fileName = string.Format("{0}.WorkLog.json", txtName.Text);
+            if (File.Exists(fileName))
+            {
+                string rawFile = File.ReadAllText(fileName);
+                JsonParser jsonParser = new JsonParser();
+                jsonParser.KnownTypes.Add(typeof(WorkLogItem));
+                object result = jsonParser.Parse(rawFile);
+                if (result is IEnumerable<object>)
+                {
+                    _workLog = new List<WorkLogItem>();
+                    foreach (object obj in (IEnumerable<object>)result)
+                    {
+                        WorkLogItem item = obj as WorkLogItem;
+                        if (item == null) { continue; }
+                        _workLog.Add(item);
+                    }
+                }
+            }
+            if (_workLog == null)
+            {
+                _workLog = new List<WorkLogItem>();
+            }
             WorkLog_Refresh();
             WorkLog_SelectDate(DateTime.Now);
+            WorkLog_CleanDirty();
+        }
+
+        private void WorkLog_SaveData()
+        {
+            string fileName = string.Format("{0}.WorkLog.json", txtName.Text);
+            if (File.Exists(fileName))
+            {
+                File.Delete(fileName);
+            }
+
+            JsonWriter jsonWriter = new JsonWriter(new JsonWriterConfiguration(indent: true));
+            using (StreamWriter streamWriter = new StreamWriter(fileName))
+            {
+                jsonWriter.Write(_workLog, streamWriter);
+            }
+            WorkLog_CleanDirty();
+        }
+
+        private void WorkLog_MarkDirty()
+        {
+            btnSave.Enabled = true;
+        }
+
+        private void WorkLog_CleanDirty()
+        {
+            btnSave.Enabled = false;
         }
 
         private void WorkLog_SelectDate(DateTime date)
@@ -199,6 +300,7 @@ namespace VAR.Toolbox.UI.Tools
                 WorkLog_Refresh();
                 WorkLog_SelectDate(_currentWorkLogItem.DateStart);
             }
+            WorkLog_MarkDirty();
         }
 
         public void lsbWorkLog_BindData(IEnumerable<WorkLogItem> items, int year, int month, int day, int q = 15)
@@ -239,7 +341,6 @@ namespace VAR.Toolbox.UI.Tools
         }
 
         #endregion Private methods
-
     }
 
     public class WorkLogRow
@@ -318,5 +419,10 @@ namespace VAR.Toolbox.UI.Tools
         public DateTime DateEnd { get; set; }
         public string Activity { get; set; }
         public string Description { get; set; }
+    }
+
+    public class WorkLogConfig
+    {
+        public string LastName { get; set; }
     }
 }
