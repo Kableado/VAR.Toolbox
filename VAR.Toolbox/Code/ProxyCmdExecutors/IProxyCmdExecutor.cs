@@ -1,9 +1,7 @@
 ﻿namespace VAR.Toolbox.Code.ProxyCmdExecutors
 {
-    public interface IProxyCmdExecutor
+    public interface IProxyCmdExecutor : INamed
     {
-        string Name { get; }
-
         bool ExecuteCmd(string cmd, IOutputHandler outputHandler);
     }
 }

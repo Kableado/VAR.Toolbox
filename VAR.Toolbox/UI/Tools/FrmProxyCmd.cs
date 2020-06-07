@@ -129,6 +129,10 @@ namespace VAR.Toolbox.UI
             if (_proxyCmdExecutor == null)
             {
                 _proxyCmdExecutor = ProxyCmdExecutorFactory.CreateFromConfig(GetCurrentConfig());
+                if (_proxyCmdExecutor == null)
+                {
+                    _proxyCmdExecutor = new ProxyCmdExecutorDummy(string.Empty);
+                }
             }
         }
         private void CleanProxyCmdExecutor()
