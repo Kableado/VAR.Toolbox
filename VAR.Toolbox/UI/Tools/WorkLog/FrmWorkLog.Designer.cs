@@ -1,4 +1,4 @@
-﻿namespace VAR.Toolbox.UI.Tools
+﻿namespace VAR.Toolbox.UI.Tools.WorkLog
 {
     partial class FrmWorkLog
     {
@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.splitWindow = new System.Windows.Forms.SplitContainer();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.btnImport = new System.Windows.Forms.Button();
+            this.cboImporters = new System.Windows.Forms.ComboBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
@@ -56,6 +59,9 @@
             // 
             // splitWindow.Panel1
             // 
+            this.splitWindow.Panel1.Controls.Add(this.btnExport);
+            this.splitWindow.Panel1.Controls.Add(this.btnImport);
+            this.splitWindow.Panel1.Controls.Add(this.cboImporters);
             this.splitWindow.Panel1.Controls.Add(this.txtName);
             this.splitWindow.Panel1.Controls.Add(this.btnLoad);
             this.splitWindow.Panel1.Controls.Add(this.btnSave);
@@ -76,6 +82,35 @@
             this.splitWindow.SplitterDistance = 442;
             this.splitWindow.TabIndex = 0;
             // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(365, 6);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(40, 21);
+            this.btnExport.TabIndex = 8;
+            this.btnExport.Text = "Exp";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // btnImport
+            // 
+            this.btnImport.Location = new System.Drawing.Point(319, 6);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(40, 21);
+            this.btnImport.TabIndex = 7;
+            this.btnImport.Text = "Imp";
+            this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            // 
+            // cboImporters
+            // 
+            this.cboImporters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboImporters.FormattingEnabled = true;
+            this.cboImporters.Location = new System.Drawing.Point(224, 6);
+            this.cboImporters.Name = "cboImporters";
+            this.cboImporters.Size = new System.Drawing.Size(89, 21);
+            this.cboImporters.TabIndex = 6;
+            // 
             // txtName
             // 
             this.txtName.ImeMode = System.Windows.Forms.ImeMode.Disable;
@@ -83,12 +118,13 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(104, 20);
             this.txtName.TabIndex = 5;
+            this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
             // btnLoad
             // 
             this.btnLoad.Location = new System.Drawing.Point(113, 7);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(53, 20);
+            this.btnLoad.Size = new System.Drawing.Size(43, 20);
             this.btnLoad.TabIndex = 4;
             this.btnLoad.Text = "Load";
             this.btnLoad.UseVisualStyleBackColor = true;
@@ -96,9 +132,9 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(172, 7);
+            this.btnSave.Location = new System.Drawing.Point(162, 7);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(57, 20);
+            this.btnSave.Size = new System.Drawing.Size(41, 20);
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -248,5 +284,8 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button btnLoad;
+        private System.Windows.Forms.ComboBox cboImporters;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Button btnImport;
     }
 }

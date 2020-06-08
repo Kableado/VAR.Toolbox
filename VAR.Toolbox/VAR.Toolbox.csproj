@@ -196,10 +196,10 @@
       <DependentUpon>FrmWebcam.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\IToolForm.cs" />
-    <Compile Include="UI\Tools\FrmWorkLog.cs">
+    <Compile Include="UI\Tools\WorkLog\FrmWorkLog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Tools\FrmWorkLog.Designer.cs">
+    <Compile Include="UI\Tools\WorkLog\FrmWorkLog.Designer.cs">
       <DependentUpon>FrmWorkLog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Tools\PnlActivity.cs">
@@ -220,6 +220,9 @@
     <Compile Include="UI\Tools\PnlSuspension.Designer.cs">
       <DependentUpon>PnlSuspension.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Tools\WorkLog\IWorkLogImporter.cs" />
+    <Compile Include="UI\Tools\WorkLog\VARTextWorkLogImporter.cs" />
+    <Compile Include="UI\Tools\WorkLog\WorkLogImporterFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />

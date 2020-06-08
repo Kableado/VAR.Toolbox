@@ -5,8 +5,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using VAR.Json;
+using VAR.Toolbox.Code;
 
-namespace VAR.Toolbox.UI.Tools
+namespace VAR.Toolbox.UI.Tools.WorkLog
 {
     public partial class FrmWorkLog : Form, IToolForm
     {
@@ -25,6 +26,8 @@ namespace VAR.Toolbox.UI.Tools
             InitializeComponent();
             WorkLog_LoadConfig();
             WorkLog_LoadData();
+
+            cboImporters.Items.AddRange(WorkLogImporterFactory.GetNames());
         }
 
         private void FrmWorkLog_FormClosing(object sender, FormClosingEventArgs e)
@@ -36,8 +39,10 @@ namespace VAR.Toolbox.UI.Tools
 
         #region UI events
 
-        private bool _selecting = false;
-
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            WorkLog_MarkDirty();
+        }
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
@@ -48,6 +53,48 @@ namespace VAR.Toolbox.UI.Tools
         {
             WorkLog_SaveData();
         }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cboImporters.SelectedItem == null) { return; }
+                IWorkLogImporter workLogImporter = WorkLogImporterFactory.CreateFromName(cboImporters.SelectedItem as string);
+                List<WorkLogItem> newWorkLog = workLogImporter.Import(this);
+                if (newWorkLog != null)
+                {
+                    _workLog = newWorkLog;
+                    WorkLog_Refresh();
+                    MessageBox.Show("OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                MessageBox.Show("Error");
+            }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cboImporters.SelectedItem == null) { return; }
+                IWorkLogImporter workLogImporter = WorkLogImporterFactory.CreateFromName(cboImporters.SelectedItem as string);
+                bool result = workLogImporter.Export(_workLog, this);
+                if (result)
+                {
+                    MessageBox.Show("OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                MessageBox.Show("Error");
+            }
+        }
+
+        private bool _selecting = false;
 
         private void lsbWorkLog_SelectedIndexChanged(object sender, System.EventArgs e)
         {
@@ -341,6 +388,7 @@ namespace VAR.Toolbox.UI.Tools
         }
 
         #endregion Private methods
+
     }
 
     public class WorkLogRow
