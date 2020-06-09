@@ -162,7 +162,7 @@
             // 
             // dtToday
             // 
-            this.dtToday.CustomFormat = "yyyy/MM/dd";
+            this.dtToday.CustomFormat = "yyyy-MM-dd";
             this.dtToday.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtToday.Location = new System.Drawing.Point(42, 33);
             this.dtToday.Name = "dtToday";
@@ -188,20 +188,22 @@
             // 
             // dtEnd
             // 
-            this.dtEnd.CustomFormat = "yyyy/MM/ddThh:mm:ss";
+            this.dtEnd.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dtEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtEnd.Location = new System.Drawing.Point(4, 60);
             this.dtEnd.Name = "dtEnd";
+            this.dtEnd.ShowUpDown = true;
             this.dtEnd.Size = new System.Drawing.Size(155, 20);
             this.dtEnd.TabIndex = 5;
             this.dtEnd.ValueChanged += new System.EventHandler(this.dtEnd_ValueChanged);
             // 
             // dtStart
             // 
-            this.dtStart.CustomFormat = "yyyy/MM/ddThh:mm:ss";
+            this.dtStart.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dtStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtStart.Location = new System.Drawing.Point(4, 33);
             this.dtStart.Name = "dtStart";
+            this.dtStart.ShowUpDown = true;
             this.dtStart.Size = new System.Drawing.Size(155, 20);
             this.dtStart.TabIndex = 4;
             this.dtStart.ValueChanged += new System.EventHandler(this.dtStart_ValueChanged);
