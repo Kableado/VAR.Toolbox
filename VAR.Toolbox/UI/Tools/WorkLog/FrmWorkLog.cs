@@ -66,6 +66,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                     _workLog = newWorkLog;
                     WorkLog_Refresh();
                     MessageBox.Show("OK");
+                    WorkLog_MarkDirty();
                 }
             }
             catch (Exception ex)
