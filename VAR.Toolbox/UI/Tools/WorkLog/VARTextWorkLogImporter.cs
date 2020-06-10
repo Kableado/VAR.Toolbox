@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -12,7 +13,45 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         public bool Export(List<WorkLogItem> items, Form form)
         {
-            throw new System.NotImplementedException();
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            DialogResult dialogResult = saveFileDialog.ShowDialog(form);
+            if (dialogResult != DialogResult.OK) { return false; }
+
+            if (File.Exists(saveFileDialog.FileName) == false)
+            {
+                File.Delete(saveFileDialog.FileName);
+            }
+            using (StreamWriter streamWriter = new StreamWriter(saveFileDialog.FileName))
+            {
+                DateTime lastDateTime = DateTime.MinValue;
+                int lastWeekOfYear = -1;
+                foreach (WorkLogItem item in items)
+                {
+                    int weekOfYear = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(item.DateStart, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+                    if (weekOfYear != lastWeekOfYear)
+                    {
+                        streamWriter.WriteLine();
+                        streamWriter.WriteLine();
+                        streamWriter.WriteLine(string.Format("--- {0:0000}-{1:00}-{2:00}", item.DateStart.Year, item.DateStart.Month, item.DateStart.Day));
+                        lastWeekOfYear = weekOfYear;
+                    }
+                    if (lastDateTime.Day != item.DateStart.Day)
+                    {
+                        streamWriter.WriteLine();
+                        lastDateTime = item.DateStart;
+                    }
+
+                    streamWriter.WriteLine(string.Format("{0:00}_{1:00}_{2:00} - {3:00}_{4:00}_{5:00} {6}",
+                        item.DateStart.Day, item.DateStart.Hour, item.DateStart.Minute,
+                        item.DateEnd.Day, item.DateEnd.Hour, item.DateEnd.Minute,
+                        item.Activity));
+                    if (string.IsNullOrEmpty(item.Description) == false)
+                    {
+                        streamWriter.WriteLine(string.Format("                    {0}", item.Description));
+                    }
+                }
+            }
+            return true;
         }
 
         public List<WorkLogItem> Import(Form form)
@@ -50,6 +89,10 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 }
                 else if (lineAux.StartsWith("--"))
                 {
+                    if (currentWorkLog != null)
+                    {
+                        currentWorkLog.Description += lineAux + "\n";
+                    }
                     continue;
                 }
                 else
@@ -74,7 +117,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                     DateTime dateTime = currentDateStart;
                     if (dateTime.Day > startDay)
                     {
-                        dateTime.AddMonths(1);
+                        dateTime = dateTime.AddMonths(1);
                     }
 
                     currentWorkLog = new WorkLogItem
