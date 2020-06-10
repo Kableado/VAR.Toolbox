@@ -396,20 +396,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             lsbWorkLog.Items.Clear();
             lsbWorkLog.Items.AddRange(rows.ToArray());
             lsbWorkLog.TopIndex = topIndex;
-
-            //EnableRepaint(new HandleRef(lsbWorkLog, lsbWorkLog.Handle), true);
-            //lsbWorkLog.Invalidate();
         }
-
-
-        //[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
-        //private static extern IntPtr SendMessage(HandleRef hWnd, Int32 Msg, IntPtr wParam, IntPtr lParam);
-
-        //private static void EnableRepaint(HandleRef handle, bool enable)
-        //{
-        //    const int WM_SETREDRAW = 0x000B;
-        //    SendMessage(handle, WM_SETREDRAW, new IntPtr(enable ? 1 : 0), IntPtr.Zero);
-        //}
 
         #endregion Private methods
 
