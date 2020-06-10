@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using VAR.Json;
@@ -198,6 +198,22 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             dtToday.Value = dtToday.Value.Date.AddDays(1);
         }
 
+        private void lsbWorkLog_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                e.Graphics.FillRectangle(Brushes.DarkRed, e.Bounds);
+                e.Graphics.DrawString(lsbWorkLog.Items[e.Index].ToString(), lsbWorkLog.Font, Brushes.Black, e.Bounds);
+            }
+            else
+            {
+                e.Graphics.FillRectangle(Brushes.Black, e.Bounds);
+                e.Graphics.DrawString(lsbWorkLog.Items[e.Index].ToString(), lsbWorkLog.Font, Brushes.Gray, e.Bounds);
+            }
+        }
+
         #endregion UI events
 
         #region Private methods
@@ -306,8 +322,13 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         private void WorkLog_Refresh()
         {
+            int selectedIndex = lsbWorkLog.SelectedIndex;
             DateTime today = dtToday.Value;
             lsbWorkLog_BindData(_workLog, today.Year, today.Month, today.Day);
+            if (selectedIndex > -1)
+            {
+                lsbWorkLog.SelectedIndex = selectedIndex;
+            }
         }
 
         private WorkLogItem _currentWorkLogItem = null;
@@ -353,6 +374,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         public void lsbWorkLog_BindData(IEnumerable<WorkLogItem> items, int year, int month, int day, int q = 15)
         {
+            int topIndex = lsbWorkLog.TopIndex;
             List<WorkLogRow> rows = new List<WorkLogRow>();
             for (int h = 0; h < 24; h++)
             {
@@ -373,20 +395,21 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             }
             lsbWorkLog.Items.Clear();
             lsbWorkLog.Items.AddRange(rows.ToArray());
+            lsbWorkLog.TopIndex = topIndex;
 
-            EnableRepaint(new HandleRef(lsbWorkLog, lsbWorkLog.Handle), true);
-            lsbWorkLog.Invalidate();
+            //EnableRepaint(new HandleRef(lsbWorkLog, lsbWorkLog.Handle), true);
+            //lsbWorkLog.Invalidate();
         }
 
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
-        private static extern IntPtr SendMessage(HandleRef hWnd, Int32 Msg, IntPtr wParam, IntPtr lParam);
+        //[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
+        //private static extern IntPtr SendMessage(HandleRef hWnd, Int32 Msg, IntPtr wParam, IntPtr lParam);
 
-        private static void EnableRepaint(HandleRef handle, bool enable)
-        {
-            const int WM_SETREDRAW = 0x000B;
-            SendMessage(handle, WM_SETREDRAW, new IntPtr(enable ? 1 : 0), IntPtr.Zero);
-        }
+        //private static void EnableRepaint(HandleRef handle, bool enable)
+        //{
+        //    const int WM_SETREDRAW = 0x000B;
+        //    SendMessage(handle, WM_SETREDRAW, new IntPtr(enable ? 1 : 0), IntPtr.Zero);
+        //}
 
         #endregion Private methods
 
@@ -417,32 +440,30 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             {
                 if (Item.DateEnd >= DateStart && Item.DateEnd <= DateEnd)
                 {
-                    sbRow.Append("- ");
+                    sbRow.Append("─ ");
                     sbRow.Append(Item.Activity);
                     sbRow.Append(" ");
-                    sbRow.Append(new string('-', (rowLenght - textLenght) + 1));
+                    sbRow.Append(new string('─', (rowLenght - textLenght) + 1));
                 }
                 else
                 {
                     sbRow.Append("┌ ");
                     sbRow.Append(Item.Activity);
                     sbRow.Append(" ");
-                    sbRow.Append(new string('-', rowLenght - textLenght));
+                    sbRow.Append(new string('─', rowLenght - textLenght));
                     sbRow.Append("┐");
                 }
             }
             else if (Item.DateEnd >= DateStart && Item.DateEnd <= DateEnd)
             {
-                sbRow.Append("└ ");
-                sbRow.Append(Item.Activity);
-                sbRow.Append(" ");
-                sbRow.Append(new string('-', rowLenght - textLenght));
+                sbRow.Append("└");
+                sbRow.Append(new string('─', rowLenght));
                 sbRow.Append("┘");
             }
             else
             {
                 sbRow.Append("│");
-                sbRow.Append(new string('#', rowLenght));
+                sbRow.Append(new string(' ', rowLenght));
                 sbRow.Append("│");
             }
             return sbRow.ToString();

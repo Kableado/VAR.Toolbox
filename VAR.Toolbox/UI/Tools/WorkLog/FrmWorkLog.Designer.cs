@@ -176,14 +176,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lsbWorkLog.BackColor = System.Drawing.Color.Black;
+            this.lsbWorkLog.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lsbWorkLog.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lsbWorkLog.ForeColor = System.Drawing.Color.Gray;
             this.lsbWorkLog.FormattingEnabled = true;
+            this.lsbWorkLog.ItemHeight = 12;
             this.lsbWorkLog.Location = new System.Drawing.Point(3, 60);
             this.lsbWorkLog.Name = "lsbWorkLog";
             this.lsbWorkLog.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lsbWorkLog.Size = new System.Drawing.Size(436, 537);
+            this.lsbWorkLog.Size = new System.Drawing.Size(436, 532);
             this.lsbWorkLog.TabIndex = 0;
+            this.lsbWorkLog.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lsbWorkLog_DrawItem);
             this.lsbWorkLog.SelectedIndexChanged += new System.EventHandler(this.lsbWorkLog_SelectedIndexChanged);
             // 
             // dtEnd
