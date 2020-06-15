@@ -235,6 +235,13 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             WorkLog_Refresh();
         }
 
+        private void btnStats_Click(object sender, EventArgs e)
+        {
+            if (_currentWorkLogItem == null) { return; }
+            FrmWorkLogStats frmStats = new FrmWorkLogStats { Activity = _currentWorkLogItem.Activity, WorkLog = _workLog };
+            frmStats.ShowDialog(this);
+        }
+
         #endregion UI events
 
         #region Private methods
@@ -383,6 +390,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             btnAdd.Enabled = !enable;
             btnDelete.Enabled = enable;
             btnRename.Enabled = enable;
+            btnStats.Enabled = enable;
         }
 
         private void WorkLogItem_Update(bool refresh = true)
@@ -505,14 +513,6 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
             Item = item;
         }
-    }
-
-    public class WorkLogItem
-    {
-        public DateTime DateStart { get; set; }
-        public DateTime DateEnd { get; set; }
-        public string Activity { get; set; }
-        public string Description { get; set; }
     }
 
     public class WorkLogConfig

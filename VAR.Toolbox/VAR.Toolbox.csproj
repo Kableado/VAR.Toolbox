@@ -226,9 +226,16 @@
     <Compile Include="UI\Tools\PnlSuspension.Designer.cs">
       <DependentUpon>PnlSuspension.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Tools\WorkLog\FrmWorkLogStats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Tools\WorkLog\FrmWorkLogStats.Designer.cs">
+      <DependentUpon>FrmWorkLogStats.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Tools\WorkLog\IWorkLogImporter.cs" />
     <Compile Include="UI\Tools\WorkLog\VARTextWorkLogImporter.cs" />
     <Compile Include="UI\Tools\WorkLog\WorkLogImporterFactory.cs" />
+    <Compile Include="UI\Tools\WorkLog\WorkLogItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />

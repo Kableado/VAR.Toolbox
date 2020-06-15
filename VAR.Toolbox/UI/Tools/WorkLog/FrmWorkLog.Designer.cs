@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.splitWindow = new System.Windows.Forms.SplitContainer();
+            this.lblWorkLogTime = new System.Windows.Forms.Label();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnImport = new System.Windows.Forms.Button();
             this.cboImporters = new System.Windows.Forms.ComboBox();
@@ -39,6 +40,7 @@
             this.btnPreviousDay = new System.Windows.Forms.Button();
             this.dtToday = new System.Windows.Forms.DateTimePicker();
             this.lsbWorkLog = new System.Windows.Forms.ListBox();
+            this.lblWorkLogItemTime = new System.Windows.Forms.Label();
             this.btnRename = new System.Windows.Forms.Button();
             this.dtEnd = new System.Windows.Forms.DateTimePicker();
             this.dtStart = new System.Windows.Forms.DateTimePicker();
@@ -46,8 +48,7 @@
             this.txtActivity = new System.Windows.Forms.TextBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.lblWorkLogItemTime = new System.Windows.Forms.Label();
-            this.lblWorkLogTime = new System.Windows.Forms.Label();
+            this.btnStats = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitWindow)).BeginInit();
             this.splitWindow.Panel1.SuspendLayout();
             this.splitWindow.Panel2.SuspendLayout();
@@ -76,6 +77,7 @@
             // 
             // splitWindow.Panel2
             // 
+            this.splitWindow.Panel2.Controls.Add(this.btnStats);
             this.splitWindow.Panel2.Controls.Add(this.lblWorkLogItemTime);
             this.splitWindow.Panel2.Controls.Add(this.btnRename);
             this.splitWindow.Panel2.Controls.Add(this.dtEnd);
@@ -87,6 +89,17 @@
             this.splitWindow.Size = new System.Drawing.Size(721, 603);
             this.splitWindow.SplitterDistance = 442;
             this.splitWindow.TabIndex = 0;
+            // 
+            // lblWorkLogTime
+            // 
+            this.lblWorkLogTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblWorkLogTime.Location = new System.Drawing.Point(193, 36);
+            this.lblWorkLogTime.Name = "lblWorkLogTime";
+            this.lblWorkLogTime.Size = new System.Drawing.Size(246, 21);
+            this.lblWorkLogTime.TabIndex = 9;
+            this.lblWorkLogTime.Text = "00:00:00";
+            this.lblWorkLogTime.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // btnExport
             // 
@@ -198,6 +211,17 @@
             this.lsbWorkLog.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lsbWorkLog_DrawItem);
             this.lsbWorkLog.SelectedIndexChanged += new System.EventHandler(this.lsbWorkLog_SelectedIndexChanged);
             // 
+            // lblWorkLogItemTime
+            // 
+            this.lblWorkLogItemTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblWorkLogItemTime.Location = new System.Drawing.Point(136, 70);
+            this.lblWorkLogItemTime.Name = "lblWorkLogItemTime";
+            this.lblWorkLogItemTime.Size = new System.Drawing.Size(127, 20);
+            this.lblWorkLogItemTime.TabIndex = 7;
+            this.lblWorkLogItemTime.Text = "00:00:00";
+            this.lblWorkLogItemTime.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            // 
             // btnRename
             // 
             this.btnRename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -274,27 +298,15 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // lblWorkLogItemTime
+            // btnStats
             // 
-            this.lblWorkLogItemTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblWorkLogItemTime.Location = new System.Drawing.Point(136, 70);
-            this.lblWorkLogItemTime.Name = "lblWorkLogItemTime";
-            this.lblWorkLogItemTime.Size = new System.Drawing.Size(127, 20);
-            this.lblWorkLogItemTime.TabIndex = 7;
-            this.lblWorkLogItemTime.Text = "00:00:00";
-            this.lblWorkLogItemTime.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            // 
-            // lblWorkLogTime
-            // 
-            this.lblWorkLogTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblWorkLogTime.Location = new System.Drawing.Point(193, 36);
-            this.lblWorkLogTime.Name = "lblWorkLogTime";
-            this.lblWorkLogTime.Size = new System.Drawing.Size(246, 21);
-            this.lblWorkLogTime.TabIndex = 9;
-            this.lblWorkLogTime.Text = "00:00:00";
-            this.lblWorkLogTime.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnStats.Location = new System.Drawing.Point(207, 31);
+            this.btnStats.Name = "btnStats";
+            this.btnStats.Size = new System.Drawing.Size(56, 22);
+            this.btnStats.TabIndex = 8;
+            this.btnStats.Text = "Stats";
+            this.btnStats.UseVisualStyleBackColor = true;
+            this.btnStats.Click += new System.EventHandler(this.btnStats_Click);
             // 
             // FrmWorkLog
             // 
@@ -337,5 +349,6 @@
         private System.Windows.Forms.Button btnRename;
         private System.Windows.Forms.Label lblWorkLogItemTime;
         private System.Windows.Forms.Label lblWorkLogTime;
+        private System.Windows.Forms.Button btnStats;
     }
 }
