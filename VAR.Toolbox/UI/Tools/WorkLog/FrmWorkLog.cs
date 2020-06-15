@@ -363,6 +363,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 dtEnd.Value = DateTime.UtcNow.Date;
                 txtActivity.Text = string.Empty;
                 txtDescription.Text = string.Empty;
+                lblWorkLogItemTime.Text = string.Empty;
                 WorkLogItem_EnableButtons(false);
                 return;
             }
@@ -371,6 +372,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             dtEnd.Value = item.DateEnd;
             txtActivity.Text = item.Activity;
             txtDescription.Text = item.Description;
+            lblWorkLogItemTime.Text = (item.DateEnd - item.DateStart).ToString();
 
             WorkLogItem_EnableButtons(true);
             _currentWorkLogItem = item;
@@ -422,6 +424,15 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             lsbWorkLog.Items.Clear();
             lsbWorkLog.Items.AddRange(rows.ToArray());
             lsbWorkLog.TopIndex = topIndex;
+
+            DateTime dateDay = new DateTime(year, month, day, 0, 0, 0);
+            TimeSpan tsTotalTime = new TimeSpan(0);
+            foreach (WorkLogItem item in items)
+            {
+                if (item.DateStart.Date != dateDay) { continue; }
+                tsTotalTime += (item.DateEnd - item.DateStart);
+            }
+            lblWorkLogTime.Text = tsTotalTime.ToString();
         }
 
         #endregion Private methods
