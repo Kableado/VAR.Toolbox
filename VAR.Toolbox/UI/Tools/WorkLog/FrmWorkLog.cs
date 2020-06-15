@@ -214,6 +214,27 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             }
         }
 
+        private void btnRename_Click(object sender, EventArgs e)
+        {
+            if (_currentWorkLogItem == null) { return; }
+            FrmDialogString frmRename = new FrmDialogString { Title = "Rename", Description = string.Concat("\"", _currentWorkLogItem.Activity, "\""), Value = _currentWorkLogItem.Activity };
+            DialogResult result = frmRename.ShowDialog(this);
+            if (result != DialogResult.OK) { return; }
+
+            string activity = _currentWorkLogItem.Activity;
+            string newActivity = frmRename.Value;
+
+            foreach (WorkLogItem item in _workLog)
+            {
+                if (item.Activity == activity)
+                {
+                    item.Activity = newActivity;
+                }
+            }
+            WorkLog_MarkDirty();
+            WorkLog_Refresh();
+        }
+
         #endregion UI events
 
         #region Private methods
@@ -342,8 +363,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 dtEnd.Value = DateTime.UtcNow.Date;
                 txtActivity.Text = string.Empty;
                 txtDescription.Text = string.Empty;
-                btnAdd.Enabled = true;
-                btnDelete.Enabled = false;
+                WorkLogItem_EnableButtons(false);
                 return;
             }
 
@@ -352,9 +372,15 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             txtActivity.Text = item.Activity;
             txtDescription.Text = item.Description;
 
-            btnAdd.Enabled = false;
-            btnDelete.Enabled = true;
+            WorkLogItem_EnableButtons(true);
             _currentWorkLogItem = item;
+        }
+
+        private void WorkLogItem_EnableButtons(bool enable)
+        {
+            btnAdd.Enabled = !enable;
+            btnDelete.Enabled = enable;
+            btnRename.Enabled = enable;
         }
 
         private void WorkLogItem_Update(bool refresh = true)

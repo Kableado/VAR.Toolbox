@@ -45,6 +45,7 @@
             this.txtActivity = new System.Windows.Forms.TextBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.btnRename = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitWindow)).BeginInit();
             this.splitWindow.Panel1.SuspendLayout();
             this.splitWindow.Panel2.SuspendLayout();
@@ -72,6 +73,7 @@
             // 
             // splitWindow.Panel2
             // 
+            this.splitWindow.Panel2.Controls.Add(this.btnRename);
             this.splitWindow.Panel2.Controls.Add(this.dtEnd);
             this.splitWindow.Panel2.Controls.Add(this.dtStart);
             this.splitWindow.Panel2.Controls.Add(this.txtDescription);
@@ -84,7 +86,8 @@
             // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(365, 6);
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExport.Location = new System.Drawing.Point(399, 5);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(40, 21);
             this.btnExport.TabIndex = 8;
@@ -94,7 +97,8 @@
             // 
             // btnImport
             // 
-            this.btnImport.Location = new System.Drawing.Point(319, 6);
+            this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnImport.Location = new System.Drawing.Point(353, 5);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(40, 21);
             this.btnImport.TabIndex = 7;
@@ -104,9 +108,10 @@
             // 
             // cboImporters
             // 
+            this.cboImporters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cboImporters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboImporters.FormattingEnabled = true;
-            this.cboImporters.Location = new System.Drawing.Point(224, 6);
+            this.cboImporters.Location = new System.Drawing.Point(258, 5);
             this.cboImporters.Name = "cboImporters";
             this.cboImporters.Size = new System.Drawing.Size(89, 21);
             this.cboImporters.TabIndex = 6;
@@ -196,7 +201,7 @@
             this.dtEnd.Location = new System.Drawing.Point(4, 60);
             this.dtEnd.Name = "dtEnd";
             this.dtEnd.ShowUpDown = true;
-            this.dtEnd.Size = new System.Drawing.Size(155, 20);
+            this.dtEnd.Size = new System.Drawing.Size(126, 20);
             this.dtEnd.TabIndex = 5;
             this.dtEnd.ValueChanged += new System.EventHandler(this.dtEnd_ValueChanged);
             // 
@@ -207,7 +212,7 @@
             this.dtStart.Location = new System.Drawing.Point(4, 33);
             this.dtStart.Name = "dtStart";
             this.dtStart.ShowUpDown = true;
-            this.dtStart.Size = new System.Drawing.Size(155, 20);
+            this.dtStart.Size = new System.Drawing.Size(126, 20);
             this.dtStart.TabIndex = 4;
             this.dtStart.ValueChanged += new System.EventHandler(this.dtStart_ValueChanged);
             // 
@@ -230,15 +235,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtActivity.Location = new System.Drawing.Point(3, 93);
             this.txtActivity.Name = "txtActivity";
-            this.txtActivity.Size = new System.Drawing.Size(259, 20);
+            this.txtActivity.Size = new System.Drawing.Size(260, 20);
             this.txtActivity.TabIndex = 2;
             this.txtActivity.TextChanged += new System.EventHandler(this.txtActivity_TextChanged);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(84, 3);
+            this.btnDelete.Location = new System.Drawing.Point(68, 3);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.Size = new System.Drawing.Size(62, 23);
             this.btnDelete.TabIndex = 1;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -248,11 +253,22 @@
             // 
             this.btnAdd.Location = new System.Drawing.Point(3, 3);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.Size = new System.Drawing.Size(59, 23);
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnRename
+            // 
+            this.btnRename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRename.Location = new System.Drawing.Point(207, 3);
+            this.btnRename.Name = "btnRename";
+            this.btnRename.Size = new System.Drawing.Size(56, 22);
+            this.btnRename.TabIndex = 6;
+            this.btnRename.Text = "Rename";
+            this.btnRename.UseVisualStyleBackColor = true;
+            this.btnRename.Click += new System.EventHandler(this.btnRename_Click);
             // 
             // FrmWorkLog
             // 
@@ -292,5 +308,6 @@
         private System.Windows.Forms.ComboBox cboImporters;
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Button btnImport;
+        private System.Windows.Forms.Button btnRename;
     }
 }
