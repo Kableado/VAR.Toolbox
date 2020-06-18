@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -25,7 +26,8 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             {
                 DateTime lastDateTime = DateTime.MinValue;
                 int lastWeekOfYear = -1;
-                foreach (WorkLogItem item in items)
+                List<WorkLogItem> itemsOrdered = items.OrderBy(x => x.DateStart).ToList();
+                foreach (WorkLogItem item in itemsOrdered)
                 {
                     int weekOfYear = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(item.DateStart, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
                     if (weekOfYear != lastWeekOfYear)
