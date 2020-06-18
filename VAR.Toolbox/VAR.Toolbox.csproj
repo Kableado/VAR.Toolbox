@@ -138,6 +138,12 @@
     <Compile Include="UI\FrmDialogString.Designer.cs">
       <DependentUpon>FrmDialogString.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FrmListBoxDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmListBoxDialog.Designer.cs">
+      <DependentUpon>FrmListBoxDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\IToolPanel.cs" />
     <Compile Include="UI\Tools\FrmCoder.cs">
       <SubType>Form</SubType>
