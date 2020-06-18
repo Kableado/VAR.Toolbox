@@ -40,6 +40,7 @@
             this.btnPreviousDay = new System.Windows.Forms.Button();
             this.dtToday = new System.Windows.Forms.DateTimePicker();
             this.lsbWorkLog = new System.Windows.Forms.ListBox();
+            this.btnStats = new System.Windows.Forms.Button();
             this.lblWorkLogItemTime = new System.Windows.Forms.Label();
             this.btnRename = new System.Windows.Forms.Button();
             this.dtEnd = new System.Windows.Forms.DateTimePicker();
@@ -48,7 +49,7 @@
             this.txtActivity = new System.Windows.Forms.TextBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.btnStats = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitWindow)).BeginInit();
             this.splitWindow.Panel1.SuspendLayout();
             this.splitWindow.Panel2.SuspendLayout();
@@ -77,6 +78,7 @@
             // 
             // splitWindow.Panel2
             // 
+            this.splitWindow.Panel2.Controls.Add(this.btnSearch);
             this.splitWindow.Panel2.Controls.Add(this.btnStats);
             this.splitWindow.Panel2.Controls.Add(this.lblWorkLogItemTime);
             this.splitWindow.Panel2.Controls.Add(this.btnRename);
@@ -211,6 +213,17 @@
             this.lsbWorkLog.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lsbWorkLog_DrawItem);
             this.lsbWorkLog.SelectedIndexChanged += new System.EventHandler(this.lsbWorkLog_SelectedIndexChanged);
             // 
+            // btnStats
+            // 
+            this.btnStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnStats.Location = new System.Drawing.Point(207, 3);
+            this.btnStats.Name = "btnStats";
+            this.btnStats.Size = new System.Drawing.Size(56, 22);
+            this.btnStats.TabIndex = 8;
+            this.btnStats.Text = "Stats";
+            this.btnStats.UseVisualStyleBackColor = true;
+            this.btnStats.Click += new System.EventHandler(this.btnStats_Click);
+            // 
             // lblWorkLogItemTime
             // 
             this.lblWorkLogItemTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -224,8 +237,7 @@
             // 
             // btnRename
             // 
-            this.btnRename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRename.Location = new System.Drawing.Point(207, 3);
+            this.btnRename.Location = new System.Drawing.Point(6, 119);
             this.btnRename.Name = "btnRename";
             this.btnRename.Size = new System.Drawing.Size(56, 22);
             this.btnRename.TabIndex = 6;
@@ -260,11 +272,11 @@
             this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.Location = new System.Drawing.Point(4, 119);
+            this.txtDescription.Location = new System.Drawing.Point(4, 147);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescription.Size = new System.Drawing.Size(259, 472);
+            this.txtDescription.Size = new System.Drawing.Size(259, 444);
             this.txtDescription.TabIndex = 3;
             this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             // 
@@ -298,15 +310,15 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // btnStats
+            // btnSearch
             // 
-            this.btnStats.Location = new System.Drawing.Point(207, 31);
-            this.btnStats.Name = "btnStats";
-            this.btnStats.Size = new System.Drawing.Size(56, 22);
-            this.btnStats.TabIndex = 8;
-            this.btnStats.Text = "Stats";
-            this.btnStats.UseVisualStyleBackColor = true;
-            this.btnStats.Click += new System.EventHandler(this.btnStats_Click);
+            this.btnSearch.Location = new System.Drawing.Point(68, 119);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 9;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // FrmWorkLog
             // 
@@ -350,5 +362,6 @@
         private System.Windows.Forms.Label lblWorkLogItemTime;
         private System.Windows.Forms.Label lblWorkLogTime;
         private System.Windows.Forms.Button btnStats;
+        private System.Windows.Forms.Button btnSearch;
     }
 }

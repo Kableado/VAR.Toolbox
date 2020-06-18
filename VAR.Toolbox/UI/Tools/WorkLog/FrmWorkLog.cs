@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using VAR.Json;
@@ -240,6 +241,27 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             if (_currentWorkLogItem == null) { return; }
             FrmWorkLogStats frmStats = new FrmWorkLogStats { Activity = _currentWorkLogItem.Activity, WorkLog = _workLog };
             frmStats.ShowDialog(this);
+        }
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (_workLog == null) { return; }
+
+            List<string> listActivities = _workLog
+                .GroupBy(x => x.Activity)
+                .Select(g => g.OrderBy(x => x.DateStart).LastOrDefault())
+                .OrderByDescending(x => x.DateStart)
+                .Select(x => x.Activity)
+                .ToList();
+
+            FrmListBoxDialog frmListDialog = new FrmListBoxDialog();
+            frmListDialog.Title = "Search Activity";
+            frmListDialog.LoadItems(listActivities);
+
+            DialogResult result = frmListDialog.ShowDialog(this);
+            if (result != DialogResult.OK) { return; }
+
+            if (string.IsNullOrEmpty(frmListDialog.Value)) { return; }
+            txtActivity.Text = frmListDialog.Value;
         }
 
         #endregion UI events
