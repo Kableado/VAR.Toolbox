@@ -242,6 +242,12 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             FrmWorkLogStats frmStats = new FrmWorkLogStats { Activity = _currentWorkLogItem.Activity, WorkLog = _workLog };
             frmStats.ShowDialog(this);
         }
+        private void btnSumary_Click(object sender, EventArgs e)
+        {
+            FrmWorkLogSumary frmStats = new FrmWorkLogSumary { WorkLog = _workLog };
+            frmStats.ShowDialog(this);
+        }
+
         private void btnSearch_Click(object sender, EventArgs e)
         {
             if (_workLog == null) { return; }

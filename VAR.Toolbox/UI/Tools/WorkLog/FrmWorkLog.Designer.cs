@@ -40,6 +40,7 @@
             this.btnPreviousDay = new System.Windows.Forms.Button();
             this.dtToday = new System.Windows.Forms.DateTimePicker();
             this.lsbWorkLog = new System.Windows.Forms.ListBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.btnStats = new System.Windows.Forms.Button();
             this.lblWorkLogItemTime = new System.Windows.Forms.Label();
             this.btnRename = new System.Windows.Forms.Button();
@@ -49,7 +50,7 @@
             this.txtActivity = new System.Windows.Forms.TextBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnSumary = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitWindow)).BeginInit();
             this.splitWindow.Panel1.SuspendLayout();
             this.splitWindow.Panel2.SuspendLayout();
@@ -64,6 +65,7 @@
             // 
             // splitWindow.Panel1
             // 
+            this.splitWindow.Panel1.Controls.Add(this.btnSumary);
             this.splitWindow.Panel1.Controls.Add(this.lblWorkLogTime);
             this.splitWindow.Panel1.Controls.Add(this.btnExport);
             this.splitWindow.Panel1.Controls.Add(this.btnImport);
@@ -96,9 +98,9 @@
             // 
             this.lblWorkLogTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblWorkLogTime.Location = new System.Drawing.Point(193, 36);
+            this.lblWorkLogTime.Location = new System.Drawing.Point(273, 36);
             this.lblWorkLogTime.Name = "lblWorkLogTime";
-            this.lblWorkLogTime.Size = new System.Drawing.Size(246, 21);
+            this.lblWorkLogTime.Size = new System.Drawing.Size(166, 21);
             this.lblWorkLogTime.TabIndex = 9;
             this.lblWorkLogTime.Text = "00:00:00";
             this.lblWorkLogTime.TextAlign = System.Drawing.ContentAlignment.BottomRight;
@@ -213,6 +215,16 @@
             this.lsbWorkLog.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lsbWorkLog_DrawItem);
             this.lsbWorkLog.SelectedIndexChanged += new System.EventHandler(this.lsbWorkLog_SelectedIndexChanged);
             // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(68, 119);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 9;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // btnStats
             // 
             this.btnStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -310,15 +322,15 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // btnSearch
+            // btnSumary
             // 
-            this.btnSearch.Location = new System.Drawing.Point(68, 119);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 23);
-            this.btnSearch.TabIndex = 9;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            this.btnSumary.Location = new System.Drawing.Point(194, 34);
+            this.btnSumary.Name = "btnSumary";
+            this.btnSumary.Size = new System.Drawing.Size(73, 23);
+            this.btnSumary.TabIndex = 10;
+            this.btnSumary.Text = "Sumary";
+            this.btnSumary.UseVisualStyleBackColor = true;
+            this.btnSumary.Click += new System.EventHandler(this.btnSumary_Click);
             // 
             // FrmWorkLog
             // 
@@ -363,5 +375,6 @@
         private System.Windows.Forms.Label lblWorkLogTime;
         private System.Windows.Forms.Button btnStats;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnSumary;
     }
 }

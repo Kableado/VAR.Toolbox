@@ -232,6 +232,12 @@
     <Compile Include="UI\Tools\PnlSuspension.Designer.cs">
       <DependentUpon>PnlSuspension.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Tools\WorkLog\FrmWorkLogSumary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Tools\WorkLog\FrmWorkLogSumary.Designer.cs">
+      <DependentUpon>FrmWorkLogSumary.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Tools\WorkLog\FrmWorkLogStats.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,6 +256,11 @@
     <Content Include="Images\Toolbox.png" />
     <Content Include="Images\toolbox.svg" />
     <Content Include="Toolbox.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\Tools\WorkLog\FrmWorkLogSumary.resx">
+      <DependentUpon>FrmWorkLogSumary.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
