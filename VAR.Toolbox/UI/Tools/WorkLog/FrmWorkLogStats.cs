@@ -27,8 +27,8 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         private void FrmWorkLogStats_Load(object sender, EventArgs e)
         {
-            dtpStart.Value = DateTime.Now.AddDays(-1);
-            dtpEnd.Value = DateTime.Now;
+            dtpStart.Value = DateTime.Now.Date;
+            dtpEnd.Value = DateTime.Now.Date.AddDays(1).AddSeconds(-1);
             WorkLog_ProcessStats();
         }
 
@@ -93,7 +93,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 if (dictDaysHours.ContainsKey(dateDayCurrent))
                 {
                     TimeSpan tsDay = dictDaysHours[dateDayCurrent];
-                    strDays.Add(string.Format("{0} -- {1} h", dateDayCurrent.ToString("yyyy-MM-dd"), tsDay.ToString()));
+                    strDays.Add(string.Format("{0} -- {1} h", dateDayCurrent.ToString("yyyy-MM-dd"), tsDay.TotalHours));
                     tsTotal += tsDay;
                 }
 
@@ -101,7 +101,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             } while (dateDayCurrent <= dateDayEnd);
             lsbDays.Items.Clear();
             lsbDays.Items.AddRange(strDays.ToArray());
-            lblTotalTime.Text = tsTotal.ToString();
+            lblTotalTime.Text = string.Format("{0} - {1}", tsTotal.ToString(), tsTotal.TotalHours);
         }
     }
 }

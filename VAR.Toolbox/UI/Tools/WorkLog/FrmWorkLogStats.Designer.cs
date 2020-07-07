@@ -102,6 +102,7 @@
             // 
             // lblTotalTime
             // 
+            this.lblTotalTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblTotalTime.AutoSize = true;
             this.lblTotalTime.Location = new System.Drawing.Point(12, 406);
             this.lblTotalTime.Name = "lblTotalTime";
