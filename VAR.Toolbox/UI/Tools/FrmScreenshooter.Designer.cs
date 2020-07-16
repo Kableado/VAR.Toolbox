@@ -47,8 +47,8 @@
             // 
             // picViewer
             // 
-            this.picViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.picViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picViewer.BackColor = System.Drawing.Color.Black;
             this.picViewer.ImageShow = null;
@@ -71,8 +71,6 @@
             // 
             // FrmScreenshooter
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(605, 425);
             this.Controls.Add(this.btnStartStop);
             this.Controls.Add(this.btnScreenshoot);

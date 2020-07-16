@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lsbDays = new System.Windows.Forms.ListBox();
+            this.lsbDays = new VAR.Toolbox.Controls.ListBoxNormal();
             this.lblDateStart = new System.Windows.Forms.Label();
-            this.txtActivity = new System.Windows.Forms.TextBox();
+            this.txtActivity = new VAR.Toolbox.Controls.TextBoxNormal();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.lblDateEnd = new System.Windows.Forms.Label();
@@ -41,8 +41,8 @@
             // 
             // lsbDays
             // 
-            this.lsbDays.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lsbDays.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lsbDays.FormattingEnabled = true;
             this.lsbDays.Location = new System.Drawing.Point(12, 113);
@@ -60,7 +60,7 @@
             // 
             // txtActivity
             // 
-            this.txtActivity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtActivity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtActivity.Location = new System.Drawing.Point(12, 12);
             this.txtActivity.Name = "txtActivity";
@@ -131,8 +131,6 @@
             // 
             // FrmWorkLogStats
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(417, 448);
             this.Controls.Add(this.dtpEnd);
             this.Controls.Add(this.dtpStart);
@@ -153,9 +151,9 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox lsbDays;
+        private VAR.Toolbox.Controls.ListBoxNormal lsbDays;
         private System.Windows.Forms.Label lblDateStart;
-        private System.Windows.Forms.TextBox txtActivity;
+        private VAR.Toolbox.Controls.TextBoxNormal txtActivity;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblDateEnd;

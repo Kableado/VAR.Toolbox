@@ -3,10 +3,11 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using VAR.Toolbox.Code;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmScreenshooter : Form, IToolForm
+    public partial class FrmScreenshooter : Frame, IToolForm
     {
         public string ToolName { get { return "Screenshooter"; } }
 

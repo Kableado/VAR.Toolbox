@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lsbItems = new System.Windows.Forms.ListBox();
+            this.lsbItems = new VAR.Toolbox.Controls.ListBoxNormal();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnAccept = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lsbItems
             // 
-            this.lsbItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lsbItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lsbItems.FormattingEnabled = true;
             this.lsbItems.Location = new System.Drawing.Point(12, 12);
@@ -69,8 +69,6 @@
             // 
             // FrmListBoxDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(362, 465);
             this.Controls.Add(this.btnAccept);
             this.Controls.Add(this.btnCancel);
@@ -83,7 +81,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox lsbItems;
+        private VAR.Toolbox.Controls.ListBoxNormal lsbItems;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnAccept;
     }

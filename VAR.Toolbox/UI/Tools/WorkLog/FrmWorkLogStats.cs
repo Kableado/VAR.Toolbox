@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI.Tools.WorkLog
 {
-    public partial class FrmWorkLogStats : Form
+    public partial class FrmWorkLogStats : Frame
     {
         public FrmWorkLogStats()
         {

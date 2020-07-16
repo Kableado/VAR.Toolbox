@@ -6,10 +6,11 @@ using System.Threading;
 using System.Windows.Forms;
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.ProxyCmdExecutors;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmProxyCmd : Form, IOutputHandler, IToolForm
+    public partial class FrmProxyCmd : Frame, IOutputHandler, IToolForm
     {
         public string ToolName { get { return "ProxyCmd"; } }
 

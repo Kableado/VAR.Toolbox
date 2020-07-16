@@ -127,10 +127,29 @@
     <Compile Include="Code\Windows\User32.cs" />
     <Compile Include="Code\Webcam.cs" />
     <Compile Include="Code\Windows\Win32.cs" />
+    <Compile Include="Controls\ControlsUtils.cs" />
     <Compile Include="Controls\CtrImageViewer.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\CtrOutput.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Frame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ListBoxMonospace.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ListBoxNormal.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\SubFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TextBoxMonospace.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TextBoxNormal.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\FrmDialogString.cs">
@@ -221,15 +240,11 @@
     <Compile Include="UI\Tools\PnlActivity.Designer.cs">
       <DependentUpon>PnlActivity.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Tools\PnlCover.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="UI\Tools\PnlCover.cs" />
     <Compile Include="UI\Tools\PnlCover.Designer.cs">
       <DependentUpon>PnlCover.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Tools\PnlSuspension.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="UI\Tools\PnlSuspension.cs" />
     <Compile Include="UI\Tools\PnlSuspension.Designer.cs">
       <DependentUpon>PnlSuspension.cs</DependentUpon>
     </Compile>

@@ -7,10 +7,11 @@ using System.Linq;
 using System.Windows.Forms;
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Windows;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI
 {
-    public class FrmToolbox : Form
+    public class FrmToolbox : Frame
     {
         #region Declarations
 
@@ -122,7 +123,7 @@ namespace VAR.Toolbox.UI
             lblToolbox = new Label
             {
                 Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right),
-                Font = new Font("Microsoft Sans Serif", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0),
+                Font = new Font(Font.FontFamily, ControlsUtils.GetFontSize(this, 27.75F), FontStyle.Bold, GraphicsUnit.Point, 0),
                 Location = new Point(windowSpacing, windowSpacing),
                 Margin = new Padding(0, 0, 0, 0),
                 Name = "lblToolbox",
@@ -205,7 +206,6 @@ namespace VAR.Toolbox.UI
             nextYLocation = btnExit.Location.Y + btnExit.Size.Height + windowSpacing;
 
             // FrmToolbox
-            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(425, nextYLocation);
             Controls.Add(btnExit);
             Controls.Add(lblToolbox);
@@ -226,6 +226,9 @@ namespace VAR.Toolbox.UI
                 Visible = true
             };
             niTray.MouseClick += NiTray_MouseClick;
+
+
+            ResumeLayout();
         }
 
         #endregion Dynamic layout

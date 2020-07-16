@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lsbActivities = new System.Windows.Forms.ListBox();
+            this.lsbActivities = new VAR.Toolbox.Controls.ListBoxNormal();
             this.lblDateStart = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -37,13 +37,13 @@
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.dtpEnd = new System.Windows.Forms.DateTimePicker();
             this.chkOnlyGroups = new System.Windows.Forms.CheckBox();
-            this.txtActivity = new System.Windows.Forms.TextBox();
+            this.txtActivity = new VAR.Toolbox.Controls.TextBoxNormal();
             this.SuspendLayout();
             // 
             // lsbActivities
             // 
-            this.lsbActivities.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lsbActivities.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lsbActivities.FormattingEnabled = true;
             this.lsbActivities.Location = new System.Drawing.Point(12, 113);
@@ -136,7 +136,7 @@
             // 
             // txtActivity
             // 
-            this.txtActivity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtActivity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtActivity.Location = new System.Drawing.Point(12, 422);
             this.txtActivity.Name = "txtActivity";
@@ -145,8 +145,6 @@
             // 
             // FrmWorkLogSumary
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(417, 448);
             this.Controls.Add(this.txtActivity);
             this.Controls.Add(this.chkOnlyGroups);
@@ -168,7 +166,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox lsbActivities;
+        private VAR.Toolbox.Controls.ListBoxNormal lsbActivities;
         private System.Windows.Forms.Label lblDateStart;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnClose;
@@ -177,6 +175,6 @@
         private System.Windows.Forms.DateTimePicker dtpStart;
         private System.Windows.Forms.DateTimePicker dtpEnd;
         private System.Windows.Forms.CheckBox chkOnlyGroups;
-        private System.Windows.Forms.TextBox txtActivity;
+        private VAR.Toolbox.Controls.TextBoxNormal txtActivity;
     }
 }

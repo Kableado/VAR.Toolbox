@@ -3,10 +3,11 @@ using System.Drawing;
 using System.Windows.Forms;
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Windows;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI
 {
-    public class FrmCover : Form
+    public class FrmCover : Frame
     {
         #region Declarations
 

@@ -7,10 +7,11 @@ using System.Text;
 using System.Windows.Forms;
 using VAR.Json;
 using VAR.Toolbox.Code;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI.Tools.WorkLog
 {
-    public partial class FrmWorkLog : Form, IToolForm
+    public partial class FrmWorkLog : Frame, IToolForm
     {
         #region IToolForm
 

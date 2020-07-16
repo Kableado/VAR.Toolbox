@@ -30,7 +30,7 @@
         {
             this.lblDescription = new System.Windows.Forms.Label();
             this.tblLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.txtValue = new System.Windows.Forms.TextBox();
+            this.txtValue = new VAR.Toolbox.Controls.TextBoxNormal();
             this.flowButtons = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAccept = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -108,8 +108,6 @@
             // 
             // FrmDialogString
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(440, 284);
             this.Controls.Add(this.tblLayout);
             this.Name = "FrmDialogString";
@@ -125,7 +123,7 @@
 
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.TableLayoutPanel tblLayout;
-        private System.Windows.Forms.TextBox txtValue;
+        private VAR.Toolbox.Controls.TextBoxNormal txtValue;
         private System.Windows.Forms.FlowLayoutPanel flowButtons;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnAccept;

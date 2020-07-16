@@ -33,21 +33,21 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnImport = new System.Windows.Forms.Button();
             this.cboImporters = new System.Windows.Forms.ComboBox();
-            this.txtName = new System.Windows.Forms.TextBox();
+            this.txtName = new VAR.Toolbox.Controls.TextBoxNormal();
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnNextDay = new System.Windows.Forms.Button();
             this.btnPreviousDay = new System.Windows.Forms.Button();
             this.dtToday = new System.Windows.Forms.DateTimePicker();
-            this.lsbWorkLog = new System.Windows.Forms.ListBox();
+            this.lsbWorkLog = new VAR.Toolbox.Controls.ListBoxMonospace();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnStats = new System.Windows.Forms.Button();
             this.lblWorkLogItemTime = new System.Windows.Forms.Label();
             this.btnRename = new System.Windows.Forms.Button();
             this.dtEnd = new System.Windows.Forms.DateTimePicker();
             this.dtStart = new System.Windows.Forms.DateTimePicker();
-            this.txtDescription = new System.Windows.Forms.TextBox();
-            this.txtActivity = new System.Windows.Forms.TextBox();
+            this.txtDescription = new VAR.Toolbox.Controls.TextBoxNormal();
+            this.txtActivity = new VAR.Toolbox.Controls.TextBoxNormal();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnSumary = new System.Windows.Forms.Button();
@@ -96,7 +96,7 @@
             // 
             // lblWorkLogTime
             // 
-            this.lblWorkLogTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblWorkLogTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWorkLogTime.Location = new System.Drawing.Point(273, 36);
             this.lblWorkLogTime.Name = "lblWorkLogTime";
@@ -198,14 +198,10 @@
             // 
             // lsbWorkLog
             // 
-            this.lsbWorkLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lsbWorkLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lsbWorkLog.BackColor = System.Drawing.Color.Black;
             this.lsbWorkLog.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.lsbWorkLog.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lsbWorkLog.ForeColor = System.Drawing.Color.Gray;
-            this.lsbWorkLog.FormattingEnabled = true;
             this.lsbWorkLog.ItemHeight = 12;
             this.lsbWorkLog.Location = new System.Drawing.Point(3, 60);
             this.lsbWorkLog.Name = "lsbWorkLog";
@@ -238,7 +234,7 @@
             // 
             // lblWorkLogItemTime
             // 
-            this.lblWorkLogItemTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblWorkLogItemTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWorkLogItemTime.Location = new System.Drawing.Point(136, 70);
             this.lblWorkLogItemTime.Name = "lblWorkLogItemTime";
@@ -281,8 +277,8 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescription.Location = new System.Drawing.Point(4, 147);
             this.txtDescription.Multiline = true;
@@ -294,7 +290,7 @@
             // 
             // txtActivity
             // 
-            this.txtActivity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtActivity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtActivity.Location = new System.Drawing.Point(3, 93);
             this.txtActivity.Name = "txtActivity";
@@ -334,8 +330,6 @@
             // 
             // FrmWorkLog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(721, 603);
             this.Controls.Add(this.splitWindow);
             this.Name = "FrmWorkLog";
@@ -355,9 +349,9 @@
 
         private System.Windows.Forms.SplitContainer splitWindow;
         private System.Windows.Forms.DateTimePicker dtToday;
-        private System.Windows.Forms.ListBox lsbWorkLog;
-        private System.Windows.Forms.TextBox txtDescription;
-        private System.Windows.Forms.TextBox txtActivity;
+        private VAR.Toolbox.Controls.ListBoxMonospace lsbWorkLog;
+        private VAR.Toolbox.Controls.TextBoxNormal txtDescription;
+        private VAR.Toolbox.Controls.TextBoxNormal txtActivity;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.DateTimePicker dtEnd;
@@ -365,7 +359,7 @@
         private System.Windows.Forms.Button btnNextDay;
         private System.Windows.Forms.Button btnPreviousDay;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.TextBox txtName;
+        private VAR.Toolbox.Controls.TextBoxNormal txtName;
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.ComboBox cboImporters;
         private System.Windows.Forms.Button btnExport;

@@ -168,7 +168,6 @@
             // 
             // PnlSuspension
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Controls.Add(this.grpSuspension);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "PnlSuspension";

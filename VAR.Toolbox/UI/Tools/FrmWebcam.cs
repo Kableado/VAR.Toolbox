@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using VAR.Toolbox.Code;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmWebcam : Form, IToolForm
+    public partial class FrmWebcam : Frame, IToolForm
     {
         public string ToolName { get { return "Webcam"; } }
 

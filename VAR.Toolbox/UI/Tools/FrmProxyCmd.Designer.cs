@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.splitMain = new System.Windows.Forms.SplitContainer();
-            this.txtOutput = new System.Windows.Forms.TextBox();
-            this.txtInput = new System.Windows.Forms.TextBox();
+            this.txtOutput = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtInput = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.ddlCurrentConfig = new System.Windows.Forms.ComboBox();
             this.btnConfig = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
@@ -66,7 +66,6 @@
             // 
             this.txtOutput.BackColor = System.Drawing.Color.Black;
             this.txtOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtOutput.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOutput.ForeColor = System.Drawing.Color.Silver;
             this.txtOutput.Location = new System.Drawing.Point(0, 0);
             this.txtOutput.Multiline = true;
@@ -81,7 +80,6 @@
             // 
             this.txtInput.BackColor = System.Drawing.Color.Black;
             this.txtInput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtInput.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtInput.ForeColor = System.Drawing.Color.Silver;
             this.txtInput.Location = new System.Drawing.Point(0, 0);
             this.txtInput.Multiline = true;
@@ -116,8 +114,6 @@
             // 
             // FrmProxyCmd
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(413, 446);
             this.Controls.Add(this.btnConfig);
             this.Controls.Add(this.ddlCurrentConfig);
@@ -137,8 +133,8 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitMain;
-        private System.Windows.Forms.TextBox txtOutput;
-        private System.Windows.Forms.TextBox txtInput;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtOutput;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtInput;
         private System.Windows.Forms.ComboBox ddlCurrentConfig;
         private System.Windows.Forms.Button btnConfig;
     }

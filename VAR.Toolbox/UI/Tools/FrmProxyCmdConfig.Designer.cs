@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lsvCmdProxyConfigs = new System.Windows.Forms.ListBox();
-            this.txtCmdProxyConfigName = new System.Windows.Forms.TextBox();
+            this.lsvCmdProxyConfigs = new VAR.Toolbox.Controls.ListBoxNormal();
+            this.txtCmdProxyConfigName = new VAR.Toolbox.Controls.TextBoxNormal();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
-            this.txtCmdProxyConfigContent = new System.Windows.Forms.TextBox();
+            this.txtCmdProxyConfigContent = new VAR.Toolbox.Controls.TextBoxNormal();
             this.SuspendLayout();
             // 
             // lsvCmdProxyConfigs
@@ -102,8 +102,6 @@
             // 
             // FrmProxyCmdConfig
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(496, 386);
             this.Controls.Add(this.txtCmdProxyConfigContent);
             this.Controls.Add(this.btnNew);
@@ -121,11 +119,11 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox lsvCmdProxyConfigs;
-        private System.Windows.Forms.TextBox txtCmdProxyConfigName;
+        private VAR.Toolbox.Controls.ListBoxNormal lsvCmdProxyConfigs;
+        private VAR.Toolbox.Controls.TextBoxNormal txtCmdProxyConfigName;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnNew;
-        private System.Windows.Forms.TextBox txtCmdProxyConfigContent;
+        private VAR.Toolbox.Controls.TextBoxNormal txtCmdProxyConfigContent;
     }
 }

@@ -2,11 +2,11 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using System.Windows.Forms;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmTunnelTCP : Form, IToolForm
+    public partial class FrmTunnelTCP : Frame, IToolForm
     {
         public string ToolName { get { return "TunnelTCP"; } }
 

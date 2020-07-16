@@ -119,7 +119,6 @@
             // 
             // PnlCover
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Controls.Add(this.grpCover);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "PnlCover";

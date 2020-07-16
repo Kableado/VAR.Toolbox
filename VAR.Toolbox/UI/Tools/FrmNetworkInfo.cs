@@ -5,10 +5,11 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Windows.Forms;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmNetworkInfo : Form, IToolForm
+    public partial class FrmNetworkInfo : Frame, IToolForm
     {
         public string ToolName { get { return "NetworkInfo"; } }
 

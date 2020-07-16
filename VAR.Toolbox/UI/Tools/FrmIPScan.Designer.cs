@@ -32,7 +32,7 @@
             this.btnScan = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
             this.btnStop = new System.Windows.Forms.Button();
-            this.txtSubnet = new System.Windows.Forms.TextBox();
+            this.txtSubnet = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.SuspendLayout();
             // 
             // lsvResult
@@ -88,8 +88,6 @@
             // 
             // FrmIPScan
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(365, 307);
             this.Controls.Add(this.txtSubnet);
             this.Controls.Add(this.btnStop);
@@ -110,6 +108,6 @@
         private System.Windows.Forms.Button btnScan;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.TextBox txtSubnet;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtSubnet;
     }
 }

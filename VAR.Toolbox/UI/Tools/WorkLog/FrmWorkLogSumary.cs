@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI.Tools.WorkLog
 {
-    public partial class FrmWorkLogSumary : Form
+    public partial class FrmWorkLogSumary : Frame
     {
         public FrmWorkLogSumary()
         {

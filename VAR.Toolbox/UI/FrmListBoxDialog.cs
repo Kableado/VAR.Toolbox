@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmListBoxDialog : Form
+    public partial class FrmListBoxDialog : Frame
     {
         public FrmListBoxDialog()
         {

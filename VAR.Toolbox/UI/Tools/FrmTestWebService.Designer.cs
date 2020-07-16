@@ -32,27 +32,27 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btnTestSoap = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtResultSoap = new System.Windows.Forms.TextBox();
-            this.txtParametersSoap = new System.Windows.Forms.TextBox();
-            this.txtMethodSoap = new System.Windows.Forms.TextBox();
-            this.txtInterfaceSoap = new System.Windows.Forms.TextBox();
-            this.txtUrlSoap = new System.Windows.Forms.TextBox();
+            this.txtResultSoap = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtParametersSoap = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtMethodSoap = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtNamespaceUrlSoap = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtUrlSoap = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtResultRest = new System.Windows.Forms.TextBox();
+            this.txtResultRest = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.btnTestRest = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.lblUrlApiMethod = new System.Windows.Forms.Label();
             this.lblURL = new System.Windows.Forms.Label();
-            this.txtBodyRest = new System.Windows.Forms.TextBox();
-            this.txtParametersRest = new System.Windows.Forms.TextBox();
-            this.txtUrlApiMethodRest = new System.Windows.Forms.TextBox();
-            this.txtUrlRest = new System.Windows.Forms.TextBox();
+            this.txtBodyRest = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtParametersRest = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtUrlApiMethodRest = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtUrlRest = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.tabWebServices.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -77,7 +77,7 @@
             this.tabPage1.Controls.Add(this.txtResultSoap);
             this.tabPage1.Controls.Add(this.txtParametersSoap);
             this.tabPage1.Controls.Add(this.txtMethodSoap);
-            this.tabPage1.Controls.Add(this.txtInterfaceSoap);
+            this.tabPage1.Controls.Add(this.txtNamespaceUrlSoap);
             this.tabPage1.Controls.Add(this.txtUrlSoap);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.label3);
@@ -116,6 +116,7 @@
             this.txtResultSoap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtResultSoap.Font = new System.Drawing.Font("Consolas", 6F);
             this.txtResultSoap.Location = new System.Drawing.Point(6, 219);
             this.txtResultSoap.Multiline = true;
             this.txtResultSoap.Name = "txtResultSoap";
@@ -127,6 +128,7 @@
             // 
             this.txtParametersSoap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtParametersSoap.Font = new System.Drawing.Font("Consolas", 6F);
             this.txtParametersSoap.Location = new System.Drawing.Point(100, 81);
             this.txtParametersSoap.Multiline = true;
             this.txtParametersSoap.Name = "txtParametersSoap";
@@ -138,27 +140,30 @@
             // 
             this.txtMethodSoap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMethodSoap.Font = new System.Drawing.Font("Consolas", 6F);
             this.txtMethodSoap.Location = new System.Drawing.Point(100, 55);
             this.txtMethodSoap.Name = "txtMethodSoap";
-            this.txtMethodSoap.Size = new System.Drawing.Size(571, 20);
+            this.txtMethodSoap.Size = new System.Drawing.Size(571, 22);
             this.txtMethodSoap.TabIndex = 17;
             // 
-            // txtInterfaceSoap
+            // txtNamespaceUrlSoap
             // 
-            this.txtInterfaceSoap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtNamespaceUrlSoap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtInterfaceSoap.Location = new System.Drawing.Point(100, 29);
-            this.txtInterfaceSoap.Name = "txtInterfaceSoap";
-            this.txtInterfaceSoap.Size = new System.Drawing.Size(571, 20);
-            this.txtInterfaceSoap.TabIndex = 16;
+            this.txtNamespaceUrlSoap.Font = new System.Drawing.Font("Consolas", 6F);
+            this.txtNamespaceUrlSoap.Location = new System.Drawing.Point(100, 29);
+            this.txtNamespaceUrlSoap.Name = "txtNamespaceUrlSoap";
+            this.txtNamespaceUrlSoap.Size = new System.Drawing.Size(571, 22);
+            this.txtNamespaceUrlSoap.TabIndex = 16;
             // 
             // txtUrlSoap
             // 
             this.txtUrlSoap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtUrlSoap.Font = new System.Drawing.Font("Consolas", 6F);
             this.txtUrlSoap.Location = new System.Drawing.Point(100, 6);
             this.txtUrlSoap.Name = "txtUrlSoap";
-            this.txtUrlSoap.Size = new System.Drawing.Size(571, 20);
+            this.txtUrlSoap.Size = new System.Drawing.Size(571, 22);
             this.txtUrlSoap.TabIndex = 15;
             // 
             // label4
@@ -184,9 +189,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(8, 32);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.Size = new System.Drawing.Size(77, 13);
             this.label2.TabIndex = 12;
-            this.label2.Text = "Interface";
+            this.label2.Text = "NamespaceUrl";
             // 
             // label1
             // 
@@ -232,6 +237,7 @@
             this.txtResultRest.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtResultRest.Font = new System.Drawing.Font("Consolas", 6F);
             this.txtResultRest.Location = new System.Drawing.Point(8, 213);
             this.txtResultRest.Multiline = true;
             this.txtResultRest.Name = "txtResultRest";
@@ -290,6 +296,7 @@
             // 
             this.txtBodyRest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBodyRest.Font = new System.Drawing.Font("Consolas", 6F);
             this.txtBodyRest.Location = new System.Drawing.Point(119, 119);
             this.txtBodyRest.Multiline = true;
             this.txtBodyRest.Name = "txtBodyRest";
@@ -301,6 +308,7 @@
             // 
             this.txtParametersRest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtParametersRest.Font = new System.Drawing.Font("Consolas", 6F);
             this.txtParametersRest.Location = new System.Drawing.Point(119, 63);
             this.txtParametersRest.Multiline = true;
             this.txtParametersRest.Name = "txtParametersRest";
@@ -312,26 +320,27 @@
             // 
             this.txtUrlApiMethodRest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtUrlApiMethodRest.Font = new System.Drawing.Font("Consolas", 6F);
             this.txtUrlApiMethodRest.Location = new System.Drawing.Point(119, 36);
             this.txtUrlApiMethodRest.Name = "txtUrlApiMethodRest";
-            this.txtUrlApiMethodRest.Size = new System.Drawing.Size(547, 20);
+            this.txtUrlApiMethodRest.Size = new System.Drawing.Size(547, 22);
             this.txtUrlApiMethodRest.TabIndex = 12;
             // 
             // txtUrlRest
             // 
             this.txtUrlRest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtUrlRest.Font = new System.Drawing.Font("Consolas", 6F);
             this.txtUrlRest.Location = new System.Drawing.Point(119, 9);
             this.txtUrlRest.Name = "txtUrlRest";
-            this.txtUrlRest.Size = new System.Drawing.Size(547, 20);
+            this.txtUrlRest.Size = new System.Drawing.Size(547, 22);
             this.txtUrlRest.TabIndex = 11;
             // 
             // FrmTestWebService
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(682, 521);
             this.Controls.Add(this.tabWebServices);
+            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "FrmTestWebService";
             this.Text = "FrmTestWebService";
             this.tabWebServices.ResumeLayout(false);
@@ -350,25 +359,25 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button btnTestSoap;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtResultSoap;
-        private System.Windows.Forms.TextBox txtParametersSoap;
-        private System.Windows.Forms.TextBox txtMethodSoap;
-        private System.Windows.Forms.TextBox txtInterfaceSoap;
-        private System.Windows.Forms.TextBox txtUrlSoap;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtResultSoap;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtParametersSoap;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtMethodSoap;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtNamespaceUrlSoap;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtUrlSoap;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtResultRest;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtResultRest;
         private System.Windows.Forms.Button btnTestRest;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lblUrlApiMethod;
         private System.Windows.Forms.Label lblURL;
-        private System.Windows.Forms.TextBox txtBodyRest;
-        private System.Windows.Forms.TextBox txtParametersRest;
-        private System.Windows.Forms.TextBox txtUrlApiMethodRest;
-        private System.Windows.Forms.TextBox txtUrlRest;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtBodyRest;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtParametersRest;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtUrlApiMethodRest;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtUrlRest;
     }
 }

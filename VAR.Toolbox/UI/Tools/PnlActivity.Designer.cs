@@ -32,7 +32,7 @@
             this.grpActivity = new System.Windows.Forms.GroupBox();
             this.lblActive = new System.Windows.Forms.Label();
             this.lblActiveWindowTitle = new System.Windows.Forms.Label();
-            this.txtCurrentActivity = new System.Windows.Forms.TextBox();
+            this.txtCurrentActivity = new VAR.Toolbox.Controls.TextBoxNormal();
             this.timTicker = new System.Windows.Forms.Timer(this.components);
             this.grpActivity.SuspendLayout();
             this.SuspendLayout();
@@ -53,7 +53,7 @@
             // lblActive
             // 
             this.lblActive.AutoSize = true;
-            this.lblActive.Location = new System.Drawing.Point(7, 102);
+            this.lblActive.Location = new System.Drawing.Point(7, 109);
             this.lblActive.Name = "lblActive";
             this.lblActive.Size = new System.Drawing.Size(37, 13);
             this.lblActive.TabIndex = 2;
@@ -62,7 +62,7 @@
             // lblActiveWindowTitle
             // 
             this.lblActiveWindowTitle.AutoSize = true;
-            this.lblActiveWindowTitle.Location = new System.Drawing.Point(7, 85);
+            this.lblActiveWindowTitle.Location = new System.Drawing.Point(7, 81);
             this.lblActiveWindowTitle.Name = "lblActiveWindowTitle";
             this.lblActiveWindowTitle.Size = new System.Drawing.Size(96, 13);
             this.lblActiveWindowTitle.TabIndex = 1;
@@ -85,8 +85,6 @@
             // 
             // PnlActivity
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.grpActivity);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "PnlActivity";
@@ -102,7 +100,7 @@
         private System.Windows.Forms.GroupBox grpActivity;
         private System.Windows.Forms.Label lblActive;
         private System.Windows.Forms.Label lblActiveWindowTitle;
-        private System.Windows.Forms.TextBox txtCurrentActivity;
+        private VAR.Toolbox.Controls.TextBoxNormal txtCurrentActivity;
         private System.Windows.Forms.Timer timTicker;
     }
 }

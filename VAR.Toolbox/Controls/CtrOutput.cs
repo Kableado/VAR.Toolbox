@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -9,7 +8,7 @@ namespace VAR.Toolbox.Controls
 {
     public class CtrOutput : Control
     {
-        private ListBox _listBox;
+        private ListBoxMonospace _listBox;
 
         private Timer _timer;
 
@@ -32,14 +31,9 @@ namespace VAR.Toolbox.Controls
 
         private void InitializeControls()
         {
-            _listBox = new ListBox
+            _listBox = new ListBoxMonospace
             {
                 Dock = DockStyle.Fill,
-                FormattingEnabled = true,
-                Font = new System.Drawing.Font("Consolas", 9),
-                BackColor = Color.Black,
-                ForeColor = Color.Gray,
-                SelectionMode = SelectionMode.MultiExtended,
             };
             _listBox.MouseDoubleClick += ListBox_MouseDoubleClick;
             _listBox.KeyDown += ListBox_KeyDown;

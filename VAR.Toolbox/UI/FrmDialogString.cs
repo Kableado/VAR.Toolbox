@@ -1,8 +1,8 @@
-﻿using System.Windows.Forms;
+﻿using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmDialogString : Form
+    public partial class FrmDialogString : Frame
     {
         public FrmDialogString()
         {

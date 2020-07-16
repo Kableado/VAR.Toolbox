@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Windows.Forms;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmProxyCmdConfig : Form
+    public partial class FrmProxyCmdConfig : Frame
     {
         public FrmProxyCmdConfig()
         {

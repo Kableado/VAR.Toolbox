@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
 using VAR.Toolbox.Code.TextCoders;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmCoder : Form, IToolForm
+    public partial class FrmCoder : Frame, IToolForm
     {
         public string ToolName { get { return "Coder"; } }
 

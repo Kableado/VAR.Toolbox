@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using VAR.Json;
 using VAR.Toolbox.Code.Windows;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI.Tools
 {
-    public partial class PnlActivity : UserControl, IToolPanel
+    public partial class PnlActivity : SubFrame, IToolPanel
     {
         public PnlActivity()
         {

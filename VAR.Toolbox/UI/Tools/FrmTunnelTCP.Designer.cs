@@ -33,9 +33,9 @@
             this.lblRemoteHost = new System.Windows.Forms.Label();
             this.lblRemotePort = new System.Windows.Forms.Label();
             this.lblLocalPort = new System.Windows.Forms.Label();
-            this.txtRemoteHost = new System.Windows.Forms.TextBox();
-            this.txtRemotePort = new System.Windows.Forms.TextBox();
-            this.txtLocalPort = new System.Windows.Forms.TextBox();
+            this.txtRemoteHost = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtRemotePort = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtLocalPort = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.ctrOutput = new VAR.Toolbox.Controls.CtrOutput();
             this.SuspendLayout();
             // 
@@ -123,8 +123,6 @@
             // 
             // FrmTunnelTCP
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(451, 425);
             this.Controls.Add(this.ctrOutput);
             this.Controls.Add(this.txtLocalPort);
@@ -151,9 +149,9 @@
         private System.Windows.Forms.Label lblRemoteHost;
         private System.Windows.Forms.Label lblRemotePort;
         private System.Windows.Forms.Label lblLocalPort;
-        private System.Windows.Forms.TextBox txtRemoteHost;
-        private System.Windows.Forms.TextBox txtRemotePort;
-        private System.Windows.Forms.TextBox txtLocalPort;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtRemoteHost;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtRemotePort;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtLocalPort;
         private VAR.Toolbox.Controls.CtrOutput ctrOutput;
     }
 }

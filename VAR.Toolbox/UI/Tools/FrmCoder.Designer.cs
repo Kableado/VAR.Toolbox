@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtInput = new System.Windows.Forms.TextBox();
+            this.txtInput = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.btnDecode = new System.Windows.Forms.Button();
-            this.txtOutput = new System.Windows.Forms.TextBox();
+            this.txtOutput = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.txtKey = new System.Windows.Forms.TextBox();
+            this.txtKey = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.cboCode = new System.Windows.Forms.ComboBox();
             this.btnEncode = new System.Windows.Forms.Button();
             this.btnSwap = new System.Windows.Forms.Button();
@@ -44,10 +44,9 @@
             // 
             // txtInput
             // 
-            this.txtInput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtInput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtInput.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtInput.Location = new System.Drawing.Point(9, 9);
             this.txtInput.Multiline = true;
             this.txtInput.Name = "txtInput";
@@ -68,10 +67,9 @@
             // 
             // txtOutput
             // 
-            this.txtOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOutput.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOutput.Location = new System.Drawing.Point(7, 9);
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
@@ -82,8 +80,8 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
@@ -106,9 +104,8 @@
             // 
             // txtKey
             // 
-            this.txtKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtKey.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtKey.Location = new System.Drawing.Point(9, 325);
             this.txtKey.Multiline = true;
             this.txtKey.Name = "txtKey";
@@ -152,8 +149,6 @@
             // 
             // FrmCoder
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(743, 425);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FrmCoder";
@@ -170,14 +165,14 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtInput;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtInput;
         private System.Windows.Forms.Button btnDecode;
-        private System.Windows.Forms.TextBox txtOutput;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtOutput;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button btnEncode;
         private System.Windows.Forms.ComboBox cboCode;
         private System.Windows.Forms.Button btnSwap;
-        private System.Windows.Forms.TextBox txtKey;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtKey;
     }
 }
 

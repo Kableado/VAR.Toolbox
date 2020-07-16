@@ -9,7 +9,7 @@ using System.Xml;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmTestWebService : Form, IToolForm
+    public partial class FrmTestWebService : Frame, IToolForm
     {
         public string ToolName { get { return "TestWebService"; } }
 
@@ -25,11 +25,11 @@ namespace VAR.Toolbox.UI
             try
             {
                 string url = txtUrlSoap.Text;
-                string iface = txtInterfaceSoap.Text;
+                string namespaceUrl = txtNamespaceUrlSoap.Text;
                 string method = txtMethodSoap.Text;
                 Dictionary<string, string> parms = StringToDictionary(txtParametersSoap.Text);
 
-                Dictionary<string, string> result = CallSoapMethod(url, iface, method, parms);
+                Dictionary<string, string> result = CallSoapMethod(url, namespaceUrl, method, parms);
 
                 txtResultSoap.Text = DictionaryToString(result);
             }

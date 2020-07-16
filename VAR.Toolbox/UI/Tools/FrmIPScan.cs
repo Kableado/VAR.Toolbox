@@ -4,10 +4,11 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmIPScan : Form, IToolForm
+    public partial class FrmIPScan : Frame, IToolForm
     {
         public string ToolName { get { return "IPScan"; } }
 

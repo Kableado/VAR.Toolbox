@@ -2,10 +2,11 @@
 using System.Windows.Forms;
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Windows;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class PnlSuspension : UserControl, IToolPanel
+    public partial class PnlSuspension : SubFrame, IToolPanel
     {
         public const string PreSuspendEventName = "PreSuspend";
 

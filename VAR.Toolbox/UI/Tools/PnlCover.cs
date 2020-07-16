@@ -2,10 +2,11 @@
 using System.Windows.Forms;
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Windows;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class PnlCover : UserControl, IToolPanel
+    public partial class PnlCover : SubFrame, IToolPanel
     {
         public const string PreCoverEventName = "PreCover";
         public const string PostCoverEventName = "PostCover";

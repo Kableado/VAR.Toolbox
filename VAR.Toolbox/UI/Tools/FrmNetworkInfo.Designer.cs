@@ -31,27 +31,27 @@
             this.components = new System.ComponentModel.Container();
             this.ddlNetworkInterfaces = new System.Windows.Forms.ComboBox();
             this.lblID = new System.Windows.Forms.Label();
-            this.txtID = new System.Windows.Forms.TextBox();
+            this.txtID = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.lblName = new System.Windows.Forms.Label();
-            this.txtName = new System.Windows.Forms.TextBox();
-            this.txtStatus = new System.Windows.Forms.TextBox();
-            this.txtSpeed = new System.Windows.Forms.TextBox();
-            this.txtDescription = new System.Windows.Forms.TextBox();
-            this.txtInterface = new System.Windows.Forms.TextBox();
-            this.txtMAC = new System.Windows.Forms.TextBox();
+            this.txtName = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtStatus = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtSpeed = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtDescription = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtInterface = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtMAC = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.lblStatus = new System.Windows.Forms.Label();
             this.lblSpeed = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
             this.lblInterface = new System.Windows.Forms.Label();
             this.lblMAC = new System.Windows.Forms.Label();
-            this.txtIPs = new System.Windows.Forms.TextBox();
+            this.txtIPs = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.lblIPs = new System.Windows.Forms.Label();
             this.timRefresh = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // ddlNetworkInterfaces
             // 
-            this.ddlNetworkInterfaces.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.ddlNetworkInterfaces.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ddlNetworkInterfaces.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlNetworkInterfaces.FormattingEnabled = true;
@@ -72,9 +72,8 @@
             // 
             // txtID
             // 
-            this.txtID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtID.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtID.Location = new System.Drawing.Point(98, 39);
             this.txtID.Name = "txtID";
             this.txtID.ReadOnly = true;
@@ -92,7 +91,7 @@
             // 
             // txtName
             // 
-            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtName.Location = new System.Drawing.Point(98, 66);
@@ -103,7 +102,7 @@
             // 
             // txtStatus
             // 
-            this.txtStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtStatus.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtStatus.Location = new System.Drawing.Point(98, 93);
@@ -114,7 +113,7 @@
             // 
             // txtSpeed
             // 
-            this.txtSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSpeed.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSpeed.Location = new System.Drawing.Point(98, 125);
@@ -125,9 +124,8 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDescription.Location = new System.Drawing.Point(98, 163);
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ReadOnly = true;
@@ -136,9 +134,8 @@
             // 
             // txtInterface
             // 
-            this.txtInterface.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtInterface.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtInterface.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtInterface.Location = new System.Drawing.Point(98, 189);
             this.txtInterface.Name = "txtInterface";
             this.txtInterface.ReadOnly = true;
@@ -147,9 +144,8 @@
             // 
             // txtMAC
             // 
-            this.txtMAC.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtMAC.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMAC.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMAC.Location = new System.Drawing.Point(98, 215);
             this.txtMAC.Name = "txtMAC";
             this.txtMAC.ReadOnly = true;
@@ -203,10 +199,9 @@
             // 
             // txtIPs
             // 
-            this.txtIPs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtIPs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIPs.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtIPs.Location = new System.Drawing.Point(12, 260);
             this.txtIPs.Multiline = true;
             this.txtIPs.Name = "txtIPs";
@@ -230,8 +225,6 @@
             // 
             // FrmNetworkInfo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(534, 476);
             this.Controls.Add(this.lblIPs);
             this.Controls.Add(this.txtIPs);
@@ -263,20 +256,20 @@
 
         private System.Windows.Forms.ComboBox ddlNetworkInterfaces;
         private System.Windows.Forms.Label lblID;
-        private System.Windows.Forms.TextBox txtID;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtID;
         private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.TextBox txtStatus;
-        private System.Windows.Forms.TextBox txtSpeed;
-        private System.Windows.Forms.TextBox txtDescription;
-        private System.Windows.Forms.TextBox txtInterface;
-        private System.Windows.Forms.TextBox txtMAC;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtName;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtStatus;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtSpeed;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtDescription;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtInterface;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtMAC;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label lblSpeed;
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.Label lblInterface;
         private System.Windows.Forms.Label lblMAC;
-        private System.Windows.Forms.TextBox txtIPs;
+        private VAR.Toolbox.Controls.TextBoxMonospace txtIPs;
         private System.Windows.Forms.Label lblIPs;
         private System.Windows.Forms.Timer timRefresh;
     }
