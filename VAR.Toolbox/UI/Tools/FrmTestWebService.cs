@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net;
+using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml;
+using VAR.Toolbox.Code;
+using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI
 {
@@ -27,11 +25,11 @@ namespace VAR.Toolbox.UI
                 string url = txtUrlSoap.Text;
                 string namespaceUrl = txtNamespaceUrlSoap.Text;
                 string method = txtMethodSoap.Text;
-                Dictionary<string, string> parms = StringToDictionary(txtParametersSoap.Text);
+                Dictionary<string, object> parms = StringToDictionary(txtParametersSoap.Text).ToDictionary(p => p.Key, p => (object)p.Value);
 
-                Dictionary<string, string> result = CallSoapMethod(url, namespaceUrl, method, parms);
+                string result = WebServicesUtils.CallSoapMethod(url, method, parms, namespaceUrl);
 
-                txtResultSoap.Text = DictionaryToString(result);
+                txtResultSoap.Text = result;
             }
             catch (Exception ex)
             {
@@ -54,7 +52,7 @@ namespace VAR.Toolbox.UI
                 Dictionary<string, string> parms = StringToDictionary(txtParametersRest.Text);
                 string body = txtBodyRest.Text;
 
-                string result = CallApi(url, urlApiMethod, parms, body);
+                string result = WebServicesUtils.CallApi(url, urlApiMethod, parms, null, stringContent: body);
 
                 txtResultRest.Text = result;
             }
@@ -91,23 +89,6 @@ namespace VAR.Toolbox.UI
             return dic;
         }
 
-        /// <summary>
-        /// Serializa un diccionario string,string a una cadena.
-        /// </summary>
-        /// <param name="dic">The dic.</param>
-        /// <returns></returns>
-        /// <author>VAR</author>
-        public static string DictionaryToString(Dictionary<string, string> dic)
-        {
-            var sb = new StringBuilder();
-            foreach (KeyValuePair<string, string> entrada in dic)
-            {
-                string sKey = entrada.Key.Replace(":", "\\:").Replace(",", "\\,");
-                string sVal = entrada.Value.Replace(":", "\\:").Replace(",", "\\,");
-                sb.AppendFormat("{0}:{1},", sKey, sVal);
-            }
-            return sb.ToString();
-        }
 
         /// <summary>
         /// Parte una cadena usando un caracter, evitando usar las ocurrencias escapadas con '\\'
@@ -136,120 +117,6 @@ namespace VAR.Toolbox.UI
             return strs;
         }
 
-        /// <summary>
-        /// Llama a un metodo SOAP. Esto requiere que el binding del servicio WCF sea de tipo "basicHttpBinding"
-        /// </summary>
-        /// <param name="url">The URL.</param>
-        /// <param name="iface">The iface.</param>
-        /// <param name="method">The method.</param>
-        /// <param name="parms">The parms.</param>
-        /// <returns></returns>
-        /// <date>12/05/2014</date>
-        /// <author>VAR</author>
-        public static Dictionary<string, string> CallSoapMethod(string url, string iface, string method, Dictionary<string, string> parms)
-        {
-            // Los servicios SOAP se llaman siempre a traves de HTTP.
-            if (url.ToLower().StartsWith("https://"))
-            {
-                url = string.Format("http://{0}", url.Substring("https://".Length));
-            }
-
-            // Construir peticion
-            var sbData = new StringBuilder();
-            sbData.AppendFormat("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
-            sbData.AppendFormat("<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\">\n");
-            sbData.AppendFormat("<s:Body>\n");
-            sbData.AppendFormat("<{0} xmlns=\"http://tempuri.org/\">\n", method);
-            foreach (KeyValuePair<string, string> parm in parms)
-            {
-                sbData.AppendFormat("<{0}>{1}</{0}>\n", parm.Key, parm.Value);
-
-                // FIXME: Accept null values
-                //sbData.AppendFormat("<{0} i:nil=\"true\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" />\n", parm.Key);
-            }
-            sbData.AppendFormat("</{0}>\n", method);
-            sbData.AppendFormat("</s:Body>\n");
-            sbData.AppendFormat("</s:Envelope>\n");
-            byte[] postData = Encoding.UTF8.GetBytes(sbData.ToString());
-
-            // Realizar peticion
-            var client = new System.Net.WebClient();
-            client.Headers.Add("Accept", "text/xml");
-            client.Headers.Add("Accept-Charset", "UTF-8");
-            client.Headers.Add("Content-Type", "text/xml;  charset=UTF-8");
-            client.Headers.Add("SOAPAction", string.Format("\"{0}/{1}/{2}\"", "http://tempuri.org", iface, method));
-            byte[] data;
-            try
-            {
-                data = client.UploadData(url, "POST", postData);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Format("Failure calling SoapService: URL: {0}", url), ex);
-            }
-            string strData = System.Text.Encoding.UTF8.GetString(data);
-            var strReader = new StringReader(strData);
-            var xmlReader = new XmlTextReader(strReader);
-
-            // Parsear resultado
-            Dictionary<string, string> resultObject = new Dictionary<string, string>();
-            while (xmlReader.Read())
-            {
-                if (xmlReader.NodeType == XmlNodeType.Element)
-                {
-                    string name = xmlReader.Name;
-                    if (name.Contains(":"))
-                    {
-                        name = name.Split(':')[1];
-                    }
-                    resultObject.Add(name, xmlReader.ReadString());
-                }
-            }
-            return resultObject;
-        }
-
-
-        private static readonly CookieContainer _cookieJar = new CookieContainer();
-
-        public static string CallApi(string urlService, string urlApiMethod, Dictionary<string, string> prms, string content)
-        {
-            var sbRequestUrl = new StringBuilder();
-            sbRequestUrl.Append(urlService);
-            sbRequestUrl.Append(urlApiMethod);
-            if (prms != null)
-            {
-                foreach (KeyValuePair<string, string> pair in prms)
-                {
-                    sbRequestUrl.AppendFormat("&{0}={1}", pair.Key, Uri.EscapeUriString(pair.Value));
-                }
-            }
-            if (sbRequestUrl.Length > 2048)
-            {
-                throw new Exception(string.Format("CallApi: Request URL longer than 2048: url: \"{0}\"", sbRequestUrl.ToString()));
-            }
-
-            var http = (HttpWebRequest)WebRequest.Create(new Uri(sbRequestUrl.ToString()));
-            http.CookieContainer = _cookieJar;
-            http.Accept = "application/json";
-            http.ContentType = "application/json; charset=utf-8";
-            http.Method = "POST";
-
-            UTF8Encoding encoding = new UTF8Encoding();
-            byte[] bytes = encoding.GetBytes(content);
-
-            Task<Stream> requestStreamTask = http.GetRequestStreamAsync();
-            requestStreamTask.Wait();
-            Stream requestStream = requestStreamTask.Result;
-            requestStream.Write(bytes, 0, bytes.Length);
-            requestStream.Flush();
-
-            Task<WebResponse> responseTask = http.GetResponseAsync();
-            responseTask.Wait();
-            WebResponse response = responseTask.Result;
-            var stream = response.GetResponseStream();
-            var sr = new StreamReader(stream);
-            return sr.ReadToEnd();
-        }
 
     }
 }

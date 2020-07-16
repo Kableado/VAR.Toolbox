@@ -111,6 +111,7 @@
     <Compile Include="Code\DirectShow\Structures.cs" />
     <Compile Include="Code\DirectShow\Tools.cs" />
     <Compile Include="Code\DirectShow\Uuids.cs" />
+    <Compile Include="Code\WebServicesUtils.cs" />
     <Compile Include="Code\Windows\GDI32.cs" />
     <Compile Include="Code\TextCoders\ITextCoder.cs" />
     <Compile Include="Code\IOutputHandler.cs" />
