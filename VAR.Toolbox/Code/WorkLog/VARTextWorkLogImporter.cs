@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace VAR.Toolbox.UI.Tools.WorkLog
+namespace VAR.Toolbox.Code.WorkLog
 {
     public class VARTextWorkLogImporter : IWorkLogImporter
     {

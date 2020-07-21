@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VAR.Toolbox.UI.Tools.WorkLog
+namespace VAR.Toolbox.Code.WorkLog
 {
     public class WorkLogItem
     {

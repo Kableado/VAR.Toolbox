@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using VAR.Toolbox.Code.WorkLog;
 using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI.Tools.WorkLog

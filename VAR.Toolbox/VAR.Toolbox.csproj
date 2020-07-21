@@ -261,10 +261,10 @@
     <Compile Include="UI\Tools\WorkLog\FrmWorkLogStats.Designer.cs">
       <DependentUpon>FrmWorkLogStats.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Tools\WorkLog\IWorkLogImporter.cs" />
-    <Compile Include="UI\Tools\WorkLog\VARTextWorkLogImporter.cs" />
-    <Compile Include="UI\Tools\WorkLog\WorkLogImporterFactory.cs" />
-    <Compile Include="UI\Tools\WorkLog\WorkLogItem.cs" />
+    <Compile Include="Code\WorkLog\IWorkLogImporter.cs" />
+    <Compile Include="Code\WorkLog\VARTextWorkLogImporter.cs" />
+    <Compile Include="Code\WorkLog\WorkLogImporterFactory.cs" />
+    <Compile Include="Code\WorkLog\WorkLogItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />

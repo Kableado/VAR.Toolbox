@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
-using VAR.Toolbox.Code;
 
-namespace VAR.Toolbox.UI.Tools.WorkLog
+namespace VAR.Toolbox.Code.WorkLog
 {
     public interface IWorkLogImporter : INamed
     {

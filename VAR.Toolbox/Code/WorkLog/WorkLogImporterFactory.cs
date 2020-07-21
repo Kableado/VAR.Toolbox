@@ -1,6 +1,4 @@
-﻿using VAR.Toolbox.Code;
-
-namespace VAR.Toolbox.UI.Tools.WorkLog
+﻿namespace VAR.Toolbox.Code.WorkLog
 {
     public class WorkLogImporterFactory : BaseFactory<IWorkLogImporter>
     {
