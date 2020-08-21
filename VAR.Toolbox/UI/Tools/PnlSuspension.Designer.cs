@@ -172,7 +172,6 @@
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "PnlSuspension";
             this.Size = new System.Drawing.Size(200, 167);
-            this.Load += new System.EventHandler(this.PnlSuspension_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numOffset)).EndInit();
             this.grpSuspension.ResumeLayout(false);
             this.grpSuspension.PerformLayout();

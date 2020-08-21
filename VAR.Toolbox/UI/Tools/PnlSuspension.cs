@@ -15,10 +15,6 @@ namespace VAR.Toolbox.UI
         public PnlSuspension()
         {
             InitializeComponent();
-        }
-
-        private void PnlSuspension_Load(object sender, EventArgs e)
-        {
             DdlCustomHour_Load();
             DdlCustomMinute_Load();
             RandomizeOffset();
