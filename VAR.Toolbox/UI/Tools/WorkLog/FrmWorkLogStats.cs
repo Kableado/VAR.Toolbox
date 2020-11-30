@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using VAR.Toolbox.Code.WorkLog;
 using VAR.Toolbox.Controls;
 
@@ -89,12 +90,16 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             DateTime dateDayEnd = dateEnd.Date;
             DateTime dateDayCurrent = dateDayStart;
             TimeSpan tsTotal = new TimeSpan(0);
+            CultureInfo currentCulture = CultureInfo.CurrentCulture;
             do
             {
                 if (dictDaysHours.ContainsKey(dateDayCurrent))
                 {
                     TimeSpan tsDay = dictDaysHours[dateDayCurrent];
-                    strDays.Add(string.Format("{0} -- {1} h", dateDayCurrent.ToString("yyyy-MM-dd"), tsDay.TotalHours));
+                    strDays.Add(string.Format("[{0:00}] {1} -- {2} h",
+                        currentCulture.Calendar.GetWeekOfYear(dateDayCurrent, currentCulture.DateTimeFormat.CalendarWeekRule, currentCulture.DateTimeFormat.FirstDayOfWeek),
+                        dateDayCurrent.ToString("yyyy-MM-dd"),
+                        tsDay.TotalHours));
                     tsTotal += tsDay;
                 }
 
