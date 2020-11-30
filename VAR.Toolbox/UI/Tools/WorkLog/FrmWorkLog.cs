@@ -35,6 +35,12 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         private void FrmWorkLog_FormClosing(object sender, FormClosingEventArgs e)
         {
+            DialogResult result = MessageBox.Show("There are unsaves changes. Close anyway?", "Close?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result != DialogResult.Yes)
+            {
+                e.Cancel = true;
+                return;
+            }
             WorkLog_SaveConfig();
         }
 
@@ -242,12 +248,12 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
         {
             if (_currentWorkLogItem == null) { return; }
             FrmWorkLogStats frmStats = new FrmWorkLogStats { Activity = _currentWorkLogItem.Activity, WorkLog = _workLog };
-            frmStats.ShowDialog(this);
+            frmStats.Show(this);
         }
         private void btnSumary_Click(object sender, EventArgs e)
         {
             FrmWorkLogSumary frmStats = new FrmWorkLogSumary { WorkLog = _workLog };
-            frmStats.ShowDialog(this);
+            frmStats.Show(this);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
