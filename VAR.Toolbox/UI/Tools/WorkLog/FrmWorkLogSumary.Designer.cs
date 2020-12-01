@@ -38,13 +38,15 @@
             this.dtpEnd = new System.Windows.Forms.DateTimePicker();
             this.chkOnlyGroups = new System.Windows.Forms.CheckBox();
             this.txtActivity = new VAR.Toolbox.Controls.TextBoxNormal();
+            this.btnStats = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lsbActivities
             // 
-            this.lsbActivities.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.lsbActivities.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lsbActivities.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.lsbActivities.FormattingEnabled = true;
             this.lsbActivities.Location = new System.Drawing.Point(12, 113);
             this.lsbActivities.Name = "lsbActivities";
@@ -136,16 +138,29 @@
             // 
             // txtActivity
             // 
-            this.txtActivity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.txtActivity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtActivity.Location = new System.Drawing.Point(12, 422);
+            this.txtActivity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtActivity.Location = new System.Drawing.Point(13, 415);
             this.txtActivity.Name = "txtActivity";
-            this.txtActivity.Size = new System.Drawing.Size(312, 20);
+            this.txtActivity.Size = new System.Drawing.Size(251, 20);
             this.txtActivity.TabIndex = 10;
+            // 
+            // btnStats
+            // 
+            this.btnStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnStats.Location = new System.Drawing.Point(270, 413);
+            this.btnStats.Name = "btnStats";
+            this.btnStats.Size = new System.Drawing.Size(54, 23);
+            this.btnStats.TabIndex = 11;
+            this.btnStats.Text = "Stats";
+            this.btnStats.UseVisualStyleBackColor = true;
+            this.btnStats.Click += new System.EventHandler(this.btnStats_Click);
             // 
             // FrmWorkLogSumary
             // 
             this.ClientSize = new System.Drawing.Size(417, 448);
+            this.Controls.Add(this.btnStats);
             this.Controls.Add(this.txtActivity);
             this.Controls.Add(this.chkOnlyGroups);
             this.Controls.Add(this.dtpEnd);
@@ -156,6 +171,7 @@
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.lblDateStart);
             this.Controls.Add(this.lsbActivities);
+            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "FrmWorkLogSumary";
             this.Text = "WorkLogSumary";
             this.Load += new System.EventHandler(this.FrmWorkLogStats_Load);
@@ -176,5 +192,6 @@
         private System.Windows.Forms.DateTimePicker dtpEnd;
         private System.Windows.Forms.CheckBox chkOnlyGroups;
         private VAR.Toolbox.Controls.TextBoxNormal txtActivity;
+        private System.Windows.Forms.Button btnStats;
     }
 }

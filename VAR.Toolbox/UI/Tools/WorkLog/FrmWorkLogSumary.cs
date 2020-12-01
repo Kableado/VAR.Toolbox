@@ -134,5 +134,11 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
         {
             txtActivity.Text = (lsbActivities.SelectedItem as string) ?? string.Empty;
         }
+
+        private void btnStats_Click(object sender, EventArgs e)
+        {
+            FrmWorkLogStats frmStats = new FrmWorkLogStats { Activity = txtActivity.Text, WorkLog = _workLog };
+            frmStats.Show(this);
+        }
     }
 }

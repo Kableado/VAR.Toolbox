@@ -90,21 +90,39 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             DateTime dateDayEnd = dateEnd.Date;
             DateTime dateDayCurrent = dateDayStart;
             TimeSpan tsTotal = new TimeSpan(0);
+            int? week = null;
+            TimeSpan tsWeek = new TimeSpan(0);
             CultureInfo currentCulture = CultureInfo.CurrentCulture;
             do
             {
                 if (dictDaysHours.ContainsKey(dateDayCurrent))
                 {
+                    int weekCurrent = currentCulture.Calendar.GetWeekOfYear(dateDayCurrent, currentCulture.DateTimeFormat.CalendarWeekRule, currentCulture.DateTimeFormat.FirstDayOfWeek);
+                    if (week != null && week != weekCurrent)
+                    {
+                        strDays.Add(string.Format("  [{0:00}] -- {1} h",
+                            week,
+                            tsWeek.TotalHours));
+                        tsWeek = new TimeSpan(0);
+                    }
                     TimeSpan tsDay = dictDaysHours[dateDayCurrent];
                     strDays.Add(string.Format("[{0:00}] {1} -- {2} h",
-                        currentCulture.Calendar.GetWeekOfYear(dateDayCurrent, currentCulture.DateTimeFormat.CalendarWeekRule, currentCulture.DateTimeFormat.FirstDayOfWeek),
+                        weekCurrent,
                         dateDayCurrent.ToString("yyyy-MM-dd"),
                         tsDay.TotalHours));
                     tsTotal += tsDay;
+                    tsWeek += tsDay;
+                    week = weekCurrent;
                 }
 
                 dateDayCurrent = dateDayCurrent.AddDays(1);
             } while (dateDayCurrent <= dateDayEnd);
+            if (tsWeek.TotalHours > 0)
+            {
+                strDays.Add(string.Format("  [{0:00}] -- {1} h",
+                    week,
+                    tsWeek.TotalHours));
+            }
             lsbDays.Items.Clear();
             lsbDays.Items.AddRange(strDays.ToArray());
             lblTotalTime.Text = string.Format("{0} - {1}", tsTotal.ToString(), tsTotal.TotalHours);

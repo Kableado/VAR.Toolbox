@@ -35,11 +35,14 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         private void FrmWorkLog_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult result = MessageBox.Show("There are unsaves changes. Close anyway?", "Close?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result != DialogResult.Yes)
+            if (btnSave.Enabled)
             {
-                e.Cancel = true;
-                return;
+                DialogResult result = MessageBox.Show("There are unsaves changes. Close anyway?", "Close?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result != DialogResult.Yes)
+                {
+                    e.Cancel = true;
+                    return;
+                }
             }
             WorkLog_SaveConfig();
         }
