@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.txtInput = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.btnDecode = new System.Windows.Forms.Button();
+            this.btnDecode = new VAR.Toolbox.Controls.CButton();
             this.txtOutput = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer1 = new VAR.Toolbox.Controls.CSplitContainer();
             this.txtKey = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.cboCode = new System.Windows.Forms.ComboBox();
-            this.btnEncode = new System.Windows.Forms.Button();
-            this.btnSwap = new System.Windows.Forms.Button();
+            this.cboCode = new VAR.Toolbox.Controls.CComboBox();
+            this.btnEncode = new VAR.Toolbox.Controls.CButton();
+            this.btnSwap = new VAR.Toolbox.Controls.CButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -166,12 +166,12 @@
         #endregion
 
         private VAR.Toolbox.Controls.TextBoxMonospace txtInput;
-        private System.Windows.Forms.Button btnDecode;
+        private VAR.Toolbox.Controls.CButton btnDecode;
         private VAR.Toolbox.Controls.TextBoxMonospace txtOutput;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button btnEncode;
-        private System.Windows.Forms.ComboBox cboCode;
-        private System.Windows.Forms.Button btnSwap;
+        private VAR.Toolbox.Controls.CSplitContainer splitContainer1;
+        private VAR.Toolbox.Controls.CButton btnEncode;
+        private VAR.Toolbox.Controls.CComboBox cboCode;
+        private VAR.Toolbox.Controls.CButton btnSwap;
         private VAR.Toolbox.Controls.TextBoxMonospace txtKey;
     }
 }

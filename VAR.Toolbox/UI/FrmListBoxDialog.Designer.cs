@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.lsbItems = new VAR.Toolbox.Controls.ListBoxNormal();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnAccept = new System.Windows.Forms.Button();
+            this.btnCancel = new VAR.Toolbox.Controls.CButton();
+            this.btnAccept = new VAR.Toolbox.Controls.CButton();
             this.SuspendLayout();
             // 
             // lsbItems
@@ -82,7 +82,7 @@
         #endregion
 
         private VAR.Toolbox.Controls.ListBoxNormal lsbItems;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnAccept;
+        private VAR.Toolbox.Controls.CButton btnCancel;
+        private VAR.Toolbox.Controls.CButton btnAccept;
     }
 }

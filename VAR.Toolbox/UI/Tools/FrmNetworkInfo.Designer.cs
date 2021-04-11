@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.ddlNetworkInterfaces = new System.Windows.Forms.ComboBox();
+            this.ddlNetworkInterfaces = new VAR.Toolbox.Controls.CComboBox();
             this.lblID = new System.Windows.Forms.Label();
             this.txtID = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.lblName = new System.Windows.Forms.Label();
@@ -254,7 +254,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox ddlNetworkInterfaces;
+        private VAR.Toolbox.Controls.CComboBox ddlNetworkInterfaces;
         private System.Windows.Forms.Label lblID;
         private VAR.Toolbox.Controls.TextBoxMonospace txtID;
         private System.Windows.Forms.Label lblName;

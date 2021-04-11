@@ -30,7 +30,7 @@
         {
             this.tabWebServices = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.btnTestSoap = new System.Windows.Forms.Button();
+            this.btnTestSoap = new VAR.Toolbox.Controls.CButton();
             this.label5 = new System.Windows.Forms.Label();
             this.txtResultSoap = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.txtParametersSoap = new VAR.Toolbox.Controls.TextBoxMonospace();
@@ -44,7 +44,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
             this.txtResultRest = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.btnTestRest = new System.Windows.Forms.Button();
+            this.btnTestRest = new VAR.Toolbox.Controls.CButton();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.lblUrlApiMethod = new System.Windows.Forms.Label();
@@ -72,6 +72,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tabPage1.Controls.Add(this.btnTestSoap);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.txtResultSoap);
@@ -89,7 +90,6 @@
             this.tabPage1.Size = new System.Drawing.Size(674, 492);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "SoapService";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // btnTestSoap
             // 
@@ -99,7 +99,6 @@
             this.btnTestSoap.Size = new System.Drawing.Size(75, 23);
             this.btnTestSoap.TabIndex = 21;
             this.btnTestSoap.Text = "Test";
-            this.btnTestSoap.UseVisualStyleBackColor = true;
             this.btnTestSoap.Click += new System.EventHandler(this.BtnTestSoap_Click);
             // 
             // label5
@@ -116,7 +115,10 @@
             this.txtResultSoap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtResultSoap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtResultSoap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtResultSoap.Font = new System.Drawing.Font("Consolas", 6F);
+            this.txtResultSoap.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtResultSoap.Location = new System.Drawing.Point(6, 219);
             this.txtResultSoap.Multiline = true;
             this.txtResultSoap.Name = "txtResultSoap";
@@ -128,7 +130,10 @@
             // 
             this.txtParametersSoap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtParametersSoap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtParametersSoap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtParametersSoap.Font = new System.Drawing.Font("Consolas", 6F);
+            this.txtParametersSoap.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtParametersSoap.Location = new System.Drawing.Point(100, 81);
             this.txtParametersSoap.Multiline = true;
             this.txtParametersSoap.Name = "txtParametersSoap";
@@ -140,30 +145,39 @@
             // 
             this.txtMethodSoap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMethodSoap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtMethodSoap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMethodSoap.Font = new System.Drawing.Font("Consolas", 6F);
+            this.txtMethodSoap.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtMethodSoap.Location = new System.Drawing.Point(100, 55);
             this.txtMethodSoap.Name = "txtMethodSoap";
-            this.txtMethodSoap.Size = new System.Drawing.Size(571, 22);
+            this.txtMethodSoap.Size = new System.Drawing.Size(571, 17);
             this.txtMethodSoap.TabIndex = 17;
             // 
             // txtNamespaceUrlSoap
             // 
             this.txtNamespaceUrlSoap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNamespaceUrlSoap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtNamespaceUrlSoap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNamespaceUrlSoap.Font = new System.Drawing.Font("Consolas", 6F);
+            this.txtNamespaceUrlSoap.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtNamespaceUrlSoap.Location = new System.Drawing.Point(100, 29);
             this.txtNamespaceUrlSoap.Name = "txtNamespaceUrlSoap";
-            this.txtNamespaceUrlSoap.Size = new System.Drawing.Size(571, 22);
+            this.txtNamespaceUrlSoap.Size = new System.Drawing.Size(571, 17);
             this.txtNamespaceUrlSoap.TabIndex = 16;
             // 
             // txtUrlSoap
             // 
             this.txtUrlSoap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtUrlSoap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtUrlSoap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUrlSoap.Font = new System.Drawing.Font("Consolas", 6F);
+            this.txtUrlSoap.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtUrlSoap.Location = new System.Drawing.Point(100, 6);
             this.txtUrlSoap.Name = "txtUrlSoap";
-            this.txtUrlSoap.Size = new System.Drawing.Size(571, 22);
+            this.txtUrlSoap.Size = new System.Drawing.Size(571, 17);
             this.txtUrlSoap.TabIndex = 15;
             // 
             // label4
@@ -204,7 +218,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tabPage2.Controls.Add(this.label6);
             this.tabPage2.Controls.Add(this.txtResultRest);
             this.tabPage2.Controls.Add(this.btnTestRest);
@@ -237,7 +251,10 @@
             this.txtResultRest.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtResultRest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtResultRest.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtResultRest.Font = new System.Drawing.Font("Consolas", 6F);
+            this.txtResultRest.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtResultRest.Location = new System.Drawing.Point(8, 213);
             this.txtResultRest.Multiline = true;
             this.txtResultRest.Name = "txtResultRest";
@@ -253,7 +270,6 @@
             this.btnTestRest.Size = new System.Drawing.Size(75, 23);
             this.btnTestRest.TabIndex = 19;
             this.btnTestRest.Text = "Test";
-            this.btnTestRest.UseVisualStyleBackColor = true;
             this.btnTestRest.Click += new System.EventHandler(this.BtnTestRest_Click);
             // 
             // label7
@@ -296,7 +312,10 @@
             // 
             this.txtBodyRest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBodyRest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtBodyRest.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBodyRest.Font = new System.Drawing.Font("Consolas", 6F);
+            this.txtBodyRest.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtBodyRest.Location = new System.Drawing.Point(119, 119);
             this.txtBodyRest.Multiline = true;
             this.txtBodyRest.Name = "txtBodyRest";
@@ -308,7 +327,10 @@
             // 
             this.txtParametersRest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtParametersRest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtParametersRest.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtParametersRest.Font = new System.Drawing.Font("Consolas", 6F);
+            this.txtParametersRest.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtParametersRest.Location = new System.Drawing.Point(119, 63);
             this.txtParametersRest.Multiline = true;
             this.txtParametersRest.Name = "txtParametersRest";
@@ -320,20 +342,26 @@
             // 
             this.txtUrlApiMethodRest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtUrlApiMethodRest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtUrlApiMethodRest.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUrlApiMethodRest.Font = new System.Drawing.Font("Consolas", 6F);
+            this.txtUrlApiMethodRest.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtUrlApiMethodRest.Location = new System.Drawing.Point(119, 36);
             this.txtUrlApiMethodRest.Name = "txtUrlApiMethodRest";
-            this.txtUrlApiMethodRest.Size = new System.Drawing.Size(547, 22);
+            this.txtUrlApiMethodRest.Size = new System.Drawing.Size(547, 17);
             this.txtUrlApiMethodRest.TabIndex = 12;
             // 
             // txtUrlRest
             // 
             this.txtUrlRest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtUrlRest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtUrlRest.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUrlRest.Font = new System.Drawing.Font("Consolas", 6F);
+            this.txtUrlRest.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtUrlRest.Location = new System.Drawing.Point(119, 9);
             this.txtUrlRest.Name = "txtUrlRest";
-            this.txtUrlRest.Size = new System.Drawing.Size(547, 22);
+            this.txtUrlRest.Size = new System.Drawing.Size(547, 17);
             this.txtUrlRest.TabIndex = 11;
             // 
             // FrmTestWebService
@@ -357,7 +385,7 @@
         private System.Windows.Forms.TabControl tabWebServices;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button btnTestSoap;
+        private VAR.Toolbox.Controls.CButton btnTestSoap;
         private System.Windows.Forms.Label label5;
         private VAR.Toolbox.Controls.TextBoxMonospace txtResultSoap;
         private VAR.Toolbox.Controls.TextBoxMonospace txtParametersSoap;
@@ -370,7 +398,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label6;
         private VAR.Toolbox.Controls.TextBoxMonospace txtResultRest;
-        private System.Windows.Forms.Button btnTestRest;
+        private VAR.Toolbox.Controls.CButton btnTestRest;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lblUrlApiMethod;

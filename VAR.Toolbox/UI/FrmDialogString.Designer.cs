@@ -32,8 +32,8 @@
             this.tblLayout = new System.Windows.Forms.TableLayoutPanel();
             this.txtValue = new VAR.Toolbox.Controls.TextBoxNormal();
             this.flowButtons = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnAccept = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnAccept = new VAR.Toolbox.Controls.CButton();
+            this.btnCancel = new VAR.Toolbox.Controls.CButton();
             this.tblLayout.SuspendLayout();
             this.flowButtons.SuspendLayout();
             this.SuspendLayout();
@@ -125,7 +125,7 @@
         private System.Windows.Forms.TableLayoutPanel tblLayout;
         private VAR.Toolbox.Controls.TextBoxNormal txtValue;
         private System.Windows.Forms.FlowLayoutPanel flowButtons;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnAccept;
+        private VAR.Toolbox.Controls.CButton btnCancel;
+        private VAR.Toolbox.Controls.CButton btnAccept;
     }
 }

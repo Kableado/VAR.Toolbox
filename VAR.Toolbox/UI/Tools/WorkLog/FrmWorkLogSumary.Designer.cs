@@ -30,12 +30,12 @@
         {
             this.lsbActivities = new VAR.Toolbox.Controls.ListBoxNormal();
             this.lblDateStart = new System.Windows.Forms.Label();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.btnClose = new System.Windows.Forms.Button();
+            this.btnSearch = new VAR.Toolbox.Controls.CButton();
+            this.btnClose = new VAR.Toolbox.Controls.CButton();
             this.lblDateEnd = new System.Windows.Forms.Label();
             this.lblTotalTime = new System.Windows.Forms.Label();
-            this.dtpStart = new System.Windows.Forms.DateTimePicker();
-            this.dtpEnd = new System.Windows.Forms.DateTimePicker();
+            this.dtpStart = new VAR.Toolbox.Controls.CDateTimePicker();
+            this.dtpEnd = new VAR.Toolbox.Controls.CDateTimePicker();
             this.chkOnlyGroups = new System.Windows.Forms.CheckBox();
             this.txtActivity = new VAR.Toolbox.Controls.TextBoxNormal();
             this.btnStats = new System.Windows.Forms.Button();
@@ -72,7 +72,6 @@
             this.btnSearch.Size = new System.Drawing.Size(62, 20);
             this.btnSearch.TabIndex = 3;
             this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnClose
@@ -84,7 +83,6 @@
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 4;
             this.btnClose.Text = "Close";
-            this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // lblDateEnd
@@ -134,7 +132,6 @@
             this.chkOnlyGroups.Size = new System.Drawing.Size(81, 17);
             this.chkOnlyGroups.TabIndex = 9;
             this.chkOnlyGroups.Text = "OnlyGroups";
-            this.chkOnlyGroups.UseVisualStyleBackColor = true;
             // 
             // txtActivity
             // 
@@ -184,12 +181,12 @@
 
         private VAR.Toolbox.Controls.ListBoxNormal lsbActivities;
         private System.Windows.Forms.Label lblDateStart;
-        private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Button btnClose;
+        private VAR.Toolbox.Controls.CButton btnSearch;
+        private VAR.Toolbox.Controls.CButton btnClose;
         private System.Windows.Forms.Label lblDateEnd;
         private System.Windows.Forms.Label lblTotalTime;
-        private System.Windows.Forms.DateTimePicker dtpStart;
-        private System.Windows.Forms.DateTimePicker dtpEnd;
+        private VAR.Toolbox.Controls.CDateTimePicker dtpStart;
+        private VAR.Toolbox.Controls.CDateTimePicker dtpEnd;
         private System.Windows.Forms.CheckBox chkOnlyGroups;
         private VAR.Toolbox.Controls.TextBoxNormal txtActivity;
         private System.Windows.Forms.Button btnStats;

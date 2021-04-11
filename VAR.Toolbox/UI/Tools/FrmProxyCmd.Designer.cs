@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.splitMain = new System.Windows.Forms.SplitContainer();
+            this.splitMain = new VAR.Toolbox.Controls.CSplitContainer();
             this.txtOutput = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.txtInput = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.ddlCurrentConfig = new System.Windows.Forms.ComboBox();
-            this.btnConfig = new System.Windows.Forms.Button();
+            this.ddlCurrentConfig = new VAR.Toolbox.Controls.CComboBox();
+            this.btnConfig = new VAR.Toolbox.Controls.CButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.Panel1.SuspendLayout();
             this.splitMain.Panel2.SuspendLayout();
@@ -132,10 +132,10 @@
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer splitMain;
+        private VAR.Toolbox.Controls.CSplitContainer splitMain;
         private VAR.Toolbox.Controls.TextBoxMonospace txtOutput;
         private VAR.Toolbox.Controls.TextBoxMonospace txtInput;
-        private System.Windows.Forms.ComboBox ddlCurrentConfig;
-        private System.Windows.Forms.Button btnConfig;
+        private VAR.Toolbox.Controls.CComboBox ddlCurrentConfig;
+        private VAR.Toolbox.Controls.CButton btnConfig;
     }
 }

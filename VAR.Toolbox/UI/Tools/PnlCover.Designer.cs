@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.grpCover = new System.Windows.Forms.GroupBox();
-            this.btnCover = new System.Windows.Forms.Button();
+            this.grpCover = new VAR.Toolbox.Controls.CGroupBox();
+            this.btnCover = new VAR.Toolbox.Controls.CButton();
             this.numInactive = new System.Windows.Forms.NumericUpDown();
             this.lblInactive = new System.Windows.Forms.Label();
             this.chkAutoCover = new System.Windows.Forms.CheckBox();
@@ -63,7 +63,6 @@
             this.btnCover.Size = new System.Drawing.Size(161, 28);
             this.btnCover.TabIndex = 7;
             this.btnCover.Text = "Cover";
-            this.btnCover.UseVisualStyleBackColor = true;
             this.btnCover.Click += new System.EventHandler(this.BtnCover_Click);
             // 
             // numInactive
@@ -110,7 +109,6 @@
             this.chkAutoCover.Size = new System.Drawing.Size(96, 21);
             this.chkAutoCover.TabIndex = 9;
             this.chkAutoCover.Text = "AutoCover";
-            this.chkAutoCover.UseVisualStyleBackColor = true;
             // 
             // timTicker
             // 
@@ -132,8 +130,8 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox grpCover;
-        private System.Windows.Forms.Button btnCover;
+        private VAR.Toolbox.Controls.CGroupBox grpCover;
+        private VAR.Toolbox.Controls.CButton btnCover;
         private System.Windows.Forms.NumericUpDown numInactive;
         private System.Windows.Forms.Label lblInactive;
         private System.Windows.Forms.CheckBox chkAutoCover;

@@ -7,7 +7,11 @@ namespace VAR.Toolbox.Controls
     {
         public ListBoxNormal()
         {
+            FormattingEnabled = true;
             Font = new Font("Microsoft Sans Serif", ControlsUtils.GetFontSize(this, 8.25f));
+            BackColor = Color.Black;
+            ForeColor = Color.Gray;
+            BorderStyle = BorderStyle.FixedSingle;
         }
     }
 }

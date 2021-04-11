@@ -28,29 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.splitWindow = new System.Windows.Forms.SplitContainer();
+            this.splitWindow = new VAR.Toolbox.Controls.CSplitContainer();
             this.lblWorkLogTime = new System.Windows.Forms.Label();
-            this.btnExport = new System.Windows.Forms.Button();
-            this.btnImport = new System.Windows.Forms.Button();
-            this.cboImporters = new System.Windows.Forms.ComboBox();
+            this.btnExport = new VAR.Toolbox.Controls.CButton();
+            this.btnImport = new VAR.Toolbox.Controls.CButton();
+            this.cboImporters = new VAR.Toolbox.Controls.CComboBox();
             this.txtName = new VAR.Toolbox.Controls.TextBoxNormal();
-            this.btnLoad = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnNextDay = new System.Windows.Forms.Button();
-            this.btnPreviousDay = new System.Windows.Forms.Button();
-            this.dtToday = new System.Windows.Forms.DateTimePicker();
+            this.btnLoad = new VAR.Toolbox.Controls.CButton();
+            this.btnSave = new VAR.Toolbox.Controls.CButton();
+            this.btnNextDay = new VAR.Toolbox.Controls.CButton();
+            this.btnPreviousDay = new VAR.Toolbox.Controls.CButton();
+            this.dtToday = new VAR.Toolbox.Controls.CDateTimePicker();
             this.lsbWorkLog = new VAR.Toolbox.Controls.ListBoxMonospace();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.btnStats = new System.Windows.Forms.Button();
+            this.btnSearch = new VAR.Toolbox.Controls.CButton();
+            this.btnStats = new VAR.Toolbox.Controls.CButton();
             this.lblWorkLogItemTime = new System.Windows.Forms.Label();
-            this.btnRename = new System.Windows.Forms.Button();
-            this.dtEnd = new System.Windows.Forms.DateTimePicker();
-            this.dtStart = new System.Windows.Forms.DateTimePicker();
+            this.btnRename = new VAR.Toolbox.Controls.CButton();
+            this.dtEnd = new VAR.Toolbox.Controls.CDateTimePicker();
+            this.dtStart = new VAR.Toolbox.Controls.CDateTimePicker();
             this.txtDescription = new VAR.Toolbox.Controls.TextBoxNormal();
             this.txtActivity = new VAR.Toolbox.Controls.TextBoxNormal();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.btnSumary = new System.Windows.Forms.Button();
+            this.btnDelete = new VAR.Toolbox.Controls.CButton();
+            this.btnAdd = new VAR.Toolbox.Controls.CButton();
+            this.btnSumary = new VAR.Toolbox.Controls.CButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitWindow)).BeginInit();
             this.splitWindow.Panel1.SuspendLayout();
             this.splitWindow.Panel2.SuspendLayout();
@@ -113,7 +113,6 @@
             this.btnExport.Size = new System.Drawing.Size(40, 21);
             this.btnExport.TabIndex = 8;
             this.btnExport.Text = "Exp";
-            this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // btnImport
@@ -124,7 +123,6 @@
             this.btnImport.Size = new System.Drawing.Size(40, 21);
             this.btnImport.TabIndex = 7;
             this.btnImport.Text = "Imp";
-            this.btnImport.UseVisualStyleBackColor = true;
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
             // cboImporters
@@ -153,7 +151,6 @@
             this.btnLoad.Size = new System.Drawing.Size(43, 20);
             this.btnLoad.TabIndex = 4;
             this.btnLoad.Text = "Load";
-            this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // btnSave
@@ -163,7 +160,6 @@
             this.btnSave.Size = new System.Drawing.Size(41, 20);
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnNextDay
@@ -173,7 +169,6 @@
             this.btnNextDay.Size = new System.Drawing.Size(33, 20);
             this.btnNextDay.TabIndex = 2;
             this.btnNextDay.Text = "->";
-            this.btnNextDay.UseVisualStyleBackColor = true;
             this.btnNextDay.Click += new System.EventHandler(this.btnNextDay_Click);
             // 
             // btnPreviousDay
@@ -183,7 +178,6 @@
             this.btnPreviousDay.Size = new System.Drawing.Size(33, 20);
             this.btnPreviousDay.TabIndex = 1;
             this.btnPreviousDay.Text = "<-";
-            this.btnPreviousDay.UseVisualStyleBackColor = true;
             this.btnPreviousDay.Click += new System.EventHandler(this.btnPreviousDay_Click);
             // 
             // dtToday
@@ -305,7 +299,6 @@
             this.btnDelete.Size = new System.Drawing.Size(62, 23);
             this.btnDelete.TabIndex = 1;
             this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnAdd
@@ -315,7 +308,6 @@
             this.btnAdd.Size = new System.Drawing.Size(59, 23);
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Add";
-            this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnSumary
@@ -325,7 +317,6 @@
             this.btnSumary.Size = new System.Drawing.Size(73, 23);
             this.btnSumary.TabIndex = 10;
             this.btnSumary.Text = "Sumary";
-            this.btnSumary.UseVisualStyleBackColor = true;
             this.btnSumary.Click += new System.EventHandler(this.btnSumary_Click);
             // 
             // FrmWorkLog
@@ -347,28 +338,28 @@
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer splitWindow;
-        private System.Windows.Forms.DateTimePicker dtToday;
+        private VAR.Toolbox.Controls.CSplitContainer splitWindow;
+        private VAR.Toolbox.Controls.CDateTimePicker dtToday;
         private VAR.Toolbox.Controls.ListBoxMonospace lsbWorkLog;
         private VAR.Toolbox.Controls.TextBoxNormal txtDescription;
         private VAR.Toolbox.Controls.TextBoxNormal txtActivity;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.DateTimePicker dtEnd;
-        private System.Windows.Forms.DateTimePicker dtStart;
-        private System.Windows.Forms.Button btnNextDay;
-        private System.Windows.Forms.Button btnPreviousDay;
-        private System.Windows.Forms.Button btnSave;
+        private VAR.Toolbox.Controls.CButton btnDelete;
+        private VAR.Toolbox.Controls.CButton btnAdd;
+        private VAR.Toolbox.Controls.CDateTimePicker dtEnd;
+        private VAR.Toolbox.Controls.CDateTimePicker dtStart;
+        private VAR.Toolbox.Controls.CButton btnNextDay;
+        private VAR.Toolbox.Controls.CButton btnPreviousDay;
+        private VAR.Toolbox.Controls.CButton btnSave;
         private VAR.Toolbox.Controls.TextBoxNormal txtName;
-        private System.Windows.Forms.Button btnLoad;
-        private System.Windows.Forms.ComboBox cboImporters;
-        private System.Windows.Forms.Button btnExport;
-        private System.Windows.Forms.Button btnImport;
-        private System.Windows.Forms.Button btnRename;
+        private VAR.Toolbox.Controls.CButton btnLoad;
+        private VAR.Toolbox.Controls.CComboBox cboImporters;
+        private VAR.Toolbox.Controls.CButton btnExport;
+        private VAR.Toolbox.Controls.CButton btnImport;
+        private VAR.Toolbox.Controls.CButton btnRename;
         private System.Windows.Forms.Label lblWorkLogItemTime;
         private System.Windows.Forms.Label lblWorkLogTime;
-        private System.Windows.Forms.Button btnStats;
-        private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Button btnSumary;
+        private VAR.Toolbox.Controls.CButton btnStats;
+        private VAR.Toolbox.Controls.CButton btnSearch;
+        private VAR.Toolbox.Controls.CButton btnSumary;
     }
 }

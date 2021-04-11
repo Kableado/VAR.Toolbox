@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.grpActivity = new System.Windows.Forms.GroupBox();
+            this.grpActivity = new VAR.Toolbox.Controls.CGroupBox();
             this.lblActive = new System.Windows.Forms.Label();
             this.lblActiveWindowTitle = new System.Windows.Forms.Label();
             this.txtCurrentActivity = new VAR.Toolbox.Controls.TextBoxNormal();
@@ -97,7 +97,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox grpActivity;
+        private VAR.Toolbox.Controls.CGroupBox grpActivity;
         private System.Windows.Forms.Label lblActive;
         private System.Windows.Forms.Label lblActiveWindowTitle;
         private VAR.Toolbox.Controls.TextBoxNormal txtCurrentActivity;

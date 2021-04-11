@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnScreenshoot = new System.Windows.Forms.Button();
+            this.btnScreenshoot = new VAR.Toolbox.Controls.CButton();
             this.picViewer = new VAR.Toolbox.Controls.CtrImageViewer();
-            this.btnStartStop = new System.Windows.Forms.Button();
+            this.btnStartStop = new VAR.Toolbox.Controls.CButton();
             ((System.ComponentModel.ISupportInitialize)(this.picViewer)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,7 +85,7 @@
         #endregion
 
         private VAR.Toolbox.Controls.CtrImageViewer picViewer;
-        private System.Windows.Forms.Button btnScreenshoot;
-        private System.Windows.Forms.Button btnStartStop;
+        private VAR.Toolbox.Controls.CButton btnScreenshoot;
+        private VAR.Toolbox.Controls.CButton btnStartStop;
     }
 }

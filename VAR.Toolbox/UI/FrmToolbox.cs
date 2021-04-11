@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Windows;
 using VAR.Toolbox.Controls;
@@ -18,7 +19,7 @@ namespace VAR.Toolbox.UI
         private bool _closing = false;
 
         private Label lblToolbox;
-        private Button btnExit;
+        private CButton btnExit;
 
         private NotifyIcon niTray = null;
 
@@ -146,14 +147,13 @@ namespace VAR.Toolbox.UI
             {
                 int x = xStartButtons + (idxButton % 2) * xStepButtons;
                 int y = yStartButtons + (idxButton / 2) * yStepButtons;
-                Button btn = new Button
+                CButton btn = new CButton
                 {
                     Location = new Point(x, y),
                     Name = string.Format("btn{0}", p.Key),
                     Size = new Size(toolWidth, 40),
                     TabIndex = idxButton,
                     Text = p.Key,
-                    UseVisualStyleBackColor = true
                 };
                 btn.Click += (s, e) => { CreateWindow(p.Value); };
                 Controls.Add(btn);
@@ -191,7 +191,7 @@ namespace VAR.Toolbox.UI
             }
 
             // btnExit
-            btnExit = new Button
+            btnExit = new CButton
             {
                 Anchor = ((AnchorStyles.Bottom | AnchorStyles.Left)
             | AnchorStyles.Right),
@@ -200,7 +200,6 @@ namespace VAR.Toolbox.UI
                 Size = new Size(toolWidth * 2 + toolSpacing, 40),
                 TabIndex = 7,
                 Text = "Exit",
-                UseVisualStyleBackColor = true
             };
             btnExit.Click += BtnExit_Click;
             nextYLocation = btnExit.Location.Y + btnExit.Size.Height + windowSpacing;

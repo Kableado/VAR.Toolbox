@@ -11,6 +11,7 @@ namespace VAR.Toolbox.Controls
             Font = new Font("Consolas", ControlsUtils.GetFontSize(this, 9));
             BackColor = Color.Black;
             ForeColor = Color.Gray;
+            BorderStyle = BorderStyle.FixedSingle;
             SelectionMode = SelectionMode.MultiExtended;
         }
     }

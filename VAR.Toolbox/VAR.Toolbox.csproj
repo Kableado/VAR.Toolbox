@@ -128,7 +128,12 @@
     <Compile Include="Code\Windows\User32.cs" />
     <Compile Include="Code\Webcam.cs" />
     <Compile Include="Code\Windows\Win32.cs" />
+    <Compile Include="Controls\CButton.cs" />
+    <Compile Include="Controls\CComboBox.cs" />
+    <Compile Include="Controls\CDateTimePicker.cs" />
+    <Compile Include="Controls\CGroupBox.cs" />
     <Compile Include="Controls\ControlsUtils.cs" />
+    <Compile Include="Controls\CSplitContainer.cs" />
     <Compile Include="Controls\CtrImageViewer.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -275,6 +280,9 @@
     <Content Include="Toolbox.ico" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="UI\Tools\FrmTestWebService.resx">
+      <DependentUpon>FrmTestWebService.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Tools\WorkLog\FrmWorkLogSumary.resx">
       <DependentUpon>FrmWorkLogSumary.cs</DependentUpon>
     </EmbeddedResource>

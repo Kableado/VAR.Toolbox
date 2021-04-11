@@ -30,9 +30,9 @@
         {
             this.lsvCmdProxyConfigs = new VAR.Toolbox.Controls.ListBoxNormal();
             this.txtCmdProxyConfigName = new VAR.Toolbox.Controls.TextBoxNormal();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnNew = new System.Windows.Forms.Button();
+            this.btnSave = new VAR.Toolbox.Controls.CButton();
+            this.btnDelete = new VAR.Toolbox.Controls.CButton();
+            this.btnNew = new VAR.Toolbox.Controls.CButton();
             this.txtCmdProxyConfigContent = new VAR.Toolbox.Controls.TextBoxNormal();
             this.SuspendLayout();
             // 
@@ -121,9 +121,9 @@
 
         private VAR.Toolbox.Controls.ListBoxNormal lsvCmdProxyConfigs;
         private VAR.Toolbox.Controls.TextBoxNormal txtCmdProxyConfigName;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnNew;
+        private VAR.Toolbox.Controls.CButton btnSave;
+        private VAR.Toolbox.Controls.CButton btnDelete;
+        private VAR.Toolbox.Controls.CButton btnNew;
         private VAR.Toolbox.Controls.TextBoxNormal txtCmdProxyConfigContent;
     }
 }

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnStartStop = new System.Windows.Forms.Button();
-            this.cboWebcams = new System.Windows.Forms.ComboBox();
+            this.btnStartStop = new VAR.Toolbox.Controls.CButton();
+            this.cboWebcams = new VAR.Toolbox.Controls.CComboBox();
             this.picWebcam = new VAR.Toolbox.Controls.CtrImageViewer();
             ((System.ComponentModel.ISupportInitialize)(this.picWebcam)).BeginInit();
             this.SuspendLayout();
@@ -91,7 +91,7 @@
         #endregion
 
         private VAR.Toolbox.Controls.CtrImageViewer picWebcam;
-        private System.Windows.Forms.Button btnStartStop;
-        private System.Windows.Forms.ComboBox cboWebcams;
+        private VAR.Toolbox.Controls.CButton btnStartStop;
+        private VAR.Toolbox.Controls.CComboBox cboWebcams;
     }
 }

@@ -31,12 +31,12 @@
             this.components = new System.ComponentModel.Container();
             this.chkSuspendAtCustom = new System.Windows.Forms.CheckBox();
             this.numOffset = new System.Windows.Forms.NumericUpDown();
-            this.btnRandOffset = new System.Windows.Forms.Button();
+            this.btnRandOffset = new VAR.Toolbox.Controls.CButton();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnCustomSuspenedNow = new System.Windows.Forms.Button();
-            this.ddlCustomHour = new System.Windows.Forms.ComboBox();
-            this.ddlCustomMinute = new System.Windows.Forms.ComboBox();
-            this.grpSuspension = new System.Windows.Forms.GroupBox();
+            this.btnCustomSuspenedNow = new VAR.Toolbox.Controls.CButton();
+            this.ddlCustomHour = new VAR.Toolbox.Controls.CComboBox();
+            this.ddlCustomMinute = new VAR.Toolbox.Controls.CComboBox();
+            this.grpSuspension = new VAR.Toolbox.Controls.CGroupBox();
             this.lblCountdown = new System.Windows.Forms.Label();
             this.timTicker = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numOffset)).BeginInit();
@@ -52,7 +52,6 @@
             this.chkSuspendAtCustom.Size = new System.Drawing.Size(146, 21);
             this.chkSuspendAtCustom.TabIndex = 5;
             this.chkSuspendAtCustom.Text = "SuspendAtCustom";
-            this.chkSuspendAtCustom.UseVisualStyleBackColor = true;
             // 
             // numOffset
             // 
@@ -85,7 +84,6 @@
             this.btnRandOffset.Size = new System.Drawing.Size(66, 28);
             this.btnRandOffset.TabIndex = 12;
             this.btnRandOffset.Text = "Rand";
-            this.btnRandOffset.UseVisualStyleBackColor = true;
             this.btnRandOffset.Click += new System.EventHandler(this.BtnRandOffset_Click);
             // 
             // label1
@@ -106,7 +104,6 @@
             this.btnCustomSuspenedNow.Size = new System.Drawing.Size(30, 28);
             this.btnCustomSuspenedNow.TabIndex = 13;
             this.btnCustomSuspenedNow.Text = "N";
-            this.btnCustomSuspenedNow.UseVisualStyleBackColor = true;
             this.btnCustomSuspenedNow.Click += new System.EventHandler(this.BtnCustomSuspenedNow_Click);
             // 
             // ddlCustomHour
@@ -183,12 +180,12 @@
 
         private System.Windows.Forms.CheckBox chkSuspendAtCustom;
         private System.Windows.Forms.NumericUpDown numOffset;
-        private System.Windows.Forms.Button btnRandOffset;
+        private VAR.Toolbox.Controls.CButton btnRandOffset;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnCustomSuspenedNow;
-        private System.Windows.Forms.ComboBox ddlCustomHour;
-        private System.Windows.Forms.ComboBox ddlCustomMinute;
-        private System.Windows.Forms.GroupBox grpSuspension;
+        private VAR.Toolbox.Controls.CButton btnCustomSuspenedNow;
+        private VAR.Toolbox.Controls.CComboBox ddlCustomHour;
+        private VAR.Toolbox.Controls.CComboBox ddlCustomMinute;
+        private VAR.Toolbox.Controls.CGroupBox grpSuspension;
         private System.Windows.Forms.Label lblCountdown;
         private System.Windows.Forms.Timer timTicker;
     }

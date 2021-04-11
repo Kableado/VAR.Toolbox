@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.ctrOutput = new VAR.Toolbox.Controls.CtrOutput();
-            this.btnScan = new System.Windows.Forms.Button();
+            this.btnScan = new VAR.Toolbox.Controls.CButton();
             this.lblStatus = new System.Windows.Forms.Label();
-            this.btnStop = new System.Windows.Forms.Button();
+            this.btnStop = new VAR.Toolbox.Controls.CButton();
             this.txtSubnet = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.SuspendLayout();
             // 
@@ -105,9 +105,9 @@
         #endregion
 
         private VAR.Toolbox.Controls.CtrOutput ctrOutput;
-        private System.Windows.Forms.Button btnScan;
+        private VAR.Toolbox.Controls.CButton btnScan;
         private System.Windows.Forms.Label lblStatus;
-        private System.Windows.Forms.Button btnStop;
+        private VAR.Toolbox.Controls.CButton btnStop;
         private VAR.Toolbox.Controls.TextBoxMonospace txtSubnet;
     }
 }

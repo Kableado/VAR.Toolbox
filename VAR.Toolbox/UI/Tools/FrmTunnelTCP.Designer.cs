@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnRun = new System.Windows.Forms.Button();
-            this.btnStop = new System.Windows.Forms.Button();
+            this.btnRun = new VAR.Toolbox.Controls.CButton();
+            this.btnStop = new VAR.Toolbox.Controls.CButton();
             this.lblRemoteHost = new System.Windows.Forms.Label();
             this.lblRemotePort = new System.Windows.Forms.Label();
             this.lblLocalPort = new System.Windows.Forms.Label();
@@ -47,7 +47,6 @@
             this.btnRun.Size = new System.Drawing.Size(83, 45);
             this.btnRun.TabIndex = 0;
             this.btnRun.Text = "Run";
-            this.btnRun.UseVisualStyleBackColor = true;
             this.btnRun.Click += new System.EventHandler(this.BtnRun_Click);
             // 
             // btnStop
@@ -58,7 +57,6 @@
             this.btnStop.Size = new System.Drawing.Size(75, 45);
             this.btnStop.TabIndex = 1;
             this.btnStop.Text = "Stop";
-            this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.BtnStop_Click);
             // 
             // lblRemoteHost
@@ -144,8 +142,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnRun;
-        private System.Windows.Forms.Button btnStop;
+        private VAR.Toolbox.Controls.CButton btnRun;
+        private VAR.Toolbox.Controls.CButton btnStop;
         private System.Windows.Forms.Label lblRemoteHost;
         private System.Windows.Forms.Label lblRemotePort;
         private System.Windows.Forms.Label lblLocalPort;
