@@ -13,5 +13,20 @@ namespace VAR.Toolbox.Controls
             ForeColor = Color.Gray;
             BorderStyle = BorderStyle.FixedSingle;
         }
+
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            (e as HandledMouseEventArgs).Handled = true;
+            const int rows = 5;
+            if (e.Delta > 0)
+            {
+                if (TopIndex < rows) { TopIndex = 0; }
+                else { TopIndex -= rows; }
+            }
+            else
+            {
+                TopIndex += rows;
+            }
+        }
     }
 }
