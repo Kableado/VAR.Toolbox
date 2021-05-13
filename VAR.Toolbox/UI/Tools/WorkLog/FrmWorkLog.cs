@@ -435,14 +435,16 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
         private void WorkLogItem_Update(bool refresh = true)
         {
             if (_currentWorkLogItem == null) { return; }
-            _currentWorkLogItem.DateStart = dtStart.Value;
+            DateTime dateStart = dtStart.Value;
+            _currentWorkLogItem.DateStart = dateStart;
             _currentWorkLogItem.DateEnd = dtEnd.Value;
             _currentWorkLogItem.Activity = txtActivity.Text;
             _currentWorkLogItem.Description = txtDescription.Text;
             if (refresh)
             {
+                lsbWorkLog.SelectedIndex = -1;
                 WorkLog_Refresh();
-                WorkLog_SelectDate(_currentWorkLogItem.DateStart);
+                WorkLog_SelectDate(dateStart);
             }
             WorkLog_MarkDirty();
         }
