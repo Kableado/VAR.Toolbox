@@ -170,8 +170,7 @@ namespace VAR.Toolbox.UI
         {
             BeginInvoke(new MethodInvoker(delegate
             {
-                txtOutput.AppendText(line);
-                txtOutput.AppendText(Environment.NewLine);
+                ctrOutput.AddLine(line);
                 Application.DoEvents();
             }));
         }
