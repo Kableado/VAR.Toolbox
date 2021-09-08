@@ -28,7 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.splitWindow = new VAR.Toolbox.Controls.CSplitContainer();
+            this.chkImportMerging = new System.Windows.Forms.CheckBox();
+            this.btnSumary = new VAR.Toolbox.Controls.CButton();
             this.lblWorkLogTime = new System.Windows.Forms.Label();
             this.btnExport = new VAR.Toolbox.Controls.CButton();
             this.btnImport = new VAR.Toolbox.Controls.CButton();
@@ -50,7 +53,7 @@
             this.txtActivity = new VAR.Toolbox.Controls.TextBoxNormal();
             this.btnDelete = new VAR.Toolbox.Controls.CButton();
             this.btnAdd = new VAR.Toolbox.Controls.CButton();
-            this.btnSumary = new VAR.Toolbox.Controls.CButton();
+            this.ttPanel = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitWindow)).BeginInit();
             this.splitWindow.Panel1.SuspendLayout();
             this.splitWindow.Panel2.SuspendLayout();
@@ -59,12 +62,15 @@
             // 
             // splitWindow
             // 
+            this.splitWindow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.splitWindow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitWindow.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.splitWindow.Location = new System.Drawing.Point(0, 0);
             this.splitWindow.Name = "splitWindow";
             // 
             // splitWindow.Panel1
             // 
+            this.splitWindow.Panel1.Controls.Add(this.chkImportMerging);
             this.splitWindow.Panel1.Controls.Add(this.btnSumary);
             this.splitWindow.Panel1.Controls.Add(this.lblWorkLogTime);
             this.splitWindow.Panel1.Controls.Add(this.btnExport);
@@ -94,9 +100,28 @@
             this.splitWindow.SplitterDistance = 442;
             this.splitWindow.TabIndex = 0;
             // 
+            // chkImportMerging
+            // 
+            this.chkImportMerging.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkImportMerging.AutoSize = true;
+            this.chkImportMerging.Location = new System.Drawing.Point(391, 9);
+            this.chkImportMerging.Name = "chkImportMerging";
+            this.chkImportMerging.Size = new System.Drawing.Size(15, 14);
+            this.chkImportMerging.TabIndex = 11;
+            this.chkImportMerging.UseVisualStyleBackColor = true;
+            // 
+            // btnSumary
+            // 
+            this.btnSumary.Location = new System.Drawing.Point(194, 34);
+            this.btnSumary.Name = "btnSumary";
+            this.btnSumary.Size = new System.Drawing.Size(73, 23);
+            this.btnSumary.TabIndex = 10;
+            this.btnSumary.Text = "Sumary";
+            this.btnSumary.Click += new System.EventHandler(this.btnSumary_Click);
+            // 
             // lblWorkLogTime
             // 
-            this.lblWorkLogTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lblWorkLogTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWorkLogTime.Location = new System.Drawing.Point(273, 36);
             this.lblWorkLogTime.Name = "lblWorkLogTime";
@@ -108,9 +133,9 @@
             // btnExport
             // 
             this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExport.Location = new System.Drawing.Point(399, 5);
+            this.btnExport.Location = new System.Drawing.Point(412, 5);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(40, 21);
+            this.btnExport.Size = new System.Drawing.Size(27, 21);
             this.btnExport.TabIndex = 8;
             this.btnExport.Text = "Exp";
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
@@ -120,7 +145,7 @@
             this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnImport.Location = new System.Drawing.Point(353, 5);
             this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(40, 21);
+            this.btnImport.Size = new System.Drawing.Size(35, 21);
             this.btnImport.TabIndex = 7;
             this.btnImport.Text = "Imp";
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
@@ -128,7 +153,10 @@
             // cboImporters
             // 
             this.cboImporters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboImporters.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.cboImporters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboImporters.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboImporters.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.cboImporters.FormattingEnabled = true;
             this.cboImporters.Location = new System.Drawing.Point(258, 5);
             this.cboImporters.Name = "cboImporters";
@@ -137,6 +165,10 @@
             // 
             // txtName
             // 
+            this.txtName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtName.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.txtName.Location = new System.Drawing.Point(3, 7);
             this.txtName.Name = "txtName";
@@ -182,7 +214,9 @@
             // 
             // dtToday
             // 
+            this.dtToday.BackColor = System.Drawing.Color.DarkSlateGray;
             this.dtToday.CustomFormat = "yyyy-MM-dd";
+            this.dtToday.ForeColor = System.Drawing.Color.Gray;
             this.dtToday.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtToday.Location = new System.Drawing.Point(42, 33);
             this.dtToday.Name = "dtToday";
@@ -192,10 +226,15 @@
             // 
             // lsbWorkLog
             // 
-            this.lsbWorkLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.lsbWorkLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lsbWorkLog.BackColor = System.Drawing.Color.Black;
+            this.lsbWorkLog.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lsbWorkLog.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.lsbWorkLog.Font = new System.Drawing.Font("Consolas", 9F);
+            this.lsbWorkLog.ForeColor = System.Drawing.Color.Gray;
+            this.lsbWorkLog.FormattingEnabled = true;
             this.lsbWorkLog.ItemHeight = 12;
             this.lsbWorkLog.Location = new System.Drawing.Point(3, 60);
             this.lsbWorkLog.Name = "lsbWorkLog";
@@ -228,7 +267,7 @@
             // 
             // lblWorkLogItemTime
             // 
-            this.lblWorkLogItemTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lblWorkLogItemTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWorkLogItemTime.Location = new System.Drawing.Point(136, 70);
             this.lblWorkLogItemTime.Name = "lblWorkLogItemTime";
@@ -249,7 +288,9 @@
             // 
             // dtEnd
             // 
+            this.dtEnd.BackColor = System.Drawing.Color.DarkSlateGray;
             this.dtEnd.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.dtEnd.ForeColor = System.Drawing.Color.Gray;
             this.dtEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtEnd.Location = new System.Drawing.Point(4, 60);
             this.dtEnd.Name = "dtEnd";
@@ -260,7 +301,9 @@
             // 
             // dtStart
             // 
+            this.dtStart.BackColor = System.Drawing.Color.DarkSlateGray;
             this.dtStart.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.dtStart.ForeColor = System.Drawing.Color.Gray;
             this.dtStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtStart.Location = new System.Drawing.Point(4, 33);
             this.dtStart.Name = "dtStart";
@@ -271,9 +314,13 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtDescription.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtDescription.Location = new System.Drawing.Point(4, 147);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
@@ -284,8 +331,12 @@
             // 
             // txtActivity
             // 
-            this.txtActivity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtActivity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtActivity.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtActivity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtActivity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtActivity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtActivity.Location = new System.Drawing.Point(3, 93);
             this.txtActivity.Name = "txtActivity";
             this.txtActivity.Size = new System.Drawing.Size(260, 20);
@@ -310,19 +361,11 @@
             this.btnAdd.Text = "Add";
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // btnSumary
-            // 
-            this.btnSumary.Location = new System.Drawing.Point(194, 34);
-            this.btnSumary.Name = "btnSumary";
-            this.btnSumary.Size = new System.Drawing.Size(73, 23);
-            this.btnSumary.TabIndex = 10;
-            this.btnSumary.Text = "Sumary";
-            this.btnSumary.Click += new System.EventHandler(this.btnSumary_Click);
-            // 
             // FrmWorkLog
             // 
             this.ClientSize = new System.Drawing.Size(721, 603);
             this.Controls.Add(this.splitWindow);
+            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "FrmWorkLog";
             this.Text = "WorkLog";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmWorkLog_FormClosing);
@@ -361,5 +404,7 @@
         private VAR.Toolbox.Controls.CButton btnStats;
         private VAR.Toolbox.Controls.CButton btnSearch;
         private VAR.Toolbox.Controls.CButton btnSumary;
+        private System.Windows.Forms.CheckBox chkImportMerging;
+        private System.Windows.Forms.ToolTip ttPanel;
     }
 }

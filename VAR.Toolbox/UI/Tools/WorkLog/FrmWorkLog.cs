@@ -31,6 +31,8 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             WorkLog_LoadData();
 
             cboImporters.Items.AddRange(WorkLogImporterFactory.GetNames());
+
+            ttPanel.SetToolTip(chkImportMerging, "ImportMerging");
         }
 
         private void FrmWorkLog_FormClosing(object sender, FormClosingEventArgs e)
@@ -73,13 +75,19 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 if (cboImporters.SelectedItem == null) { return; }
                 IWorkLogImporter workLogImporter = WorkLogImporterFactory.CreateFromName(cboImporters.SelectedItem as string);
                 List<WorkLogItem> newWorkLog = workLogImporter.Import(this);
-                if (newWorkLog != null)
+                if (newWorkLog == null) { return; }
+
+                if (chkImportMerging.Checked)
+                {
+                    _workLog = WorkLogItemList_Merge(_workLog, newWorkLog);
+                }
+                else
                 {
                     _workLog = newWorkLog;
-                    WorkLog_Refresh();
-                    MessageBox.Show("OK");
-                    WorkLog_MarkDirty();
                 }
+                WorkLog_Refresh();
+                MessageBox.Show("OK");
+                WorkLog_MarkDirty();
             }
             catch (Exception ex)
             {
@@ -482,6 +490,27 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 tsTotalTime += (item.DateEnd - item.DateStart);
             }
             lblWorkLogTime.Text = tsTotalTime.ToString();
+        }
+
+        private static List<WorkLogItem> WorkLogItemList_Merge(List<WorkLogItem> workLogA, List<WorkLogItem> workLogB)
+        {
+            List<WorkLogItem> newWorkLog = new List<WorkLogItem>();
+
+            // Add non-overlaping from A
+            foreach (WorkLogItem itemA in workLogA)
+            {
+                if (workLogB.Any(itemB => itemB.Overlaps(itemA))) { continue; }
+
+                newWorkLog.Add(itemA);
+            }
+
+            // All all from B
+            foreach (WorkLogItem itemB in workLogB)
+            {
+                newWorkLog.Add(itemB);
+            }
+
+            return newWorkLog;
         }
 
         #endregion Private methods
