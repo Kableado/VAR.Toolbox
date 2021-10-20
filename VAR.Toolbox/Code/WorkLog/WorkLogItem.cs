@@ -8,6 +8,7 @@ namespace VAR.Toolbox.Code.WorkLog
         public DateTime DateEnd { get; set; }
         public string Activity { get; set; }
         public string Description { get; set; }
+        public string Tags { get; set; }
 
         public bool Overlaps(WorkLogItem other)
         {

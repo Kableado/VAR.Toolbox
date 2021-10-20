@@ -12,6 +12,7 @@ namespace VAR.Toolbox.Code.WorkLog
     {
         public string Name { get { return "VARText"; } }
 
+        //TODO: VARTextWorkLogImporter: Export WorkLigItem.Tags
         public bool Export(List<WorkLogItem> items, Form form)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -56,6 +57,7 @@ namespace VAR.Toolbox.Code.WorkLog
             return true;
         }
 
+        //TODO: VARTextWorkLogImporter: Import WorkLigItem.Tags
         public List<WorkLogItem> Import(Form form)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();

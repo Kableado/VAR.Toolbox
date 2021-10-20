@@ -54,6 +54,7 @@
             this.btnDelete = new VAR.Toolbox.Controls.CButton();
             this.btnAdd = new VAR.Toolbox.Controls.CButton();
             this.ttPanel = new System.Windows.Forms.ToolTip(this.components);
+            this.txtTags = new VAR.Toolbox.Controls.TextBoxNormal();
             ((System.ComponentModel.ISupportInitialize)(this.splitWindow)).BeginInit();
             this.splitWindow.Panel1.SuspendLayout();
             this.splitWindow.Panel2.SuspendLayout();
@@ -86,6 +87,7 @@
             // 
             // splitWindow.Panel2
             // 
+            this.splitWindow.Panel2.Controls.Add(this.txtTags);
             this.splitWindow.Panel2.Controls.Add(this.btnSearch);
             this.splitWindow.Panel2.Controls.Add(this.btnStats);
             this.splitWindow.Panel2.Controls.Add(this.lblWorkLogItemTime);
@@ -325,7 +327,7 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescription.Size = new System.Drawing.Size(259, 444);
+            this.txtDescription.Size = new System.Drawing.Size(259, 382);
             this.txtDescription.TabIndex = 3;
             this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             // 
@@ -360,6 +362,22 @@
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Add";
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // txtTags
+            // 
+            this.txtTags.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTags.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtTags.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtTags.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.txtTags.Location = new System.Drawing.Point(6, 535);
+            this.txtTags.Multiline = true;
+            this.txtTags.Name = "txtTags";
+            this.txtTags.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtTags.Size = new System.Drawing.Size(259, 57);
+            this.txtTags.TabIndex = 10;
+            this.txtTags.TextChanged += new System.EventHandler(this.txtTags_TextChanged);
             // 
             // FrmWorkLog
             // 
@@ -406,5 +424,6 @@
         private VAR.Toolbox.Controls.CButton btnSumary;
         private System.Windows.Forms.CheckBox chkImportMerging;
         private System.Windows.Forms.ToolTip ttPanel;
+        private Controls.TextBoxNormal txtTags;
     }
 }

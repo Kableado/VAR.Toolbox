@@ -121,7 +121,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
         {
             if (_selecting) { return; }
             _selecting = true;
-            WorkLogRow row = lsbWorkLog.SelectedItem as WorkLogRow;
+            var row = lsbWorkLog.SelectedItem as WorkLogRow;
             if (row == null)
             {
                 lsbWorkLog.ClearSelected();
@@ -161,6 +161,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 DateEnd = dtEnd.Value,
                 Activity = txtActivity.Text,
                 Description = txtDescription.Text,
+                Tags = txtTags.Text,
             };
             _workLog.Add(item);
             WorkLog_Refresh();
@@ -199,6 +200,11 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
         }
 
         private void txtDescription_TextChanged(object sender, System.EventArgs e)
+        {
+            WorkLogItem_Update(refresh: false);
+        }
+
+        private void txtTags_TextChanged(object sender, EventArgs e)
         {
             WorkLogItem_Update(refresh: false);
         }
@@ -417,6 +423,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 dtEnd.Value = DateTime.UtcNow.Date;
                 txtActivity.Text = string.Empty;
                 txtDescription.Text = string.Empty;
+                txtTags.Text = string.Empty;
                 lblWorkLogItemTime.Text = string.Empty;
                 WorkLogItem_EnableButtons(false);
                 return;
@@ -426,6 +433,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             dtEnd.Value = item.DateEnd;
             txtActivity.Text = item.Activity;
             txtDescription.Text = item.Description;
+            txtTags.Text = item.Tags;
             lblWorkLogItemTime.Text = (item.DateEnd - item.DateStart).ToString();
 
             WorkLogItem_EnableButtons(true);
@@ -448,6 +456,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             _currentWorkLogItem.DateEnd = dtEnd.Value;
             _currentWorkLogItem.Activity = txtActivity.Text;
             _currentWorkLogItem.Description = txtDescription.Text;
+            _currentWorkLogItem.Tags = txtTags.Text;
             if (refresh)
             {
                 lsbWorkLog.SelectedIndex = -1;
