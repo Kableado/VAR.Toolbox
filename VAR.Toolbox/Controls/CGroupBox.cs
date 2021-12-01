@@ -21,9 +21,21 @@ namespace VAR.Toolbox.Controls
             set { this._borderColor = value; }
         }
 
+        private SolidBrush _brushBackColor = null;
+        private SolidBrush _brushForeColor = null;
+
         protected override void OnPaint(PaintEventArgs e)
         {
-            Size tSize = TextRenderer.MeasureText(this.Text, this.Font);
+            if (_brushBackColor == null || _brushBackColor.Color != BackColor)
+            {
+                _brushBackColor = new SolidBrush(BackColor);
+            }
+            if (_brushForeColor == null || _brushForeColor.Color != ForeColor)
+            {
+                _brushForeColor = new SolidBrush(ForeColor);
+            }
+
+            Size tSize = TextRenderer.MeasureText(Text, Font);
 
             Rectangle borderRect = e.ClipRectangle;
             borderRect.Y = (borderRect.Y + (tSize.Height / 2));
@@ -34,8 +46,8 @@ namespace VAR.Toolbox.Controls
             textRect.X = (textRect.X + 6);
             textRect.Width = tSize.Width;
             textRect.Height = tSize.Height;
-            e.Graphics.FillRectangle(new SolidBrush(this.BackColor), textRect);
-            e.Graphics.DrawString(this.Text, this.Font, new SolidBrush(this.ForeColor), textRect);
+            e.Graphics.FillRectangle(_brushBackColor, textRect);
+            e.Graphics.DrawString(Text, Font, _brushForeColor, textRect);
         }
     }
 }
