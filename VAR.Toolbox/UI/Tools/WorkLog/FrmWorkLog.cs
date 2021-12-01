@@ -267,6 +267,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             FrmWorkLogStats frmStats = new FrmWorkLogStats { Activity = _currentWorkLogItem.Activity, WorkLog = _workLog };
             frmStats.Show(this);
         }
+
         private void btnSumary_Click(object sender, EventArgs e)
         {
             FrmWorkLogSumary frmStats = new FrmWorkLogSumary { WorkLog = _workLog };
@@ -278,6 +279,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             if (_workLog == null) { return; }
 
             List<string> listActivities = _workLog
+                .Where(x => string.IsNullOrEmpty(x.Activity) == false)
                 .GroupBy(x => x.Activity)
                 .Select(g => g.OrderBy(x => x.DateStart).LastOrDefault())
                 .OrderByDescending(x => x.DateStart)
@@ -293,6 +295,29 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
             if (string.IsNullOrEmpty(frmListDialog.Value)) { return; }
             txtActivity.Text = frmListDialog.Value;
+        }
+
+        private void btnSearchTag_Click(object sender, EventArgs e)
+        {
+            if (_workLog == null) { return; }
+
+            List<string> listTags = _workLog
+                .Where(x => string.IsNullOrEmpty(x.Tags) == false)
+                .GroupBy(x => x.Tags)
+                .Select(g => g.OrderBy(x => x.DateStart).LastOrDefault())
+                .OrderByDescending(x => x.DateStart)
+                .Select(x => x.Tags)
+                .ToList();
+
+            FrmListBoxDialog frmListDialog = new FrmListBoxDialog();
+            frmListDialog.Title = "Search Tags";
+            frmListDialog.LoadItems(listTags);
+
+            DialogResult result = frmListDialog.ShowDialog(this);
+            if (result != DialogResult.OK) { return; }
+
+            if (string.IsNullOrEmpty(frmListDialog.Value)) { return; }
+            txtTags.Text = frmListDialog.Value;
         }
 
         #endregion UI events
@@ -523,7 +548,6 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
         }
 
         #endregion Private methods
-
     }
 
     public class WorkLogRow

@@ -43,6 +43,12 @@
             this.btnPreviousDay = new VAR.Toolbox.Controls.CButton();
             this.dtToday = new VAR.Toolbox.Controls.CDateTimePicker();
             this.lsbWorkLog = new VAR.Toolbox.Controls.ListBoxMonospace();
+            this.cButton4 = new VAR.Toolbox.Controls.CButton();
+            this.cButton3 = new VAR.Toolbox.Controls.CButton();
+            this.cButton2 = new VAR.Toolbox.Controls.CButton();
+            this.cButton1 = new VAR.Toolbox.Controls.CButton();
+            this.btnSearchTag = new VAR.Toolbox.Controls.CButton();
+            this.txtTags = new VAR.Toolbox.Controls.TextBoxNormal();
             this.btnSearch = new VAR.Toolbox.Controls.CButton();
             this.btnStats = new VAR.Toolbox.Controls.CButton();
             this.lblWorkLogItemTime = new System.Windows.Forms.Label();
@@ -54,7 +60,6 @@
             this.btnDelete = new VAR.Toolbox.Controls.CButton();
             this.btnAdd = new VAR.Toolbox.Controls.CButton();
             this.ttPanel = new System.Windows.Forms.ToolTip(this.components);
-            this.txtTags = new VAR.Toolbox.Controls.TextBoxNormal();
             ((System.ComponentModel.ISupportInitialize)(this.splitWindow)).BeginInit();
             this.splitWindow.Panel1.SuspendLayout();
             this.splitWindow.Panel2.SuspendLayout();
@@ -87,6 +92,11 @@
             // 
             // splitWindow.Panel2
             // 
+            this.splitWindow.Panel2.Controls.Add(this.cButton4);
+            this.splitWindow.Panel2.Controls.Add(this.cButton3);
+            this.splitWindow.Panel2.Controls.Add(this.cButton2);
+            this.splitWindow.Panel2.Controls.Add(this.cButton1);
+            this.splitWindow.Panel2.Controls.Add(this.btnSearchTag);
             this.splitWindow.Panel2.Controls.Add(this.txtTags);
             this.splitWindow.Panel2.Controls.Add(this.btnSearch);
             this.splitWindow.Panel2.Controls.Add(this.btnStats);
@@ -99,14 +109,14 @@
             this.splitWindow.Panel2.Controls.Add(this.btnDelete);
             this.splitWindow.Panel2.Controls.Add(this.btnAdd);
             this.splitWindow.Size = new System.Drawing.Size(721, 603);
-            this.splitWindow.SplitterDistance = 442;
+            this.splitWindow.SplitterDistance = 446;
             this.splitWindow.TabIndex = 0;
             // 
             // chkImportMerging
             // 
             this.chkImportMerging.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkImportMerging.AutoSize = true;
-            this.chkImportMerging.Location = new System.Drawing.Point(391, 9);
+            this.chkImportMerging.Location = new System.Drawing.Point(395, 9);
             this.chkImportMerging.Name = "chkImportMerging";
             this.chkImportMerging.Size = new System.Drawing.Size(15, 14);
             this.chkImportMerging.TabIndex = 11;
@@ -127,7 +137,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWorkLogTime.Location = new System.Drawing.Point(273, 36);
             this.lblWorkLogTime.Name = "lblWorkLogTime";
-            this.lblWorkLogTime.Size = new System.Drawing.Size(166, 21);
+            this.lblWorkLogTime.Size = new System.Drawing.Size(170, 21);
             this.lblWorkLogTime.TabIndex = 9;
             this.lblWorkLogTime.Text = "00:00:00";
             this.lblWorkLogTime.TextAlign = System.Drawing.ContentAlignment.BottomRight;
@@ -135,7 +145,7 @@
             // btnExport
             // 
             this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExport.Location = new System.Drawing.Point(412, 5);
+            this.btnExport.Location = new System.Drawing.Point(416, 5);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(27, 21);
             this.btnExport.TabIndex = 8;
@@ -145,7 +155,7 @@
             // btnImport
             // 
             this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnImport.Location = new System.Drawing.Point(353, 5);
+            this.btnImport.Location = new System.Drawing.Point(357, 5);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(35, 21);
             this.btnImport.TabIndex = 7;
@@ -160,7 +170,7 @@
             this.cboImporters.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboImporters.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.cboImporters.FormattingEnabled = true;
-            this.cboImporters.Location = new System.Drawing.Point(258, 5);
+            this.cboImporters.Location = new System.Drawing.Point(262, 5);
             this.cboImporters.Name = "cboImporters";
             this.cboImporters.Size = new System.Drawing.Size(89, 21);
             this.cboImporters.TabIndex = 6;
@@ -241,16 +251,75 @@
             this.lsbWorkLog.Location = new System.Drawing.Point(3, 60);
             this.lsbWorkLog.Name = "lsbWorkLog";
             this.lsbWorkLog.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lsbWorkLog.Size = new System.Drawing.Size(436, 532);
+            this.lsbWorkLog.Size = new System.Drawing.Size(440, 532);
             this.lsbWorkLog.TabIndex = 0;
             this.lsbWorkLog.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lsbWorkLog_DrawItem);
             this.lsbWorkLog.SelectedIndexChanged += new System.EventHandler(this.lsbWorkLog_SelectedIndexChanged);
             // 
+            // cButton4
+            // 
+            this.cButton4.Location = new System.Drawing.Point(174, 60);
+            this.cButton4.Name = "cButton4";
+            this.cButton4.Size = new System.Drawing.Size(33, 20);
+            this.cButton4.TabIndex = 13;
+            this.cButton4.Text = "->";
+            // 
+            // cButton3
+            // 
+            this.cButton3.Location = new System.Drawing.Point(174, 34);
+            this.cButton3.Name = "cButton3";
+            this.cButton3.Size = new System.Drawing.Size(33, 20);
+            this.cButton3.TabIndex = 12;
+            this.cButton3.Text = "->";
+            // 
+            // cButton2
+            // 
+            this.cButton2.Location = new System.Drawing.Point(3, 61);
+            this.cButton2.Name = "cButton2";
+            this.cButton2.Size = new System.Drawing.Size(33, 20);
+            this.cButton2.TabIndex = 12;
+            this.cButton2.Text = "<-";
+            // 
+            // cButton1
+            // 
+            this.cButton1.Location = new System.Drawing.Point(3, 35);
+            this.cButton1.Name = "cButton1";
+            this.cButton1.Size = new System.Drawing.Size(33, 20);
+            this.cButton1.TabIndex = 12;
+            this.cButton1.Text = "<-";
+            // 
+            // btnSearchTag
+            // 
+            this.btnSearchTag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSearchTag.Location = new System.Drawing.Point(6, 578);
+            this.btnSearchTag.Name = "btnSearchTag";
+            this.btnSearchTag.Size = new System.Drawing.Size(67, 22);
+            this.btnSearchTag.TabIndex = 11;
+            this.btnSearchTag.Text = "Search";
+            this.btnSearchTag.UseVisualStyleBackColor = true;
+            this.btnSearchTag.Click += new System.EventHandler(this.btnSearchTag_Click);
+            // 
+            // txtTags
+            // 
+            this.txtTags.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTags.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtTags.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtTags.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.txtTags.Location = new System.Drawing.Point(6, 521);
+            this.txtTags.Multiline = true;
+            this.txtTags.Name = "txtTags";
+            this.txtTags.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtTags.Size = new System.Drawing.Size(255, 55);
+            this.txtTags.TabIndex = 10;
+            this.txtTags.TextChanged += new System.EventHandler(this.txtTags_TextChanged);
+            // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(68, 119);
+            this.btnSearch.Location = new System.Drawing.Point(79, 119);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.Size = new System.Drawing.Size(67, 22);
             this.btnSearch.TabIndex = 9;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -259,7 +328,7 @@
             // btnStats
             // 
             this.btnStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStats.Location = new System.Drawing.Point(207, 3);
+            this.btnStats.Location = new System.Drawing.Point(205, 6);
             this.btnStats.Name = "btnStats";
             this.btnStats.Size = new System.Drawing.Size(56, 22);
             this.btnStats.TabIndex = 8;
@@ -271,9 +340,9 @@
             // 
             this.lblWorkLogItemTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblWorkLogItemTime.Location = new System.Drawing.Point(136, 70);
+            this.lblWorkLogItemTime.Location = new System.Drawing.Point(209, 70);
             this.lblWorkLogItemTime.Name = "lblWorkLogItemTime";
-            this.lblWorkLogItemTime.Size = new System.Drawing.Size(127, 20);
+            this.lblWorkLogItemTime.Size = new System.Drawing.Size(50, 20);
             this.lblWorkLogItemTime.TabIndex = 7;
             this.lblWorkLogItemTime.Text = "00:00:00";
             this.lblWorkLogItemTime.TextAlign = System.Drawing.ContentAlignment.BottomRight;
@@ -282,7 +351,7 @@
             // 
             this.btnRename.Location = new System.Drawing.Point(6, 119);
             this.btnRename.Name = "btnRename";
-            this.btnRename.Size = new System.Drawing.Size(56, 22);
+            this.btnRename.Size = new System.Drawing.Size(67, 22);
             this.btnRename.TabIndex = 6;
             this.btnRename.Text = "Rename";
             this.btnRename.UseVisualStyleBackColor = true;
@@ -294,7 +363,7 @@
             this.dtEnd.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dtEnd.ForeColor = System.Drawing.Color.Gray;
             this.dtEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtEnd.Location = new System.Drawing.Point(4, 60);
+            this.dtEnd.Location = new System.Drawing.Point(42, 60);
             this.dtEnd.Name = "dtEnd";
             this.dtEnd.ShowUpDown = true;
             this.dtEnd.Size = new System.Drawing.Size(126, 20);
@@ -307,7 +376,7 @@
             this.dtStart.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dtStart.ForeColor = System.Drawing.Color.Gray;
             this.dtStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtStart.Location = new System.Drawing.Point(4, 33);
+            this.dtStart.Location = new System.Drawing.Point(42, 34);
             this.dtStart.Name = "dtStart";
             this.dtStart.ShowUpDown = true;
             this.dtStart.Size = new System.Drawing.Size(126, 20);
@@ -327,7 +396,7 @@
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescription.Size = new System.Drawing.Size(259, 382);
+            this.txtDescription.Size = new System.Drawing.Size(255, 368);
             this.txtDescription.TabIndex = 3;
             this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             // 
@@ -341,7 +410,7 @@
             this.txtActivity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtActivity.Location = new System.Drawing.Point(3, 93);
             this.txtActivity.Name = "txtActivity";
-            this.txtActivity.Size = new System.Drawing.Size(260, 20);
+            this.txtActivity.Size = new System.Drawing.Size(258, 20);
             this.txtActivity.TabIndex = 2;
             this.txtActivity.TextChanged += new System.EventHandler(this.txtActivity_TextChanged);
             // 
@@ -362,22 +431,6 @@
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Add";
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // txtTags
-            // 
-            this.txtTags.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTags.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.txtTags.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.txtTags.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.txtTags.Location = new System.Drawing.Point(6, 535);
-            this.txtTags.Multiline = true;
-            this.txtTags.Name = "txtTags";
-            this.txtTags.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtTags.Size = new System.Drawing.Size(259, 57);
-            this.txtTags.TabIndex = 10;
-            this.txtTags.TextChanged += new System.EventHandler(this.txtTags_TextChanged);
             // 
             // FrmWorkLog
             // 
@@ -425,5 +478,10 @@
         private System.Windows.Forms.CheckBox chkImportMerging;
         private System.Windows.Forms.ToolTip ttPanel;
         private Controls.TextBoxNormal txtTags;
+        private Controls.CButton btnSearchTag;
+        private Controls.CButton cButton4;
+        private Controls.CButton cButton3;
+        private Controls.CButton cButton2;
+        private Controls.CButton cButton1;
     }
 }
