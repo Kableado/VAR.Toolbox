@@ -29,8 +29,8 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         private void FrmWorkLogStats_Load(object sender, EventArgs e)
         {
-            dtpStart.Value = DateTime.Now.Date;
-            dtpEnd.Value = DateTime.Now.Date.AddDays(1).AddSeconds(-1);
+            dtpStart.Value = DateTime.Now.Date.AddMonths(-1);
+            dtpEnd.Value = DateTime.Now.Date.AddMonths(1).AddDays(1).AddSeconds(-1);
             WorkLog_ProcessStats();
         }
 
