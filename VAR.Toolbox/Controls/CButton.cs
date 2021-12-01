@@ -71,6 +71,8 @@ namespace VAR.Toolbox.Controls
             base.OnMouseUp(mevent);
         }
 
+        private StringFormat _stringFormat = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+
         protected override void OnPaint(PaintEventArgs pevent)
         {
             if (Enabled)
@@ -96,9 +98,7 @@ namespace VAR.Toolbox.Controls
                 pevent.Graphics.FillRectangle(_backColorBrush, pevent.ClipRectangle);
             }
 
-            var sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
-            pevent.Graphics.DrawString(Text, Font, Enabled ? _foreColorBrush : _foreColorDisableBrush, pevent.ClipRectangle, sf);
-            sf.Dispose();
+            pevent.Graphics.DrawString(Text, Font, Enabled ? _foreColorBrush : _foreColorDisableBrush, pevent.ClipRectangle, _stringFormat);
         }
 
     }
