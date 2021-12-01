@@ -15,7 +15,8 @@ namespace VAR.Toolbox.Controls
 
         protected override void OnPaint(PaintEventArgs pevent)
         {
-            pevent.Graphics.FillRectangle(Brushes.CadetBlue, pevent.ClipRectangle);
+            Rectangle rectangle = new Rectangle(0, 0, Width, Height);
+            pevent.Graphics.FillRectangle(Brushes.CadetBlue, rectangle);
         }
     }
 }

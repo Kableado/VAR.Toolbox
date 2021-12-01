@@ -37,12 +37,12 @@ namespace VAR.Toolbox.Controls
 
             Size tSize = TextRenderer.MeasureText(Text, Font);
 
-            Rectangle borderRect = e.ClipRectangle;
+            Rectangle borderRect = new Rectangle(0, 0, Width, Height);
             borderRect.Y = (borderRect.Y + (tSize.Height / 2));
             borderRect.Height = (borderRect.Height - (tSize.Height / 2));
-            ControlPaint.DrawBorder(e.Graphics, borderRect, this._borderColor, ButtonBorderStyle.Solid);
+            ControlPaint.DrawBorder(e.Graphics, borderRect, _borderColor, ButtonBorderStyle.Solid);
 
-            Rectangle textRect = e.ClipRectangle;
+            Rectangle textRect = new Rectangle(0, 0, Width, Height);
             textRect.X = (textRect.X + 6);
             textRect.Width = tSize.Width;
             textRect.Height = tSize.Height;

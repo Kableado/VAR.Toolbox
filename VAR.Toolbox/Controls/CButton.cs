@@ -75,30 +75,31 @@ namespace VAR.Toolbox.Controls
 
         protected override void OnPaint(PaintEventArgs pevent)
         {
+            Rectangle rectangle = new Rectangle(0, 0, Width, Height);
             if (Enabled)
             {
                 if (_mouseIsDown)
                 {
-                    pevent.Graphics.FillRectangle(_backColorDownBrush, pevent.ClipRectangle);
+                    pevent.Graphics.FillRectangle(_backColorDownBrush, rectangle);
                 }
                 else
                 {
                     if (_mouseIsOver)
                     {
-                        pevent.Graphics.FillRectangle(_backColorOverBrush, pevent.ClipRectangle);
+                        pevent.Graphics.FillRectangle(_backColorOverBrush, rectangle);
                     }
                     else
                     {
-                        pevent.Graphics.FillRectangle(_backColorBrush, pevent.ClipRectangle);
+                        pevent.Graphics.FillRectangle(_backColorBrush, rectangle);
                     }
                 }
             }
             else
             {
-                pevent.Graphics.FillRectangle(_backColorBrush, pevent.ClipRectangle);
+                pevent.Graphics.FillRectangle(_backColorBrush, rectangle);
             }
 
-            pevent.Graphics.DrawString(Text, Font, Enabled ? _foreColorBrush : _foreColorDisableBrush, pevent.ClipRectangle, _stringFormat);
+            pevent.Graphics.DrawString(Text, Font, Enabled ? _foreColorBrush : _foreColorDisableBrush, rectangle, _stringFormat);
         }
 
     }
