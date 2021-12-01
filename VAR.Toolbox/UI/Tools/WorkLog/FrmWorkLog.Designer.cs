@@ -43,10 +43,10 @@
             this.btnPreviousDay = new VAR.Toolbox.Controls.CButton();
             this.dtToday = new VAR.Toolbox.Controls.CDateTimePicker();
             this.lsbWorkLog = new VAR.Toolbox.Controls.ListBoxMonospace();
-            this.cButton4 = new VAR.Toolbox.Controls.CButton();
-            this.cButton3 = new VAR.Toolbox.Controls.CButton();
-            this.cButton2 = new VAR.Toolbox.Controls.CButton();
-            this.cButton1 = new VAR.Toolbox.Controls.CButton();
+            this.btnDtEndPlus = new VAR.Toolbox.Controls.CButton();
+            this.btnDtStartPlus = new VAR.Toolbox.Controls.CButton();
+            this.btnDtEndMinus = new VAR.Toolbox.Controls.CButton();
+            this.btnDtStartMinus = new VAR.Toolbox.Controls.CButton();
             this.btnSearchTag = new VAR.Toolbox.Controls.CButton();
             this.txtTags = new VAR.Toolbox.Controls.TextBoxNormal();
             this.btnSearch = new VAR.Toolbox.Controls.CButton();
@@ -92,10 +92,10 @@
             // 
             // splitWindow.Panel2
             // 
-            this.splitWindow.Panel2.Controls.Add(this.cButton4);
-            this.splitWindow.Panel2.Controls.Add(this.cButton3);
-            this.splitWindow.Panel2.Controls.Add(this.cButton2);
-            this.splitWindow.Panel2.Controls.Add(this.cButton1);
+            this.splitWindow.Panel2.Controls.Add(this.btnDtEndPlus);
+            this.splitWindow.Panel2.Controls.Add(this.btnDtStartPlus);
+            this.splitWindow.Panel2.Controls.Add(this.btnDtEndMinus);
+            this.splitWindow.Panel2.Controls.Add(this.btnDtStartMinus);
             this.splitWindow.Panel2.Controls.Add(this.btnSearchTag);
             this.splitWindow.Panel2.Controls.Add(this.txtTags);
             this.splitWindow.Panel2.Controls.Add(this.btnSearch);
@@ -256,37 +256,41 @@
             this.lsbWorkLog.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lsbWorkLog_DrawItem);
             this.lsbWorkLog.SelectedIndexChanged += new System.EventHandler(this.lsbWorkLog_SelectedIndexChanged);
             // 
-            // cButton4
+            // btnDtEndPlus
             // 
-            this.cButton4.Location = new System.Drawing.Point(174, 60);
-            this.cButton4.Name = "cButton4";
-            this.cButton4.Size = new System.Drawing.Size(33, 20);
-            this.cButton4.TabIndex = 13;
-            this.cButton4.Text = "->";
+            this.btnDtEndPlus.Location = new System.Drawing.Point(174, 60);
+            this.btnDtEndPlus.Name = "btnDtEndPlus";
+            this.btnDtEndPlus.Size = new System.Drawing.Size(33, 20);
+            this.btnDtEndPlus.TabIndex = 13;
+            this.btnDtEndPlus.Text = "->";
+            this.btnDtEndPlus.Click += new System.EventHandler(this.btnDtEndPlus_Click);
             // 
-            // cButton3
+            // btnDtStartPlus
             // 
-            this.cButton3.Location = new System.Drawing.Point(174, 34);
-            this.cButton3.Name = "cButton3";
-            this.cButton3.Size = new System.Drawing.Size(33, 20);
-            this.cButton3.TabIndex = 12;
-            this.cButton3.Text = "->";
+            this.btnDtStartPlus.Location = new System.Drawing.Point(174, 34);
+            this.btnDtStartPlus.Name = "btnDtStartPlus";
+            this.btnDtStartPlus.Size = new System.Drawing.Size(33, 20);
+            this.btnDtStartPlus.TabIndex = 12;
+            this.btnDtStartPlus.Text = "->";
+            this.btnDtStartPlus.Click += new System.EventHandler(this.btnDtStartPlus_Click);
             // 
-            // cButton2
+            // btnDtEndMinus
             // 
-            this.cButton2.Location = new System.Drawing.Point(3, 61);
-            this.cButton2.Name = "cButton2";
-            this.cButton2.Size = new System.Drawing.Size(33, 20);
-            this.cButton2.TabIndex = 12;
-            this.cButton2.Text = "<-";
+            this.btnDtEndMinus.Location = new System.Drawing.Point(3, 61);
+            this.btnDtEndMinus.Name = "btnDtEndMinus";
+            this.btnDtEndMinus.Size = new System.Drawing.Size(33, 20);
+            this.btnDtEndMinus.TabIndex = 12;
+            this.btnDtEndMinus.Text = "<-";
+            this.btnDtEndMinus.Click += new System.EventHandler(this.btnDtEndMinus_Click);
             // 
-            // cButton1
+            // btnDtStartMinus
             // 
-            this.cButton1.Location = new System.Drawing.Point(3, 35);
-            this.cButton1.Name = "cButton1";
-            this.cButton1.Size = new System.Drawing.Size(33, 20);
-            this.cButton1.TabIndex = 12;
-            this.cButton1.Text = "<-";
+            this.btnDtStartMinus.Location = new System.Drawing.Point(3, 35);
+            this.btnDtStartMinus.Name = "btnDtStartMinus";
+            this.btnDtStartMinus.Size = new System.Drawing.Size(33, 20);
+            this.btnDtStartMinus.TabIndex = 12;
+            this.btnDtStartMinus.Text = "<-";
+            this.btnDtStartMinus.Click += new System.EventHandler(this.btnDtStartMinus_Click);
             // 
             // btnSearchTag
             // 
@@ -479,9 +483,9 @@
         private System.Windows.Forms.ToolTip ttPanel;
         private Controls.TextBoxNormal txtTags;
         private Controls.CButton btnSearchTag;
-        private Controls.CButton cButton4;
-        private Controls.CButton cButton3;
-        private Controls.CButton cButton2;
-        private Controls.CButton cButton1;
+        private Controls.CButton btnDtEndPlus;
+        private Controls.CButton btnDtStartPlus;
+        private Controls.CButton btnDtEndMinus;
+        private Controls.CButton btnDtStartMinus;
     }
 }

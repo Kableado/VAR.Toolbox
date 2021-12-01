@@ -224,6 +224,26 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             dtToday.Value = dtToday.Value.Date.AddDays(1);
         }
 
+        private void btnDtStartMinus_Click(object sender, EventArgs e)
+        {
+            dtStart.Value = dtStart.Value.AddMinutes(-15);
+        }
+
+        private void btnDtStartPlus_Click(object sender, EventArgs e)
+        {
+            dtStart.Value = dtStart.Value.AddMinutes(15);
+        }
+
+        private void btnDtEndMinus_Click(object sender, EventArgs e)
+        {
+            dtEnd.Value = dtEnd.Value.AddMinutes(-15);
+        }
+
+        private void btnDtEndPlus_Click(object sender, EventArgs e)
+        {
+            dtEnd.Value = dtEnd.Value.AddMinutes(15);
+        }
+
         private void lsbWorkLog_DrawItem(object sender, DrawItemEventArgs e)
         {
             if (e.Index < 0) return;
