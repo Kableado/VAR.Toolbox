@@ -553,7 +553,33 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             // Add non-overlaping from A
             foreach (WorkLogItem itemA in workLogA)
             {
-                if (workLogB.Any(itemB => itemB.Overlaps(itemA))) { continue; }
+                bool skip = false;
+                foreach(WorkLogItem itemB in workLogB)
+                {
+                    if (itemB.Overlaps(itemA))
+                    {
+                        skip = true;
+
+                        // If there is matching overlap, try to keep Activity, description or tags
+                        if (itemA.DateStart == itemB.DateStart && itemA.DateEnd == itemB.DateEnd)
+                        {
+                            if (string.IsNullOrEmpty(itemB.Activity))
+                            {
+                                itemB.Activity = itemA.Activity;
+                            }
+                            if (string.IsNullOrEmpty(itemB.Description))
+                            {
+                                itemB.Description = itemA.Description;
+                            }
+                            if (string.IsNullOrEmpty(itemB.Tags))
+                            {
+                                itemB.Tags = itemA.Tags;
+                            }
+                            break;
+                        }
+                    }
+                }
+                if (skip) { continue; }
 
                 newWorkLog.Add(itemA);
             }
