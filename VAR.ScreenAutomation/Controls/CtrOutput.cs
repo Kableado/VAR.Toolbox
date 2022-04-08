@@ -6,6 +6,8 @@ using System.Text;
 using System.Windows.Forms;
 using VAR.ScreenAutomation.Interfaces;
 
+// ReSharper disable InconsistentNaming
+
 namespace VAR.ScreenAutomation.Controls
 {
     public class CtrOutput : Control, IOutputHandler
@@ -18,6 +20,7 @@ namespace VAR.ScreenAutomation.Controls
         {
             public string Text { get; set; }
             public object Data { get; set; }
+
             public override string ToString()
             {
                 return Text;
@@ -37,7 +40,7 @@ namespace VAR.ScreenAutomation.Controls
             {
                 Dock = DockStyle.Fill,
                 FormattingEnabled = true,
-                Font = new System.Drawing.Font("Consolas", 9),
+                Font = new Font("Consolas", 9),
                 BackColor = Color.Black,
                 ForeColor = Color.Gray,
                 SelectionMode = SelectionMode.MultiExtended,
@@ -69,6 +72,7 @@ namespace VAR.ScreenAutomation.Controls
                 CopyToClipboard();
                 return true;
             }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -87,6 +91,7 @@ namespace VAR.ScreenAutomation.Controls
             {
                 sbText.AppendLine(item.Text);
             }
+
             if (sbText.Length > 0)
             {
                 Clipboard.SetText(sbText.ToString());
@@ -106,7 +111,7 @@ namespace VAR.ScreenAutomation.Controls
             }
         }
 
-        private bool _updated = false;
+        private bool _updated;
         private readonly List<OutputItem> _pendingOutput = new List<OutputItem>();
 
         private void UpdatePosition()
@@ -119,6 +124,7 @@ namespace VAR.ScreenAutomation.Controls
                 {
                     _listBox.Items.Add(item);
                 }
+
                 _pendingOutput.Clear();
                 _listBox.ResumeLayout();
 
@@ -131,7 +137,7 @@ namespace VAR.ScreenAutomation.Controls
         }
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
-        private static extern IntPtr SendMessage(HandleRef hWnd, Int32 Msg, IntPtr wParam, IntPtr lParam);
+        private static extern IntPtr SendMessage(HandleRef hWnd, Int32 msg, IntPtr wParam, IntPtr lParam);
 
         private static void EnableRepaint(HandleRef handle, bool enable)
         {
@@ -168,6 +174,7 @@ namespace VAR.ScreenAutomation.Controls
         public string GetCurrentText()
         {
             if (_listBox.SelectedItems.Count == 0) { return null; }
+
             OutputItem item = (OutputItem)_listBox.SelectedItems[0];
             return item?.Text;
         }
@@ -175,6 +182,7 @@ namespace VAR.ScreenAutomation.Controls
         public object GetCurrentData()
         {
             if (_listBox.SelectedItems.Count == 0) { return null; }
+
             OutputItem item = (OutputItem)_listBox.SelectedItems[0];
             return item?.Data;
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using VAR.ScreenAutomation.Interfaces;
@@ -7,9 +8,9 @@ namespace VAR.ScreenAutomation.Code
 {
     public class FileBackedConfiguration : IConfiguration
     {
-        private MemoryBackedConfiguration _config = new MemoryBackedConfiguration();
+        private readonly MemoryBackedConfiguration _config = new MemoryBackedConfiguration();
 
-        private string _name = null;
+        private readonly string _name;
 
         public FileBackedConfiguration(string name = null)
         {
@@ -18,33 +19,22 @@ namespace VAR.ScreenAutomation.Code
 
         private static string GetConfigFileName(string name = null)
         {
-            string location = System.Reflection.Assembly.GetEntryAssembly().Location;
+            string location = System.Reflection.Assembly.GetEntryAssembly()?.Location;
             string path = Path.GetDirectoryName(location);
             string filenameWithoutExtension = Path.GetFileNameWithoutExtension(location);
-            string configFile;
-            if (string.IsNullOrEmpty(name))
-            {
-                configFile = string.Format("{0}/{1}.cfg", path, filenameWithoutExtension);
-            }
-            else
-            {
-                configFile = string.Format("{0}/{1}_{2}.cfg", path, filenameWithoutExtension, name);
-            }
+            string configFile = string.IsNullOrEmpty(name)
+                ? $"{path}/{filenameWithoutExtension}.cfg"
+                : $"{path}/{filenameWithoutExtension}_{name}.cfg";
             return configFile;
         }
 
         private static string[] GetConfigurationLines(string name = null)
         {
             string configFile = GetConfigFileName(name);
-            string[] config;
-            if (File.Exists(configFile) == false)
-            {
-                config = new string[0];
-            }
-            else
-            {
-                config = File.ReadAllLines(configFile);
-            }
+            string[] config = File.Exists(configFile) == false
+                ? Array.Empty<string>()
+                : File.ReadAllLines(configFile);
+
             return config;
         }
 
@@ -58,11 +48,13 @@ namespace VAR.ScreenAutomation.Code
                     _config.Set(key, other.Get(key, null));
                 }
             }
+
             string[] configLines = GetConfigurationLines(_name);
             foreach (string configLine in configLines)
             {
                 int idxSplit = configLine.IndexOf('|');
                 if (idxSplit < 0) { continue; }
+
                 string configName = configLine.Substring(0, idxSplit);
                 string configData = configLine.Substring(idxSplit + 1);
 
@@ -77,6 +69,7 @@ namespace VAR.ScreenAutomation.Code
             {
                 sbConfig.AppendFormat("{0}|{1}\n", key, _config.Get(key, string.Empty));
             }
+
             string configFileName = GetConfigFileName(_name);
             File.WriteAllText(configFileName, sbConfig.ToString());
         }
@@ -120,6 +113,5 @@ namespace VAR.ScreenAutomation.Code
         {
             _config.Set(key, value);
         }
-
     }
 }

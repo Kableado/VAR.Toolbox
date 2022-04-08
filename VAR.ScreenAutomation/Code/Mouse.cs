@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
+// ReSharper disable InconsistentNaming
+
 namespace VAR.ScreenAutomation.Code
 {
-    public class Mouse
+    public static class Mouse
     {
         public enum MouseButtons
         {
@@ -24,14 +26,17 @@ namespace VAR.ScreenAutomation.Code
             {
                 input.Data.Mouse.Flags = down ? MOUSEEVENTF_LEFTDOWN : MOUSEEVENTF_LEFTUP;
             }
+
             if (button == MouseButtons.Middle)
             {
                 input.Data.Mouse.Flags = down ? MOUSEEVENTF_MIDDLEDOWN : MOUSEEVENTF_MIDDLEUP;
             }
+
             if (button == MouseButtons.Right)
             {
                 input.Data.Mouse.Flags = down ? MOUSEEVENTF_RIGHTDOWN : MOUSEEVENTF_RIGHTUP;
             }
+
             INPUT[] inputs = new INPUT[] { input };
             if (SendInput(1, inputs, Marshal.SizeOf(typeof(INPUT))) == 0)
                 throw new Exception();
@@ -73,14 +78,11 @@ namespace VAR.ScreenAutomation.Code
         [StructLayout(LayoutKind.Explicit)]
         public struct MOUSEKEYBDHARDWAREINPUT
         {
-            [FieldOffset(0)]
-            public HARDWAREINPUT Hardware;
+            [FieldOffset(0)] public HARDWAREINPUT Hardware;
 
-            [FieldOffset(0)]
-            public KEYBDINPUT Keyboard;
+            [FieldOffset(0)] public KEYBDINPUT Keyboard;
 
-            [FieldOffset(0)]
-            public MOUSEINPUT Mouse;
+            [FieldOffset(0)] public MOUSEINPUT Mouse;
         }
 
         /// <summary>
@@ -144,7 +146,6 @@ namespace VAR.ScreenAutomation.Code
         public static extern int SendInput(int nInputs, INPUT[] pInputs, int cbSize);
 
 
-
         /// <summary>
         /// Struct representing a point.
         /// </summary>
@@ -163,7 +164,6 @@ namespace VAR.ScreenAutomation.Code
         public static extern bool GetCursorPos(out POINT lpPoint);
 
         [DllImport("User32.dll")]
-        public static extern Boolean SetCursorPos(UInt32 X, UInt32 Y);
-
+        public static extern Boolean SetCursorPos(UInt32 x, UInt32 y);
     }
 }

@@ -9,11 +9,11 @@ namespace VAR.ScreenAutomation
 {
     public partial class FrmAutomationBotParams : Form
     {
-        private FileBackedConfiguration _config = null;
+        private readonly FileBackedConfiguration _config;
 
-        private BindingList<Pair> pairs = null;
+        private BindingList<Pair> _pairs;
 
-        private DataGridView dgvParams = null;
+        private DataGridView _dgvParams;
 
         public FrmAutomationBotParams(FileBackedConfiguration config)
         {
@@ -24,32 +24,34 @@ namespace VAR.ScreenAutomation
 
         private void FrmAutomationBotParams_Load(object sender, EventArgs e)
         {
-            pairs = new BindingList<Pair>();
+            _pairs = new BindingList<Pair>();
             foreach (string key in _config.GetKeys())
             {
-                pairs.Add(new Pair { Key = key, Value = _config.Get(key, string.Empty), });
+                _pairs.Add(new Pair { Key = key, Value = _config.Get(key, string.Empty), });
             }
-            pairs.AddingNew += (s, a) =>
+
+            _pairs.AddingNew += (s, a) =>
             {
-                a.NewObject = new Pair { Parent = pairs };
+                a.NewObject = new Pair { Parent = _pairs };
             };
-            dgvParams = new DataGridView
+            _dgvParams = new DataGridView
             {
                 Dock = DockStyle.Fill,
-                DataSource = pairs
+                DataSource = _pairs
             };
 
-            Controls.Add(dgvParams);
+            Controls.Add(_dgvParams);
         }
 
         private void FrmAutomationBotParams_FormClosing(object sender, FormClosingEventArgs e)
         {
-            var parms = new Dictionary<string, string>();
-            foreach (Pair pair in pairs)
+            foreach (Pair pair in _pairs)
             {
                 if (string.IsNullOrEmpty(pair.Key)) { continue; }
+
                 _config.Set(pair.Key, pair.Value);
             }
+
             _config.Save();
         }
 
@@ -59,20 +61,18 @@ namespace VAR.ScreenAutomation
             public string Key { get; set; }
             public string Value { get; set; }
 
-            string IDataErrorInfo.Error
-            {
-                get { return string.Empty; }
-            }
+            string IDataErrorInfo.Error => string.Empty;
 
             string IDataErrorInfo.this[string columnName]
             {
                 get
                 {
                     if (columnName == "Key" && Parent != null && Parent.Any(
-                        x => x.Key == this.Key && !ReferenceEquals(x, this)))
+                            x => x.Key == this.Key && !ReferenceEquals(x, this)))
                     {
                         return "duplicate key";
                     }
+
                     return string.Empty;
                 }
             }

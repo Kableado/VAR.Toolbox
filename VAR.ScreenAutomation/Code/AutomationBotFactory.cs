@@ -6,9 +6,9 @@ using VAR.ScreenAutomation.Interfaces;
 
 namespace VAR.ScreenAutomation.Code
 {
-    public class AutomationBotFactory
+    public static class AutomationBotFactory
     {
-        private static Dictionary<string, Type> _dictAutomationBots = null;
+        private static Dictionary<string, Type> _dictAutomationBots;
 
         private static Dictionary<string, Type> GetDict()
         {
@@ -28,8 +28,9 @@ namespace VAR.ScreenAutomation.Code
                     true);
             _dictAutomationBots = automationBotTypes.ToDictionary(t =>
             {
-                IAutomationBot automationBot = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(t) as IAutomationBot;
-                return automationBot.Name;
+                IAutomationBot automationBot =
+                    System.Runtime.Serialization.FormatterServices.GetUninitializedObject(t) as IAutomationBot;
+                return automationBot?.Name ?? t.Name;
             });
 
             return _dictAutomationBots;
@@ -39,7 +40,7 @@ namespace VAR.ScreenAutomation.Code
         {
             Dictionary<string, Type> dict = GetDict();
             string[] allAutomationBots = dict.Select(p => p.Key).ToArray();
-            return allAutomationBots;
+            return allAutomationBots.ToArray<object>();
         }
 
         public static IAutomationBot CreateFromName(string name)
@@ -49,10 +50,12 @@ namespace VAR.ScreenAutomation.Code
             {
                 return new DummyBot();
             }
+
             if (dict.ContainsKey(name) == false)
             {
-                throw new NotImplementedException(string.Format("Can't create IAutomationBot with this name: {0}", name));
+                throw new NotImplementedException($"Can't create IAutomationBot with this name: {name}");
             }
+
             Type proxyCmdExecutorType = dict[name];
 
             IAutomationBot automationBot = Activator.CreateInstance(proxyCmdExecutorType) as IAutomationBot;

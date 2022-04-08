@@ -5,21 +5,29 @@ using System.Windows.Forms;
 using VAR.ScreenAutomation.Code;
 using VAR.ScreenAutomation.Interfaces;
 
+// ReSharper disable LocalizableElement
+
 namespace VAR.ScreenAutomation
 {
     public partial class FrmScreenAutomation : Form
     {
-        private bool _running = false;
-        private IAutomationBot _automationBot = null;
+        private bool _running;
+        private IAutomationBot _automationBot;
 
-        private Timer timTicker;
-        private Bitmap bmpScreen = null;
+        private Timer _timTicker;
+        private Bitmap _bmpScreen;
 
         public FrmScreenAutomation()
         {
-            AutoScaleMode = AutoScaleMode.None;
-            Font = new Font(Font.Name, 8.25f * 96f / CreateGraphics().DpiX, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont);
+            PreInitializeComponent();
             InitializeComponent();
+        }
+
+        private void PreInitializeComponent()
+        {
+            AutoScaleMode = AutoScaleMode.None;
+            Font = new Font(Font.Name, 8.25f * 96f / CreateGraphics().DpiX, Font.Style, Font.Unit, Font.GdiCharSet,
+                Font.GdiVerticalFont);
         }
 
         private void FrmScreenAutomation_Load(object sender, EventArgs e)
@@ -31,7 +39,8 @@ namespace VAR.ScreenAutomation
             Width = configuration.Get("Width", Width);
             Height = configuration.Get("Height", Height);
             splitMain.SplitterDistance = configuration.Get("splitMain.SplitterDistance", splitMain.SplitterDistance);
-            splitOutput.SplitterDistance = configuration.Get("splitOutput.SplitterDistance", splitOutput.SplitterDistance);
+            splitOutput.SplitterDistance =
+                configuration.Get("splitOutput.SplitterDistance", splitOutput.SplitterDistance);
 
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -40,7 +49,8 @@ namespace VAR.ScreenAutomation
             picCapturer.BackColor = Color.LimeGreen;
 
             ddlAutomationBot.Items.AddRange(AutomationBotFactory.GetAllAutomationBots());
-            ddlAutomationBot.SelectedItem = configuration.Get("ddlAutomationBot", (string)ddlAutomationBot.SelectedItem);
+            ddlAutomationBot.SelectedItem =
+                configuration.Get("ddlAutomationBot", (string)ddlAutomationBot.SelectedItem);
             if (ddlAutomationBot.SelectedIndex < 0)
             {
                 ddlAutomationBot.SelectedIndex = 0;
@@ -52,14 +62,14 @@ namespace VAR.ScreenAutomation
             chkClick.Checked = configuration.Get("chkClick", chkClick.Checked);
 
             if (components == null) { components = new Container(); }
-            timTicker = new Timer(components)
+
+            _timTicker = new Timer(components)
             {
                 Interval = Convert.ToInt32(1000 / numFPS.Value),
             };
-            timTicker.Tick += TimTicker_Tick;
-            timTicker.Enabled = true;
-            timTicker.Start();
-
+            _timTicker.Tick += TimTicker_Tick;
+            _timTicker.Enabled = true;
+            _timTicker.Start();
         }
 
         private void FrmScreenAutomation_FormClosing(object sender, FormClosingEventArgs e)
@@ -80,14 +90,14 @@ namespace VAR.ScreenAutomation
 
         private void TimTicker_Tick(object sender, EventArgs e)
         {
-            timTicker.Enabled = false;
-            timTicker.Stop();
+            _timTicker.Enabled = false;
+            _timTicker.Stop();
 
-            bmpScreen = Screenshoter.CaptureControl(picCapturer, bmpScreen);
+            _bmpScreen = Screenshoter.CaptureControl(picCapturer, _bmpScreen);
 
             if (_automationBot != null)
             {
-                bmpScreen = _automationBot.Process(bmpScreen, ctrOutput);
+                _bmpScreen = _automationBot.Process(_bmpScreen, ctrOutput);
                 if (_running)
                 {
                     string responseKeys = _automationBot.ResponseKeys();
@@ -97,11 +107,12 @@ namespace VAR.ScreenAutomation
                     }
                 }
             }
-            picPreview.ImageShow = bmpScreen;
 
-            timTicker.Interval = Convert.ToInt32(1000 / numFPS.Value);
-            timTicker.Enabled = true;
-            timTicker.Start();
+            picPreview.ImageShow = _bmpScreen;
+
+            _timTicker.Interval = Convert.ToInt32(1000 / numFPS.Value);
+            _timTicker.Enabled = true;
+            _timTicker.Start();
         }
 
         private void BtnStartEnd_Click(object sender, EventArgs e)
@@ -124,6 +135,7 @@ namespace VAR.ScreenAutomation
         private void BtnAutomationBotConfig_Click(object sender, EventArgs e)
         {
             if (_automationBot == null) { return; }
+
             IConfiguration defaultConfig = _automationBot.GetDefaultConfiguration();
             var config = new FileBackedConfiguration(_automationBot.Name);
             config.Load(defaultConfig);
@@ -135,6 +147,7 @@ namespace VAR.ScreenAutomation
             {
                 WindowHandling.WindowSetTopLevel(this, false);
             }
+
             frmAutomationBotParameters.ShowDialog();
             InitBot(_automationBot.Name);
             if (_isToplevel)
@@ -146,20 +159,22 @@ namespace VAR.ScreenAutomation
         private void Start()
         {
             if (_running) { return; }
+
             _running = true;
             btnStartEnd.Text = "End";
             InitBot((string)ddlAutomationBot.SelectedItem);
-            if (chkClick.Checked)
-            {
-                Point pointCapturerCenter = picCapturer.PointToScreen(new Point(picCapturer.Width / 2, picCapturer.Height / 2));
-                Mouse.SetPosition((uint)pointCapturerCenter.X, (uint)pointCapturerCenter.Y);
-                Mouse.Click(Mouse.MouseButtons.Left);
-            }
+            if (!chkClick.Checked) { return; }
+
+            Point pointCapturerCenter =
+                picCapturer.PointToScreen(new Point(picCapturer.Width / 2, picCapturer.Height / 2));
+            Mouse.SetPosition((uint)pointCapturerCenter.X, (uint)pointCapturerCenter.Y);
+            Mouse.Click(Mouse.MouseButtons.Left);
         }
 
         private void End()
         {
             if (_running == false) { return; }
+
             _running = false;
             btnStartEnd.Text = "Start";
         }
@@ -177,19 +192,21 @@ namespace VAR.ScreenAutomation
             WindowSetTopLevel(chkKeepToplevel.Checked);
         }
 
-        private bool _isToplevel = false;
+        private bool _isToplevel;
 
         private void WindowSetTopLevel(bool toplevel)
         {
             if (toplevel)
             {
                 if (_isToplevel) { return; }
+
                 WindowHandling.WindowSetTopLevel(this);
                 _isToplevel = true;
             }
             else
             {
                 if (_isToplevel == false) { return; }
+
                 WindowHandling.WindowSetTopLevel(this, false);
                 _isToplevel = false;
             }

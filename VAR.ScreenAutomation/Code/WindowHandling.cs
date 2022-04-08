@@ -3,9 +3,11 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
+// ReSharper disable InconsistentNaming
+
 namespace VAR.ScreenAutomation.Code
 {
-    public class WindowHandling
+    public static class WindowHandling
     {
         private static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
         private static readonly IntPtr HWND_NOTOPMOST = new IntPtr(-2);
@@ -15,18 +17,15 @@ namespace VAR.ScreenAutomation.Code
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy,
+            uint uFlags);
 
         public static void WindowSetTopLevel(Form form, bool top = true)
         {
-            if (top)
-            {
-                SetWindowPos(form.Handle, HWND_TOPMOST, 0, 0, 0, 0, TOPMOST_FLAGS);
-            }
-            else
-            {
-                SetWindowPos(form.Handle, HWND_NOTOPMOST, 0, 0, 0, 0, TOPMOST_FLAGS);
-            }
+            SetWindowPos(form.Handle, top
+                    ? HWND_TOPMOST
+                    : HWND_NOTOPMOST,
+                0, 0, 0, 0, TOPMOST_FLAGS);
         }
 
         public static bool ApplicationIsActivated()

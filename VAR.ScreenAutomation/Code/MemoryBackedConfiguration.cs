@@ -7,12 +7,13 @@ namespace VAR.ScreenAutomation.Code
 {
     public class MemoryBackedConfiguration : IConfiguration
     {
-        private Dictionary<string, string> _configItems = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _configItems = new Dictionary<string, string>();
 
         public IEnumerable<string> GetKeys()
         {
-            if (_configItems == null) { return new List<string>(); }
-            return _configItems.Select(p => p.Key);
+            return _configItems == null
+                ? new List<string>()
+                : _configItems.Select(p => p.Key);
         }
 
         public void Clear()
@@ -23,41 +24,44 @@ namespace VAR.ScreenAutomation.Code
         public string Get(string key, string defaultValue)
         {
             if (_configItems == null) { return defaultValue; }
-            if (_configItems.ContainsKey(key))
-            {
-                return _configItems[key];
-            }
-            return defaultValue;
+
+            return _configItems.ContainsKey(key) ? _configItems[key] : defaultValue;
         }
 
         public int Get(string key, int defaultValue)
         {
             if (_configItems == null) { return defaultValue; }
+
             if (_configItems.ContainsKey(key))
             {
                 if (int.TryParse(_configItems[key], out int value))
                 {
                     return value;
                 }
+
                 return defaultValue;
             }
+
             return defaultValue;
         }
 
         public bool Get(string key, bool defaultValue)
         {
             if (_configItems == null) { return defaultValue; }
+
             if (_configItems.ContainsKey(key))
             {
                 string value = _configItems[key];
                 return (value == "true");
             }
+
             return defaultValue;
         }
 
         public void Set(string key, string value)
         {
             if (_configItems == null) { return; }
+
             if (_configItems.ContainsKey(key))
             {
                 _configItems[key] = value;
@@ -71,6 +75,7 @@ namespace VAR.ScreenAutomation.Code
         public void Set(string key, int value)
         {
             if (_configItems == null) { return; }
+
             if (_configItems.ContainsKey(key))
             {
                 _configItems[key] = Convert.ToString(value);
@@ -84,6 +89,7 @@ namespace VAR.ScreenAutomation.Code
         public void Set(string key, bool value)
         {
             if (_configItems == null) { return; }
+
             if (_configItems.ContainsKey(key))
             {
                 _configItems[key] = value ? "true" : "false";
@@ -93,6 +99,5 @@ namespace VAR.ScreenAutomation.Code
                 _configItems.Add(key, value ? "true" : "false");
             }
         }
-
     }
 }

@@ -4,17 +4,19 @@ using System.Windows.Forms;
 
 namespace VAR.ScreenAutomation.Code
 {
-    public class Screenshoter
+    public static class Screenshoter
     {
         public static Bitmap CaptureControl(Control ctrl, Bitmap bmp = null)
         {
             if (ctrl == null) { return bmp; }
+
             Point picCapturerOrigin = ctrl.PointToScreen(new Point(0, 0));
             bmp = CaptureScreen(bmp, picCapturerOrigin.X, picCapturerOrigin.Y, ctrl.Width, ctrl.Height);
             return bmp;
         }
 
-        public static Bitmap CaptureScreen(Bitmap bmp = null, int? left = null, int? top = null, int? width = null, int? height = null)
+        private static Bitmap CaptureScreen(Bitmap bmp = null, int? left = null, int? top = null, int? width = null,
+            int? height = null)
         {
             if (width <= 0 || height <= 0) { return bmp; }
 
@@ -25,9 +27,9 @@ namespace VAR.ScreenAutomation.Code
             height = height ?? SystemInformation.VirtualScreen.Height;
 
             // Create a bitmap of the appropriate size to receive the screenshot.
-            if (bmp == null || bmp?.Width != width || bmp?.Height != height)
+            if (bmp == null || bmp.Width != width || bmp.Height != height)
             {
-                bmp = new Bitmap(width ?? 0, height ?? 0);
+                bmp = new Bitmap((int)width, (int)height);
             }
 
             try
@@ -35,10 +37,14 @@ namespace VAR.ScreenAutomation.Code
                 // Draw the screenshot into our bitmap.
                 using (Graphics g = Graphics.FromImage(bmp))
                 {
-                    g.CopyFromScreen(left ?? 0, top ?? 0, 0, 0, bmp.Size);
+                    g.CopyFromScreen((int)left, (int)top, 0, 0, bmp.Size);
                 }
             }
-            catch (Exception) { /* Nom Nom Nom */}
+            catch (Exception)
+            {
+                /* Nom Nom Nom */
+            }
+
             return bmp;
         }
     }
