@@ -1,9 +1,8 @@
 *.exe
 *.dll
 *.pdb
-*/bin/*
-*/obj/*
-*.csproj.user
-*.DotSettings.user
+**/bin/**
+**/obj/**
 *.suo
 .vs
+*.user
