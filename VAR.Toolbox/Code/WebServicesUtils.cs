@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace VAR.Toolbox.Code
 {
-    public class WebServicesUtils
+    public static class WebServicesUtils
     {
         private static readonly CookieContainer _cookieJar = new CookieContainer();
 
-        public static string CallApi(string urlService, string urlApiMethod, Dictionary<string, string> prms, object content, CookieContainer cookieJar = null, string stringContent = null, Dictionary<string, string> customHeaders = null, string verb = "POST", bool disableCertificateValidation = false)
+        public static string CallApi(string urlService, string urlApiMethod, Dictionary<string, string> parameters,
+            object content, CookieContainer cookieJar = null, string stringContent = null,
+            Dictionary<string, string> customHeaders = null, string verb = "POST",
+            bool disableCertificateValidation = false)
         {
             if (urlService?.StartsWith("!") == true)
             {
@@ -20,11 +23,12 @@ namespace VAR.Toolbox.Code
             }
 
             if (cookieJar == null) { cookieJar = _cookieJar; }
+
             try
             {
                 var sbRequestUrl = new StringBuilder();
                 sbRequestUrl.Append(urlService);
-                if (urlService.EndsWith("/") && urlApiMethod.StartsWith("/"))
+                if (urlService != null && urlService.EndsWith("/") && urlApiMethod.StartsWith("/"))
                 {
                     sbRequestUrl.Append(urlApiMethod.Substring(1));
                 }
@@ -32,23 +36,19 @@ namespace VAR.Toolbox.Code
                 {
                     sbRequestUrl.Append(urlApiMethod);
                 }
-                if (prms != null)
+
+                if (parameters != null)
                 {
-                    foreach (KeyValuePair<string, string> pair in prms)
+                    foreach (KeyValuePair<string, string> pair in parameters)
                     {
-                        if (pair.Value == null)
-                        {
-                            sbRequestUrl.AppendFormat("&{0}={1}", pair.Key, string.Empty);
-                        }
-                        else
-                        {
-                            sbRequestUrl.AppendFormat("&{0}={1}", pair.Key, HttpServer.HttpUtility.UrlEncode(pair.Value));
-                        }
+                        sbRequestUrl.AppendFormat("&{0}={1}", pair.Key,
+                            pair.Value == null ? string.Empty : HttpServer.HttpUtility.UrlEncode(pair.Value));
                     }
                 }
+
                 if (sbRequestUrl.Length > 2048)
                 {
-                    throw new Exception(string.Format("CallApi: Request URL longer than 2048: url: \"{0}\"", sbRequestUrl.ToString()));
+                    throw new Exception($"CallApi: Request URL longer than 2048: url: \"{sbRequestUrl}\"");
                 }
 
                 var http = (HttpWebRequest)WebRequest.Create(new Uri(sbRequestUrl.ToString()));
@@ -56,7 +56,8 @@ namespace VAR.Toolbox.Code
 #if UNIFIKAS_COMMONS
                 if (disableCertificateValidation)
                 {
-                    http.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+                    http.ServerCertificateValidationCallback =
+ (sender, certificate, chain, sslPolicyErrors) => { return true; };
                 }
 #else
                 if (disableCertificateValidation)
@@ -83,6 +84,7 @@ namespace VAR.Toolbox.Code
                     {
                         parsedContent = stringContent;
                     }
+
                     UTF8Encoding encoding = new UTF8Encoding();
                     byte[] bytes = encoding.GetBytes(parsedContent);
 
@@ -97,40 +99,47 @@ namespace VAR.Toolbox.Code
                 responseTask.Wait();
                 WebResponse response = responseTask.Result;
                 var stream = response.GetResponseStream();
+                if (stream == null) { return null; }
+
                 var sr = new StreamReader(stream);
                 return sr.ReadToEnd();
             }
             catch (Exception ex)
             {
+                // ReSharper disable once PossibleIntendedRethrow
                 throw ex;
             }
         }
 
-        public static string CallSoapMethod(string url, string method, Dictionary<string, object> parms, string namespaceUrl = "http://tempuri.org", ICredentials credentials = null)
+        public static string CallSoapMethod(string url, string method, Dictionary<string, object> parameters,
+            string namespaceUrl = "http://tempuri.org", ICredentials credentials = null)
         {
             // Los servicios SOAP se llaman siempre a través de HTTP.
             if (url.ToLower().StartsWith("https://"))
             {
-                url = string.Format("http://{0}", url.Substring("https://".Length));
+                url = $"http://{url.Substring("https://".Length)}";
             }
 
             // Construir petición
             var sbData = new StringBuilder();
             sbData.AppendFormat("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
-            sbData.AppendFormat("<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">");
+            sbData.AppendFormat(
+                "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">");
             sbData.AppendFormat("<soap:Body>");
             sbData.AppendFormat("<{0} xmlns=\"{1}\">", method, namespaceUrl);
-            foreach (KeyValuePair<string, object> parm in parms)
+            foreach (KeyValuePair<string, object> parameter in parameters)
             {
-                if (parm.Value != null && !(parm.Value is DBNull))
+                if (parameter.Value != null && !(parameter.Value is DBNull))
                 {
-                    sbData.AppendFormat("<{0}>{1}</{0}>", parm.Key, parm.Value);
+                    sbData.AppendFormat("<{0}>{1}</{0}>", parameter.Key, parameter.Value);
                 }
                 else
                 {
-                    sbData.AppendFormat("<{0} i:nil=\"true\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" />", parm.Key);
+                    sbData.AppendFormat("<{0} i:nil=\"true\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" />",
+                        parameter.Key);
                 }
             }
+
             sbData.AppendFormat("</{0}>", method);
             sbData.AppendFormat("</soap:Body>");
             sbData.AppendFormat("</soap:Envelope>");
@@ -138,22 +147,20 @@ namespace VAR.Toolbox.Code
             byte[] postData = Encoding.UTF8.GetBytes(sbData.ToString());
 
             // Realizar petición
-            var client = new System.Net.WebClient();
+            var client = new WebClient();
             if (credentials != null)
             {
                 client.Credentials = credentials;
             }
+
             client.Headers.Add("Accept", "text/xml");
             client.Headers.Add("Accept-Charset", "UTF-8");
             client.Headers.Add("Content-Type", "text/xml;  charset=UTF-8");
-            if (namespaceUrl.ToLower().StartsWith("http"))
-            {
-                client.Headers.Add("SOAPAction", string.Format("\"{0}/{1}\"", namespaceUrl, method));
-            }
-            else
-            {
-                client.Headers.Add("SOAPAction", string.Format("\"{0}:{1}\"", namespaceUrl, method));
-            }
+            client.Headers.Add("SOAPAction",
+                namespaceUrl.ToLower().StartsWith("http")
+                    ? $"\"{namespaceUrl}/{method}\""
+                    : $"\"{namespaceUrl}:{method}\"");
+
             byte[] data;
             try
             {
@@ -161,11 +168,11 @@ namespace VAR.Toolbox.Code
             }
             catch (Exception ex)
             {
-                throw new Exception(string.Format("Failure calling SoapService: URL: {0}", url), ex);
+                throw new Exception($"Failure calling SoapService: URL: {url}", ex);
             }
-            string strData = System.Text.Encoding.UTF8.GetString(data);
+
+            string strData = Encoding.UTF8.GetString(data);
             return strData;
         }
-
     }
 }

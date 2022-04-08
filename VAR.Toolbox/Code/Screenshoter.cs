@@ -6,7 +6,7 @@ using VAR.Toolbox.Code.Windows;
 
 namespace VAR.Toolbox.Code
 {
-    public class Screenshooter
+    public static class Screenshoter
     {
         public static Bitmap CaptureScreen(Bitmap bmp = null)
         {
@@ -17,7 +17,7 @@ namespace VAR.Toolbox.Code
             int screenHeight = SystemInformation.VirtualScreen.Height;
 
             // Create a bitmap of the appropriate size to receive the screenshot.
-            if (bmp == null || bmp?.Width != screenWidth || bmp?.Height != screenHeight)
+            if (bmp == null || bmp.Width != screenWidth || bmp.Height != screenHeight)
             {
                 bmp = new Bitmap(screenWidth, screenHeight);
             }
@@ -27,6 +27,7 @@ namespace VAR.Toolbox.Code
             {
                 g.CopyFromScreen(screenLeft, screenTop, 0, 0, bmp.Size);
             }
+
             return bmp;
         }
 
@@ -76,8 +77,5 @@ namespace VAR.Toolbox.Code
 
             return img;
         }
-
-
-
     }
 }

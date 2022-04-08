@@ -4,7 +4,7 @@ using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Windows;
 using VAR.Toolbox.Controls;
 
-namespace VAR.Toolbox.UI
+namespace VAR.Toolbox.UI.Tools
 {
     public partial class PnlCover : SubFrame, IToolPanel
     {
@@ -19,10 +19,11 @@ namespace VAR.Toolbox.UI
         private void TimTicker_Tick(object sender, EventArgs e)
         {
             if (DesignMode) { return; }
+
             timTicker.Stop();
             uint inactiveTime = Win32.GetLastInputTime();
 
-            lblInactive.Text = string.Format("Inactive by {0} seconds", inactiveTime);
+            lblInactive.Text = $"Inactive by {inactiveTime} seconds";
 
             if (chkAutoCover.Checked)
             {
@@ -31,6 +32,7 @@ namespace VAR.Toolbox.UI
                     CoverScreen();
                 }
             }
+
             timTicker.Start();
         }
 
@@ -39,7 +41,7 @@ namespace VAR.Toolbox.UI
             CoverScreen();
         }
 
-        private FrmCover _frmCover = null;
+        private FrmCover _frmCover;
 
         private void CoverScreen()
         {
@@ -52,6 +54,7 @@ namespace VAR.Toolbox.UI
                 _frmCover.Show();
                 return;
             }
+
             _frmCover = new FrmCover();
             _frmCover.FormClosing += (sender, e) => { _frmCover = null; };
             _frmCover.Show();
@@ -61,6 +64,5 @@ namespace VAR.Toolbox.UI
                 frmParent.WindowState = FormWindowState.Minimized;
             }
         }
-
     }
 }

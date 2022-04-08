@@ -5,9 +5,9 @@ namespace VAR.Toolbox.Code.ProxyCmdExecutors
 {
     public class ProxyCmdExecutorThroughSQLServer : IProxyCmdExecutor
     {
-        public string Name { get { return "SqlServer"; } }
+        public string Name => "SqlServer";
 
-        private readonly string _connectionString = null;
+        private readonly string _connectionString;
 
         public ProxyCmdExecutorThroughSQLServer(string connectionString)
         {
@@ -27,6 +27,7 @@ namespace VAR.Toolbox.Code.ProxyCmdExecutors
                 string output = Convert.ToString(reader[0]);
                 outputHandler.OutputLine(output);
             }
+
             cnx.Close();
             return true;
         }

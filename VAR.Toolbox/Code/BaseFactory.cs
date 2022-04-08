@@ -6,7 +6,8 @@ namespace VAR.Toolbox.Code
 {
     public abstract class BaseFactory<T> where T : INamed
     {
-        private static Dictionary<string, Type> _dictTypes = null;
+        // ReSharper disable once StaticMemberInGenericType
+        private static Dictionary<string, Type> _dictTypes;
 
         private static Dictionary<string, Type> GetDict()
         {
@@ -37,8 +38,10 @@ namespace VAR.Toolbox.Code
             Dictionary<string, Type> dict = GetDict();
             if (dict.ContainsKey(name) == false)
             {
-                throw new NotImplementedException(string.Format("Cant create {1} with this name: {0}", name, typeof(T).Name));
+                throw new NotImplementedException(string.Format("Cant create {1} with this name: {0}", name,
+                    typeof(T).Name));
             }
+
             Type type = dict[name];
 
             T instance = (T)Activator.CreateInstance(type);
@@ -55,10 +58,13 @@ namespace VAR.Toolbox.Code
             {
                 return (T)(object)null;
             }
+
             if (dict.ContainsKey(name) == false)
             {
-                throw new NotImplementedException(string.Format("Cant create {1} with this config: {0}", config, typeof(T).Name));
+                throw new NotImplementedException(string.Format("Cant create {1} with this config: {0}", config,
+                    typeof(T).Name));
             }
+
             Type type = dict[name];
 
             T instance = (T)Activator.CreateInstance(type, new object[] { nextConfig });

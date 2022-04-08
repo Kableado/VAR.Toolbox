@@ -1,6 +1,5 @@
 namespace VAR.Toolbox.Code.DirectShow
 {
-    using System;
     using System.Runtime.InteropServices;
 
     /// <summary>
@@ -8,8 +7,8 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComImport,
-    Guid("56A86892-0AD4-11CE-B03A-0020AF0BA770"),
-    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     Guid("56A86892-0AD4-11CE-B03A-0020AF0BA770"),
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface IEnumPins
     {
         /// <summary>
@@ -24,7 +23,8 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int Next([In] int cPins,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IPin[] pins,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
+            IPin[] pins,
             [Out] out int pinsFetched);
 
         /// <summary>

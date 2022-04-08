@@ -8,7 +8,7 @@ namespace VAR.Toolbox.Controls
     {
         #region Declarations
 
-        private Image _imageShow = null;
+        private Image _imageShow;
 
         #endregion
 
@@ -16,7 +16,8 @@ namespace VAR.Toolbox.Controls
 
         public Image ImageShow
         {
-            get { return _imageShow; }
+            // ReSharper disable once InconsistentlySynchronizedField
+            get => _imageShow;
             set
             {
                 lock (this)
@@ -33,6 +34,11 @@ namespace VAR.Toolbox.Controls
 
         public CtrImageViewer()
         {
+            InitializeComponent();
+        }
+
+        private void InitializeComponent()
+        {
             BackColor = Color.Black;
         }
 
@@ -46,7 +52,7 @@ namespace VAR.Toolbox.Controls
         {
             base.OnResize(e);
             //Redraw(null);
-            this.Invalidate();
+            Invalidate();
         }
 
         #endregion
@@ -59,11 +65,12 @@ namespace VAR.Toolbox.Controls
             {
                 return;
             }
+
             lock (_imageShow)
             {
                 if (graph == null)
                 {
-                    graph = this.CreateGraphics();
+                    graph = CreateGraphics();
                 }
 
                 // Calcular dimensiones a dibujar y centrar
@@ -71,7 +78,7 @@ namespace VAR.Toolbox.Controls
                 int imgDrawHeight;
                 float imgDrawX = 0;
                 float imgDrawY = 0;
-                float relation = (float)_imageShow.Width / (float)_imageShow.Height;
+                float relation = _imageShow.Width / (float)_imageShow.Height;
                 if (relation > 0)
                 {
                     // Imagen mas ancha que alta
@@ -110,6 +117,5 @@ namespace VAR.Toolbox.Controls
         }
 
         #endregion
-
     }
 }

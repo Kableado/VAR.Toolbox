@@ -7,6 +7,11 @@ namespace VAR.Toolbox.Controls
     {
         public ListBoxNormal()
         {
+            InitializeComponent();
+        }
+
+        private void InitializeComponent()
+        {
             FormattingEnabled = true;
             Font = new Font("Microsoft Sans Serif", ControlsUtils.GetFontSize(this, 8.25f));
             BackColor = Color.Black;
@@ -16,16 +21,16 @@ namespace VAR.Toolbox.Controls
 
         protected override void OnMouseWheel(MouseEventArgs e)
         {
-            (e as HandledMouseEventArgs).Handled = true;
-            const int rows = 5;
+            ((HandledMouseEventArgs)e).Handled = true;
+            const int Rows = 5;
             if (e.Delta > 0)
             {
-                if (TopIndex < rows) { TopIndex = 0; }
-                else { TopIndex -= rows; }
+                if (TopIndex < Rows) { TopIndex = 0; }
+                else { TopIndex -= Rows; }
             }
             else
             {
-                TopIndex += rows;
+                TopIndex += Rows;
             }
         }
     }

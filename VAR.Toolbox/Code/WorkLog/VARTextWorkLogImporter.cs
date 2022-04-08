@@ -10,7 +10,7 @@ namespace VAR.Toolbox.Code.WorkLog
 {
     public class VARTextWorkLogImporter : IWorkLogImporter
     {
-        public string Name { get { return "VARText"; } }
+        public string Name => "VARText";
 
         //TODO: VARTextWorkLogImporter: Export WorkLigItem.Tags
         public bool Export(List<WorkLogItem> items, Form form)
@@ -23,6 +23,7 @@ namespace VAR.Toolbox.Code.WorkLog
             {
                 File.Delete(saveFileDialog.FileName);
             }
+
             using (StreamWriter streamWriter = new StreamWriter(saveFileDialog.FileName))
             {
                 DateTime lastDateTime = DateTime.MinValue;
@@ -30,30 +31,33 @@ namespace VAR.Toolbox.Code.WorkLog
                 List<WorkLogItem> itemsOrdered = items.OrderBy(x => x.DateStart).ToList();
                 foreach (WorkLogItem item in itemsOrdered)
                 {
-                    int weekOfYear = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(item.DateStart, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+                    int weekOfYear = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(item.DateStart,
+                        CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
                     if (weekOfYear != lastWeekOfYear)
                     {
                         streamWriter.WriteLine();
                         streamWriter.WriteLine();
-                        streamWriter.WriteLine(string.Format("--- {0:0000}-{1:00}-{2:00}", item.DateStart.Year, item.DateStart.Month, item.DateStart.Day));
+                        streamWriter.WriteLine("--- {0:0000}-{1:00}-{2:00}", item.DateStart.Year, item.DateStart.Month,
+                            item.DateStart.Day);
                         lastWeekOfYear = weekOfYear;
                     }
+
                     if (lastDateTime.Day != item.DateStart.Day)
                     {
                         streamWriter.WriteLine();
                         lastDateTime = item.DateStart;
                     }
 
-                    streamWriter.WriteLine(string.Format("{0:00}_{1:00}_{2:00} - {3:00}_{4:00}_{5:00} {6}",
-                        item.DateStart.Day, item.DateStart.Hour, item.DateStart.Minute,
-                        item.DateEnd.Day, item.DateEnd.Hour, item.DateEnd.Minute,
-                        item.Activity));
+                    streamWriter.WriteLine("{0:00}_{1:00}_{2:00} - {3:00}_{4:00}_{5:00} {6}", item.DateStart.Day,
+                        item.DateStart.Hour, item.DateStart.Minute, item.DateEnd.Day, item.DateEnd.Hour,
+                        item.DateEnd.Minute, item.Activity);
                     if (string.IsNullOrEmpty(item.Description) == false)
                     {
-                        streamWriter.WriteLine(string.Format("                    {0}", item.Description));
+                        streamWriter.WriteLine($"                    {item.Description}");
                     }
                 }
             }
+
             return true;
         }
 
@@ -82,14 +86,13 @@ namespace VAR.Toolbox.Code.WorkLog
                 {
                     string strDate = lineAux.Substring(4);
                     string[] strDateParts = strDate.Split('-');
-                    if (strDateParts.Length >= 3 && strDateParts[0].Length == 4 && strDateParts[1].Length == 2 && strDateParts[2].Length == 2)
+                    if (strDateParts.Length >= 3 && strDateParts[0].Length == 4 && strDateParts[1].Length == 2 &&
+                        strDateParts[2].Length == 2)
                     {
-                        currentDateStart = new DateTime(Convert.ToInt32(strDateParts[0]), Convert.ToInt32(strDateParts[1]), Convert.ToInt32(strDateParts[2]), 0, 0, 0);
+                        currentDateStart = new DateTime(Convert.ToInt32(strDateParts[0]),
+                            Convert.ToInt32(strDateParts[1]), Convert.ToInt32(strDateParts[2]), 0, 0, 0);
                     }
-                    else
-                    {
-                        continue;
-                    }
+                    else { }
                 }
                 else if (lineAux.StartsWith("--"))
                 {
@@ -97,7 +100,6 @@ namespace VAR.Toolbox.Code.WorkLog
                     {
                         currentWorkLog.Description += lineAux + "\n";
                     }
-                    continue;
                 }
                 else
                 {
@@ -108,8 +110,10 @@ namespace VAR.Toolbox.Code.WorkLog
                         {
                             currentWorkLog.Description += lineAux + "\n";
                         }
+
                         continue;
                     }
+
                     int startDay = Convert.ToInt32(match.Groups[1].Value);
                     int startHour = Convert.ToInt32(match.Groups[2].Value);
                     int startMinute = Convert.ToInt32(match.Groups[3].Value);

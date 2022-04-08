@@ -17,6 +17,5 @@ namespace VAR.Toolbox.Code
                     interfaceType.IsAssignableFrom(x) &&
                     true);
         }
-
     }
 }

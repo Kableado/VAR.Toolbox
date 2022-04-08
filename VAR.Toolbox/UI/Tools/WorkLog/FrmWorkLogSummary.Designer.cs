@@ -1,6 +1,6 @@
 ﻿namespace VAR.Toolbox.UI.Tools.WorkLog
 {
-    partial class FrmWorkLogSumary
+    partial class FrmWorkLogSummary
     {
         /// <summary>
         /// Required designer variable.
@@ -169,7 +169,7 @@
             this.Controls.Add(this.lblDateStart);
             this.Controls.Add(this.lsbActivities);
             this.Location = new System.Drawing.Point(0, 0);
-            this.Name = "FrmWorkLogSumary";
+            this.Name = "FrmWorkLogSummary";
             this.Text = "WorkLogSumary";
             this.Load += new System.EventHandler(this.FrmWorkLogStats_Load);
             this.ResumeLayout(false);

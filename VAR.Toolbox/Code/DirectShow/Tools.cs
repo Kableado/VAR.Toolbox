@@ -20,24 +20,20 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         /// <returns>Returns filter's pin.</returns>
         /// 
-        public static IPin GetPin(IBaseFilter filter, PinDirection dir, int num)
+        private static IPin GetPin(IBaseFilter filter, PinDirection dir, int num)
         {
             IPin[] pin = new IPin[1];
-            IEnumPins pinsEnum = null;
 
             // enum filter pins
-            if (filter.EnumPins(out pinsEnum) == 0)
+            if (filter.EnumPins(out IEnumPins pinsEnum) == 0)
             {
-                PinDirection pinDir;
-                int n;
-
                 try
                 {
                     // get next pin
-                    while (pinsEnum.Next(1, pin, out n) == 0)
+                    while (pinsEnum.Next(1, pin, out int _) == 0)
                     {
                         // query pin`s direction
-                        pin[0].QueryDirection(out pinDir);
+                        pin[0].QueryDirection(out PinDirection pinDir);
 
                         if (pinDir == dir)
                         {
@@ -55,6 +51,7 @@ namespace VAR.Toolbox.Code.DirectShow
                     Marshal.ReleaseComObject(pinsEnum);
                 }
             }
+
             return null;
         }
 

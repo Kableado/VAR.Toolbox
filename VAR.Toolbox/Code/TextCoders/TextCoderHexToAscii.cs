@@ -4,9 +4,9 @@ namespace VAR.Toolbox.Code.TextCoders
 {
     public class TextCoderHexToAscii : ITextCoder
     {
-        public string Name { get { return "HexToAscii"; } }
+        public string Name => "HexToAscii";
 
-        public bool NeedsKey { get { return false; } }
+        public bool NeedsKey => false;
 
         public string Decode(string input, string key)
         {
@@ -20,6 +20,5 @@ namespace VAR.Toolbox.Code.TextCoders
             byte[] toEncodeAsBytes = Encoding.ASCII.GetBytes(input);
             return HexUtils.BytesToHexString(toEncodeAsBytes);
         }
-
     }
 }

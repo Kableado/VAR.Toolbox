@@ -5,15 +5,15 @@ using System.Windows.Forms;
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Controls;
 
-namespace VAR.Toolbox.UI
+namespace VAR.Toolbox.UI.Tools
 {
     public partial class FrmWebcam : Frame, IToolForm
     {
-        public string ToolName { get { return "Webcam"; } }
+        public string ToolName => "Webcam";
 
-        public bool HasIcon { get { return false; } }
+        public bool HasIcon => false;
 
-        private Webcam webcam = null;
+        private Webcam _webcam;
 
         public FrmWebcam()
         {
@@ -32,30 +32,31 @@ namespace VAR.Toolbox.UI
 
         private void FrmWebcam_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (webcam != null)
+            if (_webcam != null)
             {
-                webcam.Stop();
+                _webcam.Stop();
             }
         }
 
         private void BtnStartStop_Click(object sender, EventArgs e)
         {
-            if (webcam == null)
+            if (_webcam == null)
             {
                 InitWebcam();
             }
-            if (webcam != null)
+
+            if (_webcam != null)
             {
-                if (webcam.Active)
+                if (_webcam.Active)
                 {
-                    webcam.Stop();
+                    _webcam.Stop();
                     btnStartStop.Text = "Start";
                     picWebcam.ImageShow = null;
-                    webcam = null;
+                    _webcam = null;
                 }
                 else
                 {
-                    webcam.Start();
+                    _webcam.Start();
                     btnStartStop.Text = "Stop";
                 }
             }
@@ -64,9 +65,10 @@ namespace VAR.Toolbox.UI
         private void InitWebcam()
         {
             if (cboWebcams.SelectedIndex < 0) { return; }
+
             WebcamObject webcamObject = (WebcamObject)cboWebcams.SelectedItem;
-            webcam = new Webcam(webcamObject.Moniker);
-            webcam.NewFrame += Webcam_NewFrame;
+            _webcam = new Webcam(webcamObject.Moniker);
+            _webcam.NewFrame += Webcam_NewFrame;
         }
 
         private class WebcamObject
@@ -89,6 +91,7 @@ namespace VAR.Toolbox.UI
                 {
                     cboWebcams.Items.Add(new WebcamObject { Name = pair.Key, Moniker = pair.Value });
                 }
+
                 if (cboWebcams.Items.Count > 0)
                 {
                     cboWebcams.SelectedIndex = 0;

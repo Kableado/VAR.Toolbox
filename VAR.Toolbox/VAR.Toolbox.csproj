@@ -121,19 +121,29 @@
     <Compile Include="Code\ProxyCmdExecutors\ProxyCmdExecutorFactory.cs" />
     <Compile Include="Code\ProxyCmdExecutors\ProxyCmdExecutorDummy.cs" />
     <Compile Include="Code\ProxyCmdExecutors\ProxyCmdExecutorThroughSQLServer.cs" />
-    <Compile Include="Code\Screenshooter.cs" />
+    <Compile Include="Code\Screenshoter.cs" />
     <Compile Include="Code\TextCoders\TextCoderFactory.cs" />
     <Compile Include="Code\TextCoders\TextCoderHexToAscii.cs" />
     <Compile Include="Code\TextCoders\TextCoderHexToUtf8.cs" />
     <Compile Include="Code\Windows\User32.cs" />
     <Compile Include="Code\Webcam.cs" />
     <Compile Include="Code\Windows\Win32.cs" />
-    <Compile Include="Controls\CButton.cs" />
-    <Compile Include="Controls\CComboBox.cs" />
-    <Compile Include="Controls\CDateTimePicker.cs" />
-    <Compile Include="Controls\CGroupBox.cs" />
+    <Compile Include="Controls\CButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CDateTimePicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ControlsUtils.cs" />
-    <Compile Include="Controls\CSplitContainer.cs" />
+    <Compile Include="Controls\CSplitContainer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\CtrImageViewer.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -246,19 +256,23 @@
     <Compile Include="UI\Tools\PnlActivity.Designer.cs">
       <DependentUpon>PnlActivity.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Tools\PnlCover.cs" />
+    <Compile Include="UI\Tools\PnlCover.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UI\Tools\PnlCover.Designer.cs">
       <DependentUpon>PnlCover.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Tools\PnlSuspension.cs" />
+    <Compile Include="UI\Tools\PnlSuspension.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UI\Tools\PnlSuspension.Designer.cs">
       <DependentUpon>PnlSuspension.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Tools\WorkLog\FrmWorkLogSumary.cs">
+    <Compile Include="UI\Tools\WorkLog\FrmWorkLogSummary.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Tools\WorkLog\FrmWorkLogSumary.Designer.cs">
-      <DependentUpon>FrmWorkLogSumary.cs</DependentUpon>
+    <Compile Include="UI\Tools\WorkLog\FrmWorkLogSummary.Designer.cs">
+      <DependentUpon>FrmWorkLogSummary.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Tools\WorkLog\FrmWorkLogStats.cs">
       <SubType>Form</SubType>
@@ -281,10 +295,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
 </Project>

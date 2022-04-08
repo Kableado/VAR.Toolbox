@@ -6,6 +6,11 @@ namespace VAR.Toolbox.Controls
     {
         public CDateTimePicker()
         {
+            InitializeComponent();
+        }
+
+        private void InitializeComponent()
+        {
             BackColor = Color.DarkSlateGray;
             ForeColor = Color.Gray;
         }

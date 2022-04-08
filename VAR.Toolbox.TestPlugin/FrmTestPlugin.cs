@@ -10,8 +10,8 @@ namespace VAR.Toolbox.TestPlugin
             InitializeComponent();
         }
 
-        public string ToolName { get { return "Test"; } }
+        public string ToolName => "Test";
 
-        public bool HasIcon { get { return false; } }
+        public bool HasIcon => false;
     }
 }

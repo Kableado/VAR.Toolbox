@@ -5,9 +5,9 @@ namespace VAR.Toolbox.Code.TextCoders
 {
     public class TextCoderBase64ToAscii : ITextCoder
     {
-        public string Name { get { return "Base64ToAscii"; } }
+        public string Name => "Base64ToAscii";
 
-        public bool NeedsKey { get { return false; } }
+        public bool NeedsKey => false;
 
         public string Decode(string input, string key)
         {

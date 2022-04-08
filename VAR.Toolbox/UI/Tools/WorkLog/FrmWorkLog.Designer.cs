@@ -129,7 +129,7 @@
             this.btnSumary.Size = new System.Drawing.Size(73, 23);
             this.btnSumary.TabIndex = 10;
             this.btnSumary.Text = "Sumary";
-            this.btnSumary.Click += new System.EventHandler(this.btnSumary_Click);
+            this.btnSumary.Click += new System.EventHandler(this.btnSummary_Click);
             // 
             // lblWorkLogTime
             // 

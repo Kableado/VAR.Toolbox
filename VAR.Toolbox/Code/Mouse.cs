@@ -39,14 +39,17 @@ namespace VAR.Toolbox.Code
             {
                 input.Data.Mouse.Flags = down ? User32.MOUSEEVENTF_LEFTDOWN : User32.MOUSEEVENTF_LEFTUP;
             }
+
             if (button == MouseButtons.Middle)
             {
                 input.Data.Mouse.Flags = down ? User32.MOUSEEVENTF_MIDDLEDOWN : User32.MOUSEEVENTF_MIDDLEUP;
             }
+
             if (button == MouseButtons.Right)
             {
                 input.Data.Mouse.Flags = down ? User32.MOUSEEVENTF_RIGHTDOWN : User32.MOUSEEVENTF_RIGHTUP;
             }
+
             User32.INPUT[] inputs = new User32.INPUT[] { input };
             if (User32.SendInput(1, inputs, Marshal.SizeOf(typeof(User32.INPUT))) == 0)
                 throw new Exception();

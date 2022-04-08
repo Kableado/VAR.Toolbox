@@ -1,4 +1,4 @@
-﻿namespace VAR.Toolbox.UI
+﻿namespace VAR.Toolbox.UI.Tools
 {
     partial class PnlSuspension
     {
@@ -104,7 +104,7 @@
             this.btnCustomSuspenedNow.Size = new System.Drawing.Size(30, 28);
             this.btnCustomSuspenedNow.TabIndex = 13;
             this.btnCustomSuspenedNow.Text = "N";
-            this.btnCustomSuspenedNow.Click += new System.EventHandler(this.BtnCustomSuspenedNow_Click);
+            this.btnCustomSuspenedNow.Click += new System.EventHandler(this.BtnCustomSuspendNow_Click);
             // 
             // ddlCustomHour
             // 

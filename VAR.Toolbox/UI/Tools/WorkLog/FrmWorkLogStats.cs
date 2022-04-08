@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using VAR.Toolbox.Code.WorkLog;
 using VAR.Toolbox.Controls;
 
@@ -15,16 +16,16 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         public string Activity
         {
-            get { return txtActivity.Text; }
-            set { txtActivity.Text = value; }
+            get => txtActivity.Text;
+            set => txtActivity.Text = value;
         }
 
-        private List<WorkLogItem> _workLog = null;
+        private List<WorkLogItem> _workLog;
 
         public List<WorkLogItem> WorkLog
         {
-            get { return _workLog; }
-            set { _workLog = value; }
+            get => _workLog;
+            set => _workLog = value;
         }
 
         private void FrmWorkLogStats_Load(object sender, EventArgs e)
@@ -41,7 +42,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void WorkLog_ProcessStats()
@@ -53,10 +54,12 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             foreach (WorkLogItem item in _workLog)
             {
                 if (item.Activity.Contains(txtActivity.Text) == false) { continue; }
+
                 if (item.DateEnd < dtpStart.Value || item.DateStart > dtpEnd.Value) { continue; }
 
                 found = true;
                 if (item.DateStart < dateStart) { dateStart = item.DateStart; }
+
                 if (item.DateEnd > dateEnd) { dateEnd = item.DateEnd; }
 
                 DateTime dateItemDay = item.DateStart.Date;
@@ -97,7 +100,8 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             {
                 if (dictDaysHours.ContainsKey(dateDayCurrent))
                 {
-                    int weekCurrent = currentCulture.Calendar.GetWeekOfYear(dateDayCurrent, currentCulture.DateTimeFormat.CalendarWeekRule, currentCulture.DateTimeFormat.FirstDayOfWeek);
+                    int weekCurrent = currentCulture.Calendar.GetWeekOfYear(dateDayCurrent,
+                        currentCulture.DateTimeFormat.CalendarWeekRule, currentCulture.DateTimeFormat.FirstDayOfWeek);
                     if (week != null && week != weekCurrent)
                     {
                         strDays.Add(string.Format("  [{0:00}] -- {1} h",
@@ -105,10 +109,10 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                             tsWeek.TotalHours));
                         tsWeek = new TimeSpan(0);
                     }
+
                     TimeSpan tsDay = dictDaysHours[dateDayCurrent];
-                    strDays.Add(string.Format("[{0:00}] {1} -- {2} h",
-                        weekCurrent,
-                        dateDayCurrent.ToString("yyyy-MM-dd"),
+                    strDays.Add(string.Format("[{0:00}] {1:yyyy-MM-dd} -- {2} h",
+                        weekCurrent, dateDayCurrent,
                         tsDay.TotalHours));
                     tsTotal += tsDay;
                     tsWeek += tsDay;
@@ -117,15 +121,17 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
                 dateDayCurrent = dateDayCurrent.AddDays(1);
             } while (dateDayCurrent <= dateDayEnd);
+
             if (tsWeek.TotalHours > 0)
             {
                 strDays.Add(string.Format("  [{0:00}] -- {1} h",
                     week,
                     tsWeek.TotalHours));
             }
+
             lsbDays.Items.Clear();
-            lsbDays.Items.AddRange(strDays.ToArray());
-            lblTotalTime.Text = string.Format("{0} - {1}", tsTotal.ToString(), tsTotal.TotalHours);
+            lsbDays.Items.AddRange(strDays.ToArray<object>());
+            lblTotalTime.Text = $"{tsTotal.ToString()} - {tsTotal.TotalHours}";
         }
     }
 }

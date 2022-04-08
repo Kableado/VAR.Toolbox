@@ -10,8 +10,8 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComImport,
-    Guid("56A868B4-0AD4-11CE-B03A-0020AF0BA770"),
-    InterfaceType(ComInterfaceType.InterfaceIsDual)]
+     Guid("56A868B4-0AD4-11CE-B03A-0020AF0BA770"),
+     InterfaceType(ComInterfaceType.InterfaceIsDual)]
     internal interface IVideoWindow
     {
         /// <summary>
@@ -95,7 +95,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// Queries whether the video renderer automatically shows the video window when it receives video data.
         /// </summary>
         /// 
-        /// <param name="autoShow">REceives window auto show flag.</param>
+        /// <param name="autoShow">Receives window auto show flag.</param>
         /// 
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
@@ -257,7 +257,7 @@ namespace VAR.Toolbox.Code.DirectShow
         int get_Height(out int height);
 
         /// <summary>
-        /// Specifies a parent window for the video windowþ
+        /// Specifies a parent window for the video window
         /// </summary>
         /// 
         /// <param name="owner">Specifies a handle to the parent window.</param>
@@ -268,7 +268,7 @@ namespace VAR.Toolbox.Code.DirectShow
         int put_Owner(IntPtr owner);
 
         /// <summary>
-        /// Retrieves the video window's parent window, if anyþ
+        /// Retrieves the video window's parent window, if any
         /// </summary>
         /// 
         /// <param name="owner">Parent window's handle.</param>
@@ -360,7 +360,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// Forwards a message to the video window.
         /// </summary>
         /// 
-        /// <param name="hwnd">Handle to the window.</param>
+        /// <param name="hWnd">Handle to the window.</param>
         /// <param name="msg">Specifies the message.</param>
         /// <param name="wParam">Message parameter.</param>
         /// <param name="lParam">Message parameter.</param>
@@ -368,10 +368,10 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int NotifyOwnerMessage(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam);
+        int NotifyOwnerMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
         /// <summary>
-        /// Sets the position of the video windowþ
+        /// Sets the position of the video window
         /// </summary>
         /// 
         /// <param name="left">Specifies the x-coordinate, in pixels.</param>

@@ -8,8 +8,8 @@
     /// filter graph's default handling of events.
     /// </summary>
     [ComVisible(true), ComImport,
-    Guid("56a868c0-0ad4-11ce-b03a-0020af0ba770"),
-    InterfaceType(ComInterfaceType.InterfaceIsDual)]
+     Guid("56a868c0-0ad4-11ce-b03a-0020af0ba770"),
+     InterfaceType(ComInterfaceType.InterfaceIsDual)]
     internal interface IMediaEventEx
     {
         /// <summary>
@@ -34,7 +34,8 @@
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetEvent([Out, MarshalAs(UnmanagedType.I4)] out DsEvCode lEventCode, [Out] out IntPtr lParam1, [Out] out IntPtr lParam2, int msTimeout);
+        int GetEvent([Out, MarshalAs(UnmanagedType.I4)] out DsEvCode lEventCode, [Out] out IntPtr lParam1,
+            [Out] out IntPtr lParam2, int msTimeout);
 
         /// <summary>
         /// Waits for the filter graph to render all available data.
@@ -85,14 +86,14 @@
         /// Registers a window to process event notifications.
         /// </summary>
         /// 
-        /// <param name="hwnd">Handle to the window, or <see cref="IntPtr.Zero"/> to stop receiving event messages.</param>
+        /// <param name="hWnd">Handle to the window, or <see cref="IntPtr.Zero"/> to stop receiving event messages.</param>
         /// <param name="lMsg">Window message to be passed as the notification.</param>
         /// <param name="lInstanceData">Value to be passed as the <i>lParam</i> parameter for the <i>lMsg</i> message.</param>
         /// 
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int SetNotifyWindow(IntPtr hwnd, int lMsg, IntPtr lInstanceData);
+        int SetNotifyWindow(IntPtr hWnd, int lMsg, IntPtr lInstanceData);
 
         /// <summary>
         /// Enables or disables event notifications.

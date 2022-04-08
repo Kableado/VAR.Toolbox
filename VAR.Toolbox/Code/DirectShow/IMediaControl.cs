@@ -1,6 +1,5 @@
 #pragma warning disable IDE1006
 
-using System;
 using System.Runtime.InteropServices;
 
 namespace VAR.Toolbox.Code.DirectShow
@@ -11,8 +10,8 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComImport,
-    Guid("56A868B1-0AD4-11CE-B03A-0020AF0BA770"),
-    InterfaceType(ComInterfaceType.InterfaceIsDual)]
+     Guid("56A868B1-0AD4-11CE-B03A-0020AF0BA770"),
+     InterfaceType(ComInterfaceType.InterfaceIsDual)]
     internal interface IMediaControl
     {
         /// <summary>
@@ -47,7 +46,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// </summary>
         /// 
         /// <param name="timeout">Duration of the time-out, in milliseconds, or INFINITE to specify an infinite time-out.</param>
-        /// <param name="filterState">Ìariable that receives a member of the <b>FILTER_STATE</b> enumeration.</param>
+        /// <param name="filterState">Variable that receives a member of the <b>FILTER_STATE</b> enumeration.</param>
         /// 
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
@@ -87,7 +86,8 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int get_FilterCollection(
-            [Out, MarshalAs(UnmanagedType.IDispatch)] out object collection);
+            [Out, MarshalAs(UnmanagedType.IDispatch)]
+            out object collection);
 
         /// <summary>
         /// Retrieves a collection of all the filters listed in the registry.
@@ -99,7 +99,8 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int get_RegFilterCollection(
-            [Out, MarshalAs(UnmanagedType.IDispatch)] out object collection);
+            [Out, MarshalAs(UnmanagedType.IDispatch)]
+            out object collection);
 
         /// <summary>
         /// Pauses the filter graph, allowing filters to queue data, and then stops the filter graph.

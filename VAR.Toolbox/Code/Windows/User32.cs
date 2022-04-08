@@ -2,6 +2,11 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
+// ReSharper disable InconsistentNaming
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable FieldCanBeMadeReadOnly.Global
+// ReSharper disable IdentifierTypo
+
 namespace VAR.Toolbox.Code.Windows
 {
     public static class User32
@@ -23,14 +28,11 @@ namespace VAR.Toolbox.Code.Windows
         [StructLayout(LayoutKind.Explicit)]
         public struct MOUSEKEYBDHARDWAREINPUT
         {
-            [FieldOffset(0)]
-            public HARDWAREINPUT Hardware;
+            [FieldOffset(0)] public HARDWAREINPUT Hardware;
 
-            [FieldOffset(0)]
-            public KEYBDINPUT Keyboard;
+            [FieldOffset(0)] public KEYBDINPUT Keyboard;
 
-            [FieldOffset(0)]
-            public MOUSEINPUT Mouse;
+            [FieldOffset(0)] public MOUSEINPUT Mouse;
         }
 
         /// <summary>
@@ -93,7 +95,7 @@ namespace VAR.Toolbox.Code.Windows
         [DllImport("User32.dll")]
         public static extern int SendInput(int nInputs, INPUT[] pInputs, int cbSize);
 
-        // <summary>
+        /// <summary>
         /// Struct representing a point.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
@@ -111,18 +113,16 @@ namespace VAR.Toolbox.Code.Windows
         public static extern bool GetCursorPos(out POINT lpPoint);
 
         [DllImport("User32.dll")]
-        public static extern Boolean SetCursorPos(UInt32 X, UInt32 Y);
+        public static extern Boolean SetCursorPos(UInt32 x, UInt32 y);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct LASTINPUTINFO
         {
             public static readonly int SizeOf = Marshal.SizeOf(typeof(LASTINPUTINFO));
 
-            [MarshalAs(UnmanagedType.U4)]
-            public UInt32 cbSize;
+            [MarshalAs(UnmanagedType.U4)] public UInt32 cbSize;
 
-            [MarshalAs(UnmanagedType.U4)]
-            public UInt32 dwTime;
+            [MarshalAs(UnmanagedType.U4)] public UInt32 dwTime;
         }
 
         [DllImport("user32.dll")]
@@ -139,7 +139,7 @@ namespace VAR.Toolbox.Code.Windows
         public const int HT_CAPTION = 0x2;
 
         [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        public static extern int SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
 
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
@@ -177,14 +177,15 @@ namespace VAR.Toolbox.Code.Windows
 
         public static string GetActiveWindowTitle()
         {
-            const int nChars = 256;
-            StringBuilder Buff = new StringBuilder(nChars);
+            const int NChars = 256;
+            StringBuilder buff = new StringBuilder(NChars);
             IntPtr handle = GetForegroundWindow();
 
-            if (GetWindowText(handle, Buff, nChars) > 0)
+            if (GetWindowText(handle, buff, NChars) > 0)
             {
-                return Buff.ToString();
+                return buff.ToString();
             }
+
             return null;
         }
     }

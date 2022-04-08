@@ -4,21 +4,21 @@ using System.Net.Sockets;
 using System.Threading;
 using VAR.Toolbox.Controls;
 
-namespace VAR.Toolbox.UI
+namespace VAR.Toolbox.UI.Tools
 {
     public partial class FrmTunnelTCP : Frame, IToolForm
     {
-        public string ToolName { get { return "TunnelTCP"; } }
+        public string ToolName => "TunnelTCP";
 
-        public bool HasIcon { get { return false; } }
+        public bool HasIcon => false;
 
-        private bool _running = false;
+        private bool _running;
 
         private class ConnectedClient
         {
-            public string hostRemoto = null;
-            public int puertoRemoto = 0;
-            public Socket socketCliente = null;
+            public string RemoteHost;
+            public int RemotePort;
+            public Socket ClientSocket;
         }
 
         public FrmTunnelTCP()
@@ -43,7 +43,7 @@ namespace VAR.Toolbox.UI
 
         private void BtnRun_Click(object sender, EventArgs e)
         {
-            if (_running == true) { return; }
+            if (_running) { return; }
 
             _running = true;
             btnStop.Enabled = true;
@@ -65,9 +65,7 @@ namespace VAR.Toolbox.UI
         {
             try
             {
-                Socket sock;
-
-                sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 sock.Bind(new IPEndPoint(IPAddress.Any, localPort));
                 sock.Listen(1000);
 
@@ -81,9 +79,9 @@ namespace VAR.Toolbox.UI
 
                         ConnectedClient client = new ConnectedClient
                         {
-                            hostRemoto = remoteHost,
-                            puertoRemoto = remotePort,
-                            socketCliente = sockCliente,
+                            RemoteHost = remoteHost,
+                            RemotePort = remotePort,
+                            ClientSocket = sockCliente,
                         };
                         Thread thread = new Thread(() =>
                         {
@@ -97,7 +95,7 @@ namespace VAR.Toolbox.UI
             }
             catch (Exception ex)
             {
-                ctrOutput.AddLine("Excepcion: " + ex.Message);
+                ctrOutput.AddLine("Exception: " + ex.Message);
                 ctrOutput.AddLine("Backtrace:");
                 ctrOutput.AddLine(ex.StackTrace);
             }
@@ -107,45 +105,47 @@ namespace VAR.Toolbox.UI
         {
             try
             {
-                Socket remoteSock = null;
-                Socket clientSock = client.socketCliente;
-                bool threadRunning;
+                Socket clientSock = client.ClientSocket;
                 byte[] buffer = new byte[4096];
-                int len;
                 long totalSent = 0;
-                long totalRecv = 0;
+                long totalReceived = 0;
 
                 // Info
                 ctrOutput.AddLine(
-                    DateTime.Now.ToString() +
+                    DateTime.Now.ToString("s") +
                     " Nuevo Cliente: " +
                     ((IPEndPoint)clientSock.RemoteEndPoint).Address);
 
                 // Conectar al host remoto
-                IPHostEntry EntryHostRemoto = Dns.GetHostEntry(client.hostRemoto);
-                IPAddress ipHostRemoto = null;
-                foreach (IPAddress addr in EntryHostRemoto.AddressList)
+                IPHostEntry entryHostRemoto = Dns.GetHostEntry(client.RemoteHost);
+                IPAddress ipRemoteHost = null;
+                foreach (IPAddress address in entryHostRemoto.AddressList)
                 {
-                    if (addr.AddressFamily == AddressFamily.InterNetwork)
+                    if (address.AddressFamily == AddressFamily.InterNetwork)
                     {
-                        ipHostRemoto = addr;
+                        ipRemoteHost = address;
                         break;
                     }
                 }
-                IPEndPoint endpHostRemoto = new IPEndPoint(ipHostRemoto, client.puertoRemoto);
-                remoteSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                remoteSock.Connect(endpHostRemoto);
 
-                // Bucle de recepcion y envio entre el cliente y el servidor remoto
-                threadRunning = true;
+                if (ipRemoteHost == null) { return; }
+
+                IPEndPoint endPointRemoteHost = new IPEndPoint(ipRemoteHost, client.RemotePort);
+                Socket remoteSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                remoteSock.Connect(endPointRemoteHost);
+
+
+                // Bucle de recepción y envío entre el cliente y el servidor remoto
+                bool threadRunning = true;
                 while (threadRunning && _running)
                 {
-                    // Comprobar recepcion del cliente
+                    // Comprobar recepción del cliente
+                    int len;
                     if (clientSock.Poll(100, SelectMode.SelectRead))
                     {
                         if (clientSock.Available == 0)
                         {
-                            // Cliente cierra conexion
+                            // Cliente cierra conexión
                             threadRunning = false;
                         }
                         else
@@ -163,17 +163,18 @@ namespace VAR.Toolbox.UI
                                 {
                                     ctrOutput.AddLine("No se pudo enviar... (" + ex.Message + ")");
                                 }
-                                totalRecv += enviado;
+
+                                totalReceived += enviado;
                             } while (enviado <= 0 && remoteSock.Connected);
                         }
                     }
 
-                    // Comprobar recepcion del remoto
+                    // Comprobar recepción del remoto
                     if (remoteSock.Poll(100, SelectMode.SelectRead))
                     {
                         if (remoteSock.Available == 0)
                         {
-                            // Remoto cierra conexion
+                            // Remoto cierra conexión
                             threadRunning = false;
                         }
                         else
@@ -192,6 +193,7 @@ namespace VAR.Toolbox.UI
                                     ctrOutput.AddLine("No se pudo enviar... (" + ex.Message + ")");
                                     Thread.Sleep(10);
                                 }
+
                                 totalSent += enviado;
                             } while (enviado <= 0 && clientSock.Connected);
                         }
@@ -200,10 +202,10 @@ namespace VAR.Toolbox.UI
 
                 // Info
                 ctrOutput.AddLine(
-                    DateTime.Now.ToString() +
-                    " Desconexion de cliente: " +
+                    DateTime.Now.ToString("s") +
+                    " Client disconnection: " +
                     ((IPEndPoint)clientSock.RemoteEndPoint).Address +
-                    " IN/OUT: " + UnidadesBytes(totalRecv) + "/" + UnidadesBytes(totalSent));
+                    " IN/OUT: " + UnidadesBytes(totalReceived) + "/" + UnidadesBytes(totalSent));
 
                 // Cerrar conexiones
                 remoteSock.Close();
@@ -211,7 +213,7 @@ namespace VAR.Toolbox.UI
             }
             catch (Exception ex)
             {
-                ctrOutput.AddLine("Excepcion: " + ex.Message);
+                ctrOutput.AddLine("Exception: " + ex.Message);
                 ctrOutput.AddLine("Backtrace:");
                 ctrOutput.AddLine(ex.StackTrace);
             }
@@ -228,31 +230,30 @@ namespace VAR.Toolbox.UI
             double number = n;
             if (number < 1024)
             {
-                return string.Format("{0} B", number);
+                return $"{number} B";
             }
 
             number /= 1024.0;
             if (number < 1024)
             {
-                return string.Format("{0:#.00} KiB", number);
+                return $"{number:#.00} KiB";
             }
 
             number /= 1024.0;
             if (number < 1024)
             {
-                return string.Format("{0:#.00} MiB", number);
+                return $"{number:#.00} MiB";
             }
 
             number /= 1024.0;
             if (number < 1024)
             {
-                return string.Format("{0:#.00} GiB", number);
+                return $"{number:#.00} GiB";
             }
 
             number /= 1024.0;
 
-            return string.Format("{0:#.00} TiB", number);
+            return $"{number:#.00} TiB";
         }
-
     }
 }

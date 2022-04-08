@@ -3,10 +3,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using VAR.Toolbox.Controls;
 
-namespace VAR.Toolbox.UI
+namespace VAR.Toolbox.UI.Tools
 {
     public partial class FrmProxyCmdConfig : Frame
     {
@@ -21,7 +22,12 @@ namespace VAR.Toolbox.UI
         private void LsvCmdProxyConfigs_SelectedIndexChanged(object sender, EventArgs e)
         {
             ProxyCmdConfigItem selectedConfig = lsvCmdProxyConfigs.SelectedItem as ProxyCmdConfigItem;
-            if (selectedConfig == null) { CleanConfig(); return; }
+            if (selectedConfig == null)
+            {
+                CleanConfig();
+                return;
+            }
+
             ShowConfig(selectedConfig);
         }
 
@@ -43,8 +49,8 @@ namespace VAR.Toolbox.UI
         private void LoadData()
         {
             lsvCmdProxyConfigs.Items.Clear();
-            List<ProxyCmdConfigItem> configItems = FrmProxyCmdConfig.GetConfigurationItems();
-            lsvCmdProxyConfigs.Items.AddRange(configItems.ToArray());
+            List<ProxyCmdConfigItem> configItems = GetConfigurationItems();
+            lsvCmdProxyConfigs.Items.AddRange(configItems.ToArray<object>());
         }
 
         private void SaveData()
@@ -54,8 +60,10 @@ namespace VAR.Toolbox.UI
             {
                 ProxyCmdConfigItem config = o as ProxyCmdConfigItem;
                 if (config == null) { continue; }
+
                 sbConfig.AppendFormat("{0}|{1}\n", config.Name, config.Config);
             }
+
             string configFileName = GetConfigFileName();
             File.WriteAllText(configFileName, sbConfig.ToString());
 
@@ -95,6 +103,7 @@ namespace VAR.Toolbox.UI
                 selectedConfig.Name = txtCmdProxyConfigName.Text;
                 selectedConfig.Config = txtCmdProxyConfigContent.Text;
             }
+
             SaveData();
         }
 
@@ -102,16 +111,20 @@ namespace VAR.Toolbox.UI
         {
             ProxyCmdConfigItem selectedConfig = lsvCmdProxyConfigs.SelectedItem as ProxyCmdConfigItem;
             if (selectedConfig == null) { return; }
+
             List<ProxyCmdConfigItem> configItems = new List<ProxyCmdConfigItem>();
             foreach (object o in lsvCmdProxyConfigs.Items)
             {
                 ProxyCmdConfigItem config = o as ProxyCmdConfigItem;
                 if (config == null) { continue; }
+
                 if (config.Name == selectedConfig.Name) { continue; }
+
                 configItems.Add(config);
             }
+
             lsvCmdProxyConfigs.Items.Clear();
-            lsvCmdProxyConfigs.Items.AddRange(configItems.ToArray());
+            lsvCmdProxyConfigs.Items.AddRange(configItems.ToArray<object>());
             SaveData();
             CleanConfig();
         }
@@ -122,28 +135,23 @@ namespace VAR.Toolbox.UI
             CleanConfig();
         }
 
-        public static string GetConfigFileName()
+        private static string GetConfigFileName()
         {
-            string location = System.Reflection.Assembly.GetEntryAssembly().Location;
+            string location = System.Reflection.Assembly.GetEntryAssembly()?.Location;
             string path = Path.GetDirectoryName(location);
             string filenameWithoutExtension = Path.GetFileNameWithoutExtension(location);
 
-            string configFile = string.Format("{0}/{1}.ProxyCmd.cfg", path, filenameWithoutExtension);
+            string configFile = $"{path}/{filenameWithoutExtension}.ProxyCmd.cfg";
             return configFile;
         }
 
-        public static string[] GetConfigurationLines()
+        private static string[] GetConfigurationLines()
         {
             string configFile = GetConfigFileName();
-            string[] config;
-            if (File.Exists(configFile) == false)
-            {
-                config = new string[] { "Dummy|Dummy:" };
-            }
-            else
-            {
-                config = File.ReadAllLines(configFile);
-            }
+            string[] config = File.Exists(configFile) == false
+                ? new[] { "Dummy|Dummy:" }
+                : File.ReadAllLines(configFile);
+
             return config;
         }
 
@@ -155,11 +163,13 @@ namespace VAR.Toolbox.UI
             {
                 int idxSplit = configLine.IndexOf('|');
                 if (idxSplit < 0) { continue; }
+
                 string configName = configLine.Substring(0, idxSplit);
                 string configData = configLine.Substring(idxSplit + 1);
 
                 configItems.Add(new ProxyCmdConfigItem { Name = configName, Config = configData, });
             }
+
             return configItems;
         }
     }
@@ -168,6 +178,10 @@ namespace VAR.Toolbox.UI
     {
         public string Name { get; set; }
         public string Config { get; set; }
-        public override string ToString() { return Name; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

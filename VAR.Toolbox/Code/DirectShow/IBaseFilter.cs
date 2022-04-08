@@ -9,8 +9,8 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComImport,
-    Guid("56A86895-0AD4-11CE-B03A-0020AF0BA770"),
-    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     Guid("56A86895-0AD4-11CE-B03A-0020AF0BA770"),
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface IBaseFilter
     {
         // --- IPersist Methods
@@ -19,12 +19,12 @@ namespace VAR.Toolbox.Code.DirectShow
         /// Returns the class identifier (CLSID) for the component object.
         /// </summary>
         /// 
-        /// <param name="ClassID">Points to the location of the CLSID on return.</param>
+        /// <param name="classID">Points to the location of the CLSID on return.</param>
         /// 
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetClassID([Out] out Guid ClassID);
+        int GetClassID([Out] out Guid classID);
 
         // --- IMediaFilter Methods
 

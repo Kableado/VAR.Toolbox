@@ -5,13 +5,13 @@ using System.Text;
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Controls;
 
-namespace VAR.Toolbox.UI
+namespace VAR.Toolbox.UI.Tools
 {
     public partial class FrmTestWebService : Frame, IToolForm
     {
-        public string ToolName { get { return "TestWebService"; } }
+        public string ToolName => "TestWebService";
 
-        public bool HasIcon { get { return false; } }
+        public bool HasIcon => false;
 
         public FrmTestWebService()
         {
@@ -25,9 +25,10 @@ namespace VAR.Toolbox.UI
                 string url = txtUrlSoap.Text;
                 string namespaceUrl = txtNamespaceUrlSoap.Text;
                 string method = txtMethodSoap.Text;
-                Dictionary<string, object> parms = StringToDictionary(txtParametersSoap.Text).ToDictionary(p => p.Key, p => (object)p.Value);
+                Dictionary<string, object> parameters = StringToDictionary(txtParametersSoap.Text)
+                    .ToDictionary(p => p.Key, p => (object)p.Value);
 
-                string result = WebServicesUtils.CallSoapMethod(url, method, parms, namespaceUrl);
+                string result = WebServicesUtils.CallSoapMethod(url, method, parameters, namespaceUrl);
 
                 txtResultSoap.Text = result;
             }
@@ -39,6 +40,7 @@ namespace VAR.Toolbox.UI
                     sbException.AppendFormat("{0}\r\n{1}\r\n\r\n", ex.Message, ex.StackTrace);
                     ex = ex.InnerException;
                 }
+
                 txtResultSoap.Text = sbException.ToString();
             }
         }
@@ -49,10 +51,10 @@ namespace VAR.Toolbox.UI
             {
                 string url = txtUrlRest.Text;
                 string urlApiMethod = txtUrlApiMethodRest.Text;
-                Dictionary<string, string> parms = StringToDictionary(txtParametersRest.Text);
+                Dictionary<string, string> parameters = StringToDictionary(txtParametersRest.Text);
                 string body = txtBodyRest.Text;
 
-                string result = WebServicesUtils.CallApi(url, urlApiMethod, parms, null, stringContent: body);
+                string result = WebServicesUtils.CallApi(url, urlApiMethod, parameters, null, stringContent: body);
 
                 txtResultRest.Text = result;
             }
@@ -64,42 +66,44 @@ namespace VAR.Toolbox.UI
                     sbException.AppendFormat("{0}\r\n{1}\r\n\r\n", ex.Message, ex.StackTrace);
                     ex = ex.InnerException;
                 }
+
                 txtResultRest.Text = sbException.ToString();
             }
         }
 
         /// <summary>
-        /// Deseria una cadena a un diccionario string,string
+        /// Deserializa una cadena a un diccionario string,string
         /// </summary>
         /// <param name="str">The STR.</param>
         /// <returns></returns>
         /// <author>VAR</author>
-        public static Dictionary<string, string> StringToDictionary(string str)
+        private static Dictionary<string, string> StringToDictionary(string str)
         {
             var dic = new Dictionary<string, string>();
-            List<string> pairs = SplitUnscaped(str, ',');
+            List<string> pairs = SplitUnescaped(str, ',');
             foreach (string pair in pairs)
             {
-                List<string> values = SplitUnscaped(pair, ':');
+                List<string> values = SplitUnescaped(pair, ':');
                 if (values.Count < 2) continue;
                 string key = values[0].Replace("\\:", ":").Replace("\\,", ",");
                 string val = values[1].Replace("\\:", ":").Replace("\\,", ",");
                 dic.Add(key, val);
             }
+
             return dic;
         }
 
 
         /// <summary>
-        /// Parte una cadena usando un caracter, evitando usar las ocurrencias escapadas con '\\'
+        /// Parte una cadena usando un carácter, evitando usar las ocurrencias escapadas con '\\'
         /// </summary>
         /// <param name="str">The STR.</param>
         /// <param name="splitter">The splitter.</param>
         /// <returns></returns>
         /// <author>VAR</author>
-        public static List<string> SplitUnscaped(string str, char splitter)
+        private static List<string> SplitUnescaped(string str, char splitter)
         {
-            var strs = new List<string>();
+            var strings = new List<string>();
             int j, i;
             int n = str.Length;
 
@@ -108,15 +112,14 @@ namespace VAR.Toolbox.UI
                 if (str[i] == '\\') i++;
                 else if (str[i] == splitter)
                 {
-                    strs.Add(str.Substring(j, i - j));
+                    strings.Add(str.Substring(j, i - j));
                     j = i + 1;
                 }
             }
-            if (i >= j) strs.Add(str.Substring(j, n - j));
 
-            return strs;
+            if (i >= j) strings.Add(str.Substring(j, n - j));
+
+            return strings;
         }
-
-
     }
 }

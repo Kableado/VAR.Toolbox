@@ -16,9 +16,9 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
     {
         #region IToolForm
 
-        public string ToolName { get { return "WorkLog"; } }
+        public string ToolName => "WorkLog";
 
-        public bool HasIcon { get { return false; } }
+        public bool HasIcon => false;
 
         #endregion IToolForm
 
@@ -30,7 +30,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             WorkLog_LoadConfig();
             WorkLog_LoadData();
 
-            cboImporters.Items.AddRange(WorkLogImporterFactory.GetNames());
+            cboImporters.Items.AddRange(WorkLogImporterFactory.GetNames().ToArray<object>());
 
             ttPanel.SetToolTip(chkImportMerging, "ImportMerging");
         }
@@ -39,13 +39,15 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
         {
             if (btnSave.Enabled)
             {
-                DialogResult result = MessageBox.Show("There are unsaves changes. Close anyway?", "Close?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show("There are unsaved changes. Close anyway?", "Close?",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result != DialogResult.Yes)
                 {
                     e.Cancel = true;
                     return;
                 }
             }
+
             WorkLog_SaveConfig();
         }
 
@@ -73,18 +75,14 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             try
             {
                 if (cboImporters.SelectedItem == null) { return; }
-                IWorkLogImporter workLogImporter = WorkLogImporterFactory.CreateFromName(cboImporters.SelectedItem as string);
+
+                IWorkLogImporter workLogImporter =
+                    WorkLogImporterFactory.CreateFromName(cboImporters.SelectedItem as string);
                 List<WorkLogItem> newWorkLog = workLogImporter.Import(this);
                 if (newWorkLog == null) { return; }
 
-                if (chkImportMerging.Checked)
-                {
-                    _workLog = WorkLogItemList_Merge(_workLog, newWorkLog);
-                }
-                else
-                {
-                    _workLog = newWorkLog;
-                }
+                _workLog = chkImportMerging.Checked ? WorkLogItemList_Merge(_workLog, newWorkLog) : newWorkLog;
+
                 WorkLog_Refresh();
                 MessageBox.Show("OK");
                 WorkLog_MarkDirty();
@@ -101,7 +99,9 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             try
             {
                 if (cboImporters.SelectedItem == null) { return; }
-                IWorkLogImporter workLogImporter = WorkLogImporterFactory.CreateFromName(cboImporters.SelectedItem as string);
+
+                IWorkLogImporter workLogImporter =
+                    WorkLogImporterFactory.CreateFromName(cboImporters.SelectedItem as string);
                 bool result = workLogImporter.Export(_workLog, this);
                 if (result)
                 {
@@ -115,11 +115,12 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             }
         }
 
-        private bool _selecting = false;
+        private bool _selecting;
 
-        private void lsbWorkLog_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void lsbWorkLog_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_selecting) { return; }
+
             _selecting = true;
             var row = lsbWorkLog.SelectedItem as WorkLogRow;
             if (row == null)
@@ -128,6 +129,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 _selecting = false;
                 return;
             }
+
             if (row.Item == null)
             {
                 WorkLogItem_Show(null);
@@ -136,24 +138,30 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 foreach (WorkLogRow rowAux in lsbWorkLog.SelectedItems)
                 {
                     if (rowAux.DateStart < dateStart) { dateStart = rowAux.DateStart; }
+
                     if (rowAux.DateEnd > dateEnd) { dateEnd = rowAux.DateEnd; }
                 }
+
                 dtStart.Value = dateStart;
                 dtEnd.Value = dateEnd;
 
                 _selecting = false;
                 return;
             }
+
             for (int i = 0; i < lsbWorkLog.Items.Count; i++)
             {
                 WorkLogRow auxRow = lsbWorkLog.Items[i] as WorkLogRow;
+                if (auxRow == null) { continue; }
+
                 lsbWorkLog.SetSelected(i, (row.Item == auxRow.Item));
             }
+
             WorkLogItem_Show(row.Item);
             _selecting = false;
         }
 
-        private void btnAdd_Click(object sender, System.EventArgs e)
+        private void btnAdd_Click(object sender, EventArgs e)
         {
             WorkLogItem item = new WorkLogItem
             {
@@ -170,9 +178,10 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             WorkLog_MarkDirty();
         }
 
-        private void btnDelete_Click(object sender, System.EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
             if (_currentWorkLogItem == null) { return; }
+
             if (MessageBox.Show("Delete Log?", "Delete Log?", MessageBoxButtons.YesNo) != DialogResult.Yes)
             {
                 return;
@@ -194,12 +203,12 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             WorkLogItem_Update();
         }
 
-        private void txtActivity_TextChanged(object sender, System.EventArgs e)
+        private void txtActivity_TextChanged(object sender, EventArgs e)
         {
             WorkLogItem_Update();
         }
 
-        private void txtDescription_TextChanged(object sender, System.EventArgs e)
+        private void txtDescription_TextChanged(object sender, EventArgs e)
         {
             WorkLogItem_Update(refresh: false);
         }
@@ -209,17 +218,17 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             WorkLogItem_Update(refresh: false);
         }
 
-        private void dtToday_ValueChanged(object sender, System.EventArgs e)
+        private void dtToday_ValueChanged(object sender, EventArgs e)
         {
             WorkLog_Refresh();
         }
 
-        private void btnPreviousDay_Click(object sender, System.EventArgs e)
+        private void btnPreviousDay_Click(object sender, EventArgs e)
         {
             dtToday.Value = dtToday.Value.Date.AddDays(-1);
         }
 
-        private void btnNextDay_Click(object sender, System.EventArgs e)
+        private void btnNextDay_Click(object sender, EventArgs e)
         {
             dtToday.Value = dtToday.Value.Date.AddDays(1);
         }
@@ -263,7 +272,12 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
         private void btnRename_Click(object sender, EventArgs e)
         {
             if (_currentWorkLogItem == null) { return; }
-            FrmDialogString frmRename = new FrmDialogString { Title = "Rename", Description = string.Concat("\"", _currentWorkLogItem.Activity, "\""), Value = _currentWorkLogItem.Activity };
+
+            FrmDialogString frmRename = new FrmDialogString
+            {
+                Title = "Rename", Description = string.Concat("\"", _currentWorkLogItem.Activity, "\""),
+                Value = _currentWorkLogItem.Activity
+            };
             DialogResult result = frmRename.ShowDialog(this);
             if (result != DialogResult.OK) { return; }
 
@@ -277,6 +291,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                     item.Activity = newActivity;
                 }
             }
+
             WorkLog_MarkDirty();
             WorkLog_Refresh();
         }
@@ -284,13 +299,15 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
         private void btnStats_Click(object sender, EventArgs e)
         {
             if (_currentWorkLogItem == null) { return; }
-            FrmWorkLogStats frmStats = new FrmWorkLogStats { Activity = _currentWorkLogItem.Activity, WorkLog = _workLog };
+
+            FrmWorkLogStats frmStats = new FrmWorkLogStats
+                { Activity = _currentWorkLogItem.Activity, WorkLog = _workLog };
             frmStats.Show(this);
         }
 
-        private void btnSumary_Click(object sender, EventArgs e)
+        private void btnSummary_Click(object sender, EventArgs e)
         {
-            FrmWorkLogSumary frmStats = new FrmWorkLogSumary { WorkLog = _workLog };
+            FrmWorkLogSummary frmStats = new FrmWorkLogSummary { WorkLog = _workLog };
             frmStats.Show(this);
         }
 
@@ -302,6 +319,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 .Where(x => string.IsNullOrEmpty(x.Activity) == false)
                 .GroupBy(x => x.Activity)
                 .Select(g => g.OrderBy(x => x.DateStart).LastOrDefault())
+                .Where(x => x != null)
                 .OrderByDescending(x => x.DateStart)
                 .Select(x => x.Activity)
                 .ToList();
@@ -314,6 +332,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             if (result != DialogResult.OK) { return; }
 
             if (string.IsNullOrEmpty(frmListDialog.Value)) { return; }
+
             txtActivity.Text = frmListDialog.Value;
         }
 
@@ -325,6 +344,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 .Where(x => string.IsNullOrEmpty(x.Tags) == false)
                 .GroupBy(x => x.Tags)
                 .Select(g => g.OrderBy(x => x.DateStart).LastOrDefault())
+                .Where(x => x != null)
                 .OrderByDescending(x => x.DateStart)
                 .Select(x => x.Tags)
                 .ToList();
@@ -337,6 +357,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             if (result != DialogResult.OK) { return; }
 
             if (string.IsNullOrEmpty(frmListDialog.Value)) { return; }
+
             txtTags.Text = frmListDialog.Value;
         }
 
@@ -345,7 +366,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
         #region Private methods
 
         private const string ConfigFile = "WorkLog.Config.json";
-        private WorkLogConfig _config = null;
+        private WorkLogConfig _config;
 
         private void WorkLog_LoadConfig()
         {
@@ -356,6 +377,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 string jsonConfig = File.ReadAllText(ConfigFile);
                 _config = jsonParser.Parse(jsonConfig) as WorkLogConfig;
             }
+
             if (_config == null)
             {
                 _config = new WorkLogConfig();
@@ -375,33 +397,36 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             }
         }
 
-        private List<WorkLogItem> _workLog = null;
+        private List<WorkLogItem> _workLog;
 
         private void WorkLog_LoadData()
         {
             _workLog = null;
-            string fileName = string.Format("{0}.WorkLog.json", txtName.Text);
+            string fileName = $"{txtName.Text}.WorkLog.json";
             if (File.Exists(fileName))
             {
                 string rawFile = File.ReadAllText(fileName);
                 JsonParser jsonParser = new JsonParser();
                 jsonParser.KnownTypes.Add(typeof(WorkLogItem));
                 object result = jsonParser.Parse(rawFile);
-                if (result is IEnumerable<object>)
+                if (result is IEnumerable<object> results)
                 {
                     _workLog = new List<WorkLogItem>();
-                    foreach (object obj in (IEnumerable<object>)result)
+                    foreach (object obj in results)
                     {
                         WorkLogItem item = obj as WorkLogItem;
                         if (item == null) { continue; }
+
                         _workLog.Add(item);
                     }
                 }
             }
+
             if (_workLog == null)
             {
                 _workLog = new List<WorkLogItem>();
             }
+
             WorkLog_Refresh();
             WorkLog_SelectDate(DateTime.Now);
             WorkLog_CleanDirty();
@@ -409,7 +434,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         private void WorkLog_SaveData()
         {
-            string fileName = string.Format("{0}.WorkLog.json", txtName.Text);
+            string fileName = $"{txtName.Text}.WorkLog.json";
             if (File.Exists(fileName))
             {
                 File.Delete(fileName);
@@ -420,6 +445,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             {
                 jsonWriter.Write(_workLog, streamWriter);
             }
+
             WorkLog_CleanDirty();
         }
 
@@ -438,7 +464,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             for (int i = 0; i < lsbWorkLog.Items.Count; i++)
             {
                 WorkLogRow row = lsbWorkLog.Items[i] as WorkLogRow;
-                if (row.DateEnd > date)
+                if (row?.DateEnd > date)
                 {
                     lsbWorkLog.SetSelected(i, true);
                     break;
@@ -457,7 +483,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             }
         }
 
-        private WorkLogItem _currentWorkLogItem = null;
+        private WorkLogItem _currentWorkLogItem;
 
         private void WorkLogItem_Show(WorkLogItem item)
         {
@@ -496,6 +522,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
         private void WorkLogItem_Update(bool refresh = true)
         {
             if (_currentWorkLogItem == null) { return; }
+
             DateTime dateStart = dtStart.Value;
             _currentWorkLogItem.DateStart = dateStart;
             _currentWorkLogItem.DateEnd = dtEnd.Value;
@@ -508,13 +535,15 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 WorkLog_Refresh();
                 WorkLog_SelectDate(dateStart);
             }
+
             WorkLog_MarkDirty();
         }
 
-        public void lsbWorkLog_BindData(IEnumerable<WorkLogItem> items, int year, int month, int day, int q = 15)
+        private void lsbWorkLog_BindData(IEnumerable<WorkLogItem> items, int year, int month, int day, int q = 15)
         {
             int topIndex = lsbWorkLog.TopIndex;
             List<WorkLogRow> rows = new List<WorkLogRow>();
+            IEnumerable<WorkLogItem> workLogItems = items.ToList();
             for (int h = 0; h < 24; h++)
             {
                 for (int m = 0; m < 60; m += q)
@@ -522,27 +551,28 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                     DateTime dateStart = new DateTime(year, month, day, h, m, 0);
                     DateTime dateEnd = dateStart.AddMinutes(q);
                     WorkLogRow row = new WorkLogRow { DateStart = dateStart, DateEnd = dateEnd, };
-                    if (items != null)
+                    foreach (WorkLogItem item in workLogItems)
                     {
-                        foreach (WorkLogItem item in items)
-                        {
-                            row.SetItem(item);
-                        }
+                        row.SetItem(item);
                     }
+
                     rows.Add(row);
                 }
             }
+
             lsbWorkLog.Items.Clear();
-            lsbWorkLog.Items.AddRange(rows.ToArray());
+            lsbWorkLog.Items.AddRange(rows.ToArray<object>());
             lsbWorkLog.TopIndex = topIndex;
 
             DateTime dateDay = new DateTime(year, month, day, 0, 0, 0);
             TimeSpan tsTotalTime = new TimeSpan(0);
-            foreach (WorkLogItem item in items)
+            foreach (WorkLogItem item in workLogItems)
             {
                 if (item.DateStart.Date != dateDay) { continue; }
+
                 tsTotalTime += (item.DateEnd - item.DateStart);
             }
+
             lblWorkLogTime.Text = tsTotalTime.ToString();
         }
 
@@ -550,11 +580,11 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
         {
             List<WorkLogItem> newWorkLog = new List<WorkLogItem>();
 
-            // Add non-overlaping from A
+            // Add non-overlapping from A
             foreach (WorkLogItem itemA in workLogA)
             {
                 bool skip = false;
-                foreach(WorkLogItem itemB in workLogB)
+                foreach (WorkLogItem itemB in workLogB)
                 {
                     if (itemB.Overlaps(itemA))
                     {
@@ -567,18 +597,22 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                             {
                                 itemB.Activity = itemA.Activity;
                             }
+
                             if (string.IsNullOrEmpty(itemB.Description))
                             {
                                 itemB.Description = itemA.Description;
                             }
+
                             if (string.IsNullOrEmpty(itemB.Tags))
                             {
                                 itemB.Tags = itemA.Tags;
                             }
+
                             break;
                         }
                     }
                 }
+
                 if (skip) { continue; }
 
                 newWorkLog.Add(itemA);
@@ -600,7 +634,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
     {
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
-        public WorkLogItem Item { get; set; }
+        public WorkLogItem Item { get; private set; }
 
         public override string ToString()
         {
@@ -647,6 +681,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 sbRow.Append(new string(' ', rowLenght));
                 sbRow.Append("│");
             }
+
             return sbRow.ToString();
         }
 

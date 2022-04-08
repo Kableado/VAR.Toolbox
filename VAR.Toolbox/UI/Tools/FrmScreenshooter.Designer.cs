@@ -1,4 +1,4 @@
-﻿namespace VAR.Toolbox.UI
+﻿namespace VAR.Toolbox.UI.Tools
 {
     partial class FrmScreenshooter
     {
@@ -43,7 +43,7 @@
             this.btnScreenshoot.TabIndex = 1;
             this.btnScreenshoot.Text = "Screenshoot";
             this.btnScreenshoot.UseVisualStyleBackColor = true;
-            this.btnScreenshoot.Click += new System.EventHandler(this.BtnScreenshoot_Click);
+            this.btnScreenshoot.Click += new System.EventHandler(this.BtnScreenshot_Click);
             // 
             // picViewer
             // 

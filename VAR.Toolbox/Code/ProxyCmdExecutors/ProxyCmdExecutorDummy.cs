@@ -2,7 +2,8 @@
 {
     public class ProxyCmdExecutorDummy : IProxyCmdExecutor
     {
-        public string Name { get { return "Dummy"; } }
+        private readonly string _config;
+        public string Name => "Dummy";
 
         public ProxyCmdExecutorDummy(string config)
         {
@@ -10,11 +11,13 @@
             {
                 throw new System.ArgumentNullException(nameof(config));
             }
+
+            _config = config;
         }
 
         public bool ExecuteCmd(string cmdString, IOutputHandler outputHandler)
         {
-            outputHandler.OutputLine(string.Format("DummyExecution: {0}", cmdString));
+            outputHandler.OutputLine($"DummyExecution: {cmdString} | {_config}");
             return true;
         }
     }

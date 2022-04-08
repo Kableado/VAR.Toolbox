@@ -1,3 +1,5 @@
+// ReSharper disable IdentifierTypo
+
 namespace VAR.Toolbox.Code.DirectShow
 {
     using System;
@@ -8,8 +10,8 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComImport,
-    Guid("93E5A4E0-2D50-11d2-ABFA-00A0C9C6E38D"),
-    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     Guid("93E5A4E0-2D50-11d2-ABFA-00A0C9C6E38D"),
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface ICaptureGraphBuilder2
     {
         /// <summary>
@@ -48,14 +50,15 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int SetOutputFileName(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid type,
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+            Guid type,
             [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
             [Out] out IBaseFilter baseFilter,
             [Out] out IntPtr fileSinkFilter
-            );
+        );
 
         /// <summary>
-        /// Searche the graph for a specified interface, starting from a specified filter.
+        /// Search the graph for a specified interface, starting from a specified filter.
         /// </summary>
         /// 
         /// <param name="category">GUID that specifies the search criteria.</param>
@@ -68,12 +71,16 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int FindInterface(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid category,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid type,
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+            Guid category,
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+            Guid type,
             [In] IBaseFilter baseFilter,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid interfaceID,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object retInterface
-            );
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+            Guid interfaceID,
+            [Out, MarshalAs(UnmanagedType.IUnknown)]
+            out object retInterface
+        );
 
         /// <summary>
         /// Connect an output pin on a source filter to a rendering filter, optionally through a compression filter.
@@ -89,12 +96,15 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int RenderStream(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid category,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid mediaType,
-            [In, MarshalAs(UnmanagedType.IUnknown)] object source,
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+            Guid category,
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+            Guid mediaType,
+            [In, MarshalAs(UnmanagedType.IUnknown)]
+            object source,
             [In] IBaseFilter compressor,
             [In] IBaseFilter renderer
-            );
+        );
 
         /// <summary>
         /// Set the start and stop times for one or more streams of captured data.
@@ -114,14 +124,17 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int ControlStream(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid category,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid mediaType,
-            [In, MarshalAs(UnmanagedType.Interface)] IBaseFilter filter,
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+            Guid category,
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+            Guid mediaType,
+            [In, MarshalAs(UnmanagedType.Interface)]
+            IBaseFilter filter,
             [In] long start,
             [In] long stop,
             [In] short startCookie,
             [In] short stopCookie
-            );
+        );
 
         /// <summary>
         /// Preallocate a capture file to a specified size.
@@ -136,7 +149,7 @@ namespace VAR.Toolbox.Code.DirectShow
         int AllocCapFile(
             [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
             [In] long size
-            );
+        );
 
         /// <summary>
         /// Copy the valid media data from a capture file.
@@ -155,7 +168,7 @@ namespace VAR.Toolbox.Code.DirectShow
             [In, MarshalAs(UnmanagedType.LPWStr)] string newFileName,
             [In, MarshalAs(UnmanagedType.Bool)] bool allowEscAbort,
             [In] IntPtr callback
-            );
+        );
 
         /// <summary>
         /// 
@@ -173,13 +186,17 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int FindPin(
-            [In, MarshalAs(UnmanagedType.IUnknown)] object source,
+            [In, MarshalAs(UnmanagedType.IUnknown)]
+            object source,
             [In] PinDirection pinDirection,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid category,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid mediaType,
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+            Guid category,
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+            Guid mediaType,
             [In, MarshalAs(UnmanagedType.Bool)] bool unconnected,
             [In] int index,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IPin pin
-            );
+            [Out, MarshalAs(UnmanagedType.Interface)]
+            out IPin pin
+        );
     }
 }

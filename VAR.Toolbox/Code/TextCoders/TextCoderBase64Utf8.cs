@@ -5,9 +5,9 @@ namespace VAR.Toolbox.Code.TextCoders
 {
     public class TextCoderBase64ToUtf8 : ITextCoder
     {
-        public string Name { get { return "Base64ToUtf8"; } }
+        public string Name => "Base64ToUtf8";
 
-        public bool NeedsKey { get { return false; } }
+        public bool NeedsKey => false;
 
         public string Decode(string input, string key)
         {

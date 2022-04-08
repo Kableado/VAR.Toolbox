@@ -3,26 +3,31 @@ using System.Windows.Forms;
 
 namespace VAR.Toolbox.Controls
 {
-    public class CGroupBox : System.Windows.Forms.GroupBox
+    public class CGroupBox : GroupBox
     {
         public CGroupBox()
+        {
+            InitializeComponent();
+        }
+
+        private void InitializeComponent()
         {
             BackColor = Color.FromArgb(255, 32, 32, 32);
             ForeColor = Color.FromArgb(255, 192, 192, 192);
             BorderColor = Color.FromArgb(255, 64, 64, 64);
-            FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            FlatStyle = FlatStyle.Flat;
         }
 
         private Color _borderColor = Color.Black;
 
         public Color BorderColor
         {
-            get { return this._borderColor; }
-            set { this._borderColor = value; }
+            get => _borderColor;
+            set => _borderColor = value;
         }
 
-        private SolidBrush _brushBackColor = null;
-        private SolidBrush _brushForeColor = null;
+        private SolidBrush _brushBackColor;
+        private SolidBrush _brushForeColor;
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -30,6 +35,7 @@ namespace VAR.Toolbox.Controls
             {
                 _brushBackColor = new SolidBrush(BackColor);
             }
+
             if (_brushForeColor == null || _brushForeColor.Color != ForeColor)
             {
                 _brushForeColor = new SolidBrush(ForeColor);

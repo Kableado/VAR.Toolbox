@@ -1,6 +1,5 @@
 namespace VAR.Toolbox.Code.DirectShow
 {
-    using System;
     using System.Runtime.InteropServices;
 
     /// <summary>
@@ -9,8 +8,8 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComImport,
-    Guid("C6E13340-30AC-11d0-A18C-00A0C9118956"),
-    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     Guid("C6E13340-30AC-11d0-A18C-00A0C9118956"),
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface IAMStreamConfig
     {
         /// <summary>
@@ -60,8 +59,10 @@ namespace VAR.Toolbox.Code.DirectShow
         [PreserveSig]
         int GetStreamCaps(
             [In] int index,
-            [Out, MarshalAs(UnmanagedType.LPStruct)] out AMMediaType mediaType,
-            [In, MarshalAs(UnmanagedType.LPStruct)] VideoStreamConfigCaps streamConfigCaps
-            );
+            [Out, MarshalAs(UnmanagedType.LPStruct)]
+            out AMMediaType mediaType,
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+            VideoStreamConfigCaps streamConfigCaps
+        );
     }
 }

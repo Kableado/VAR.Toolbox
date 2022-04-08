@@ -10,8 +10,8 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComImport,
-    Guid("36B73882-C2C8-11CF-8B46-00805F6CEF60"),
-    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     Guid("36B73882-C2C8-11CF-8B46-00805F6CEF60"),
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface IFilterGraph2
     {
         // --- IFilterGraph Methods
@@ -73,7 +73,9 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int ConnectDirect([In] IPin pinOut, [In] IPin pinIn, [In, MarshalAs(UnmanagedType.LPStruct)] AMMediaType mediaType);
+        int ConnectDirect([In] IPin pinOut, [In] IPin pinIn,
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+            AMMediaType mediaType);
 
         /// <summary>
         /// Breaks the existing pin connection and reconnects it to the same pin.
@@ -226,8 +228,9 @@ namespace VAR.Toolbox.Code.DirectShow
         [PreserveSig]
         int ReconnectEx(
             [In] IPin pin,
-            [In, MarshalAs(UnmanagedType.LPStruct)] AMMediaType mediaType
-            );
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+            AMMediaType mediaType
+        );
 
         /// <summary>
         /// Render an output pin, with an option to use existing renderers only.
@@ -244,7 +247,6 @@ namespace VAR.Toolbox.Code.DirectShow
             [In] IPin outputPin,
             [In] int flags,
             [In] IntPtr context
-            );
-
+        );
     }
 }

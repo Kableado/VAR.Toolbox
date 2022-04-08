@@ -9,8 +9,8 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComImport,
-    Guid("56A8689F-0AD4-11CE-B03A-0020AF0BA770"),
-    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     Guid("56A8689F-0AD4-11CE-B03A-0020AF0BA770"),
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface IFilterGraph
     {
         /// <summary>
@@ -70,7 +70,9 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int ConnectDirect([In] IPin pinOut, [In] IPin pinIn, [In, MarshalAs(UnmanagedType.LPStruct)] AMMediaType mediaType);
+        int ConnectDirect([In] IPin pinOut, [In] IPin pinIn,
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+            AMMediaType mediaType);
 
         /// <summary>
         /// Breaks the existing pin connection and reconnects it to the same pin.

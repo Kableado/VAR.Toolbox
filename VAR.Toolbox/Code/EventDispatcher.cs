@@ -5,7 +5,7 @@ namespace VAR.Toolbox.Code
 {
     public static class EventDispatcher
     {
-        private static List<IEventListener> _eventListeners = null;
+        private static List<IEventListener> _eventListeners;
 
         private static IEnumerable<IEventListener> GetEventListeners()
         {
@@ -19,8 +19,7 @@ namespace VAR.Toolbox.Code
             _eventListeners = new List<IEventListener>();
             foreach (Type eventListener in eventListeners)
             {
-                IEventListener eventListenerInstance = Activator.CreateInstance(eventListener) as IEventListener;
-                if (eventListenerInstance != null)
+                if (Activator.CreateInstance(eventListener) is IEventListener eventListenerInstance)
                 {
                     _eventListeners.Add(eventListenerInstance);
                 }
@@ -37,6 +36,5 @@ namespace VAR.Toolbox.Code
                 eventListener.ProcessEvent(eventName, eventData);
             }
         }
-
     }
 }

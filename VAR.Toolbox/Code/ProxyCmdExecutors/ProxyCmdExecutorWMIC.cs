@@ -4,7 +4,7 @@ namespace VAR.Toolbox.Code.ProxyCmdExecutors
 {
     public class ProxyCmdExecutorWMIC : IProxyCmdExecutor
     {
-        public string Name { get { return "WMIC"; } }
+        public string Name => "WMIC";
 
         private readonly string _configWMIC;
 
@@ -15,7 +15,8 @@ namespace VAR.Toolbox.Code.ProxyCmdExecutors
 
         public bool ExecuteCmd(string cmd, IOutputHandler outputHandler)
         {
-            string parameters = string.Format(" /node:\"{0}\" process call create \"cmd.exe /c \\\"{1}\\\"\"", _configWMIC.Replace("\"", "\\\""), cmd.Replace("\"", "\\\""));
+            string parameters = string.Format(" /node:\"{0}\" process call create \"cmd.exe /c \\\"{1}\\\"\"",
+                _configWMIC.Replace("\"", "\\\""), cmd.Replace("\"", "\\\""));
             Process process = new Process();
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;

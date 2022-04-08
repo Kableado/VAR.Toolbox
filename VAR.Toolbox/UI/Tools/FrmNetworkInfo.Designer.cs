@@ -1,4 +1,4 @@
-﻿namespace VAR.Toolbox.UI
+﻿namespace VAR.Toolbox.UI.Tools
 {
     partial class FrmNetworkInfo
     {

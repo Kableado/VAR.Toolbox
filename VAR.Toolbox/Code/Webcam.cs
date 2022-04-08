@@ -1,5 +1,7 @@
 ﻿#pragma warning disable IDE0018
 #pragma warning disable IDE0059
+// ReSharper disable SuspiciousTypeConversion.Global
+// ReSharper disable ConvertToAutoProperty
 
 using System;
 using System.Collections.Generic;
@@ -10,26 +12,23 @@ using System.Runtime.InteropServices.ComTypes;
 using VAR.Toolbox.Code.DirectShow;
 using VAR.Toolbox.Code.Windows;
 
+
 namespace VAR.Toolbox.Code
 {
     public class Webcam
     {
         #region Declarations
 
-        private readonly IFilterGraph2 graph;
-        private readonly ICaptureGraphBuilder2 capture;
-        private readonly IMediaControl control;
-        private readonly IBaseFilter sourceFilter;
-        private readonly IBaseFilter samplegrabberfilter;
-        private readonly IBaseFilter nullrenderer;
+        private readonly IMediaControl _control;
+        private readonly IBaseFilter _sourceFilter;
+        private readonly IBaseFilter _sampleGrabberFilter;
+        private readonly IBaseFilter _nullRenderer;
 
-        private readonly Grabber grabber;
+        private readonly int _width;
+        private readonly int _height;
+        private readonly int _bpp;
 
-        private readonly int width = 0;
-        private readonly int height = 0;
-        private readonly int bpp = 0;
-
-        private bool active = false;
+        private bool _active;
 
         private static Dictionary<string, string> _deviceDescriptions;
 
@@ -37,11 +36,13 @@ namespace VAR.Toolbox.Code
 
         #region Properties
 
-        public int Width { get { return width; } }
-        public int Height { get { return height; } }
-        public int BPP { get { return bpp; } }
+        public int Width => _width;
 
-        public bool Active { get { return active; } }
+        public int Height => _height;
+
+        public int BPP => _bpp;
+
+        public bool Active => _active;
 
         #endregion Properties
 
@@ -49,33 +50,29 @@ namespace VAR.Toolbox.Code
 
         public Webcam(string monikerString)
         {
-            int result;
-
-            graph = CreateInstanceFromClsid<IFilterGraph2>(Clsid.FilterGraph);
-            capture = CreateInstanceFromClsid<ICaptureGraphBuilder2>(Clsid.CaptureGraphBuilder2);
-            control = (IMediaControl)graph;
+            IFilterGraph2 graph = CreateInstanceFromClsid<IFilterGraph2>(Clsid.FilterGraph);
+            ICaptureGraphBuilder2 capture = CreateInstanceFromClsid<ICaptureGraphBuilder2>(Clsid.CaptureGraphBuilder2);
+            _control = (IMediaControl)graph;
             capture.SetFiltergraph((IGraphBuilder)graph);
-
-            IBindCtx bindCtx = null;
-            IMoniker moniker = null;
 
             int n = 0;
 
-            if (Win32.CreateBindCtx(0, out bindCtx) != 0)
+            if (Win32.CreateBindCtx(0, out IBindCtx bindCtx) != 0)
             {
                 throw new Exception("Failed to create binding context");
             }
-            if (Win32.MkParseDisplayName(bindCtx, monikerString, ref n, out moniker) != 0)
+
+            if (Win32.MkParseDisplayName(bindCtx, monikerString, ref n, out IMoniker moniker) != 0)
             {
                 throw new Exception("Failed to create binding moniker");
             }
 
-            graph.AddSourceFilterForMoniker(moniker, bindCtx, monikerString, out sourceFilter);
+            graph.AddSourceFilterForMoniker(moniker, bindCtx, monikerString, out _sourceFilter);
 
-            samplegrabberfilter = CreateInstanceFromClsid<IBaseFilter>(Clsid.SampleGrabber);
-            graph.AddFilter(samplegrabberfilter, string.Format("SampleGrabber {0}", monikerString));
+            _sampleGrabberFilter = CreateInstanceFromClsid<IBaseFilter>(Clsid.SampleGrabber);
+            graph.AddFilter(_sampleGrabberFilter, $"SampleGrabber {monikerString}");
 
-            ISampleGrabber sampleGrabber = (ISampleGrabber)samplegrabberfilter;
+            ISampleGrabber sampleGrabber = (ISampleGrabber)_sampleGrabberFilter;
 
             // Set media type
             AMMediaType mediaType = new AMMediaType
@@ -85,15 +82,16 @@ namespace VAR.Toolbox.Code
             };
             sampleGrabber.SetMediaType(mediaType);
 
-            grabber = new Grabber(this);
-            result = sampleGrabber.SetCallback(grabber, 1);
+            var grabber = new Grabber(this);
+            int result = sampleGrabber.SetCallback(grabber, 1);
             if (result < 0) throw new Exception("Failure creating Webcam device");
 
             //set the null renderer
-            nullrenderer = CreateInstanceFromClsid<IBaseFilter>(Clsid.NullRenderer);
-            graph.AddFilter(nullrenderer, string.Format("NullRenderer {0}", monikerString));
+            _nullRenderer = CreateInstanceFromClsid<IBaseFilter>(Clsid.NullRenderer);
+            graph.AddFilter(_nullRenderer, $"NullRenderer {monikerString}");
 
-            result = capture.RenderStream(PinCategory.Preview, MediaType.Video, sourceFilter, samplegrabberfilter, nullrenderer);
+            result = capture.RenderStream(PinCategory.Preview, MediaType.Video, _sourceFilter, _sampleGrabberFilter,
+                _nullRenderer);
             if (result < 0) throw new Exception("Failure creating Webcam device");
 
             AMMediaType queryMediaType = new AMMediaType();
@@ -102,14 +100,15 @@ namespace VAR.Toolbox.Code
             {
                 if (queryMediaType.FormatType == FormatType.VideoInfo)
                 {
-                    VideoInfoHeader videoInfo = (VideoInfoHeader)Marshal.PtrToStructure(queryMediaType.FormatPtr, typeof(VideoInfoHeader));
-                    width = videoInfo.BmiHeader.Width;
-                    height = videoInfo.BmiHeader.Height;
-                    bpp = videoInfo.BmiHeader.BitCount;
+                    VideoInfoHeader videoInfo =
+                        (VideoInfoHeader)Marshal.PtrToStructure(queryMediaType.FormatPtr, typeof(VideoInfoHeader));
+                    _width = videoInfo.BmiHeader.Width;
+                    _height = videoInfo.BmiHeader.Height;
+                    _bpp = videoInfo.BmiHeader.BitCount;
                 }
             }
 
-            control.Run();
+            _control.Run();
             Stop();
         }
 
@@ -119,41 +118,37 @@ namespace VAR.Toolbox.Code
 
         public void Start()
         {
-            control.Run();
-            int result;
-            result = nullrenderer.Run(0);
+            _control.Run();
+            int result = _nullRenderer.Run(0);
             if (result < 0) throw new Exception("Webcam Start failure");
-            result = samplegrabberfilter.Run(0);
+            result = _sampleGrabberFilter.Run(0);
             if (result < 0) throw new Exception("Webcam Start failure");
-            result = sourceFilter.Run(0);
+            result = _sourceFilter.Run(0);
             if (result < 0) throw new Exception("Webcam Start failure");
-            active = true;
+            _active = true;
         }
 
         public void Stop()
         {
-            int result;
-            result = sourceFilter.Stop();
+            int result = _sourceFilter.Stop();
             if (result < 0) throw new Exception("Webcam Stop failure");
-            result = samplegrabberfilter.Stop();
+            result = _sampleGrabberFilter.Stop();
             if (result < 0) throw new Exception("Webcam Stop failure");
-            result = nullrenderer.Stop();
+            result = _nullRenderer.Stop();
             if (result < 0) throw new Exception("Webcam Stop failure");
-            control.Stop();
-            active = false;
+            _control.Stop();
+            _active = false;
         }
 
         public static Dictionary<string, string> ListDevices()
         {
             if (_deviceDescriptions != null) { return _deviceDescriptions; }
 
-            int result;
             Dictionary<string, string> devices = new Dictionary<string, string>();
             ICreateDevEnum devEnum = CreateInstanceFromClsid<ICreateDevEnum>(Clsid.SystemDeviceEnum);
 
-            IEnumMoniker enumMon = null;
             Guid category = FilterCategory.VideoInputDevice;
-            result = devEnum.CreateClassEnumerator(ref category, out enumMon, 0);
+            int result = devEnum.CreateClassEnumerator(ref category, out IEnumMoniker enumMon, 0);
             if (result != 0)
                 throw new ApplicationException("No devices of the category");
 
@@ -175,6 +170,7 @@ namespace VAR.Toolbox.Code
                 Marshal.ReleaseComObject(devMoniker[0]);
                 devMoniker[0] = null;
             }
+
             _deviceDescriptions = devices;
 
             Marshal.ReleaseComObject(devEnum);
@@ -202,8 +198,7 @@ namespace VAR.Toolbox.Code
         //
         private static string GetMonikerString(IMoniker moniker)
         {
-            string str;
-            moniker.GetDisplayName(null, null, out str);
+            moniker.GetDisplayName(null, null, out string str);
             return str;
         }
 
@@ -213,14 +208,13 @@ namespace VAR.Toolbox.Code
         private static string GetMonikerName(IMoniker moniker)
         {
             Object bagObj = null;
-            IPropertyBag bag = null;
 
             try
             {
                 Guid bagId = typeof(IPropertyBag).GUID;
                 // get property bag of the moniker
                 moniker.BindToStorage(null, null, ref bagId, out bagObj);
-                bag = (IPropertyBag)bagObj;
+                IPropertyBag bag = (IPropertyBag)bagObj;
 
                 // read FriendlyName
                 object val = "";
@@ -242,11 +236,9 @@ namespace VAR.Toolbox.Code
             finally
             {
                 // release all COM objects
-                bag = null;
                 if (bagObj != null)
                 {
                     Marshal.ReleaseComObject(bagObj);
-                    bagObj = null;
                 }
             }
         }
@@ -267,7 +259,7 @@ namespace VAR.Toolbox.Code
         {
             private readonly Webcam _parent;
 
-            private readonly Bitmap[] _frames = null;
+            private readonly Bitmap[] _frames;
             private readonly int _numFrames = 10;
             private int _currentFrameIndex = -1;
 
@@ -281,11 +273,13 @@ namespace VAR.Toolbox.Code
             {
                 _currentFrameIndex = (_currentFrameIndex + 1) % _numFrames;
                 Bitmap currentBitmap = _frames[_currentFrameIndex];
-                if (currentBitmap == null || currentBitmap?.Width != _parent.width || currentBitmap?.Height != _parent.height)
+                if (currentBitmap == null || currentBitmap.Width != _parent._width ||
+                    currentBitmap.Height != _parent._height)
                 {
-                    currentBitmap = new Bitmap(_parent.width, _parent.height, PixelFormat.Format24bppRgb);
+                    currentBitmap = new Bitmap(_parent._width, _parent._height, PixelFormat.Format24bppRgb);
                     _frames[_currentFrameIndex] = currentBitmap;
                 }
+
                 return currentBitmap;
             }
 
@@ -299,12 +293,12 @@ namespace VAR.Toolbox.Code
                 if (_parent.NewFrame != null)
                 {
                     // create new image
-                    Bitmap _image = GetNextFrame();
-                    Rectangle _imageRect = new Rectangle(0, 0, _parent.width, _parent.height);
+                    Bitmap image = GetNextFrame();
+                    Rectangle imageRect = new Rectangle(0, 0, _parent._width, _parent._height);
 
                     // lock bitmap data
-                    BitmapData imageData = _image.LockBits(
-                        _imageRect,
+                    BitmapData imageData = image.LockBits(
+                        imageRect,
                         ImageLockMode.ReadWrite,
                         PixelFormat.Format24bppRgb);
 
@@ -314,10 +308,10 @@ namespace VAR.Toolbox.Code
 
                     unsafe
                     {
-                        byte* dst = (byte*)imageData.Scan0.ToPointer() + dstStride * (_parent.height - 1);
+                        byte* dst = (byte*)imageData.Scan0.ToPointer() + dstStride * (_parent._height - 1);
                         byte* src = (byte*)buffer.ToPointer();
 
-                        for (int y = 0; y < _parent.height; y++)
+                        for (int y = 0; y < _parent._height; y++)
                         {
                             Win32.memcpy(dst, src, srcStride);
                             dst -= dstStride;
@@ -326,10 +320,10 @@ namespace VAR.Toolbox.Code
                     }
 
                     // unlock bitmap data
-                    _image.UnlockBits(imageData);
+                    image.UnlockBits(imageData);
 
                     // notify parent
-                    _parent.NewFrame?.Invoke(this, _image);
+                    _parent.NewFrame?.Invoke(this, image);
                 }
 
                 return 0;

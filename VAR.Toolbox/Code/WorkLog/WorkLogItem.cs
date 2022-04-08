@@ -12,7 +12,7 @@ namespace VAR.Toolbox.Code.WorkLog
 
         public bool Overlaps(WorkLogItem other)
         {
-            return (other.DateEnd < this.DateStart || other.DateStart > this.DateEnd) == false;
+            return (other.DateEnd < DateStart || other.DateStart > DateEnd) == false;
         }
     }
 }

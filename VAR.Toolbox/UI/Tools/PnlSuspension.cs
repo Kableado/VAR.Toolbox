@@ -4,7 +4,7 @@ using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Windows;
 using VAR.Toolbox.Controls;
 
-namespace VAR.Toolbox.UI
+namespace VAR.Toolbox.UI.Tools
 {
     public partial class PnlSuspension : SubFrame, IToolPanel
     {
@@ -20,7 +20,7 @@ namespace VAR.Toolbox.UI
             RandomizeOffset();
         }
 
-        private void BtnCustomSuspenedNow_Click(object sender, EventArgs e)
+        private void BtnCustomSuspendNow_Click(object sender, EventArgs e)
         {
             CustomHourMinute_SetNow();
         }
@@ -33,6 +33,7 @@ namespace VAR.Toolbox.UI
         private void TimTicker_Tick(object sender, EventArgs e)
         {
             if (DesignMode) { return; }
+
             ResetCountdown();
             DateTime now = DateTime.Now;
 
@@ -40,13 +41,13 @@ namespace VAR.Toolbox.UI
             {
                 DateTime dtSuspendAtCustom =
                     new DateTime(
-                        now.Year,
-                        now.Month,
-                        now.Day,
-                        ddlCustomHour.SelectedIndex,
-                        ddlCustomMinute.SelectedIndex,
-                        0)
-                    .AddSeconds(Convert.ToInt32(numOffset.Value));
+                            now.Year,
+                            now.Month,
+                            now.Day,
+                            ddlCustomHour.SelectedIndex,
+                            ddlCustomMinute.SelectedIndex,
+                            0)
+                        .AddSeconds(Convert.ToInt32(numOffset.Value));
 
                 CheckTime(chkSuspendAtCustom, dtSuspendAtCustom, now);
             }
@@ -59,7 +60,7 @@ namespace VAR.Toolbox.UI
         {
             for (int i = 0; i < 24; i++)
             {
-                ddlCustomHour.Items.Add(string.Format("{0:00}", i));
+                ddlCustomHour.Items.Add($"{i:00}");
             }
         }
 
@@ -67,7 +68,7 @@ namespace VAR.Toolbox.UI
         {
             for (int i = 0; i < 60; i++)
             {
-                ddlCustomMinute.Items.Add(string.Format("{0:00}", i));
+                ddlCustomMinute.Items.Add($"{i:00}");
             }
         }
 
@@ -91,28 +92,29 @@ namespace VAR.Toolbox.UI
         private void SetCountdown(DateTime dateTime, DateTime now)
         {
             TimeSpan timeSpan = dateTime - now;
-            lblCountdown.Text = string.Format("{0:00}:{1:00}:{2:00}:{3:00}", timeSpan.Days, timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+            lblCountdown.Text = string.Format("{0:00}:{1:00}:{2:00}:{3:00}", timeSpan.Days, timeSpan.Hours,
+                timeSpan.Minutes, timeSpan.Seconds);
         }
 
-        private void CheckTime(CheckBox chkSuspendAtCustom, DateTime dtSuspendAtCustom, DateTime now)
+        private void CheckTime(CheckBox chk, DateTime dtSuspendAtCustom, DateTime now)
         {
             if (DateTime.Compare(now, dtSuspendAtCustom) > 0)
             {
-                if (chkSuspendAtCustom.Checked)
+                if (chk.Checked)
                 {
-                    chkSuspendAtCustom.Checked = false;
+                    chk.Checked = false;
                     RandomizeOffset();
                     SuspendSystem();
                 }
                 else
                 {
-                    chkSuspendAtCustom.Enabled = false;
+                    chk.Enabled = false;
                 }
             }
             else
             {
                 SetCountdown(dtSuspendAtCustom, now);
-                chkSuspendAtCustom.Enabled = true;
+                chk.Enabled = true;
             }
         }
 

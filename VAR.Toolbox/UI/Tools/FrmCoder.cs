@@ -1,25 +1,26 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using VAR.Toolbox.Code.TextCoders;
 using VAR.Toolbox.Controls;
 
-namespace VAR.Toolbox.UI
+namespace VAR.Toolbox.UI.Tools
 {
     public partial class FrmCoder : Frame, IToolForm
     {
-        public string ToolName { get { return "Coder"; } }
+        public string ToolName => "Coder";
 
-        public bool HasIcon { get { return false; } }
+        public bool HasIcon => false;
 
         public FrmCoder()
         {
             InitializeComponent();
 
-            cboCode.Items.AddRange(TextCoderFactory.GetNames());
+            cboCode.Items.AddRange(TextCoderFactory.GetNames().ToArray<object>());
             cboCode.SelectedIndex = 1;
         }
 
-        private ITextCoder _coder = null;
+        private ITextCoder _coder;
 
         private void BtnDecode_Click(object sender, EventArgs e)
         {
@@ -32,6 +33,7 @@ namespace VAR.Toolbox.UI
             {
                 MessageBox.Show(ex.Message);
             }
+
             txtOutput.Text = output;
         }
 
@@ -46,14 +48,13 @@ namespace VAR.Toolbox.UI
             {
                 MessageBox.Show(ex.Message);
             }
+
             txtOutput.Text = output;
         }
 
         private void BtnSwap_Click(object sender, EventArgs e)
         {
-            string temp = txtOutput.Text;
-            txtOutput.Text = txtInput.Text;
-            txtInput.Text = temp;
+            (txtOutput.Text, txtInput.Text) = (txtInput.Text, txtOutput.Text);
         }
 
         private void CboCode_SelectedIndexChanged(object sender, EventArgs e)

@@ -16,6 +16,7 @@ namespace VAR.Toolbox.Controls
         {
             public string Text { get; set; }
             public object Data { get; set; }
+
             public override string ToString()
             {
                 return Text;
@@ -62,6 +63,7 @@ namespace VAR.Toolbox.Controls
                 CopyToClipboard();
                 return true;
             }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -80,6 +82,7 @@ namespace VAR.Toolbox.Controls
             {
                 sbText.AppendLine(item.Text);
             }
+
             if (sbText.Length > 0)
             {
                 Clipboard.SetText(sbText.ToString());
@@ -99,7 +102,7 @@ namespace VAR.Toolbox.Controls
             }
         }
 
-        private bool _updated = false;
+        private bool _updated;
         private readonly List<OutputItem> _pendingOutput = new List<OutputItem>();
 
         private void UpdatePosition()
@@ -112,6 +115,7 @@ namespace VAR.Toolbox.Controls
                 {
                     _listBox.Items.Add(item);
                 }
+
                 _pendingOutput.Clear();
                 _listBox.ResumeLayout();
 
@@ -124,10 +128,12 @@ namespace VAR.Toolbox.Controls
         }
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
-        private static extern IntPtr SendMessage(HandleRef hWnd, Int32 Msg, IntPtr wParam, IntPtr lParam);
+        private static extern IntPtr SendMessage(HandleRef hWnd, Int32 msg, IntPtr wParam, IntPtr lParam);
 
         private static void EnableRepaint(HandleRef handle, bool enable)
         {
+            // ReSharper disable once InconsistentNaming
+            // ReSharper disable once IdentifierTypo
             const int WM_SETREDRAW = 0x000B;
             SendMessage(handle, WM_SETREDRAW, new IntPtr(enable ? 1 : 0), IntPtr.Zero);
         }
@@ -161,6 +167,7 @@ namespace VAR.Toolbox.Controls
         public string GetCurrentText()
         {
             if (_listBox.SelectedItems.Count == 0) { return null; }
+
             OutputItem item = (OutputItem)_listBox.SelectedItems[0];
             return item?.Text;
         }
@@ -168,6 +175,7 @@ namespace VAR.Toolbox.Controls
         public object GetCurrentData()
         {
             if (_listBox.SelectedItems.Count == 0) { return null; }
+
             OutputItem item = (OutputItem)_listBox.SelectedItems[0];
             return item?.Data;
         }

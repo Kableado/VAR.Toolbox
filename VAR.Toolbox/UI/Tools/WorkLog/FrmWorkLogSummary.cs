@@ -8,19 +8,19 @@ using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI.Tools.WorkLog
 {
-    public partial class FrmWorkLogSumary : Frame
+    public partial class FrmWorkLogSummary : Frame
     {
-        public FrmWorkLogSumary()
+        public FrmWorkLogSummary()
         {
             InitializeComponent();
         }
 
-        private List<WorkLogItem> _workLog = null;
+        private List<WorkLogItem> _workLog;
 
         public List<WorkLogItem> WorkLog
         {
-            get { return _workLog; }
-            set { _workLog = value; }
+            get => _workLog;
+            set => _workLog = value;
         }
 
         private void FrmWorkLogStats_Load(object sender, EventArgs e)
@@ -37,7 +37,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void WorkLog_ProcessStats()
@@ -52,6 +52,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
                 found = true;
                 if (item.DateStart < dateStart) { dateStart = item.DateStart; }
+
                 if (item.DateEnd > dateEnd) { dateEnd = item.DateEnd; }
 
                 TimeSpan tsItem = item.DateEnd - item.DateStart;
@@ -91,12 +92,13 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 {
                     tsActivityGroup += pair.Value;
                 }
-                strActivities.Add(string.Format("{0} -- {1} h", activityGroup.Key, tsActivityGroup.TotalHours));
+
+                strActivities.Add($"{activityGroup.Key} -- {tsActivityGroup.TotalHours} h");
                 if (chkOnlyGroups.Checked == false)
                 {
                     foreach (KeyValuePair<string, TimeSpan> pair in activityGroup)
                     {
-                        strActivities.Add(string.Format("    {0} -- {1} h", pair.Key, pair.Value.TotalHours));
+                        strActivities.Add($"    {pair.Key} -- {pair.Value.TotalHours} h");
                         tsTotal += pair.Value;
                     }
                 }
@@ -105,9 +107,10 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                     tsTotal += tsActivityGroup;
                 }
             }
+
             lsbActivities.Items.Clear();
-            lsbActivities.Items.AddRange(strActivities.ToArray());
-            lblTotalTime.Text = string.Format("{0} - {1}", tsTotal.ToString(), tsTotal.TotalHours);
+            lsbActivities.Items.AddRange(strActivities.ToArray<object>());
+            lblTotalTime.Text = $"{tsTotal.ToString()} - {tsTotal.TotalHours}";
         }
 
         private void lsbActivities_KeyDown(object sender, KeyEventArgs e)
@@ -117,6 +120,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                 CopyToClipboard();
             }
         }
+
         private void CopyToClipboard()
         {
             StringBuilder sbText = new StringBuilder();
@@ -124,6 +128,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             {
                 sbText.AppendLine(item);
             }
+
             if (sbText.Length > 0)
             {
                 Clipboard.SetText(sbText.ToString());

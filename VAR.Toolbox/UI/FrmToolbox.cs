@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Windows;
 using VAR.Toolbox.Controls;
@@ -16,14 +15,14 @@ namespace VAR.Toolbox.UI
     {
         #region Declarations
 
-        private bool _closing = false;
+        private bool _closing;
 
-        private Label lblToolbox;
-        private CButton btnExit;
+        private Label _lblToolbox;
+        private CButton _btnExit;
 
-        private NotifyIcon niTray = null;
+        private NotifyIcon _niTray;
 
-        private static FrmToolbox _currentInstance = null;
+        private static FrmToolbox _currentInstance;
 
         #endregion Declarations
 
@@ -39,7 +38,7 @@ namespace VAR.Toolbox.UI
         {
             Icon ico = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             Icon = ico;
-            niTray.Icon = ico;
+            _niTray.Icon = ico;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -74,7 +73,7 @@ namespace VAR.Toolbox.UI
             if (dialogResult == DialogResult.Yes)
             {
                 _closing = true;
-                niTray.Visible = false;
+                _niTray.Visible = false;
                 CloseChildWindows();
                 Close();
             }
@@ -102,18 +101,18 @@ namespace VAR.Toolbox.UI
         private void InitializeDynamicComponents()
         {
             SuspendLayout();
-            const int toolSpacing = 5;
-            const int toolWidth = 200;
-            const int windowSpacing = 10;
-            int nextYLocation = 0;
+            const int ToolSpacing = 5;
+            const int ToolWidth = 200;
+            const int WindowSpacing = 10;
 
             // Get list of ToolForms
             Type iToolForm = typeof(IToolForm);
             IEnumerable<Type> toolFormTypes = ReflectionUtils.GetTypesOfInterface(iToolForm);
             Dictionary<string, Type> dictToolFormTypes = toolFormTypes.ToDictionary(t =>
             {
-                IToolForm toolForm = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(t) as IToolForm;
-                return toolForm.ToolName;
+                IToolForm toolForm =
+                    System.Runtime.Serialization.FormatterServices.GetUninitializedObject(t) as IToolForm;
+                return toolForm?.ToolName ?? t.Name;
             });
 
             // Get list of ToolPanels
@@ -121,27 +120,28 @@ namespace VAR.Toolbox.UI
             IEnumerable<Type> toolPanelTypes = ReflectionUtils.GetTypesOfInterface(iToolPanel).OrderBy(t => t.Name);
 
             // lblToolbox
-            lblToolbox = new Label
+            _lblToolbox = new Label
             {
                 Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right),
-                Font = new Font(Font.FontFamily, ControlsUtils.GetFontSize(this, 27.75F), FontStyle.Bold, GraphicsUnit.Point, 0),
-                Location = new Point(windowSpacing, windowSpacing),
+                Font = new Font(Font.FontFamily, ControlsUtils.GetFontSize(this, 27.75F), FontStyle.Bold,
+                    GraphicsUnit.Point, 0),
+                Location = new Point(WindowSpacing, WindowSpacing),
                 Margin = new Padding(0, 0, 0, 0),
                 Name = "lblToolbox",
-                Size = new Size(toolWidth * 2 + toolSpacing, 50),
+                Size = new Size(ToolWidth * 2 + ToolSpacing, 50),
                 TabIndex = 6,
                 Text = "Toolbox",
                 TextAlign = ContentAlignment.MiddleCenter
             };
-            lblToolbox.MouseDown += DragWindow_MouseDown;
-            nextYLocation = lblToolbox.Location.Y + lblToolbox.Size.Height + windowSpacing;
+            _lblToolbox.MouseDown += DragWindow_MouseDown;
+            int nextYLocation = _lblToolbox.Location.Y + _lblToolbox.Size.Height + WindowSpacing;
 
             // Tool buttons
             int idxButton = 0;
-            int xStartButtons = windowSpacing;
-            int xStepButtons = toolWidth + toolSpacing;
+            int xStartButtons = WindowSpacing;
+            int xStepButtons = ToolWidth + ToolSpacing;
             int yStartButtons = nextYLocation;
-            int yStepButtons = 40 + toolSpacing;
+            int yStepButtons = 40 + ToolSpacing;
             IEnumerable<KeyValuePair<string, Type>> sortedToolForms = dictToolFormTypes.OrderBy(p => p.Key);
             foreach (KeyValuePair<string, Type> p in sortedToolForms)
             {
@@ -150,15 +150,15 @@ namespace VAR.Toolbox.UI
                 CButton btn = new CButton
                 {
                     Location = new Point(x, y),
-                    Name = string.Format("btn{0}", p.Key),
-                    Size = new Size(toolWidth, 40),
+                    Name = $"btn{p.Key}",
+                    Size = new Size(ToolWidth, 40),
                     TabIndex = idxButton,
                     Text = p.Key,
                 };
                 btn.Click += (s, e) => { CreateWindow(p.Value); };
                 Controls.Add(btn);
 
-                nextYLocation = btn.Location.Y + btn.Size.Height + windowSpacing;
+                nextYLocation = btn.Location.Y + btn.Size.Height + WindowSpacing;
 
                 idxButton++;
             }
@@ -166,48 +166,51 @@ namespace VAR.Toolbox.UI
             // Tool panels
             int idxPanel = 0;
             int yStartPanels = nextYLocation;
-            int xStartPanels = windowSpacing;
+            int xStartPanels = WindowSpacing;
             int xNextPanels = xStartPanels;
             foreach (Type t in toolPanelTypes)
             {
                 ContainerControl pnl = Activator.CreateInstance(t) as ContainerControl;
                 if (pnl == null) { continue; }
+
                 pnl.Location = new Point(xNextPanels, yStartPanels);
                 Controls.Add(pnl);
 
-                int tempNextYLocation = pnl.Location.Y + pnl.Size.Height + windowSpacing;
+                int tempNextYLocation = pnl.Location.Y + pnl.Size.Height + WindowSpacing;
                 if (nextYLocation < tempNextYLocation)
                 {
                     nextYLocation = tempNextYLocation;
                 }
-                xNextPanels = pnl.Location.X + pnl.Size.Width + toolSpacing;
+
+                xNextPanels = pnl.Location.X + pnl.Size.Width + ToolSpacing;
 
                 if ((idxPanel % 2) == 1)
                 {
                     yStartPanels = nextYLocation;
                     xNextPanels = xStartPanels;
                 }
+
                 idxPanel++;
             }
 
             // btnExit
-            btnExit = new CButton
+            _btnExit = new CButton
             {
                 Anchor = ((AnchorStyles.Bottom | AnchorStyles.Left)
-            | AnchorStyles.Right),
-                Location = new Point(windowSpacing, nextYLocation),
+                          | AnchorStyles.Right),
+                Location = new Point(WindowSpacing, nextYLocation),
                 Name = "btnExit",
-                Size = new Size(toolWidth * 2 + toolSpacing, 40),
+                Size = new Size(ToolWidth * 2 + ToolSpacing, 40),
                 TabIndex = 7,
                 Text = "Exit",
             };
-            btnExit.Click += BtnExit_Click;
-            nextYLocation = btnExit.Location.Y + btnExit.Size.Height + windowSpacing;
+            _btnExit.Click += BtnExit_Click;
+            nextYLocation = _btnExit.Location.Y + _btnExit.Size.Height + WindowSpacing;
 
             // FrmToolbox
             ClientSize = new Size(425, nextYLocation);
-            Controls.Add(btnExit);
-            Controls.Add(lblToolbox);
+            Controls.Add(_btnExit);
+            Controls.Add(_lblToolbox);
             FormBorderStyle = FormBorderStyle.Fixed3D;
             MaximizeBox = false;
             Name = "FrmToolbox";
@@ -219,12 +222,12 @@ namespace VAR.Toolbox.UI
             ResumeLayout(false);
 
             // niTray
-            niTray = new NotifyIcon
+            _niTray = new NotifyIcon
             {
                 Text = "VAR.Toolbox",
                 Visible = true
             };
-            niTray.MouseClick += NiTray_MouseClick;
+            _niTray.MouseClick += NiTray_MouseClick;
 
 
             ResumeLayout();
@@ -234,21 +237,22 @@ namespace VAR.Toolbox.UI
 
         #region Window handling
 
-        private Form CreateWindow(Type type)
+        private void CreateWindow(Type type)
         {
             var frm = Activator.CreateInstance(type) as Form;
             if (frm == null)
             {
-                return null;
+                return;
             }
+
             _forms.Add(frm);
             frm.FormClosing += FrmChild_FormClosing;
             if ((frm as IToolForm)?.HasIcon == false)
             {
                 frm.Icon = Icon;
             }
+
             frm.Show();
-            return frm;
         }
 
         private readonly List<Form> _forms = new List<Form>();
@@ -263,7 +267,7 @@ namespace VAR.Toolbox.UI
             CloseChildWindows();
         }
 
-        private bool _wasMinimized = false;
+        private bool _wasMinimized;
 
         private void FrmToolbox_Resize(object sender, EventArgs e)
         {
@@ -272,6 +276,7 @@ namespace VAR.Toolbox.UI
                 _wasMinimized = true;
                 HideChildWindows();
             }
+
             if (FormWindowState.Normal == WindowState && _wasMinimized)
             {
                 _wasMinimized = false;
@@ -312,6 +317,7 @@ namespace VAR.Toolbox.UI
         {
             List<T> list = new List<T>();
             if (_currentInstance == null) { return list; }
+
             foreach (Form frm in _currentInstance._forms)
             {
                 if (frm is T)
@@ -319,10 +325,10 @@ namespace VAR.Toolbox.UI
                     list.Add((T)(object)frm);
                 }
             }
+
             return list;
         }
 
         #endregion Window handling
-
     }
 }

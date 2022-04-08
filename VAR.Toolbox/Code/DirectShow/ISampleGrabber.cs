@@ -9,8 +9,8 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComImport,
-    Guid("6B652FFF-11FE-4FCE-92AD-0266B5D7C78F"),
-    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     Guid("6B652FFF-11FE-4FCE-92AD-0266B5D7C78F"),
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface ISampleGrabber
     {
         /// <summary>

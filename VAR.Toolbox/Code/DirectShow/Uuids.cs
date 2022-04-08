@@ -1,3 +1,8 @@
+// ReSharper disable CommentTypo
+
+// ReSharper disable IdentifierTypo
+// ReSharper disable InconsistentNaming
+
 namespace VAR.Toolbox.Code.DirectShow
 {
     using System;
@@ -7,7 +12,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// DirectShow class IDs.
     /// </summary>
     [ComVisible(false)]
-    static internal class Clsid
+    internal static class Clsid
     {
         /// <summary>
         /// System device enumerator.
@@ -57,7 +62,6 @@ namespace VAR.Toolbox.Code.DirectShow
 
         public static readonly Guid NullRenderer =
             new Guid(0xC1F400A4, 0x3F08, 0x11d3, 0x9F, 0x0B, 0x00, 0x60, 0x08, 0x03, 0x9E, 0x37);
-
     }
 
     /// <summary>
@@ -65,7 +69,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false)]
-    static internal class FormatType
+    internal static class FormatType
     {
         /// <summary>
         /// VideoInfo.
@@ -91,7 +95,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false)]
-    static internal class MediaType
+    internal static class MediaType
     {
         /// <summary>
         /// Video.
@@ -144,7 +148,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false)]
-    static internal class MediaSubType
+    internal static class MediaSubType
     {
         /// <summary>
         /// YUY2 (packed 4:2:2).
@@ -260,7 +264,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false)]
-    static internal class PinCategory
+    internal static class PinCategory
     {
         /// <summary>
         /// Capture pin.
@@ -279,7 +283,6 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         public static readonly Guid Preview =
             new Guid(0xfb6c4282, 0x0353, 0x11d1, 0x90, 0x5f, 0x00, 0x00, 0xc0, 0xcc, 0x16, 0xba);
-
     }
 
     /// <summary>

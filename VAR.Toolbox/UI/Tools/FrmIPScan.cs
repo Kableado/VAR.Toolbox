@@ -6,13 +6,13 @@ using System.Threading;
 using System.Windows.Forms;
 using VAR.Toolbox.Controls;
 
-namespace VAR.Toolbox.UI
+namespace VAR.Toolbox.UI.Tools
 {
     public partial class FrmIPScan : Frame, IToolForm
     {
-        public string ToolName { get { return "IPScan"; } }
+        public string ToolName => "IPScan";
 
-        public bool HasIcon { get { return false; } }
+        public bool HasIcon => false;
 
         public FrmIPScan()
         {
@@ -24,19 +24,20 @@ namespace VAR.Toolbox.UI
 
         private void FrmIPScan_Disposed(object sender, EventArgs e)
         {
-            running = false;
+            _running = false;
         }
 
         private void PrintStatus(string status)
         {
             if (lblStatus.IsDisposed) { return; }
+
             if (lblStatus.InvokeRequired)
             {
-                lblStatus.Invoke((MethodInvoker)(() => { lblStatus.Text = string.Format("Status: {0}", status); }));
+                lblStatus.Invoke((MethodInvoker)(() => { lblStatus.Text = $"Status: {status}"; }));
             }
             else
             {
-                lblStatus.Text = string.Format("Status: {0}", status);
+                lblStatus.Text = $"Status: {status}";
                 Application.DoEvents();
             }
         }
@@ -44,6 +45,7 @@ namespace VAR.Toolbox.UI
         private void Control_SetEnabled(Control ctrl, bool enabled)
         {
             if (ctrl.IsDisposed) { return; }
+
             if (ctrl.InvokeRequired)
             {
                 ctrl.Invoke((MethodInvoker)(() => { ctrl.Enabled = enabled; }));
@@ -63,23 +65,23 @@ namespace VAR.Toolbox.UI
 
         private void BtnStop_Click(object sender, EventArgs e)
         {
-            running = false;
+            _running = false;
         }
 
-        private bool running = false;
+        private bool _running;
 
         private void IPScan(string ipBase)
         {
             Control_SetEnabled(btnScan, false);
-            running = true;
-            ctrOutput.AddLine(string.Format("IPScan started at {0}", DateTime.UtcNow.ToString("s")));
-            for (int i = 1; i < 255 && running; i++)
+            _running = true;
+            ctrOutput.AddLine($"IPScan started at {DateTime.UtcNow:s}");
+            for (int i = 1; i < 255 && _running; i++)
             {
                 string ip = ipBase + i.ToString();
-                PrintStatus(string.Format("Scanning {0}", ip));
+                PrintStatus($"Scanning {ip}");
                 Ping p = new Ping();
                 PingReply pingReply = p.Send(ip, 100);
-                if (pingReply.Status == IPStatus.Success)
+                if (pingReply != null && pingReply.Status == IPStatus.Success)
                 {
                     string name = "?";
                     try
@@ -88,14 +90,16 @@ namespace VAR.Toolbox.UI
                         name = hostEntry.HostName;
                     }
                     catch (SocketException) { }
-                    ctrOutput.AddLine(string.Format("{0} ({1}) is up: ({2} ms)", ip, name, pingReply.RoundtripTime));
+
+                    ctrOutput.AddLine($"{ip} ({name}) is up: ({pingReply.RoundtripTime} ms)");
                 }
+
                 Application.DoEvents();
             }
+
             PrintStatus("Idle");
-            ctrOutput.AddLine(string.Format("IPScan ended at {0}", DateTime.UtcNow.ToString("s")));
+            ctrOutput.AddLine($"IPScan ended at {DateTime.UtcNow:s}");
             Control_SetEnabled(btnScan, true);
         }
-
     }
 }

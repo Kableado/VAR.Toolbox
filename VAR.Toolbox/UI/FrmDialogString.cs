@@ -11,20 +11,20 @@ namespace VAR.Toolbox.UI
 
         public string Title
         {
-            get { return base.Text; }
-            set { Text = value; }
+            get => base.Text;
+            set => Text = value;
         }
 
         public string Description
         {
-            get { return lblDescription.Text; }
-            set { lblDescription.Text = value; }
+            get => lblDescription.Text;
+            set => lblDescription.Text = value;
         }
 
         public string Value
         {
-            get { return txtValue.Text; }
-            set { txtValue.Text = value; }
+            get => txtValue.Text;
+            set => txtValue.Text = value;
         }
     }
 }

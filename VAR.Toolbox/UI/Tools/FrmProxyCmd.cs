@@ -2,19 +2,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.ProxyCmdExecutors;
 using VAR.Toolbox.Controls;
 
-namespace VAR.Toolbox.UI
+namespace VAR.Toolbox.UI.Tools
 {
     public partial class FrmProxyCmd : Frame, IOutputHandler, IToolForm
     {
-        public string ToolName { get { return "ProxyCmd"; } }
+        public string ToolName => "ProxyCmd";
 
-        public bool HasIcon { get { return false; } }
+        public bool HasIcon => false;
 
         #region Declarations
 
@@ -45,6 +46,7 @@ namespace VAR.Toolbox.UI
                 Application.DoEvents();
                 return;
             }
+
             if (e.KeyCode == Keys.Return)
             {
                 e.Handled = true;
@@ -58,35 +60,43 @@ namespace VAR.Toolbox.UI
                     PrepareProxyCmdExecutor();
                     new Thread(() => ExecuteCmd(cmd)).Start();
                 }
+
                 return;
             }
+
             if (e.KeyCode == Keys.Enter)
             {
                 e.Handled = true;
                 return;
             }
+
             if (e.KeyCode == Keys.LineFeed)
             {
                 e.Handled = true;
                 return;
             }
+
             if (e.KeyCode == Keys.Up)
             {
                 e.Handled = true;
                 if (_currentHistoryIndex == -1) { _currentHistoryIndex = _cmdHistory.Count; }
+
                 _currentHistoryIndex--;
                 if (_currentHistoryIndex < 0)
                 {
                     _currentHistoryIndex = 0;
                 }
+
                 if (_currentHistoryIndex >= 0 && _currentHistoryIndex < _cmdHistory.Count)
                 {
                     txtInput.Text = _cmdHistory[_currentHistoryIndex];
                     txtInput.SelectionStart = txtInput.Text.Length;
                     txtInput.SelectionLength = 0;
                 }
+
                 return;
             }
+
             if (e.KeyCode == Keys.Down)
             {
                 e.Handled = true;
@@ -105,7 +115,6 @@ namespace VAR.Toolbox.UI
                         txtInput.SelectionLength = 0;
                     }
                 }
-                return;
             }
         }
 
@@ -123,25 +132,25 @@ namespace VAR.Toolbox.UI
 
         #region ProxyCmdExecutor
 
-        private IProxyCmdExecutor _proxyCmdExecutor = null;
+        private IProxyCmdExecutor _proxyCmdExecutor;
 
         private void PrepareProxyCmdExecutor()
         {
             if (_proxyCmdExecutor == null)
             {
-                _proxyCmdExecutor = ProxyCmdExecutorFactory.CreateFromConfig(GetCurrentConfig());
-                if (_proxyCmdExecutor == null)
-                {
-                    _proxyCmdExecutor = new ProxyCmdExecutorDummy(string.Empty);
-                }
+                _proxyCmdExecutor = ProxyCmdExecutorFactory.CreateFromConfig(GetCurrentConfig()) ??
+                                    new ProxyCmdExecutorDummy(string.Empty);
             }
         }
+
         private void CleanProxyCmdExecutor()
         {
+            // ReSharper disable once SuspiciousTypeConversion.Global
             if (_proxyCmdExecutor is IDisposable disposableProxyCmdExecutor)
             {
                 disposableProxyCmdExecutor.Dispose();
             }
+
             _proxyCmdExecutor = null;
         }
 
@@ -163,6 +172,7 @@ namespace VAR.Toolbox.UI
                 Logger.Log(ex);
                 OutputLine(ex.Message);
             }
+
             Monitor.Exit(_executionLock);
         }
 
@@ -190,8 +200,9 @@ namespace VAR.Toolbox.UI
             {
                 previousSelectedName = selectedConfig.Name;
             }
+
             ddlCurrentConfig.Items.Clear();
-            ddlCurrentConfig.Items.AddRange(configItems.ToArray());
+            ddlCurrentConfig.Items.AddRange(configItems.ToArray<object>());
             ddlCurrentConfig.SelectedIndex = 0;
             if (string.IsNullOrEmpty(previousSelectedName) == false)
             {
@@ -210,6 +221,7 @@ namespace VAR.Toolbox.UI
         {
             var selectedConfig = ddlCurrentConfig.SelectedItem as ProxyCmdConfigItem;
             if (selectedConfig == null) { return null; }
+
             return selectedConfig.Config;
         }
 

@@ -1,6 +1,5 @@
 ﻿#pragma warning disable IDE1006
 
-using System;
 using System.Runtime.InteropServices;
 
 namespace VAR.Toolbox.Code.DirectShow
@@ -9,8 +8,8 @@ namespace VAR.Toolbox.Code.DirectShow
     /// The IAMCrossbar interface routes signals from an analog or digital source to a video capture filter.
     /// </summary>
     [ComImport, System.Security.SuppressUnmanagedCodeSecurity,
-    Guid("C6E13380-30AC-11D0-A18C-00A0C9118956"),
-    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     Guid("C6E13380-30AC-11D0-A18C-00A0C9118956"),
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface IAMCrossbar
     {
         /// <summary>

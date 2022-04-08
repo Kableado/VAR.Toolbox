@@ -5,43 +5,44 @@ using System.Windows.Forms;
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Controls;
 
-namespace VAR.Toolbox.UI
+namespace VAR.Toolbox.UI.Tools
 {
     public partial class FrmScreenshooter : Frame, IToolForm
     {
-        public string ToolName { get { return "Screenshooter"; } }
+        public string ToolName => "Screenshooter";
 
-        public bool HasIcon { get { return false; } }
+        public bool HasIcon => false;
 
-        private bool _repetitiveScreenshots = false;
-        private readonly Timer timTicker;
-        private Bitmap bmpScreen = null;
+        private bool _repetitiveScreenshots;
+        private readonly Timer _timTicker;
+        private Bitmap _bmpScreen;
 
         public FrmScreenshooter()
         {
             InitializeComponent();
 
             if (components == null) { components = new Container(); }
-            timTicker = new Timer(components)
+
+            _timTicker = new Timer(components)
             {
                 Interval = 16,
                 Enabled = false
             };
-            timTicker.Tick += TimTicker_Tick;
+            _timTicker.Tick += TimTicker_Tick;
         }
 
-        private void BtnScreenshoot_Click(object sender, EventArgs e)
+        private void BtnScreenshot_Click(object sender, EventArgs e)
         {
-            bmpScreen = Screenshooter.CaptureScreen(bmpScreen);
-            picViewer.ImageShow = bmpScreen;
+            _bmpScreen = Screenshoter.CaptureScreen(_bmpScreen);
+            picViewer.ImageShow = _bmpScreen;
         }
 
         private void TimTicker_Tick(object sender, EventArgs e)
         {
-            timTicker.Stop();
-            bmpScreen = Screenshooter.CaptureScreen(bmpScreen);
-            picViewer.ImageShow = bmpScreen;
-            timTicker.Start();
+            _timTicker.Stop();
+            _bmpScreen = Screenshoter.CaptureScreen(_bmpScreen);
+            picViewer.ImageShow = _bmpScreen;
+            _timTicker.Start();
         }
 
         private void BtnStartStop_Click(object sender, EventArgs e)
@@ -51,15 +52,15 @@ namespace VAR.Toolbox.UI
             {
                 _repetitiveScreenshots = false;
                 btnStartStop.Text = "Start";
-                timTicker.Stop();
-                timTicker.Enabled = false;
+                _timTicker.Stop();
+                _timTicker.Enabled = false;
             }
             else
             {
                 _repetitiveScreenshots = true;
                 btnStartStop.Text = "Stop";
-                timTicker.Enabled = true;
-                timTicker.Start();
+                _timTicker.Enabled = true;
+                _timTicker.Start();
             }
         }
     }

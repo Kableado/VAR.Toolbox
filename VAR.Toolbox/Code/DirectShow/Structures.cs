@@ -1,3 +1,7 @@
+// ReSharper disable IdentifierTypo
+// ReSharper disable CommentTypo
+// ReSharper disable InconsistentNaming
+
 namespace VAR.Toolbox.Code.DirectShow
 {
     using System;
@@ -31,7 +35,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false),
-    StructLayout(LayoutKind.Sequential)]
+     StructLayout(LayoutKind.Sequential)]
     internal class AMMediaType : IDisposable
     {
         /// <summary>
@@ -47,14 +51,12 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <summary>
         /// If <b>true</b>, samples are of a fixed size.
         /// </summary>
-        [MarshalAs(UnmanagedType.Bool)]
-        public bool FixedSizeSamples = true;
+        [MarshalAs(UnmanagedType.Bool)] public bool FixedSizeSamples = true;
 
         /// <summary>
         /// If <b>true</b>, samples are compressed using temporal (interframe) compression.
         /// </summary>
-        [MarshalAs(UnmanagedType.Bool)]
-        public bool TemporalCompression;
+        [MarshalAs(UnmanagedType.Bool)] public bool TemporalCompression;
 
         /// <summary>
         /// Size of the sample in bytes. For compressed data, the value can be zero.
@@ -131,7 +133,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false),
-    StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
+     StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
     internal struct PinInfo
     {
         /// <summary>
@@ -153,7 +155,7 @@ namespace VAR.Toolbox.Code.DirectShow
 
     // FILTER_INFO
     [ComVisible(false),
-    StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
+     StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
     internal struct FilterInfo
     {
         /// <summary>
@@ -175,7 +177,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false),
-    StructLayout(LayoutKind.Sequential)]
+     StructLayout(LayoutKind.Sequential)]
     internal struct VideoInfoHeader
     {
         /// <summary>
@@ -216,7 +218,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false),
-    StructLayout(LayoutKind.Sequential)]
+     StructLayout(LayoutKind.Sequential)]
     internal struct VideoInfoHeader2
     {
         /// <summary>
@@ -285,7 +287,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false),
-    StructLayout(LayoutKind.Sequential, Pack = 2)]
+     StructLayout(LayoutKind.Sequential, Pack = 2)]
     internal struct BitmapInfoHeader
     {
         /// <summary>
@@ -351,7 +353,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false),
-    StructLayout(LayoutKind.Sequential)]
+     StructLayout(LayoutKind.Sequential)]
     internal struct RECT
     {
         /// <summary>
@@ -382,7 +384,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false),
-    StructLayout(LayoutKind.Sequential)]
+     StructLayout(LayoutKind.Sequential)]
     internal struct CAUUID
     {
         /// <summary>
@@ -421,17 +423,18 @@ namespace VAR.Toolbox.Code.DirectShow
     internal enum DsEvCode
     {
         None,
-        Complete = 0x01,      // EC_COMPLETE
-        DeviceLost = 0x1F,      // EC_DEVICE_LOST
+        Complete = 0x01, // EC_COMPLETE
+        DeviceLost = 0x1F, // EC_DEVICE_LOST
         //(...) not yet interested in other events
     }
 
     [Flags, ComVisible(false)]
     internal enum AnalogVideoStandard
     {
-        None = 0x00000000,   // This is a digital sensor
-        NTSC_M = 0x00000001,   //        75 IRE Setup
-        NTSC_M_J = 0x00000002,   // Japan,  0 IRE Setup
+        // ReSharper disable InconsistentNaming
+        None = 0x00000000, // This is a digital sensor
+        NTSC_M = 0x00000001, //        75 IRE Setup
+        NTSC_M_J = 0x00000002, // Japan,  0 IRE Setup
         NTSC_433 = 0x00000004,
         PAL_B = 0x00000010,
         PAL_D = 0x00000020,
@@ -449,7 +452,9 @@ namespace VAR.Toolbox.Code.DirectShow
         SECAM_K1 = 0x00020000,
         SECAM_L = 0x00040000,
         SECAM_L1 = 0x00080000,
-        PAL_N_COMBO = 0x00100000    // Argentina
+
+        PAL_N_COMBO = 0x00100000 // Argentina
+        // ReSharper restore InconsistentNaming
     }
 
     [Flags, ComVisible(false)]
@@ -462,7 +467,7 @@ namespace VAR.Toolbox.Code.DirectShow
     }
 
     [StructLayout(LayoutKind.Sequential), ComVisible(false)]
-    internal class VideoStreamConfigCaps		// VIDEO_STREAM_CONFIG_CAPS
+    internal class VideoStreamConfigCaps // VIDEO_STREAM_CONFIG_CAPS
     {
         public Guid Guid;
         public AnalogVideoStandard VideoStandard;

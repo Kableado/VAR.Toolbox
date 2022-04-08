@@ -5,7 +5,7 @@ using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Windows;
 using VAR.Toolbox.Controls;
 
-namespace VAR.Toolbox.UI
+namespace VAR.Toolbox.UI.Tools
 {
     public class FrmCover : Frame
     {
@@ -14,14 +14,19 @@ namespace VAR.Toolbox.UI
         private readonly Random _rnd = new Random();
         private readonly Timer _timer = new Timer();
 
-        private readonly uint _mouseX = 0;
-        private readonly uint _mouseY = 0;
+        private uint _mouseX;
+        private uint _mouseY;
 
         #endregion Declarations
 
         #region Form life cycle
 
         public FrmCover()
+        {
+            InitializeComponent();
+        }
+
+        private void InitializeComponent()
         {
             Mouse.GetPosition(out _mouseX, out _mouseY);
 
@@ -47,6 +52,7 @@ namespace VAR.Toolbox.UI
             {
                 r = Rectangle.Union(r, s.Bounds);
             }
+
             Top = r.Top;
             Left = r.Left;
             Width = r.Width;
@@ -91,7 +97,11 @@ namespace VAR.Toolbox.UI
                     (_rnd.Next() % 11) - 5,
                     (_rnd.Next() % 11) - 5);
             }
-            catch (Exception) { } // ignore exceptions moving mouse
+            catch (Exception)
+            {
+                // ignored exceptions moving mouse
+            }
+
             _timer.Stop();
             _timer.Start();
         }

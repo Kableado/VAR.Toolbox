@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using VAR.Toolbox.Controls;
 
@@ -13,20 +14,17 @@ namespace VAR.Toolbox.UI
 
         public string Title
         {
-            get { return base.Text; }
-            set { Text = value; }
+            get => base.Text;
+            set => Text = value;
         }
 
         public void LoadItems(List<string> items)
         {
             lsbItems.Items.Clear();
-            lsbItems.Items.AddRange(items.ToArray());
+            lsbItems.Items.AddRange(items.ToArray<object>());
         }
 
-        public string Value
-        {
-            get { return (lsbItems.SelectedItem as string) ?? string.Empty; }
-        }
+        public string Value => (lsbItems.SelectedItem as string) ?? string.Empty;
 
         private void lsbItems_SelectedIndexChanged(object sender, System.EventArgs e)
         {

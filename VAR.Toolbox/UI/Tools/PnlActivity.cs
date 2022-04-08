@@ -6,6 +6,8 @@ using VAR.Json;
 using VAR.Toolbox.Code.Windows;
 using VAR.Toolbox.Controls;
 
+// ReSharper disable UnusedAutoPropertyAccessor.Local
+
 namespace VAR.Toolbox.UI.Tools
 {
     public partial class PnlActivity : SubFrame, IToolPanel
@@ -18,6 +20,7 @@ namespace VAR.Toolbox.UI.Tools
         private void TimTicker_Tick(object sender, EventArgs e)
         {
             if (DesignMode) { return; }
+
             timTicker.Stop();
 
             string activeWindowTitle = User32.GetActiveWindowTitle();
@@ -90,26 +93,28 @@ namespace VAR.Toolbox.UI.Tools
             };
 
             // Write frame
-            JsonWriter jsonWriter = new Json.JsonWriter();
+            JsonWriter jsonWriter = new JsonWriter();
             string line = jsonWriter.Write(frame);
             try
             {
-                StreamWriter outStream = GetOutputStreamWritter();
+                StreamWriter outStream = GetOutputStreamWriter();
                 outStream.WriteLine(line);
-                CloseOutputStreamWritter(outStream);
+                CloseOutputStreamWriter(outStream);
             }
-            catch (Exception) { /* Nom Nom Nom */}
+            catch (Exception)
+            {
+                /* Nom Nom Nom */
+            }
         }
 
-        private static StreamWriter GetOutputStreamWritter()
+        private static StreamWriter GetOutputStreamWriter()
         {
             try
             {
-                string location = System.Reflection.Assembly.GetEntryAssembly().Location;
+                string location = System.Reflection.Assembly.GetEntryAssembly()?.Location;
                 string path = Path.GetDirectoryName(location);
 
-                string fileOut = string.Format("{0}/Activity.{1}.txt", path,
-                                               DateTime.UtcNow.ToString("yyyy-MM-dd"));
+                string fileOut = $"{path}/Activity.{DateTime.UtcNow:yyyy-MM-dd}.txt";
                 return File.AppendText(fileOut);
             }
             catch (Exception)
@@ -118,14 +123,12 @@ namespace VAR.Toolbox.UI.Tools
             }
         }
 
-        private static void CloseOutputStreamWritter(StreamWriter stream)
+        private static void CloseOutputStreamWriter(StreamWriter stream)
         {
             if (stream != null)
             {
                 stream.Close();
             }
         }
-
-
     }
 }

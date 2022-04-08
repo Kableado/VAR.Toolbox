@@ -4,9 +4,9 @@ namespace VAR.Toolbox.Code.TextCoders
 {
     public class TextCoderHexToUtf8 : ITextCoder
     {
-        public string Name { get { return "HexToUtf8"; } }
+        public string Name => "HexToUtf8";
 
-        public bool NeedsKey { get { return false; } }
+        public bool NeedsKey => false;
 
         public string Decode(string input, string key)
         {

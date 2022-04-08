@@ -9,8 +9,8 @@
     /// </summary>
     /// 
     [ComImport,
-    Guid("6A2E0670-28E4-11D0-A18c-00A0C9118956"),
-    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     Guid("6A2E0670-28E4-11D0-A18c-00A0C9118956"),
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface IAMVideoControl
     {
         /// <summary>

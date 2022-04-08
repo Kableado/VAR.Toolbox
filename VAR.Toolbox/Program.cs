@@ -23,8 +23,11 @@ namespace VAR.Toolbox
             string executingAssemblyPath = Assembly.GetExecutingAssembly().Location;
             string dirName = Path.GetDirectoryName(executingAssemblyPath);
             string execName = Path.GetFileNameWithoutExtension(executingAssemblyPath);
-            string[] assemblyPaths = Directory.GetFiles(dirName, string.Format("{0}*.dll", execName));
-            foreach (string assemblyPath in assemblyPaths) { AssemblyLoadFull(assemblyPath); }
+            if (dirName != null)
+            {
+                string[] assemblyPaths = Directory.GetFiles(dirName, $"{execName}*.dll");
+                foreach (string assemblyPath in assemblyPaths) { AssemblyLoadFull(assemblyPath); }
+            }
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -45,19 +48,25 @@ namespace VAR.Toolbox
             Application.Exit();
         }
 
-        private static Assembly AssemblyLoadFull(string fullPath, List<string> allAssemblyNames = null)
+        private static void AssemblyLoadFull(string fullPath, List<string> allAssemblyNames = null)
         {
             if (allAssemblyNames == null)
             {
                 allAssemblyNames = AppDomain.CurrentDomain.GetAssemblies().Select(a => a.GetName().Name).ToList();
             }
+
             Assembly asm = null;
             try
             {
                 asm = Assembly.LoadFrom(fullPath);
             }
-            catch (Exception) { }
-            if (asm == null) { return null; }
+            catch (Exception)
+            {
+                // ignored
+            }
+
+            if (asm == null) { return; }
+
             allAssemblyNames.Add(asm.GetName().Name);
 
             // Load dependencies
@@ -67,13 +76,10 @@ namespace VAR.Toolbox
             {
                 if (allAssemblyNames.Contains(asmName.Name) == false)
                 {
-                    string fullPathAux = string.Format("{0}/{1}.dll", dirPath, asmName.Name);
-                    Assembly asmAux = AssemblyLoadFull(fullPathAux, allAssemblyNames);
+                    string fullPathAux = $"{dirPath}/{asmName.Name}.dll";
+                    AssemblyLoadFull(fullPathAux, allAssemblyNames);
                 }
             }
-
-            return asm;
         }
-
     }
 }

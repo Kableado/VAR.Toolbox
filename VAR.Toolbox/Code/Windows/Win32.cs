@@ -4,6 +4,10 @@ using System;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 
+// ReSharper disable IdentifierTypo
+// ReSharper disable StringLiteralTypo
+// ReSharper disable CommentTypo
+
 namespace VAR.Toolbox.Code.Windows
 {
     public static class Win32
@@ -21,7 +25,7 @@ namespace VAR.Toolbox.Code.Windows
         /// 
         [DllImport("ole32.dll")]
         public static extern
-        int CreateBindCtx(int reserved, out IBindCtx ppbc);
+            int CreateBindCtx(int reserved, out IBindCtx ppbc);
 
         /// <summary>
         /// Converts a string into a moniker that identifies the object named by the string.
@@ -37,8 +41,8 @@ namespace VAR.Toolbox.Code.Windows
         /// 
         [DllImport("ole32.dll", CharSet = CharSet.Unicode)]
         public static extern
-        int MkParseDisplayName(IBindCtx pbc, string szUserName,
-            ref int pchEaten, out IMoniker ppmk);
+            int MkParseDisplayName(IBindCtx pbc, string szUserName,
+                ref int pchEaten, out IMoniker ppmk);
 
         /// <summary>
         /// Copy a block of memory.
@@ -51,7 +55,7 @@ namespace VAR.Toolbox.Code.Windows
         /// <returns>Return's the value of <b>dst</b> - pointer to destination.</returns>
         /// 
         [DllImport("ntdll.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static unsafe extern int memcpy(
+        public static extern unsafe int memcpy(
             byte* dst,
             byte* src,
             int count);
@@ -81,7 +85,7 @@ namespace VAR.Toolbox.Code.Windows
             int y,
             [MarshalAs(UnmanagedType.LPWStr)] string caption,
             int cObjects,
-            [MarshalAs( UnmanagedType.Interface, ArraySubType = UnmanagedType.IUnknown )]
+            [MarshalAs(UnmanagedType.Interface, ArraySubType = UnmanagedType.IUnknown)]
             ref object ppUnk,
             int cPages,
             IntPtr lpPageClsID,
@@ -90,7 +94,8 @@ namespace VAR.Toolbox.Code.Windows
             IntPtr lpvReserved);
 
         [DllImport("PowrProf.dll")]
-        public static extern Boolean SetSuspendState(Boolean Hibernate, Boolean ForceCritical, Boolean DisableWakeEvent);
+        public static extern Boolean
+            SetSuspendState(Boolean hibernate, Boolean forceCritical, Boolean disableWakeEvent);
 
         public static uint GetLastInputTime()
         {
@@ -104,6 +109,7 @@ namespace VAR.Toolbox.Code.Windows
                 uint lastInputTick = lastInputInfo.dwTime;
                 idleTime = envTicks - lastInputTick;
             }
+
             return ((idleTime > 0) ? (idleTime / 1000) : 0);
         }
     }

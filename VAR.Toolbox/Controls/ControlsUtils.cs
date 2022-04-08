@@ -23,8 +23,8 @@ namespace VAR.Toolbox.Controls
             if (control.InvokeRequired)
             {
                 control.Invoke(new SetControlPropertyThreadSafeDelegate
-                (SetControlPropertyThreadSafe),
-                new object[] { control, propertyName, propertyValue });
+                        (SetControlPropertyThreadSafe),
+                    new[] { control, propertyName, propertyValue });
             }
             else
             {
@@ -33,7 +33,7 @@ namespace VAR.Toolbox.Controls
                     BindingFlags.SetProperty,
                     null,
                     control,
-                    new object[] { propertyValue });
+                    new[] { propertyValue });
             }
         }
     }

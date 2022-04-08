@@ -4,16 +4,16 @@ using System.Windows.Forms;
 
 namespace VAR.Toolbox.Controls
 {
-    public class CButton : System.Windows.Forms.Button
+    public class CButton : Button
     {
-        private Brush _foreColorBrush;
-        private Brush _foreColorDisableBrush;
-        private Brush _backColorBrush;
-        private Brush _backColorOverBrush;
-        private Brush _backColorDownBrush;
+        private readonly Brush _foreColorBrush;
+        private readonly Brush _foreColorDisableBrush;
+        private readonly Brush _backColorBrush;
+        private readonly Brush _backColorOverBrush;
+        private readonly Brush _backColorDownBrush;
 
-        private bool _mouseIsDown = false;
-        private bool _mouseIsOver = false;
+        private bool _mouseIsDown;
+        private bool _mouseIsOver;
 
         public CButton()
         {
@@ -47,15 +47,9 @@ namespace VAR.Toolbox.Controls
             if (mevent.Button != MouseButtons.None)
             {
                 Rectangle r = ClientRectangle;
-                if (!r.Contains(mevent.X, mevent.Y))
-                {
-                    _mouseIsDown = false;
-                }
-                else
-                {
-                    _mouseIsDown = true;
-                }
+                _mouseIsDown = r.Contains(mevent.X, mevent.Y);
             }
+
             base.OnMouseMove(mevent);
         }
 
@@ -71,7 +65,8 @@ namespace VAR.Toolbox.Controls
             base.OnMouseUp(mevent);
         }
 
-        private StringFormat _stringFormat = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+        private readonly StringFormat _stringFormat = new StringFormat
+            { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 
         protected override void OnPaint(PaintEventArgs pevent)
         {
@@ -84,14 +79,7 @@ namespace VAR.Toolbox.Controls
                 }
                 else
                 {
-                    if (_mouseIsOver)
-                    {
-                        pevent.Graphics.FillRectangle(_backColorOverBrush, rectangle);
-                    }
-                    else
-                    {
-                        pevent.Graphics.FillRectangle(_backColorBrush, rectangle);
-                    }
+                    pevent.Graphics.FillRectangle(_mouseIsOver ? _backColorOverBrush : _backColorBrush, rectangle);
                 }
             }
             else
@@ -99,8 +87,8 @@ namespace VAR.Toolbox.Controls
                 pevent.Graphics.FillRectangle(_backColorBrush, rectangle);
             }
 
-            pevent.Graphics.DrawString(Text, Font, Enabled ? _foreColorBrush : _foreColorDisableBrush, rectangle, _stringFormat);
+            pevent.Graphics.DrawString(Text, Font, Enabled ? _foreColorBrush : _foreColorDisableBrush, rectangle,
+                _stringFormat);
         }
-
     }
 }

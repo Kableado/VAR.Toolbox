@@ -1,6 +1,4 @@
 ﻿namespace VAR.Toolbox.UI
 {
-    public interface IToolPanel
-    {
-    }
+    public interface IToolPanel { }
 }
