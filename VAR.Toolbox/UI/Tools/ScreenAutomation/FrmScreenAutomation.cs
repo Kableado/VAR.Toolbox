@@ -3,12 +3,10 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using VAR.ScreenAutomation.Code;
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Bots;
 using VAR.Toolbox.Code.Configuration;
 using VAR.Toolbox.Controls;
-using Mouse = VAR.ScreenAutomation.Code.Mouse;
 
 // ReSharper disable LocalizableElement
 

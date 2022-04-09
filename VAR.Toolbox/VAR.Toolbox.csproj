@@ -78,7 +78,6 @@
     <Compile Include="Code\Bots\AutomationBotFactory.cs" />
     <Compile Include="Code\Bots\DummyBot.cs" />
     <Compile Include="Code\Bots\IAutomationBot.cs" />
-    <Compile Include="Code\Bots\Mouse.cs" />
     <Compile Include="Code\Bots\TetrisBot.cs" />
     <Compile Include="Code\Configuration\FileBackedConfiguration.cs" />
     <Compile Include="Code\Configuration\IConfiguration.cs" />
