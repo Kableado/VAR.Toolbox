@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.picCapturer = new System.Windows.Forms.PictureBox();
-            this.splitMain = new System.Windows.Forms.SplitContainer();
-            this.splitOutput = new System.Windows.Forms.SplitContainer();
-            this.btnAutomationBotConfig = new System.Windows.Forms.Button();
+            this.splitMain = new VAR.Toolbox.Controls.CSplitContainer();
+            this.splitOutput = new VAR.Toolbox.Controls.CSplitContainer();
+            this.btnAutomationBotConfig = new VAR.Toolbox.Controls.CButton();
             this.numFPS = new System.Windows.Forms.NumericUpDown();
-            this.ddlAutomationBot = new System.Windows.Forms.ComboBox();
-            this.btnStartEnd = new System.Windows.Forms.Button();
+            this.ddlAutomationBot = new VAR.Toolbox.Controls.CComboBox();
+            this.btnStartEnd = new VAR.Toolbox.Controls.CButton();
             this.chkKeepToplevel = new System.Windows.Forms.CheckBox();
             this.picPreview = new VAR.Toolbox.Controls.CtrImageViewer();
             this.ctrOutput = new VAR.Toolbox.Controls.CtrOutput();
@@ -253,12 +253,12 @@
         private System.Windows.Forms.PictureBox picCapturer;
         private VAR.Toolbox.Controls.CtrImageViewer picPreview;
         private VAR.Toolbox.Controls.CtrOutput ctrOutput;
-        private System.Windows.Forms.SplitContainer splitMain;
-        private System.Windows.Forms.SplitContainer splitOutput;
-        private System.Windows.Forms.Button btnStartEnd;
-        private System.Windows.Forms.ComboBox ddlAutomationBot;
+        private VAR.Toolbox.Controls.CSplitContainer splitMain;
+        private VAR.Toolbox.Controls.CSplitContainer splitOutput;
+        private VAR.Toolbox.Controls.CButton btnStartEnd;
+        private VAR.Toolbox.Controls.CComboBox ddlAutomationBot;
         private System.Windows.Forms.NumericUpDown numFPS;
-        private System.Windows.Forms.Button btnAutomationBotConfig;
+        private VAR.Toolbox.Controls.CButton btnAutomationBotConfig;
         private System.Windows.Forms.CheckBox chkKeepToplevel;
         private System.Windows.Forms.CheckBox chkClick;
     }

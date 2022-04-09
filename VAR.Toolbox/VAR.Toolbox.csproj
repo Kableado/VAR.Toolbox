@@ -315,14 +315,6 @@
     <Content Include="Images\toolbox.svg" />
     <Content Include="Toolbox.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="UI\Tools\ScreenAutomation\FrmAutomationBotParams.resx">
-      <DependentUpon>FrmAutomationBotParams.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Tools\ScreenAutomation\FrmScreenAutomation.resx">
-      <DependentUpon>FrmScreenAutomation.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.

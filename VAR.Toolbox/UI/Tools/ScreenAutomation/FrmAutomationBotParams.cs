@@ -4,10 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using VAR.Toolbox.Code.Configuration;
+using VAR.Toolbox.Controls;
 
 namespace VAR.ScreenAutomation
 {
-    public partial class FrmAutomationBotParams : Form
+    public partial class FrmAutomationBotParams : Frame
     {
         private readonly FileBackedConfiguration _config;
 

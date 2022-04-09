@@ -7,6 +7,7 @@ using VAR.ScreenAutomation.Code;
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Bots;
 using VAR.Toolbox.Code.Configuration;
+using VAR.Toolbox.Controls;
 using Mouse = VAR.ScreenAutomation.Code.Mouse;
 using Screenshoter = VAR.ScreenAutomation.Code.Screenshoter;
 
@@ -14,7 +15,7 @@ using Screenshoter = VAR.ScreenAutomation.Code.Screenshoter;
 
 namespace VAR.ScreenAutomation
 {
-    public partial class FrmScreenAutomation : Form, Toolbox.UI.IToolForm
+    public partial class FrmScreenAutomation : Frame, Toolbox.UI.IToolForm
     {
         public string ToolName => "ScreenAutomation";
 
