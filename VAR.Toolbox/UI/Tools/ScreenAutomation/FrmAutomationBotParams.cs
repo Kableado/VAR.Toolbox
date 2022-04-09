@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using VAR.Toolbox.Code.Configuration;
 using VAR.Toolbox.Controls;
 
-namespace VAR.ScreenAutomation
+namespace VAR.Toolbox.UI.Tools.ScreenAutomation
 {
     public partial class FrmAutomationBotParams : Frame
     {
@@ -69,7 +69,7 @@ namespace VAR.ScreenAutomation
                 get
                 {
                     if (columnName == "Key" && Parent != null && Parent.Any(
-                            x => x.Key == this.Key && !ReferenceEquals(x, this)))
+                            x => x.Key == Key && !ReferenceEquals(x, this)))
                     {
                         return "duplicate key";
                     }

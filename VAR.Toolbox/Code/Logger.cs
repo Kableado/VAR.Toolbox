@@ -3,7 +3,7 @@ using System.IO;
 
 namespace VAR.Toolbox.Code
 {
-    public class Logger
+    public static class Logger
     {
         /// <summary>
         /// Obtiene el StreamWriter de salida

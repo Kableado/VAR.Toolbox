@@ -4,7 +4,7 @@ using VAR.Toolbox.Code.Windows;
 
 namespace VAR.Toolbox.Code
 {
-    public class Mouse
+    public static class Mouse
     {
         public static void Move(int dx, int dy)
         {

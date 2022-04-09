@@ -10,9 +10,9 @@ using VAR.Toolbox.Controls;
 
 // ReSharper disable LocalizableElement
 
-namespace VAR.ScreenAutomation
+namespace VAR.Toolbox.UI.Tools.ScreenAutomation
 {
-    public partial class FrmScreenAutomation : Frame, Toolbox.UI.IToolForm
+    public partial class FrmScreenAutomation : Frame, IToolForm
     {
         public string ToolName => "ScreenAutomation";
 

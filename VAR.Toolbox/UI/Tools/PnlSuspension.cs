@@ -92,8 +92,7 @@ namespace VAR.Toolbox.UI.Tools
         private void SetCountdown(DateTime dateTime, DateTime now)
         {
             TimeSpan timeSpan = dateTime - now;
-            lblCountdown.Text = string.Format("{0:00}:{1:00}:{2:00}:{3:00}", timeSpan.Days, timeSpan.Hours,
-                timeSpan.Minutes, timeSpan.Seconds);
+            lblCountdown.Text = $"{timeSpan.Days:00}:{timeSpan.Hours:00}:{timeSpan.Minutes:00}:{timeSpan.Seconds:00}";
         }
 
         private void CheckTime(CheckBox chk, DateTime dtSuspendAtCustom, DateTime now)

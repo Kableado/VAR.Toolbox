@@ -3,7 +3,7 @@ using System.Text;
 
 namespace VAR.Toolbox.Code
 {
-    public class HexUtils
+    public static class HexUtils
     {
         public static byte[] HexStringToBytes(string input)
         {

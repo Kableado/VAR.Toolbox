@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("VAR.Toolbox")]
-[assembly: AssemblyCopyright("Copyright © VAR 2017-2018")]
+[assembly: AssemblyCopyright("Copyright © VAR 2017-2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]

@@ -1,4 +1,4 @@
 ﻿namespace VAR.Toolbox.Code.WorkLog
 {
-    public class WorkLogImporterFactory : BaseFactory<IWorkLogImporter> { }
+    public abstract class WorkLogImporterFactory : BaseFactory<IWorkLogImporter> { }
 }

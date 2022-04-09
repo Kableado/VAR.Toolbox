@@ -38,7 +38,7 @@ namespace VAR.Toolbox.Code.Bots
             return defaultConfiguration;
         }
 
-        public void Init(VAR.Toolbox.Code.IOutputHandler output, IConfiguration config)
+        public void Init(IOutputHandler output, IConfiguration config)
         {
             int gridWidth = config.Get("GridWidth", DefaultGridWidth);
             int gridHeight = config.Get("GridHeight", DefaultGridHeight);
@@ -59,7 +59,7 @@ namespace VAR.Toolbox.Code.Bots
             output.AddLine($"TetrisBot: Starting {DateTime.UtcNow:s}");
         }
 
-        public Bitmap Process(Bitmap bmpInput, VAR.Toolbox.Code.IOutputHandler output)
+        public Bitmap Process(Bitmap bmpInput, IOutputHandler output)
         {
             _grid.SampleFromBitmap(bmpInput);
             SearchShape();
@@ -549,7 +549,7 @@ namespace VAR.Toolbox.Code.Bots
             }
         }
 
-        public void Print(VAR.Toolbox.Code.IOutputHandler output)
+        public void Print(IOutputHandler output)
         {
             for (int y = 0; y < ShapeSize; y++)
             {

@@ -1,4 +1,4 @@
 ﻿namespace VAR.Toolbox.Code.ProxyCmdExecutors
 {
-    public class ProxyCmdExecutorFactory : BaseFactory<IProxyCmdExecutor> { }
+    public abstract class ProxyCmdExecutorFactory : BaseFactory<IProxyCmdExecutor> { }
 }

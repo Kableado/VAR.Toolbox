@@ -6,8 +6,8 @@ namespace VAR.Toolbox.Code.Bots
     public interface IAutomationBot: INamed
     {
         IConfiguration GetDefaultConfiguration();
-        void Init(VAR.Toolbox.Code.IOutputHandler output, IConfiguration config);
-        Bitmap Process(Bitmap bmpInput, VAR.Toolbox.Code.IOutputHandler output);
+        void Init(IOutputHandler output, IConfiguration config);
+        Bitmap Process(Bitmap bmpInput, IOutputHandler output);
         string ResponseKeys();
     }
 }

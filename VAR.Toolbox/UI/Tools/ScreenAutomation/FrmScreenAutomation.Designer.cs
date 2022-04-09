@@ -1,4 +1,4 @@
-﻿namespace VAR.ScreenAutomation
+﻿namespace VAR.Toolbox.UI.Tools.ScreenAutomation
 {
     partial class FrmScreenAutomation
     {

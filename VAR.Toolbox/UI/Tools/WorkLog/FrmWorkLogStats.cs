@@ -104,16 +104,12 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                         currentCulture.DateTimeFormat.CalendarWeekRule, currentCulture.DateTimeFormat.FirstDayOfWeek);
                     if (week != null && week != weekCurrent)
                     {
-                        strDays.Add(string.Format("  [{0:00}] -- {1} h",
-                            week,
-                            tsWeek.TotalHours));
+                        strDays.Add($"  [{week:00}] -- {tsWeek.TotalHours} h");
                         tsWeek = new TimeSpan(0);
                     }
 
                     TimeSpan tsDay = dictDaysHours[dateDayCurrent];
-                    strDays.Add(string.Format("[{0:00}] {1:yyyy-MM-dd} -- {2} h",
-                        weekCurrent, dateDayCurrent,
-                        tsDay.TotalHours));
+                    strDays.Add($"[{weekCurrent:00}] {dateDayCurrent:yyyy-MM-dd} -- {tsDay.TotalHours} h");
                     tsTotal += tsDay;
                     tsWeek += tsDay;
                     week = weekCurrent;
@@ -124,9 +120,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
             if (tsWeek.TotalHours > 0)
             {
-                strDays.Add(string.Format("  [{0:00}] -- {1} h",
-                    week,
-                    tsWeek.TotalHours));
+                strDays.Add($"  [{week:00}] -- {tsWeek.TotalHours} h");
             }
 
             lsbDays.Items.Clear();
