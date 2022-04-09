@@ -9,7 +9,6 @@ using VAR.Toolbox.Code.Bots;
 using VAR.Toolbox.Code.Configuration;
 using VAR.Toolbox.Controls;
 using Mouse = VAR.ScreenAutomation.Code.Mouse;
-using Screenshoter = VAR.ScreenAutomation.Code.Screenshoter;
 
 // ReSharper disable LocalizableElement
 
