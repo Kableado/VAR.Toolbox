@@ -9,8 +9,12 @@ using VAR.ScreenAutomation.Interfaces;
 
 namespace VAR.ScreenAutomation
 {
-    public partial class FrmScreenAutomation : Form
+    public partial class FrmScreenAutomation : Form, VAR.Toolbox.UI.IToolForm
     {
+        public string ToolName => "ScreenAutomation";
+
+        public bool HasIcon => false;
+
         private bool _running;
         private IAutomationBot _automationBot;
 

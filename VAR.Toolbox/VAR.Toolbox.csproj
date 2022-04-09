@@ -74,10 +74,21 @@
     <Compile Include="..\VAR.Json\VAR.Json\ParserContext.cs">
       <Link>Code\Json\ParserContext.cs</Link>
     </Compile>
+    <Compile Include="Code\AutomationBotFactory.cs" />
     <Compile Include="Code\BaseFactory.cs" />
+    <Compile Include="Code\Bots\DummyBot.cs" />
+    <Compile Include="Code\Bots\IAutomationBot.cs" />
+    <Compile Include="Code\Bots\IOutputHandler.cs" />
+    <Compile Include="Code\Bots\Mouse.cs" />
+    <Compile Include="Code\Bots\Screenshoter.cs" />
+    <Compile Include="Code\Bots\TetrisBot.cs" />
+    <Compile Include="Code\Bots\WindowHandling.cs" />
     <Compile Include="Code\EventDispatcher.cs" />
+    <Compile Include="Code\FileBackedConfiguration.cs" />
     <Compile Include="Code\HexUtils.cs" />
+    <Compile Include="Code\IConfiguration.cs" />
     <Compile Include="Code\IEventListener.cs" />
+    <Compile Include="Code\MemoryBackedConfiguration.cs" />
     <Compile Include="Code\ProxyCmdExecutors\ProxyCmdExecutorWMIC.cs" />
     <Compile Include="Code\ReflectionUtils.cs" />
     <Compile Include="Code\TextCoders\TextCoderBase64Utf8.cs" />
@@ -244,6 +255,24 @@
       <DependentUpon>FrmWebcam.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\IToolForm.cs" />
+    <Compile Include="UI\Tools\ScreenAutomation\CtrImageViewer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Tools\ScreenAutomation\CtrOutput.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Tools\ScreenAutomation\FrmAutomationBotParams.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Tools\ScreenAutomation\FrmAutomationBotParams.Designer.cs">
+      <DependentUpon>FrmAutomationBotParams.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Tools\ScreenAutomation\FrmScreenAutomation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Tools\ScreenAutomation\FrmScreenAutomation.Designer.cs">
+      <DependentUpon>FrmScreenAutomation.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Tools\WorkLog\FrmWorkLog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -292,6 +321,14 @@
     <Content Include="Images\Toolbox.png" />
     <Content Include="Images\toolbox.svg" />
     <Content Include="Toolbox.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\Tools\ScreenAutomation\FrmAutomationBotParams.resx">
+      <DependentUpon>FrmAutomationBotParams.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Tools\ScreenAutomation\FrmScreenAutomation.resx">
+      <DependentUpon>FrmScreenAutomation.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
