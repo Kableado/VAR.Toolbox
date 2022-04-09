@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using VAR.ScreenAutomation.Code;
+using VAR.Toolbox.Code.Configuration;
 
 namespace VAR.ScreenAutomation
 {

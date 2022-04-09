@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using VAR.ScreenAutomation.Interfaces;
 
-namespace VAR.ScreenAutomation.Code
+namespace VAR.Toolbox.Code.Configuration
 {
     public class FileBackedConfiguration : IConfiguration
     {

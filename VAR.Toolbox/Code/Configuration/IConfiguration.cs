@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace VAR.ScreenAutomation.Interfaces
+namespace VAR.Toolbox.Code.Configuration
 {
     public interface IConfiguration
     {

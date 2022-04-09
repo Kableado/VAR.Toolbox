@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using VAR.ScreenAutomation.Code;
-using VAR.ScreenAutomation.Interfaces;
+using VAR.Toolbox.Code.Configuration;
 
 namespace VAR.Toolbox.Code.Bots
 {

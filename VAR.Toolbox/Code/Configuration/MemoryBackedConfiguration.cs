@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using VAR.ScreenAutomation.Interfaces;
 
-namespace VAR.ScreenAutomation.Code
+namespace VAR.Toolbox.Code.Configuration
 {
     public class MemoryBackedConfiguration : IConfiguration
     {

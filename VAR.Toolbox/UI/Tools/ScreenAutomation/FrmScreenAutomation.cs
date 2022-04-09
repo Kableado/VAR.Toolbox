@@ -4,9 +4,9 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using VAR.ScreenAutomation.Code;
-using VAR.ScreenAutomation.Interfaces;
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Bots;
+using VAR.Toolbox.Code.Configuration;
 using Mouse = VAR.ScreenAutomation.Code.Mouse;
 using Screenshoter = VAR.ScreenAutomation.Code.Screenshoter;
 

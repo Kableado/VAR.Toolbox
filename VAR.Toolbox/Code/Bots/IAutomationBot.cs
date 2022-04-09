@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-using VAR.ScreenAutomation.Interfaces;
+using VAR.Toolbox.Code.Configuration;
 
 namespace VAR.Toolbox.Code.Bots
 {
