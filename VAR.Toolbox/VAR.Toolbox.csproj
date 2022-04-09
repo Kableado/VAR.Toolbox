@@ -74,8 +74,8 @@
     <Compile Include="..\VAR.Json\VAR.Json\ParserContext.cs">
       <Link>Code\Json\ParserContext.cs</Link>
     </Compile>
-    <Compile Include="Code\AutomationBotFactory.cs" />
     <Compile Include="Code\BaseFactory.cs" />
+    <Compile Include="Code\Bots\AutomationBotFactory.cs" />
     <Compile Include="Code\Bots\DummyBot.cs" />
     <Compile Include="Code\Bots\IAutomationBot.cs" />
     <Compile Include="Code\Bots\Mouse.cs" />

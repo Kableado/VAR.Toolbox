@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using VAR.ScreenAutomation.Interfaces;
 
-namespace VAR.ScreenAutomation.Bots
+namespace VAR.Toolbox.Code.Bots
 {
     public class DummyBot : IAutomationBot
     {

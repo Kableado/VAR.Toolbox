@@ -1,9 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using VAR.ScreenAutomation.Code;
 using VAR.ScreenAutomation.Interfaces;
+using VAR.Toolbox.Code;
+using VAR.Toolbox.Code.Bots;
+using Mouse = VAR.ScreenAutomation.Code.Mouse;
+using Screenshoter = VAR.ScreenAutomation.Code.Screenshoter;
 
 // ReSharper disable LocalizableElement
 
@@ -52,7 +57,7 @@ namespace VAR.ScreenAutomation
             TransparencyKey = Color.LimeGreen;
             picCapturer.BackColor = Color.LimeGreen;
 
-            ddlAutomationBot.Items.AddRange(AutomationBotFactory.GetAllAutomationBots());
+            ddlAutomationBot.Items.AddRange(AutomationBotFactory.GetNames().ToArray<object>());
             ddlAutomationBot.SelectedItem =
                 configuration.Get("ddlAutomationBot", (string)ddlAutomationBot.SelectedItem);
             if (ddlAutomationBot.SelectedIndex < 0)

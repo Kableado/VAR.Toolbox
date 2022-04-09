@@ -6,7 +6,7 @@ using System.Text;
 using VAR.ScreenAutomation.Code;
 using VAR.ScreenAutomation.Interfaces;
 
-namespace VAR.ScreenAutomation.Bots
+namespace VAR.Toolbox.Code.Bots
 {
     public class TetrisBot : IAutomationBot
     {
