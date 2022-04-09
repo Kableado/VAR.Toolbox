@@ -37,7 +37,7 @@
             this.btnStartEnd = new System.Windows.Forms.Button();
             this.chkKeepToplevel = new System.Windows.Forms.CheckBox();
             this.picPreview = new VAR.ScreenAutomation.Controls.CtrImageViewer();
-            this.ctrOutput = new VAR.ScreenAutomation.Controls.CtrOutput();
+            this.ctrOutput = new VAR.Toolbox.Controls.CtrOutput();
             this.chkClick = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.picCapturer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
@@ -252,7 +252,7 @@
 
         private System.Windows.Forms.PictureBox picCapturer;
         private Controls.CtrImageViewer picPreview;
-        private Controls.CtrOutput ctrOutput;
+        private VAR.Toolbox.Controls.CtrOutput ctrOutput;
         private System.Windows.Forms.SplitContainer splitMain;
         private System.Windows.Forms.SplitContainer splitOutput;
         private System.Windows.Forms.Button btnStartEnd;

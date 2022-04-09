@@ -6,8 +6,8 @@ namespace VAR.ScreenAutomation.Interfaces
     {
         string Name { get; }
         IConfiguration GetDefaultConfiguration();
-        void Init(IOutputHandler output, IConfiguration config);
-        Bitmap Process(Bitmap bmpInput, IOutputHandler output);
+        void Init(VAR.Toolbox.Code.IOutputHandler output, IConfiguration config);
+        Bitmap Process(Bitmap bmpInput, VAR.Toolbox.Code.IOutputHandler output);
         string ResponseKeys();
     }
 }

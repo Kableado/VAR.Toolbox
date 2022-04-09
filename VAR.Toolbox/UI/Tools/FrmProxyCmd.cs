@@ -56,7 +56,7 @@ namespace VAR.Toolbox.UI.Tools
                     txtInput.Text = string.Empty;
                     Application.DoEvents();
                     txtInput.Text = string.Empty;
-                    OutputLine(cmd);
+                    AddLine(cmd);
                     PrepareProxyCmdExecutor();
                     new Thread(() => ExecuteCmd(cmd)).Start();
                 }
@@ -170,23 +170,36 @@ namespace VAR.Toolbox.UI.Tools
             catch (Exception ex)
             {
                 Logger.Log(ex);
-                OutputLine(ex.Message);
+                AddLine(ex.Message);
             }
 
             Monitor.Exit(_executionLock);
         }
 
-        public void OutputLine(string line)
+        #endregion Private methods
+
+        #region IOutputHandler
+        
+        public void Clean()
         {
             BeginInvoke(new MethodInvoker(delegate
             {
-                ctrOutput.AddLine(line);
+                ctrOutput.Clean();
                 Application.DoEvents();
             }));
         }
 
-        #endregion Private methods
+        public void AddLine(string line, object data = null)
+        {
+            BeginInvoke(new MethodInvoker(delegate
+            {
+                ctrOutput.AddLine(line, data);
+                Application.DoEvents();
+            }));
+        }
 
+        #endregion IOutputHandler
+        
         #region Config
 
         public void LoadConfig()

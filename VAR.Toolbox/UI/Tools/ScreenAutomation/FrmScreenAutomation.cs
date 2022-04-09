@@ -9,7 +9,7 @@ using VAR.ScreenAutomation.Interfaces;
 
 namespace VAR.ScreenAutomation
 {
-    public partial class FrmScreenAutomation : Form, VAR.Toolbox.UI.IToolForm
+    public partial class FrmScreenAutomation : Form, Toolbox.UI.IToolForm
     {
         public string ToolName => "ScreenAutomation";
 

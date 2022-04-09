@@ -12,12 +12,12 @@ namespace VAR.ScreenAutomation.Bots
             return null;
         }
 
-        public void Init(IOutputHandler output, IConfiguration config)
+        public void Init(VAR.Toolbox.Code.IOutputHandler output, IConfiguration config)
         {
             output.Clean();
         }
 
-        public Bitmap Process(Bitmap bmpInput, IOutputHandler output)
+        public Bitmap Process(Bitmap bmpInput, VAR.Toolbox.Code.IOutputHandler output)
         {
             return bmpInput;
         }

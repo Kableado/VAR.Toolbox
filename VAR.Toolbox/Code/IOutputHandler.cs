@@ -2,6 +2,7 @@
 {
     public interface IOutputHandler
     {
-        void OutputLine(string line);
+        void Clean();
+        void AddLine(string line, object data = null);
     }
 }

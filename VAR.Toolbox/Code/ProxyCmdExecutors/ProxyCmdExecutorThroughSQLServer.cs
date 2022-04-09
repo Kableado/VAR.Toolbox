@@ -25,7 +25,7 @@ namespace VAR.Toolbox.Code.ProxyCmdExecutors
             while (reader.Read())
             {
                 string output = Convert.ToString(reader[0]);
-                outputHandler.OutputLine(output);
+                outputHandler.AddLine(output);
             }
 
             cnx.Close();

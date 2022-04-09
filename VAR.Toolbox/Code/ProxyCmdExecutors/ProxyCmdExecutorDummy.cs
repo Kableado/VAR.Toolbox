@@ -17,7 +17,7 @@
 
         public bool ExecuteCmd(string cmdString, IOutputHandler outputHandler)
         {
-            outputHandler.OutputLine($"DummyExecution: {cmdString} | {_config}");
+            outputHandler.AddLine($"DummyExecution: {cmdString} | {_config}");
             return true;
         }
     }

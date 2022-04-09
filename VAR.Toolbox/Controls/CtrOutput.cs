@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using VAR.Toolbox.Code;
 
 namespace VAR.Toolbox.Controls
 {
-    public class CtrOutput : Control
+    public class CtrOutput : Control, IOutputHandler
     {
         private ListBoxMonospace _listBox;
 
