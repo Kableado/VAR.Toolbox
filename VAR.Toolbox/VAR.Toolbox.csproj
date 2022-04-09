@@ -254,9 +254,6 @@
       <DependentUpon>FrmWebcam.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\IToolForm.cs" />
-    <Compile Include="UI\Tools\ScreenAutomation\CtrImageViewer.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="UI\Tools\ScreenAutomation\FrmAutomationBotParams.cs">
       <SubType>Form</SubType>
     </Compile>

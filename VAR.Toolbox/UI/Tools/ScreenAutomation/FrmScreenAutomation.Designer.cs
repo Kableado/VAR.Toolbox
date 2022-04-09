@@ -36,7 +36,7 @@
             this.ddlAutomationBot = new System.Windows.Forms.ComboBox();
             this.btnStartEnd = new System.Windows.Forms.Button();
             this.chkKeepToplevel = new System.Windows.Forms.CheckBox();
-            this.picPreview = new VAR.ScreenAutomation.Controls.CtrImageViewer();
+            this.picPreview = new VAR.Toolbox.Controls.CtrImageViewer();
             this.ctrOutput = new VAR.Toolbox.Controls.CtrOutput();
             this.chkClick = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.picCapturer)).BeginInit();
@@ -251,7 +251,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox picCapturer;
-        private Controls.CtrImageViewer picPreview;
+        private VAR.Toolbox.Controls.CtrImageViewer picPreview;
         private VAR.Toolbox.Controls.CtrOutput ctrOutput;
         private System.Windows.Forms.SplitContainer splitMain;
         private System.Windows.Forms.SplitContainer splitOutput;
