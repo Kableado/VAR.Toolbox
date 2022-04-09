@@ -81,7 +81,6 @@
     <Compile Include="Code\Bots\Mouse.cs" />
     <Compile Include="Code\Bots\Screenshoter.cs" />
     <Compile Include="Code\Bots\TetrisBot.cs" />
-    <Compile Include="Code\Bots\WindowHandling.cs" />
     <Compile Include="Code\Configuration\FileBackedConfiguration.cs" />
     <Compile Include="Code\Configuration\IConfiguration.cs" />
     <Compile Include="Code\Configuration\MemoryBackedConfiguration.cs" />
@@ -122,6 +121,7 @@
     <Compile Include="Code\DirectShow\Tools.cs" />
     <Compile Include="Code\DirectShow\Uuids.cs" />
     <Compile Include="Code\WebServicesUtils.cs" />
+    <Compile Include="Code\WindowHandling.cs" />
     <Compile Include="Code\Windows\GDI32.cs" />
     <Compile Include="Code\TextCoders\ITextCoder.cs" />
     <Compile Include="Code\IOutputHandler.cs" />
