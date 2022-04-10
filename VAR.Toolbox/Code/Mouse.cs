@@ -15,7 +15,7 @@ namespace VAR.Toolbox.Code
             input.Data.Mouse.X = dx;
             input.Data.Mouse.Y = dy;
             input.Data.Mouse.Flags = User32.MOUSEEVENTF_MOVE;
-            User32.INPUT[] inputs = new User32.INPUT[] { input };
+            User32.INPUT[] inputs = new[] { input };
             if (User32.SendInput(1, inputs, Marshal.SizeOf(typeof(User32.INPUT))) == 0)
                 throw new Exception();
         }
@@ -50,7 +50,7 @@ namespace VAR.Toolbox.Code
                 input.Data.Mouse.Flags = down ? User32.MOUSEEVENTF_RIGHTDOWN : User32.MOUSEEVENTF_RIGHTUP;
             }
 
-            User32.INPUT[] inputs = new User32.INPUT[] { input };
+            User32.INPUT[] inputs = new[] { input };
             if (User32.SendInput(1, inputs, Marshal.SizeOf(typeof(User32.INPUT))) == 0)
                 throw new Exception();
         }
