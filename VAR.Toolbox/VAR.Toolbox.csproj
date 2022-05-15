@@ -48,9 +48,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="VAR.Toolbox">
-      <HintPath>bin\Debug\VAR.Toolbox.exe</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\VAR.HttpServer\VAR.HttpServer\HttpProcessor.cs">
