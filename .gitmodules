@@ -1,8 +1,8 @@
 [submodule "VAR.Json"]
 	path = VAR.Json
-	url = https://github.com/Kableado/VAR.Json.git
+	url = https://datacube.duckdns.org/git/VAR/VAR.Json.git
 	branch = master
 [submodule "VAR.HttpServer"]
 	path = VAR.HttpServer
-	url = https://github.com/Kableado/VAR.HttpServer.git
+	url = https://datacube.duckdns.org/git/VAR/VAR.HttpServer.git
 	branch = master
