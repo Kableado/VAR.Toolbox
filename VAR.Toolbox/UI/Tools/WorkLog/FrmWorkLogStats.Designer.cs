@@ -37,17 +37,22 @@
             this.lblTotalTime = new System.Windows.Forms.Label();
             this.dtpStart = new VAR.Toolbox.Controls.CDateTimePicker();
             this.dtpEnd = new VAR.Toolbox.Controls.CDateTimePicker();
+            this.lblName = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lsbDays
             // 
-            this.lsbDays.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.lsbDays.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lsbDays.BackColor = System.Drawing.Color.Black;
+            this.lsbDays.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lsbDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.lsbDays.ForeColor = System.Drawing.Color.Gray;
             this.lsbDays.FormattingEnabled = true;
             this.lsbDays.Location = new System.Drawing.Point(12, 113);
             this.lsbDays.Name = "lsbDays";
-            this.lsbDays.Size = new System.Drawing.Size(393, 290);
+            this.lsbDays.Size = new System.Drawing.Size(393, 288);
             this.lsbDays.TabIndex = 0;
             // 
             // lblDateStart
@@ -56,12 +61,16 @@
             this.lblDateStart.Name = "lblDateStart";
             this.lblDateStart.Size = new System.Drawing.Size(186, 23);
             this.lblDateStart.TabIndex = 1;
-            this.lblDateStart.Text = "label1";
+            this.lblDateStart.Text = "lblDateStart";
             // 
             // txtActivity
             // 
-            this.txtActivity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtActivity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtActivity.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtActivity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtActivity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.txtActivity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtActivity.Location = new System.Drawing.Point(12, 12);
             this.txtActivity.Name = "txtActivity";
             this.txtActivity.Size = new System.Drawing.Size(325, 20);
@@ -95,7 +104,7 @@
             this.lblDateEnd.Name = "lblDateEnd";
             this.lblDateEnd.Size = new System.Drawing.Size(171, 23);
             this.lblDateEnd.TabIndex = 5;
-            this.lblDateEnd.Text = "label2";
+            this.lblDateEnd.Text = "lblDateEnd";
             this.lblDateEnd.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblTotalTime
@@ -104,13 +113,15 @@
             this.lblTotalTime.AutoSize = true;
             this.lblTotalTime.Location = new System.Drawing.Point(12, 406);
             this.lblTotalTime.Name = "lblTotalTime";
-            this.lblTotalTime.Size = new System.Drawing.Size(35, 13);
+            this.lblTotalTime.Size = new System.Drawing.Size(64, 13);
             this.lblTotalTime.TabIndex = 6;
-            this.lblTotalTime.Text = "label1";
+            this.lblTotalTime.Text = "lblTotalTime";
             // 
             // dtpStart
             // 
+            this.dtpStart.BackColor = System.Drawing.Color.DarkSlateGray;
             this.dtpStart.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.dtpStart.ForeColor = System.Drawing.Color.Gray;
             this.dtpStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpStart.Location = new System.Drawing.Point(15, 38);
             this.dtpStart.Name = "dtpStart";
@@ -120,16 +131,29 @@
             // dtpEnd
             // 
             this.dtpEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dtpEnd.BackColor = System.Drawing.Color.DarkSlateGray;
             this.dtpEnd.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.dtpEnd.ForeColor = System.Drawing.Color.Gray;
             this.dtpEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpEnd.Location = new System.Drawing.Point(264, 38);
             this.dtpEnd.Name = "dtpEnd";
             this.dtpEnd.Size = new System.Drawing.Size(141, 20);
             this.dtpEnd.TabIndex = 8;
             // 
+            // lblName
+            // 
+            this.lblName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblName.Location = new System.Drawing.Point(264, 61);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(141, 23);
+            this.lblName.TabIndex = 9;
+            this.lblName.Text = "lblName";
+            this.lblName.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // FrmWorkLogStats
             // 
             this.ClientSize = new System.Drawing.Size(417, 448);
+            this.Controls.Add(this.lblName);
             this.Controls.Add(this.dtpEnd);
             this.Controls.Add(this.dtpStart);
             this.Controls.Add(this.lblTotalTime);
@@ -139,6 +163,7 @@
             this.Controls.Add(this.txtActivity);
             this.Controls.Add(this.lblDateStart);
             this.Controls.Add(this.lsbDays);
+            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "FrmWorkLogStats";
             this.Text = "WorkLogStats";
             this.Load += new System.EventHandler(this.FrmWorkLogStats_Load);
@@ -158,5 +183,6 @@
         private System.Windows.Forms.Label lblTotalTime;
         private VAR.Toolbox.Controls.CDateTimePicker dtpStart;
         private VAR.Toolbox.Controls.CDateTimePicker dtpEnd;
+        private System.Windows.Forms.Label lblName;
     }
 }

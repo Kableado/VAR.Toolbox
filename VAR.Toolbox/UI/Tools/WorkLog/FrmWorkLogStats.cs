@@ -28,6 +28,12 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             set => _workLog = value;
         }
 
+        public string WorkerName
+        {
+            get => lblName.Text;
+            set => lblName.Text = value;
+        }
+
         private void FrmWorkLogStats_Load(object sender, EventArgs e)
         {
             dtpStart.Value = DateTime.Now.Date.AddMonths(-1);
@@ -47,6 +53,12 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         private void WorkLog_ProcessStats()
         {
+            if (string.IsNullOrWhiteSpace(txtActivity.Text))
+            {
+                CleanList();
+                return;
+            }
+
             bool found = false;
             DateTime dateStart = DateTime.MaxValue;
             DateTime dateEnd = DateTime.MinValue;
@@ -78,10 +90,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
             if (found == false)
             {
-                lblDateStart.Text = string.Empty;
-                lblDateEnd.Text = string.Empty;
-                lsbDays.Items.Clear();
-                lblTotalTime.Text = string.Empty;
+                CleanList();
                 return;
             }
 
@@ -126,6 +135,14 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             lsbDays.Items.Clear();
             lsbDays.Items.AddRange(strDays.ToArray<object>());
             lblTotalTime.Text = $"{tsTotal.ToString()} - {tsTotal.TotalHours}";
+        }
+
+        private void CleanList()
+        {
+            lblDateStart.Text = string.Empty;
+            lblDateEnd.Text = string.Empty;
+            lsbDays.Items.Clear();
+            lblTotalTime.Text = string.Empty;
         }
     }
 }

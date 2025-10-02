@@ -298,10 +298,8 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         private void btnStats_Click(object sender, EventArgs e)
         {
-            if (_currentWorkLogItem == null) { return; }
-
             FrmWorkLogStats frmStats = new FrmWorkLogStats
-                { Activity = _currentWorkLogItem.Activity, WorkLog = _workLog };
+                { Activity = _currentWorkLogItem?.Activity ?? string.Empty, WorkLog = _workLog, WorkerName = txtName.Text, };
             frmStats.Show(this);
         }
 
@@ -516,7 +514,6 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             btnAdd.Enabled = !enable;
             btnDelete.Enabled = enable;
             btnRename.Enabled = enable;
-            btnStats.Enabled = enable;
         }
 
         private void WorkLogItem_Update(bool refresh = true)
