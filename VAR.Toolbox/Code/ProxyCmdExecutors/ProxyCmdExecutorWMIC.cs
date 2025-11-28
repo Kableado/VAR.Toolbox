@@ -2,9 +2,9 @@
 
 namespace VAR.Toolbox.Code.ProxyCmdExecutors
 {
-    public class ProxyCmdExecutorWMIC : IProxyCmdExecutor
+    public class ProxyCmdExecutorWMIC : BaseProxyCmdExecutor
     {
-        public string Name => "WMIC";
+        public override string Name => "WMIC";
 
         private readonly string _configWMIC;
 
@@ -13,7 +13,7 @@ namespace VAR.Toolbox.Code.ProxyCmdExecutors
             _configWMIC = configWMIC;
         }
 
-        public bool ExecuteCmd(string cmd, IOutputHandler outputHandler)
+        public override bool ExecuteCmd(string cmd, IOutputHandler outputHandler)
         {
             string parameters =
                 $" /node:\"{_configWMIC.Replace("\"", "\\\"")}\" process call create \"cmd.exe /c \\\"{cmd.Replace("\"", "\\\"")}\\\"\"";

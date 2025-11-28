@@ -3,9 +3,9 @@ using System.Data.SqlClient;
 
 namespace VAR.Toolbox.Code.ProxyCmdExecutors
 {
-    public class ProxyCmdExecutorThroughSQLServer : IProxyCmdExecutor
+    public class ProxyCmdExecutorThroughSQLServer : BaseProxyCmdExecutor
     {
-        public string Name => "SqlServer";
+        public override string Name => "SqlServer";
 
         private readonly string _connectionString;
 
@@ -14,7 +14,7 @@ namespace VAR.Toolbox.Code.ProxyCmdExecutors
             _connectionString = connectionString;
         }
 
-        public bool ExecuteCmd(string cmdString, IOutputHandler outputHandler)
+        public override bool ExecuteCmd(string cmdString, IOutputHandler outputHandler)
         {
             SqlConnection cnx = new SqlConnection(_connectionString);
             SqlCommand cmd = cnx.CreateCommand();
@@ -30,6 +30,54 @@ namespace VAR.Toolbox.Code.ProxyCmdExecutors
 
             cnx.Close();
             return true;
+        }
+
+        public override bool Enable()
+        {
+            try
+            {
+                SqlConnection cnx = new SqlConnection(_connectionString);
+                SqlCommand cmd = cnx.CreateCommand();
+                cmd.CommandText = @"
+                    EXEC sp_configure 'show advanced options', '1'
+                    RECONFIGURE
+                    EXEC sp_configure 'xp_cmdshell', '1' 
+                    RECONFIGURE
+                ";
+                cnx.Open();
+                cmd.ExecuteNonQuery();
+                cnx.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return false;
+            }
+        }
+
+        public override bool Disable()
+        {
+            try
+            {
+                SqlConnection cnx = new SqlConnection(_connectionString);
+                SqlCommand cmd = cnx.CreateCommand();
+                cmd.CommandText = @"
+                    EXEC sp_configure 'show advanced options', '1'
+                    RECONFIGURE
+                    EXEC sp_configure 'xp_cmdshell', '0' 
+                    RECONFIGURE
+                ";
+                cnx.Open();
+                cmd.ExecuteNonQuery();
+                cnx.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return false;
+            }
         }
     }
 }

@@ -29,10 +29,12 @@
         private void InitializeComponent()
         {
             this.splitMain = new VAR.Toolbox.Controls.CSplitContainer();
+            this.ctrOutput = new VAR.Toolbox.Controls.CtrOutput();
             this.txtInput = new VAR.Toolbox.Controls.TextBoxMonospace();
             this.ddlCurrentConfig = new VAR.Toolbox.Controls.CComboBox();
             this.btnConfig = new VAR.Toolbox.Controls.CButton();
-            this.ctrOutput = new VAR.Toolbox.Controls.CtrOutput();
+            this.btnDisable = new VAR.Toolbox.Controls.CButton();
+            this.btnEnable = new VAR.Toolbox.Controls.CButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.Panel1.SuspendLayout();
             this.splitMain.Panel2.SuspendLayout();
@@ -57,11 +59,20 @@
             // splitMain.Panel2
             // 
             this.splitMain.Panel2.Controls.Add(this.txtInput);
-            this.splitMain.Size = new System.Drawing.Size(413, 418);
-            this.splitMain.SplitterDistance = 353;
+            this.splitMain.Size = new System.Drawing.Size(556, 503);
+            this.splitMain.SplitterDistance = 424;
             this.splitMain.SplitterWidth = 10;
             this.splitMain.TabIndex = 3;
             this.splitMain.TabStop = false;
+            // 
+            // ctrOutput
+            // 
+            this.ctrOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrOutput.Location = new System.Drawing.Point(0, 0);
+            this.ctrOutput.Name = "ctrOutput";
+            this.ctrOutput.Size = new System.Drawing.Size(556, 424);
+            this.ctrOutput.TabIndex = 0;
+            this.ctrOutput.Text = "ctrOutput1";
             // 
             // txtInput
             // 
@@ -74,7 +85,7 @@
             this.txtInput.Multiline = true;
             this.txtInput.Name = "txtInput";
             this.txtInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtInput.Size = new System.Drawing.Size(413, 55);
+            this.txtInput.Size = new System.Drawing.Size(556, 69);
             this.txtInput.TabIndex = 0;
             this.txtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtInput_KeyDown);
             // 
@@ -89,14 +100,14 @@
             this.ddlCurrentConfig.FormattingEnabled = true;
             this.ddlCurrentConfig.Location = new System.Drawing.Point(0, 1);
             this.ddlCurrentConfig.Name = "ddlCurrentConfig";
-            this.ddlCurrentConfig.Size = new System.Drawing.Size(342, 21);
+            this.ddlCurrentConfig.Size = new System.Drawing.Size(420, 21);
             this.ddlCurrentConfig.TabIndex = 4;
             this.ddlCurrentConfig.SelectedIndexChanged += new System.EventHandler(this.DdlCurrentConfig_SelectedIndexChanged);
             // 
             // btnConfig
             // 
             this.btnConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnConfig.Location = new System.Drawing.Point(348, 1);
+            this.btnConfig.Location = new System.Drawing.Point(491, 1);
             this.btnConfig.Name = "btnConfig";
             this.btnConfig.Size = new System.Drawing.Size(65, 23);
             this.btnConfig.TabIndex = 5;
@@ -104,18 +115,33 @@
             this.btnConfig.UseVisualStyleBackColor = true;
             this.btnConfig.Click += new System.EventHandler(this.BtnConfig_Click);
             // 
-            // ctrOutput
+            // btnDisable
             // 
-            this.ctrOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrOutput.Location = new System.Drawing.Point(0, 0);
-            this.ctrOutput.Name = "ctrOutput";
-            this.ctrOutput.Size = new System.Drawing.Size(413, 353);
-            this.ctrOutput.TabIndex = 0;
-            this.ctrOutput.Text = "ctrOutput1";
+            this.btnDisable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDisable.Location = new System.Drawing.Point(459, 1);
+            this.btnDisable.Name = "btnDisable";
+            this.btnDisable.Size = new System.Drawing.Size(26, 23);
+            this.btnDisable.TabIndex = 6;
+            this.btnDisable.Text = "D";
+            this.btnDisable.UseVisualStyleBackColor = true;
+            this.btnDisable.Click += new System.EventHandler(this.btnDisable_Click);
+            // 
+            // btnEnable
+            // 
+            this.btnEnable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEnable.Location = new System.Drawing.Point(426, 1);
+            this.btnEnable.Name = "btnEnable";
+            this.btnEnable.Size = new System.Drawing.Size(27, 23);
+            this.btnEnable.TabIndex = 7;
+            this.btnEnable.Text = "E";
+            this.btnEnable.UseVisualStyleBackColor = true;
+            this.btnEnable.Click += new System.EventHandler(this.btnEnable_Click);
             // 
             // FrmProxyCmd
             // 
-            this.ClientSize = new System.Drawing.Size(413, 446);
+            this.ClientSize = new System.Drawing.Size(556, 531);
+            this.Controls.Add(this.btnEnable);
+            this.Controls.Add(this.btnDisable);
             this.Controls.Add(this.btnConfig);
             this.Controls.Add(this.ddlCurrentConfig);
             this.Controls.Add(this.splitMain);
@@ -138,5 +164,7 @@
         private VAR.Toolbox.Controls.CComboBox ddlCurrentConfig;
         private VAR.Toolbox.Controls.CButton btnConfig;
         private Controls.CtrOutput ctrOutput;
+        private Controls.CButton btnDisable;
+        private Controls.CButton btnEnable;
     }
 }

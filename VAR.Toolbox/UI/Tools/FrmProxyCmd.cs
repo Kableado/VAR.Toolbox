@@ -118,6 +118,20 @@ namespace VAR.Toolbox.UI.Tools
             }
         }
 
+        private void btnEnable_Click(object sender, EventArgs e)
+        {
+            PrepareProxyCmdExecutor();
+            bool result = _proxyCmdExecutor.Enable();
+            AddLine($"Enable: {result}");
+        }
+
+        private void btnDisable_Click(object sender, EventArgs e)
+        {
+            PrepareProxyCmdExecutor();
+            bool result = _proxyCmdExecutor.Disable();
+            AddLine($"Disable: {result}");
+        }
+
         private void DdlCurrentConfig_SelectedIndexChanged(object sender, EventArgs e)
         {
             CleanProxyCmdExecutor();
@@ -239,5 +253,6 @@ namespace VAR.Toolbox.UI.Tools
         }
 
         #endregion Config
+
     }
 }

@@ -3,5 +3,9 @@
     public interface IProxyCmdExecutor : INamed
     {
         bool ExecuteCmd(string cmd, IOutputHandler outputHandler);
+
+        bool Enable();
+
+        bool Disable();
     }
 }

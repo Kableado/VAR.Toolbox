@@ -1,9 +1,9 @@
 ﻿namespace VAR.Toolbox.Code.ProxyCmdExecutors
 {
-    public class ProxyCmdExecutorDummy : IProxyCmdExecutor
+    public class ProxyCmdExecutorDummy : BaseProxyCmdExecutor
     {
         private readonly string _config;
-        public string Name => "Dummy";
+        public override string Name => "Dummy";
 
         public ProxyCmdExecutorDummy(string config)
         {
@@ -15,7 +15,7 @@
             _config = config;
         }
 
-        public bool ExecuteCmd(string cmdString, IOutputHandler outputHandler)
+        public override bool ExecuteCmd(string cmdString, IOutputHandler outputHandler)
         {
             outputHandler.AddLine($"DummyExecution: {cmdString} | {_config}");
             return true;
