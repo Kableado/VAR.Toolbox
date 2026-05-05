@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using VAR.Toolbox.Code.WorkLog;
@@ -14,6 +15,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
             InitializeComponent();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Activity
         {
             get => txtActivity.Text;
@@ -22,12 +24,14 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         private List<WorkLogItem> _workLog;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<WorkLogItem> WorkLog
         {
             get => _workLog;
             set => _workLog = value;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string WorkerName
         {
             get => lblName.Text;

@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace VAR.Toolbox.Controls
@@ -20,6 +21,7 @@ namespace VAR.Toolbox.Controls
 
         private Color _borderColor = Color.Black;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Color BorderColor
         {
             get => _borderColor;

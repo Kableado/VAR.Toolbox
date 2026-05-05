@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -17,6 +18,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         private List<WorkLogItem> _workLog;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<WorkLogItem> WorkLog
         {
             get => _workLog;

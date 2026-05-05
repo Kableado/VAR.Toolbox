@@ -1,38 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E8DAB98D-4FD0-4D40-B29A-62B4C2FCA4D7}</ProjectGuid>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VAR.Toolbox</RootNamespace>
-    <AssemblyName>VAR.Toolbox</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -40,15 +15,6 @@
   <PropertyGroup>
     <ApplicationIcon>Toolbox.ico</ApplicationIcon>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="..\VAR.HttpServer\VAR.HttpServer\HttpProcessor.cs">
       <Link>Code\HttpServer\HttpProcessor.cs</Link>
@@ -74,247 +40,51 @@
     <Compile Include="..\VAR.Json\VAR.Json\ParserContext.cs">
       <Link>Code\Json\ParserContext.cs</Link>
     </Compile>
-    <Compile Include="Code\BaseFactory.cs" />
-    <Compile Include="Code\Bots\AutomationBotFactory.cs" />
-    <Compile Include="Code\Bots\DummyBot.cs" />
-    <Compile Include="Code\Bots\IAutomationBot.cs" />
-    <Compile Include="Code\Bots\TetrisBot.cs" />
-    <Compile Include="Code\Configuration\FileBackedConfiguration.cs" />
-    <Compile Include="Code\Configuration\IConfiguration.cs" />
-    <Compile Include="Code\Configuration\MemoryBackedConfiguration.cs" />
-    <Compile Include="Code\EventDispatcher.cs" />
-    <Compile Include="Code\GlobalKeyboardHook.cs" />
-    <Compile Include="Code\HexUtils.cs" />
-    <Compile Include="Code\IEventListener.cs" />
-    <Compile Include="Code\ProxyCmdExecutors\BaseProxyCmdExecutor.cs" />
-    <Compile Include="Code\ProxyCmdExecutors\ProxyCmdExecutorWMIC.cs" />
-    <Compile Include="Code\ReflectionUtils.cs" />
-    <Compile Include="Code\TextCoders\TextCoderBase64Utf8.cs" />
-    <Compile Include="Code\TextCoders\TextCoderBase64Ascii.cs" />
-    <Compile Include="Code\DirectShow\CameraControlProperty.cs" />
-    <Compile Include="Code\DirectShow\IAMCameraControl.cs" />
-    <Compile Include="Code\DirectShow\IAMCrossbar.cs" />
-    <Compile Include="Code\DirectShow\IAMStreamConfig.cs" />
-    <Compile Include="Code\DirectShow\IAMVideoControl.cs" />
-    <Compile Include="Code\DirectShow\IBaseFilter.cs" />
-    <Compile Include="Code\DirectShow\ICaptureGraphBuilder2.cs" />
-    <Compile Include="Code\DirectShow\ICreateDevEnum.cs" />
-    <Compile Include="Code\DirectShow\IEnumFilters.cs" />
-    <Compile Include="Code\DirectShow\IEnumPins.cs" />
-    <Compile Include="Code\DirectShow\IFileSourceFilter.cs" />
-    <Compile Include="Code\DirectShow\IFilterGraph.cs" />
-    <Compile Include="Code\DirectShow\IFilterGraph2.cs" />
-    <Compile Include="Code\DirectShow\IGraphBuilder.cs" />
-    <Compile Include="Code\DirectShow\IMediaControl.cs" />
-    <Compile Include="Code\DirectShow\IMediaEventEx.cs" />
-    <Compile Include="Code\DirectShow\IMediaFilter.cs" />
-    <Compile Include="Code\DirectShow\IPersist.cs" />
-    <Compile Include="Code\DirectShow\IPin.cs" />
-    <Compile Include="Code\DirectShow\IPropertyBag.cs" />
-    <Compile Include="Code\DirectShow\IReferenceClock.cs" />
-    <Compile Include="Code\DirectShow\ISampleGrabber.cs" />
-    <Compile Include="Code\DirectShow\ISampleGrabberCB.cs" />
-    <Compile Include="Code\DirectShow\ISpecifyPropertyPages.cs" />
-    <Compile Include="Code\DirectShow\IVideoWindow.cs" />
-    <Compile Include="Code\DirectShow\PhysicalConnectorType.cs" />
-    <Compile Include="Code\DirectShow\Structures.cs" />
-    <Compile Include="Code\DirectShow\Tools.cs" />
-    <Compile Include="Code\DirectShow\Uuids.cs" />
-    <Compile Include="Code\WebServicesUtils.cs" />
-    <Compile Include="Code\WindowHandling.cs" />
-    <Compile Include="Code\Windows\GDI32.cs" />
-    <Compile Include="Code\TextCoders\ITextCoder.cs" />
-    <Compile Include="Code\IOutputHandler.cs" />
-    <Compile Include="Code\ProxyCmdExecutors\IProxyCmdExecutor.cs" />
-    <Compile Include="Code\Logger.cs" />
-    <Compile Include="Code\Mouse.cs" />
-    <Compile Include="Code\ProxyCmdExecutors\ProxyCmdExecutorFactory.cs" />
-    <Compile Include="Code\ProxyCmdExecutors\ProxyCmdExecutorDummy.cs" />
-    <Compile Include="Code\ProxyCmdExecutors\ProxyCmdExecutorThroughSQLServer.cs" />
-    <Compile Include="Code\Screenshoter.cs" />
-    <Compile Include="Code\TextCoders\TextCoderFactory.cs" />
-    <Compile Include="Code\TextCoders\TextCoderHexToAscii.cs" />
-    <Compile Include="Code\TextCoders\TextCoderHexToUtf8.cs" />
-    <Compile Include="Code\Windows\User32.cs" />
-    <Compile Include="Code\Webcam.cs" />
-    <Compile Include="Code\Windows\Win32.cs" />
-    <Compile Include="Controls\CButton.cs">
+    <Compile Update="Controls\CButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\CComboBox.cs">
+    <Compile Update="Controls\CComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\CDateTimePicker.cs">
+    <Compile Update="Controls\CDateTimePicker.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\CGroupBox.cs">
+    <Compile Update="Controls\CGroupBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\ControlsUtils.cs" />
-    <Compile Include="Controls\CSplitContainer.cs">
+    <Compile Update="Controls\CSplitContainer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\CtrImageViewer.cs">
+    <Compile Update="Controls\CtrImageViewer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\CtrOutput.cs">
+    <Compile Update="Controls\CtrOutput.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\Frame.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\ListBoxMonospace.cs">
+    <Compile Update="Controls\ListBoxMonospace.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\ListBoxNormal.cs">
+    <Compile Update="Controls\ListBoxNormal.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\SubFrame.cs">
+    <Compile Update="Controls\SubFrame.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\TextBoxMonospace.cs">
+    <Compile Update="Controls\TextBoxMonospace.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\TextBoxNormal.cs">
+    <Compile Update="Controls\TextBoxNormal.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\FrmDialogString.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\FrmDialogString.Designer.cs">
-      <DependentUpon>FrmDialogString.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\FrmListBoxDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\FrmListBoxDialog.Designer.cs">
-      <DependentUpon>FrmListBoxDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\IToolPanel.cs" />
-    <Compile Include="UI\Tools\FrmCoder.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tools\FrmCoder.Designer.cs">
-      <DependentUpon>FrmCoder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Tools\FrmCover.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tools\FrmIPScan.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tools\FrmIPScan.Designer.cs">
-      <DependentUpon>FrmIPScan.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Tools\FrmNetworkInfo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tools\FrmNetworkInfo.Designer.cs">
-      <DependentUpon>FrmNetworkInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Tools\FrmProxyCmd.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tools\FrmProxyCmd.Designer.cs">
-      <DependentUpon>FrmProxyCmd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Tools\FrmProxyCmdConfig.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tools\FrmProxyCmdConfig.Designer.cs">
-      <DependentUpon>FrmProxyCmdConfig.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Tools\FrmScreenshooter.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tools\FrmScreenshooter.Designer.cs">
-      <DependentUpon>FrmScreenshooter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Tools\FrmTestWebService.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tools\FrmTestWebService.Designer.cs">
-      <DependentUpon>FrmTestWebService.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Tools\FrmTunnelTCP.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tools\FrmTunnelTCP.Designer.cs">
-      <DependentUpon>FrmTunnelTCP.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\FrmToolbox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\Tools\FrmVirtualMouse.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tools\FrmVirtualMouse.Designer.cs">
-      <DependentUpon>FrmVirtualMouse.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Tools\FrmWebcam.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tools\FrmWebcam.Designer.cs">
-      <DependentUpon>FrmWebcam.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\IToolForm.cs" />
-    <Compile Include="UI\Tools\ScreenAutomation\FrmAutomationBotParams.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tools\ScreenAutomation\FrmAutomationBotParams.Designer.cs">
-      <DependentUpon>FrmAutomationBotParams.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Tools\ScreenAutomation\FrmScreenAutomation.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tools\ScreenAutomation\FrmScreenAutomation.Designer.cs">
-      <DependentUpon>FrmScreenAutomation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Tools\WorkLog\FrmWorkLog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tools\WorkLog\FrmWorkLog.Designer.cs">
-      <DependentUpon>FrmWorkLog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Tools\PnlActivity.cs">
+    <Compile Update="UI\Tools\PnlActivity.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Tools\PnlActivity.Designer.cs">
-      <DependentUpon>PnlActivity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Tools\PnlCover.cs">
+    <Compile Update="UI\Tools\PnlCover.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Tools\PnlCover.Designer.cs">
-      <DependentUpon>PnlCover.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Tools\PnlSuspension.cs">
+    <Compile Update="UI\Tools\PnlSuspension.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Tools\PnlSuspension.Designer.cs">
-      <DependentUpon>PnlSuspension.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Tools\WorkLog\FrmWorkLogSummary.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tools\WorkLog\FrmWorkLogSummary.Designer.cs">
-      <DependentUpon>FrmWorkLogSummary.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Tools\WorkLog\FrmWorkLogStats.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tools\WorkLog\FrmWorkLogStats.Designer.cs">
-      <DependentUpon>FrmWorkLogStats.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Code\WorkLog\IWorkLogImporter.cs" />
-    <Compile Include="Code\WorkLog\VARTextWorkLogImporter.cs" />
-    <Compile Include="Code\WorkLog\WorkLogImporterFactory.cs" />
-    <Compile Include="Code\WorkLog\WorkLogItem.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\Toolbox.png" />
@@ -322,16 +92,7 @@
     <Content Include="Toolbox.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UI\Tools\FrmVirtualMouse.resx">
-      <DependentUpon>FrmVirtualMouse.cs</DependentUpon>
-    </EmbeddedResource>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.1.0-preview1.26124.5" />
+    <PackageReference Include="System.Drawing.Common" Version="11.0.0-preview.3.26207.106" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-         Other similar extension points exist, see Microsoft.Common.targets.
-    <Target Name="BeforeBuild">
-    </Target>
-    <Target Name="AfterBuild">
-    </Target>
-    -->
 </Project>
