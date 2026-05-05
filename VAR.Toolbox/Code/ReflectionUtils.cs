@@ -10,7 +10,20 @@ namespace VAR.Toolbox.Code
         {
             return AppDomain.CurrentDomain
                 .GetAssemblies()
-                .SelectMany(x => x.GetTypes())
+                .SelectMany(x =>
+                {
+                    Type[] types = null;
+                    try
+                    {
+                        types = x.GetTypes();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex);
+                        types = [];
+                    }
+                    return types;
+                })
                 .Where(x =>
                     x.IsAbstract == false &&
                     x.IsInterface == false &&
