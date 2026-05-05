@@ -55,7 +55,12 @@ namespace VAR.Toolbox
                 allAssemblyNames = AppDomain.CurrentDomain.GetAssemblies().Select(a => a.GetName().Name).ToList();
             }
 
-            Assembly asm = null;
+            if (File.Exists(fullPath) == false) { return; }
+            
+            AssemblyName asmNameCurrent = AssemblyName.GetAssemblyName(fullPath);
+            if (allAssemblyNames.Contains(asmNameCurrent.Name)) { return;  }
+
+                Assembly asm = null;
             try
             {
                 asm = Assembly.LoadFrom(fullPath);
@@ -76,7 +81,7 @@ namespace VAR.Toolbox
             {
                 if (allAssemblyNames.Contains(asmName.Name) == false)
                 {
-                    string fullPathAux = $"{dirPath}/{asmName.Name}.dll";
+                    string fullPathAux = Path.Combine(dirPath, $"{asmName.Name}.dll");
                     AssemblyLoadFull(fullPathAux, allAssemblyNames);
                 }
             }
