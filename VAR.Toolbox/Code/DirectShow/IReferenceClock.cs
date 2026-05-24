@@ -15,7 +15,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     [ComImport, System.Security.SuppressUnmanagedCodeSecurity,
      Guid("56a86897-0ad4-11ce-b03a-0020af0ba770"),
-     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown),]
     internal interface IReferenceClock
     {
         /// <summary>

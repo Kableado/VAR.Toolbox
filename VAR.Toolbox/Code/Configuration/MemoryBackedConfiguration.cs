@@ -6,13 +6,11 @@ namespace VAR.Toolbox.Code.Configuration
 {
     public class MemoryBackedConfiguration : IConfiguration
     {
-        private readonly Dictionary<string, string> _configItems = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _configItems = new();
 
         public IEnumerable<string> GetKeys()
         {
-            return _configItems == null
-                ? new List<string>()
-                : _configItems.Select(p => p.Key);
+            return _configItems.Select(p => p.Key);
         }
 
         public void Clear()
@@ -22,23 +20,14 @@ namespace VAR.Toolbox.Code.Configuration
 
         public string Get(string key, string defaultValue)
         {
-            if (_configItems == null) { return defaultValue; }
-
-            return _configItems.ContainsKey(key) ? _configItems[key] : defaultValue;
+            return _configItems.TryGetValue(key, out string? item) ? item : defaultValue;
         }
 
         public int Get(string key, int defaultValue)
         {
-            if (_configItems == null) { return defaultValue; }
-
-            if (_configItems.ContainsKey(key))
+            if (_configItems.TryGetValue(key, out string? item))
             {
-                if (int.TryParse(_configItems[key], out int value))
-                {
-                    return value;
-                }
-
-                return defaultValue;
+                return int.TryParse(item, out int value) ? value : defaultValue;
             }
 
             return defaultValue;
@@ -46,12 +35,9 @@ namespace VAR.Toolbox.Code.Configuration
 
         public bool Get(string key, bool defaultValue)
         {
-            if (_configItems == null) { return defaultValue; }
-
-            if (_configItems.ContainsKey(key))
+            if (_configItems.TryGetValue(key, out string? value))
             {
-                string value = _configItems[key];
-                return (value == "true");
+                return value == "true";
             }
 
             return defaultValue;
@@ -59,44 +45,17 @@ namespace VAR.Toolbox.Code.Configuration
 
         public void Set(string key, string value)
         {
-            if (_configItems == null) { return; }
-
-            if (_configItems.ContainsKey(key))
-            {
-                _configItems[key] = value;
-            }
-            else
-            {
-                _configItems.Add(key, value);
-            }
+            _configItems[key] = value;
         }
 
         public void Set(string key, int value)
         {
-            if (_configItems == null) { return; }
-
-            if (_configItems.ContainsKey(key))
-            {
-                _configItems[key] = Convert.ToString(value);
-            }
-            else
-            {
-                _configItems.Add(key, Convert.ToString(value));
-            }
+            _configItems[key] = Convert.ToString(value);
         }
 
         public void Set(string key, bool value)
         {
-            if (_configItems == null) { return; }
-
-            if (_configItems.ContainsKey(key))
-            {
-                _configItems[key] = value ? "true" : "false";
-            }
-            else
-            {
-                _configItems.Add(key, value ? "true" : "false");
-            }
+            _configItems[key] = value ? "true" : "false";
         }
     }
 }

@@ -1,117 +1,132 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
+
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Layout;
 using VAR.Toolbox.Code.WorkLog;
-using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI.Tools.WorkLog
 {
-    public partial class FrmWorkLogStats : Frame
+    public class FrmWorkLogStats : Window
     {
+        private readonly TextBox _txtActivity;
+        private readonly CalendarDatePicker _dtpStart;
+        private readonly CalendarDatePicker _dtpEnd;
+        private readonly TextBlock _lblName;
+        private readonly TextBlock _lblDateStart;
+        private readonly TextBlock _lblDateEnd;
+        private readonly TextBlock _lblTotalTime;
+        private readonly ListBox _lsbDays;
+
         public FrmWorkLogStats()
         {
-            InitializeComponent();
+            Title = "WorkLogStats";
+            Width = 500;
+            Height = 450;
+            
+            Grid activityGrid = new()
+            {
+                ColumnDefinitions = new ColumnDefinitions("*, Auto")
+            };
+            Grid.SetRow(activityGrid, 0);
+            _txtActivity = new TextBox { PlaceholderText = "Activity", };
+            Grid.SetColumn(_txtActivity, 0);
+            activityGrid.Children.Add(_txtActivity);
+            Button btnSearch = new() { Content = "Search", };
+            Grid.SetColumn(btnSearch, 1);
+            btnSearch.Click += (_, _) => { WorkLog_ProcessStats(); };
+            activityGrid.Children.Add(btnSearch);
+            
+            StackPanel topRow = new() { Orientation = Orientation.Horizontal, Spacing = 4, };
+            Grid.SetRow(topRow, 1);
+            _dtpStart = new CalendarDatePicker { SelectedDate = DateTime.Now.Date.AddMonths(-1), };
+            topRow.Children.Add(_dtpStart);
+            _dtpEnd = new CalendarDatePicker { SelectedDate = DateTime.Now.Date.AddMonths(1).AddDays(1).AddSeconds(-1), };
+            topRow.Children.Add(_dtpEnd);
+            
+            StackPanel infoRow = new() { Orientation = Orientation.Horizontal, Spacing = 10, };
+            Grid.SetRow(infoRow, 2);
+            _lblName = new TextBlock();
+            infoRow.Children.Add(_lblName);
+            _lblDateStart = new TextBlock();
+            infoRow.Children.Add(_lblDateStart);
+            _lblDateEnd = new TextBlock();
+            infoRow.Children.Add(_lblDateEnd);
+            _lblTotalTime = new TextBlock();
+            infoRow.Children.Add(_lblTotalTime);
+
+            _lsbDays = new ListBox { Classes = { "mono", }, };
+            Grid.SetRow(_lsbDays, 3);
+            
+            StackPanel bottomRow = new() { Orientation = Orientation.Horizontal, Spacing = 4, HorizontalAlignment = HorizontalAlignment.Right, };
+            Grid.SetRow(bottomRow, 4);
+            Button btnClose = new() { Content = "Close", };
+            btnClose.Click += (_, _) => { Close(); };
+            bottomRow.Children.Add(btnClose);
+            
+            Grid mainGrid = new()
+            {
+                Margin = new Thickness(8),
+                RowDefinitions = new RowDefinitions("Auto, Auto, Auto, *, Auto"),
+            };
+            mainGrid.Children.Add(activityGrid);
+            mainGrid.Children.Add(topRow);
+            mainGrid.Children.Add(infoRow);
+            mainGrid.Children.Add(_lsbDays);
+            mainGrid.Children.Add(bottomRow);
+
+            Content = mainGrid;
+
+            Opened += (_, _) => { WorkLog_ProcessStats(); };
         }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string Activity
-        {
-            get => txtActivity.Text;
-            set => txtActivity.Text = value;
-        }
-
-        private List<WorkLogItem> _workLog;
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public List<WorkLogItem> WorkLog
-        {
-            get => _workLog;
-            set => _workLog = value;
-        }
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string WorkerName
-        {
-            get => lblName.Text;
-            set => lblName.Text = value;
-        }
-
-        private void FrmWorkLogStats_Load(object sender, EventArgs e)
-        {
-            dtpStart.Value = DateTime.Now.Date.AddMonths(-1);
-            dtpEnd.Value = DateTime.Now.Date.AddMonths(1).AddDays(1).AddSeconds(-1);
-            WorkLog_ProcessStats();
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            WorkLog_ProcessStats();
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        public string? Activity { get => _txtActivity.Text; set => _txtActivity.Text = value; }
+        private List<WorkLogItem>? _workLog;
+        public List<WorkLogItem>? WorkLog { get => _workLog; set => _workLog = value; }
+        public string? WorkerName { get => _lblName.Text; set => _lblName.Text = value; }
 
         private void WorkLog_ProcessStats()
         {
-            if (string.IsNullOrWhiteSpace(txtActivity.Text))
-            {
-                CleanList();
-                return;
-            }
+            if (string.IsNullOrWhiteSpace(_txtActivity.Text)) { CleanList(); return; }
+            if (_workLog == null) { CleanList(); return; }
 
             bool found = false;
             DateTime dateStart = DateTime.MaxValue;
             DateTime dateEnd = DateTime.MinValue;
-            Dictionary<DateTime, TimeSpan> dictDaysHours = new Dictionary<DateTime, TimeSpan>();
+            Dictionary<DateTime, TimeSpan> dictDaysHours = new();
+
+            DateTime filterStart = _dtpStart.SelectedDate ?? DateTime.MinValue;
+            DateTime filterEnd = _dtpEnd.SelectedDate ?? DateTime.MaxValue;
+
             foreach (WorkLogItem item in _workLog)
             {
-                if (item.Activity.Contains(txtActivity.Text) == false) { continue; }
-
-                if (item.DateEnd < dtpStart.Value || item.DateStart > dtpEnd.Value) { continue; }
-
+                if (!item.Activity.Contains(_txtActivity.Text)) continue;
+                if (item.DateEnd < filterStart || item.DateStart > filterEnd) continue;
                 found = true;
-                if (item.DateStart < dateStart) { dateStart = item.DateStart; }
-
-                if (item.DateEnd > dateEnd) { dateEnd = item.DateEnd; }
-
+                if (item.DateStart < dateStart) dateStart = item.DateStart;
+                if (item.DateEnd > dateEnd) dateEnd = item.DateEnd;
                 DateTime dateItemDay = item.DateStart.Date;
                 TimeSpan tsItem = item.DateEnd - item.DateStart;
-
-                if (dictDaysHours.ContainsKey(dateItemDay))
-                {
-                    TimeSpan tsDay = tsItem + dictDaysHours[dateItemDay];
-                    dictDaysHours[dateItemDay] = tsDay;
-                }
-                else
-                {
-                    dictDaysHours.Add(dateItemDay, tsItem);
-                }
+                if (!dictDaysHours.TryAdd(dateItemDay, tsItem)) { dictDaysHours[dateItemDay] += tsItem; }
             }
 
-            if (found == false)
-            {
-                CleanList();
-                return;
-            }
+            if (!found) { CleanList(); return; }
 
-            lblDateStart.Text = dateStart.ToString("yyyy-MM-dd HH:mm:ss");
-            lblDateEnd.Text = dateEnd.ToString("yyyy-MM-dd HH:mm:ss");
+            _lblDateStart.Text = dateStart.ToString("yyyy-MM-dd HH:mm:ss");
+            _lblDateEnd.Text = dateEnd.ToString("yyyy-MM-dd HH:mm:ss");
 
-            List<string> strDays = new List<string>();
-            DateTime dateDayStart = dateStart.Date;
+            List<string> strDays = [];
+            DateTime dateDayCurrent = dateStart.Date;
             DateTime dateDayEnd = dateEnd.Date;
-            DateTime dateDayCurrent = dateDayStart;
-            TimeSpan tsTotal = new TimeSpan(0);
+            TimeSpan tsTotal = new(0);
             int? week = null;
-            TimeSpan tsWeek = new TimeSpan(0);
+            TimeSpan tsWeek = new(0);
             CultureInfo currentCulture = CultureInfo.CurrentCulture;
             do
             {
-                if (dictDaysHours.ContainsKey(dateDayCurrent))
+                if (dictDaysHours.TryGetValue(dateDayCurrent, out TimeSpan tsDay))
                 {
                     int weekCurrent = currentCulture.Calendar.GetWeekOfYear(dateDayCurrent,
                         currentCulture.DateTimeFormat.CalendarWeekRule, currentCulture.DateTimeFormat.FirstDayOfWeek);
@@ -121,32 +136,27 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
                         tsWeek = new TimeSpan(0);
                     }
 
-                    TimeSpan tsDay = dictDaysHours[dateDayCurrent];
                     strDays.Add($"[{weekCurrent:00}] {dateDayCurrent:yyyy-MM-dd} -- {tsDay.TotalHours} h");
                     tsTotal += tsDay;
                     tsWeek += tsDay;
                     week = weekCurrent;
                 }
-
                 dateDayCurrent = dateDayCurrent.AddDays(1);
             } while (dateDayCurrent <= dateDayEnd);
 
             if (tsWeek.TotalHours > 0)
-            {
                 strDays.Add($"  [{week:00}] -- {tsWeek.TotalHours} h");
-            }
 
-            lsbDays.Items.Clear();
-            lsbDays.Items.AddRange(strDays.ToArray<object>());
-            lblTotalTime.Text = $"{tsTotal.ToString()} - {tsTotal.TotalHours}";
+            _lsbDays.ItemsSource = strDays;
+            _lblTotalTime.Text = $"{tsTotal} - {tsTotal.TotalHours}";
         }
 
         private void CleanList()
         {
-            lblDateStart.Text = string.Empty;
-            lblDateEnd.Text = string.Empty;
-            lsbDays.Items.Clear();
-            lblTotalTime.Text = string.Empty;
+            _lblDateStart.Text = string.Empty;
+            _lblDateEnd.Text = string.Empty;
+            _lsbDays.ItemsSource = null;
+            _lblTotalTime.Text = string.Empty;
         }
     }
 }

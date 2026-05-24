@@ -1,50 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace VAR.Toolbox.Code.Configuration
 {
     public class FileBackedConfiguration : IConfiguration
     {
-        private readonly MemoryBackedConfiguration _config = new MemoryBackedConfiguration();
+        private readonly MemoryBackedConfiguration _config = new();
 
-        private readonly string _name;
+        private readonly string? _name;
 
-        public FileBackedConfiguration(string name = null)
+        public FileBackedConfiguration(string? name = null)
         {
             _name = name;
         }
 
-        private static string GetConfigFileName(string name = null)
+        private static string GetConfigFileName(string? name = null)
         {
-            string location = System.Reflection.Assembly.GetEntryAssembly()?.Location;
-            string path = Path.GetDirectoryName(location);
-            string filenameWithoutExtension = Path.GetFileNameWithoutExtension(location);
+            Assembly? entry = Assembly.GetEntryAssembly();
+            string? location = entry?.Location;
+
+            string path;
+            string filenameWithoutExtension;
+
+            if (string.IsNullOrEmpty(location))
+            {
+                // Fallback to base directory and process/app domain name when entry assembly is not available
+                path = AppContext.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                filenameWithoutExtension = AppDomain.CurrentDomain.FriendlyName;
+            }
+            else
+            {
+                path = Path.GetDirectoryName(location) ?? AppContext.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                filenameWithoutExtension = Path.GetFileNameWithoutExtension(location);
+            }
+
             string configFile = string.IsNullOrEmpty(name)
-                ? $"{path}/{filenameWithoutExtension}.cfg"
-                : $"{path}/{filenameWithoutExtension}_{name}.cfg";
+                ? Path.Combine(path, filenameWithoutExtension + ".cfg")
+                : Path.Combine(path, filenameWithoutExtension + "_" + name + ".cfg");
             return configFile;
         }
 
-        private static string[] GetConfigurationLines(string name = null)
+        private static string[] GetConfigurationLines(string? name = null)
         {
             string configFile = GetConfigFileName(name);
             string[] config = File.Exists(configFile) == false
-                ? Array.Empty<string>()
+                ? []
                 : File.ReadAllLines(configFile);
 
             return config;
         }
 
-        public void Load(IConfiguration other = null)
+        public void Load(IConfiguration? other = null)
         {
             _config.Clear();
             if (other != null)
             {
                 foreach (string key in other.GetKeys())
                 {
-                    _config.Set(key, other.Get(key, null));
+                    // Use empty string as default when copying values to avoid assigning null to non-nullable setting values
+                    _config.Set(key, other.Get(key, string.Empty));
                 }
             }
 
@@ -63,10 +80,10 @@ namespace VAR.Toolbox.Code.Configuration
 
         public void Save()
         {
-            StringBuilder sbConfig = new StringBuilder();
+            StringBuilder sbConfig = new();
             foreach (string key in _config.GetKeys())
             {
-                sbConfig.AppendFormat("{0}|{1}\n", key, _config.Get(key, string.Empty));
+                sbConfig.Append($"{key}|{_config.Get(key, string.Empty)}\n");
             }
 
             string configFileName = GetConfigFileName(_name);

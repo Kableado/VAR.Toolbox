@@ -5,7 +5,7 @@ namespace VAR.Toolbox.Code
 {
     public static class EventDispatcher
     {
-        private static List<IEventListener> _eventListeners;
+        private static List<IEventListener>? _eventListeners;
 
         private static IEnumerable<IEventListener> GetEventListeners()
         {
@@ -16,7 +16,7 @@ namespace VAR.Toolbox.Code
 
             Type iEventListener = typeof(IEventListener);
             IEnumerable<Type> eventListeners = ReflectionUtils.GetTypesOfInterface(iEventListener);
-            _eventListeners = new List<IEventListener>();
+            _eventListeners = [];
             foreach (Type eventListener in eventListeners)
             {
                 if (Activator.CreateInstance(eventListener) is IEventListener eventListenerInstance)
@@ -28,7 +28,7 @@ namespace VAR.Toolbox.Code
             return _eventListeners;
         }
 
-        public static void EmitEvent(string eventName, object eventData)
+        public static void EmitEvent(string eventName, object? eventData)
         {
             IEnumerable<IEventListener> eventListeners = GetEventListeners();
             foreach (IEventListener eventListener in eventListeners)

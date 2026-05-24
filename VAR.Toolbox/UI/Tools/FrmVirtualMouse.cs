@@ -1,59 +1,61 @@
-﻿using System;
-using System.Windows.Forms;
+using Avalonia;
+using Avalonia.Controls;
+
 using VAR.Toolbox.Code;
-using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI.Tools
 {
-    public partial class FrmVirtualMouse : Frame, IToolForm
+    public class FrmVirtualMouse : Window, IToolForm
     {
         public string ToolName => "VirtualMouse";
-        
         public bool HasIcon => false;
 
-        private readonly GlobalKeyboardHook _globalKeyboard = new GlobalKeyboardHook();
-        
+        private readonly GlobalKeyboardHook _globalKeyboard = new();
+        private readonly ListBox _lsbInputs;
+        private readonly Button _btnStartStop;
+
         public FrmVirtualMouse()
         {
-            InitializeComponent();
-            PostInitializeComponent();
-        }
+            Title = "VirtualMouse";
+            Width = 400;
+            Height = 350;
 
-        private void PostInitializeComponent()
-        {
+            _lsbInputs = new ListBox();
+
+            _btnStartStop = new Button { Content = "Start", };
+            _btnStartStop.Click += BtnStartStop_Click;
+
+            DockPanel layout = new() { Margin = new Thickness(8), };
+            DockPanel.SetDock(_btnStartStop, Dock.Top);
+            layout.Children.Add(_btnStartStop);
+            layout.Children.Add(_lsbInputs);
+
+            Content = layout;
+
             _globalKeyboard.KeyDown += GlobalKeyboard_OnKeyDown;
         }
 
-        private void GlobalKeyboard_OnKeyDown(object sender, KeyEventArgs keyEvent)
+        private void GlobalKeyboard_OnKeyDown(object? sender, System.Windows.Forms.KeyEventArgs keyEvent)
         {
             string key = keyEvent.KeyCode.ToString();
-            lsbInputs.Items.Add(key);
+            Avalonia.Threading.Dispatcher.UIThread.Post(() => { _lsbInputs.Items.Add(key); });
 
-            if (key == "F1")
-            {
-                Mouse.SetButton(Mouse.MouseButtons.Left, true);
-            }
-            if (key == "F2")
-            {
-                Mouse.Move(0, -10000);
-            }
-            if (key == "F3")
-            {
-                Mouse.SetButton(Mouse.MouseButtons.Left, false);
-            }
+            if (key == "F1") { Mouse.SetButton(Mouse.MouseButtons.Left, true); }
+            if (key == "F2") { Mouse.Move(0, -10000); }
+            if (key == "F3") { Mouse.SetButton(Mouse.MouseButtons.Left, false); }
         }
 
-        private void btnStartStop_Click(object sender, EventArgs e)
+        private void BtnStartStop_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             if (_globalKeyboard.IsCapturing())
             {
                 _globalKeyboard.Stop();
-                btnStartStop.Text = "Start";
+                _btnStartStop.Content = "Start";
                 return;
             }
 
             _globalKeyboard.Start(true);
-            btnStartStop.Text = "Stop";
+            _btnStartStop.Content = "Stop";
         }
     }
 }

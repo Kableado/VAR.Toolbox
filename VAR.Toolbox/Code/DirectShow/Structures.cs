@@ -25,7 +25,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <summary>
         /// Output pin.
         /// </summary>
-        Output
+        Output,
     }
 
     // AM_MEDIA_TYPE
@@ -35,7 +35,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false),
-     StructLayout(LayoutKind.Sequential)]
+     StructLayout(LayoutKind.Sequential),]
     internal class AMMediaType : IDisposable
     {
         /// <summary>
@@ -133,7 +133,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false),
-     StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
+     StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode),]
     internal struct PinInfo
     {
         /// <summary>
@@ -155,7 +155,7 @@ namespace VAR.Toolbox.Code.DirectShow
 
     // FILTER_INFO
     [ComVisible(false),
-     StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode)]
+     StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Unicode),]
     internal struct FilterInfo
     {
         /// <summary>
@@ -177,7 +177,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false),
-     StructLayout(LayoutKind.Sequential)]
+     StructLayout(LayoutKind.Sequential),]
     internal struct VideoInfoHeader
     {
         /// <summary>
@@ -218,7 +218,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false),
-     StructLayout(LayoutKind.Sequential)]
+     StructLayout(LayoutKind.Sequential),]
     internal struct VideoInfoHeader2
     {
         /// <summary>
@@ -287,7 +287,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false),
-     StructLayout(LayoutKind.Sequential, Pack = 2)]
+     StructLayout(LayoutKind.Sequential, Pack = 2),]
     internal struct BitmapInfoHeader
     {
         /// <summary>
@@ -353,7 +353,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false),
-     StructLayout(LayoutKind.Sequential)]
+     StructLayout(LayoutKind.Sequential),]
     internal struct RECT
     {
         /// <summary>
@@ -384,7 +384,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     /// 
     [ComVisible(false),
-     StructLayout(LayoutKind.Sequential)]
+     StructLayout(LayoutKind.Sequential),]
     internal struct CAUUID
     {
         /// <summary>
@@ -409,8 +409,8 @@ namespace VAR.Toolbox.Code.DirectShow
 
             for (int i = 0; i < cElems; i++)
             {
-                IntPtr ptr = new IntPtr(pElems.ToInt64() + i * Marshal.SizeOf(typeof(Guid)));
-                retval[i] = (Guid)Marshal.PtrToStructure(ptr, typeof(Guid));
+                IntPtr ptr = new(pElems.ToInt64() + i * Marshal.SizeOf(typeof(Guid)));
+                retval[i] = Marshal.PtrToStructure<Guid>(ptr);
             }
 
             return retval;
@@ -428,7 +428,7 @@ namespace VAR.Toolbox.Code.DirectShow
         //(...) not yet interested in other events
     }
 
-    [Flags, ComVisible(false)]
+    [Flags, ComVisible(false),]
     internal enum AnalogVideoStandard
     {
         // ReSharper disable InconsistentNaming
@@ -453,20 +453,20 @@ namespace VAR.Toolbox.Code.DirectShow
         SECAM_L = 0x00040000,
         SECAM_L1 = 0x00080000,
 
-        PAL_N_COMBO = 0x00100000 // Argentina
+        PAL_N_COMBO = 0x00100000, // Argentina
         // ReSharper restore InconsistentNaming
     }
 
-    [Flags, ComVisible(false)]
+    [Flags, ComVisible(false),]
     internal enum VideoControlFlags
     {
         FlipHorizontal = 0x0001,
         FlipVertical = 0x0002,
         ExternalTriggerEnable = 0x0004,
-        Trigger = 0x0008
+        Trigger = 0x0008,
     }
 
-    [StructLayout(LayoutKind.Sequential), ComVisible(false)]
+    [StructLayout(LayoutKind.Sequential), ComVisible(false),]
     internal class VideoStreamConfigCaps // VIDEO_STREAM_CONFIG_CAPS
     {
         public Guid Guid;
@@ -510,6 +510,6 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <summary>
         /// Running. The filter is processing and rendering data.
         /// </summary>
-        State_Running
+        State_Running,
     }
 }

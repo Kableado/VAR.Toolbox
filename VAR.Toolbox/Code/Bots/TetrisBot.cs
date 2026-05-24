@@ -4,17 +4,18 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using VAR.Toolbox.Code.Configuration;
+using System.Diagnostics.CodeAnalysis;
 
 namespace VAR.Toolbox.Code.Bots
 {
     public class TetrisBot : IAutomationBot
     {
-        private TetrisGrid _grid;
+        private TetrisGrid? _grid;
 
-        private List<TetrisShape> _currentShape;
-        private TetrisGrid _workGrid0;
-        private TetrisGrid _workGrid1;
-        private double[] _columnEvaluation;
+        private List<TetrisShape>? _currentShape;
+        private TetrisGrid? _workGrid0;
+        private TetrisGrid? _workGrid1;
+        private double[]? _columnEvaluation;
 
         private bool _shapeFound;
         private int _shapeX;
@@ -31,36 +32,39 @@ namespace VAR.Toolbox.Code.Bots
 
         public IConfiguration GetDefaultConfiguration()
         {
-            var defaultConfiguration = new MemoryBackedConfiguration();
+            MemoryBackedConfiguration defaultConfiguration = new();
             defaultConfiguration.Set("GridWidth", DefaultGridWidth);
             defaultConfiguration.Set("GridHeight", DefaultGridHeight);
             defaultConfiguration.Set("ShotCooldownFrames", DefaultShotCooldownFrames);
             return defaultConfiguration;
         }
 
-        public void Init(IOutputHandler output, IConfiguration config)
+        [MemberNotNull(nameof(_grid), nameof(_workGrid0), nameof(_workGrid1), nameof(_columnEvaluation), nameof(_currentShape))]
+        public void Init(IOutputHandler output, IConfiguration? config)
         {
-            int gridWidth = config.Get("GridWidth", DefaultGridWidth);
-            int gridHeight = config.Get("GridHeight", DefaultGridHeight);
-            _shotCooldownFrames = config.Get("ShotCooldownFrames", DefaultShotCooldownFrames);
+            IConfiguration cfg = config ?? GetDefaultConfiguration();
+            int gridWidth = cfg.Get("GridWidth", DefaultGridWidth);
+            int gridHeight = cfg.Get("GridHeight", DefaultGridHeight);
+            _shotCooldownFrames = cfg.Get("ShotCooldownFrames", DefaultShotCooldownFrames);
 
             _grid = new TetrisGrid(gridWidth, gridHeight);
             _workGrid0 = new TetrisGrid(gridWidth, gridHeight);
             _workGrid1 = new TetrisGrid(gridWidth, gridHeight);
             _columnEvaluation = new double[gridWidth];
-            _currentShape = new List<TetrisShape>
-            {
+            _currentShape =
+            [
                 new TetrisShape(),
                 new TetrisShape(),
                 new TetrisShape(),
                 new TetrisShape(),
-            };
+            ];
             output.Clean();
             output.AddLine($"TetrisBot: Starting {DateTime.UtcNow:s}");
         }
 
         public Bitmap Process(Bitmap bmpInput, IOutputHandler output)
         {
+            EnsureInitialized();
             _grid.SampleFromBitmap(bmpInput);
             SearchShape();
             SearchBestAction();
@@ -84,6 +88,7 @@ namespace VAR.Toolbox.Code.Bots
 
         private void SearchShape()
         {
+            EnsureInitialized();
             _workGrid0.SampleOther(_grid, TetrisGrid.CellSolid, TetrisGrid.CellSolid);
             _workGrid0.RemoveGround();
             _shapeFound = false;
@@ -91,7 +96,7 @@ namespace VAR.Toolbox.Code.Bots
             {
                 for (int x = 0; x < _grid.Width; x++)
                 {
-                    TetrisShape matchedShape =
+                    TetrisShape? matchedShape =
                         TetrisShape.DefaultShapes.FirstOrDefault(s => s.MatchOnGrid(_workGrid0, x, y));
                     if (matchedShape != null)
                     {
@@ -119,6 +124,7 @@ namespace VAR.Toolbox.Code.Bots
 
         private void SearchBestAction()
         {
+            EnsureInitialized();
             _bestEvaluation = double.MinValue;
             _bestXOffset = 0;
             _bestRotation = 0;
@@ -205,6 +211,13 @@ namespace VAR.Toolbox.Code.Bots
 
             return string.Empty;
         }
+
+        [MemberNotNull(nameof(_grid), nameof(_workGrid0), nameof(_workGrid1), nameof(_columnEvaluation), nameof(_currentShape))]
+        private void EnsureInitialized()
+        {
+            if (_grid == null || _workGrid0 == null || _workGrid1 == null || _columnEvaluation == null || _currentShape == null)
+                throw new InvalidOperationException("TetrisBot is not initialized. Call Init() before use.");
+        }
     }
 
     public class TetrisShape
@@ -215,7 +228,7 @@ namespace VAR.Toolbox.Code.Bots
 
         private int _count;
 
-        public TetrisShape(byte[][] cells = null)
+        public TetrisShape(byte[][]? cells = null)
         {
             _cells = new byte[ShapeSize][];
             for (int y = 0; y < ShapeSize; y++)
@@ -246,134 +259,127 @@ namespace VAR.Toolbox.Code.Bots
             return _count;
         }
 
-        private static List<TetrisShape> _defaultShapes;
+        private static List<TetrisShape>? _defaultShapes;
 
-        public static List<TetrisShape> DefaultShapes
-        {
-            get
-            {
-                return _defaultShapes ?? (_defaultShapes = new List<TetrisShape>
-                {
-                    // I
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 1, 1, 1, 1, },
-                    }),
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 1, },
-                        new byte[] { 1, },
-                        new byte[] { 1, },
-                        new byte[] { 1, },
-                    }),
+        public static List<TetrisShape> DefaultShapes =>
+            _defaultShapes ??= [
+                new TetrisShape([
+                    [1, 1, 1, 1,],
+                ]),
 
-                    // J
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 1, },
-                        new byte[] { 1, 1, 1, },
-                    }),
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 1, 1, },
-                        new byte[] { 1, },
-                        new byte[] { 1, },
-                    }),
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 1, 1, 1, },
-                        new byte[] { 0, 0, 1, },
-                    }),
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 0, 1, },
-                        new byte[] { 0, 1, },
-                        new byte[] { 1, 1, },
-                    }),
+                new TetrisShape([
+                    [1,],
+                    [1,],
+                    [1,],
+                    [1,],
+                ]),
 
-                    // L
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 0, 0, 1, },
-                        new byte[] { 1, 1, 1, },
-                    }),
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 1, },
-                        new byte[] { 1, },
-                        new byte[] { 1, 1, },
-                    }),
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 1, 1, 1, },
-                        new byte[] { 1, },
-                    }),
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 1, 1, },
-                        new byte[] { 0, 1, },
-                        new byte[] { 0, 1, },
-                    }),
+                // J
 
-                    // S
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 0, 1, 1, },
-                        new byte[] { 1, 1, },
-                    }),
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 1, },
-                        new byte[] { 1, 1, },
-                        new byte[] { 0, 1, },
-                    }),
+                new TetrisShape([
+                    [1,],
+                    [1, 1, 1,],
+                ]),
 
-                    // T
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 0, 1, },
-                        new byte[] { 1, 1, 1, },
-                    }),
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 1, },
-                        new byte[] { 1, 1, },
-                        new byte[] { 1, },
-                    }),
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 1, 1, 1, },
-                        new byte[] { 0, 1, },
-                    }),
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 0, 1, },
-                        new byte[] { 1, 1, },
-                        new byte[] { 0, 1, },
-                    }),
+                new TetrisShape([
+                    [1, 1,],
+                    [1,],
+                    [1,],
+                ]),
 
-                    // Z
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 1, 1, },
-                        new byte[] { 0, 1, 1, },
-                    }),
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 0, 1, },
-                        new byte[] { 1, 1, },
-                        new byte[] { 1, },
-                    }),
+                new TetrisShape([
+                    [1, 1, 1,],
+                    [0, 0, 1,],
+                ]),
 
-                    // O
-                    new TetrisShape(new[]
-                    {
-                        new byte[] { 1, 1, },
-                        new byte[] { 1, 1, },
-                    })
-                });
-            }
-        }
+                new TetrisShape([
+                    [0, 1,],
+                    [0, 1,],
+                    [1, 1,],
+                ]),
+
+                // L
+
+                new TetrisShape([
+                    [0, 0, 1,],
+                    [1, 1, 1,],
+                ]),
+
+                new TetrisShape([
+                    [1,],
+                    [1,],
+                    [1, 1,],
+                ]),
+
+                new TetrisShape([
+                    [1, 1, 1,],
+                    [1,],
+                ]),
+
+                new TetrisShape([
+                    [1, 1,],
+                    [0, 1,],
+                    [0, 1,],
+                ]),
+
+                // S
+
+                new TetrisShape([
+                    [0, 1, 1,],
+                    [1, 1,],
+                ]),
+
+                new TetrisShape([
+                    [1,],
+                    [1, 1,],
+                    [0, 1,],
+                ]),
+
+                // T
+
+                new TetrisShape([
+                    [0, 1,],
+                    [1, 1, 1,],
+                ]),
+
+                new TetrisShape([
+                    [1,],
+                    [1, 1,],
+                    [1,],
+                ]),
+
+                new TetrisShape([
+                    [1, 1, 1,],
+                    [0, 1,],
+                ]),
+
+                new TetrisShape([
+                    [0, 1,],
+                    [1, 1,],
+                    [0, 1,],
+                ]),
+
+                // Z
+
+                new TetrisShape([
+                    [1, 1,],
+                    [0, 1, 1,],
+                ]),
+
+                new TetrisShape([
+                    [0, 1,],
+                    [1, 1,],
+                    [1,],
+                ]),
+
+                // O
+
+                new TetrisShape([
+                    [1, 1,],
+                    [1, 1,],
+                ]),
+
+            ];
 
         public bool IsValid()
         {
@@ -553,7 +559,7 @@ namespace VAR.Toolbox.Code.Bots
         {
             for (int y = 0; y < ShapeSize; y++)
             {
-                StringBuilder sbLine = new StringBuilder();
+                StringBuilder sbLine = new();
                 for (int x = 0; x < ShapeSize; x++)
                 {
                     sbLine.Append(_cells[y][x] == 0 ? ".." : "[]");
@@ -856,37 +862,35 @@ namespace VAR.Toolbox.Code.Bots
             float offX = (xStep - halfXStep) / 2;
             float offY = (yStep - halfYStep) / 2;
 
-            using (Pen borderPen = new Pen(Color.DarkGray))
-            using (Graphics g = Graphics.FromImage(bmp))
+            using Pen borderPen = new(Color.DarkGray);
+            using Graphics g = Graphics.FromImage(bmp);
+            for (int y = 0; y < _gridHeight; y++)
             {
-                for (int y = 0; y < _gridHeight; y++)
+                for (int x = 0; x < _gridWidth; x++)
                 {
-                    for (int x = 0; x < _gridWidth; x++)
+                    Brush? br = null;
+                    if (_grid[y][x] == CellEmpty)
                     {
-                        Brush br = null;
-                        if (_grid[y][x] == CellEmpty)
-                        {
-                            br = Brushes.Black;
-                        }
-                        else if (_grid[y][x] == CellSolid)
-                        {
-                            br = Brushes.Blue;
-                        }
-                        else if (_grid[y][x] == CellShapeA)
-                        {
-                            br = Brushes.Red;
-                        }
-                        else if (_grid[y][x] == CellShapeB)
-                        {
-                            br = Brushes.Green;
-                        }
-
-                        if (br == null) { continue; }
-
-                        g.DrawRectangle(borderPen, (xStep * x) + offX - 1, (yStep * y) + offY - 1, halfXStep + 2,
-                            halfYStep + 2);
-                        g.FillRectangle(br, (xStep * x) + offX, (yStep * y) + offY, halfXStep, halfYStep);
+                        br = Brushes.Black;
                     }
+                    else if (_grid[y][x] == CellSolid)
+                    {
+                        br = Brushes.Blue;
+                    }
+                    else if (_grid[y][x] == CellShapeA)
+                    {
+                        br = Brushes.Red;
+                    }
+                    else if (_grid[y][x] == CellShapeB)
+                    {
+                        br = Brushes.Green;
+                    }
+
+                    if (br == null) { continue; }
+
+                    g.DrawRectangle(borderPen, (int)((xStep * x) + offX - 1), (int)((yStep * y) + offY - 1), (int)(halfXStep + 2),
+                        (int)(halfYStep + 2));
+                    g.FillRectangle(br, (xStep * x) + offX, (yStep * y) + offY, halfXStep, halfYStep);
                 }
             }
         }

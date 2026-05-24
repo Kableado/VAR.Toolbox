@@ -1,123 +1,30 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
 
 namespace VAR.Toolbox.Controls
 {
-    public class CtrImageViewer : PictureBox
+    public class CtrImageViewer : Border
     {
-        #region Declarations
+        private readonly Image _image;
 
-        private Image _imageShow;
-
-        #endregion
-
-        #region Properties
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Image ImageShow
+        public Bitmap? ImageShow
         {
-            // ReSharper disable once InconsistentlySynchronizedField
-            get => _imageShow;
+            get;
             set
             {
-                lock (this)
-                {
-                    _imageShow = value;
-                    Invalidate();
-                }
+                field = value;
+                _image.Source = value;
             }
         }
-
-        #endregion
-
-        #region Control life cycle
 
         public CtrImageViewer()
         {
-            InitializeComponent();
+            Background = Brushes.Black;
+            BorderBrush = new SolidColorBrush(Color.FromRgb(80, 80, 80));
+            BorderThickness = new Avalonia.Thickness(1);
+            _image = new Image { Stretch = Stretch.Uniform, };
+            Child = _image;
         }
-
-        private void InitializeComponent()
-        {
-            BackColor = Color.Black;
-        }
-
-        protected override void OnPaint(PaintEventArgs pe)
-        {
-            base.OnPaint(pe);
-            Redraw(pe.Graphics);
-        }
-
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
-            //Redraw(null);
-            Invalidate();
-        }
-
-        #endregion
-
-        #region Private methods
-
-        private void Redraw(Graphics graph)
-        {
-            if (_imageShow == null)
-            {
-                return;
-            }
-
-            lock (_imageShow)
-            {
-                if (graph == null)
-                {
-                    graph = CreateGraphics();
-                }
-
-                // Calcular dimensiones a dibujar y centrar
-                int imgDrawWidth;
-                int imgDrawHeight;
-                float imgDrawX = 0;
-                float imgDrawY = 0;
-                float relation = _imageShow.Width / (float)_imageShow.Height;
-                if (relation > 0)
-                {
-                    // Imagen mas ancha que alta
-                    imgDrawHeight = (int)(Width / relation);
-                    if (imgDrawHeight > Height)
-                    {
-                        imgDrawHeight = Height;
-                        imgDrawWidth = (int)(Height * relation);
-                        imgDrawX = ((Width - imgDrawWidth) / 2.0f);
-                    }
-                    else
-                    {
-                        imgDrawWidth = Width;
-                        imgDrawY = ((Height - imgDrawHeight) / 2.0f);
-                    }
-                }
-                else
-                {
-                    // Imagen mas alta que ancha
-                    imgDrawWidth = (int)(Width * relation);
-                    if (imgDrawWidth > Width)
-                    {
-                        imgDrawWidth = Width;
-                        imgDrawHeight = (int)(Height / relation);
-                        imgDrawY = ((Height - imgDrawHeight) / 2.0f);
-                    }
-                    else
-                    {
-                        imgDrawHeight = Height;
-                        imgDrawX = ((Width - imgDrawWidth) / 2.0f);
-                    }
-                }
-
-                graph.DrawImage(_imageShow, imgDrawX, imgDrawY, imgDrawWidth, imgDrawHeight);
-            }
-        }
-
-        #endregion
     }
 }

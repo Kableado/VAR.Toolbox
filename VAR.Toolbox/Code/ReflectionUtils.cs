@@ -12,7 +12,7 @@ namespace VAR.Toolbox.Code
                 .GetAssemblies()
                 .SelectMany(x =>
                 {
-                    Type[] types = null;
+                    Type[] types;
                     try
                     {
                         types = x.GetTypes();
@@ -25,10 +25,8 @@ namespace VAR.Toolbox.Code
                     return types;
                 })
                 .Where(x =>
-                    x.IsAbstract == false &&
-                    x.IsInterface == false &&
-                    interfaceType.IsAssignableFrom(x) &&
-                    true);
+                    x is { IsAbstract: false, IsInterface: false, } &&
+                    interfaceType.IsAssignableFrom(x));
         }
     }
 }

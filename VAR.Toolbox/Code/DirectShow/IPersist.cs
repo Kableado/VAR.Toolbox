@@ -9,7 +9,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     [ComImport,
      Guid("0000010c-0000-0000-C000-000000000046"),
-     InterfaceType(ComInterfaceType.InterfaceIsDual)]
+     InterfaceType(ComInterfaceType.InterfaceIsDual),]
     internal interface IPersist
     {
         /// <summary>

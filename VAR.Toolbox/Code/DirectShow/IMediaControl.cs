@@ -11,7 +11,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// 
     [ComImport,
      Guid("56A868B1-0AD4-11CE-B03A-0020AF0BA770"),
-     InterfaceType(ComInterfaceType.InterfaceIsDual)]
+     InterfaceType(ComInterfaceType.InterfaceIsDual),]
     internal interface IMediaControl
     {
         /// <summary>
@@ -74,7 +74,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int AddSourceFilter([In] string fileName, [Out, MarshalAs(UnmanagedType.IDispatch)] out object filterInfo);
+        int AddSourceFilter([In] string fileName, [Out, MarshalAs(UnmanagedType.IDispatch),] out object filterInfo);
 
         /// <summary>
         /// Retrieves a collection of the filters in the filter graph.
@@ -86,7 +86,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int get_FilterCollection(
-            [Out, MarshalAs(UnmanagedType.IDispatch)]
+            [Out, MarshalAs(UnmanagedType.IDispatch),]
             out object collection);
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int get_RegFilterCollection(
-            [Out, MarshalAs(UnmanagedType.IDispatch)]
+            [Out, MarshalAs(UnmanagedType.IDispatch),]
             out object collection);
 
         /// <summary>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using System.Windows.Forms;
 using VAR.Toolbox.Code.Windows;
 
@@ -10,13 +9,13 @@ namespace VAR.Toolbox.Code
     {
         #region Declarations
         
-        private bool _capturing = false;
-        private bool _captureAll = false;
+        private bool _capturing;
+        private bool _captureAll;
         
         /// <summary>
         /// The collections of keys to watch for
         /// </summary>
-        private readonly List<Keys> _hookedKeys = new List<Keys>();
+        private readonly List<Keys> _hookedKeys = [];
         
         /// <summary>
         /// Handle to the hook, need this to unhook and call the next hook
@@ -42,7 +41,7 @@ namespace VAR.Toolbox.Code
                         Keys key = (Keys)lParam.vkCode;
                         if (_hookedKeys.Contains(key) || _captureAll)
                         {
-                            KeyEventArgs kea = new KeyEventArgs(key);
+                            KeyEventArgs kea = new(key);
                             if ((wParam == User32.WM_KEYDOWN || wParam == User32.WM_SYSKEYDOWN) && (KeyDown != null))
                             {
                                 KeyDown(this, kea);
@@ -72,12 +71,12 @@ namespace VAR.Toolbox.Code
         /// <summary>
         /// Occurs when one of the hooked keys is pressed
         /// </summary>
-        public event KeyEventHandler KeyDown;
+        public event KeyEventHandler? KeyDown;
         
         /// <summary>
         /// Occurs when one of the hooked keys is released
         /// </summary>
-        public event KeyEventHandler KeyUp;
+        public event KeyEventHandler? KeyUp;
         
         #endregion Public events
         

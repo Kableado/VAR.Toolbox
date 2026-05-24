@@ -2,9 +2,12 @@
   <PropertyGroup>
     <TargetFramework>net10.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
+    <Nullable>enable</Nullable>
+    <!-- Habilitar analizadores de .NET para ejecutar las mismas reglas durante la compilación
+         Esto permitirá que dotnet build muestre los avisos que normalmente muestra el IDE. -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -40,51 +43,9 @@
     <Compile Include="..\VAR.Json\VAR.Json\ParserContext.cs">
       <Link>Code\Json\ParserContext.cs</Link>
     </Compile>
-    <Compile Update="Controls\CButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\CComboBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\CDateTimePicker.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\CGroupBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\CSplitContainer.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\CtrImageViewer.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\CtrOutput.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\ListBoxMonospace.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\ListBoxNormal.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\SubFrame.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Controls\TextBoxMonospace.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\TextBoxNormal.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="UI\Tools\PnlActivity.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="UI\Tools\PnlCover.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="UI\Tools\PnlSuspension.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <!-- Exclude all WinForms Designer files -->
+    <Compile Remove="**\*.Designer.cs" />
+    <Compile Remove="**\*.resx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\Toolbox.png" />
@@ -92,7 +53,14 @@
     <Content Include="Toolbox.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.1.0-preview1.26124.5" />
-    <PackageReference Include="System.Drawing.Common" Version="11.0.0-preview.3.26207.106" />
+    <PackageReference Include="Avalonia" Version="12.0.3" />
+    <PackageReference Include="Avalonia.Desktop" Version="12.0.3" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.3" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.1" />
+    <!-- Analizadores de .NET: confiar en los analizadores integrados del SDK para evitar conflictos de versiones -->
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Keep WinForms types for Windows-specific P/Invoke utilities -->
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
   </ItemGroup>
 </Project>

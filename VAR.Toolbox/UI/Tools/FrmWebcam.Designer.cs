@@ -1,4 +1,4 @@
-﻿namespace VAR.Toolbox.UI.Tools
+namespace VAR.Toolbox.UI.Tools
 {
     partial class FrmWebcam
     {
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnStartStop = new VAR.Toolbox.Controls.CButton();
-            this.cboWebcams = new VAR.Toolbox.Controls.CComboBox();
+            this.btnStartStop = new VAR.Toolbox.Controls.Button();
+            this.cboWebcams = new VAR.Toolbox.Controls.ComboBox();
             this.picWebcam = new VAR.Toolbox.Controls.CtrImageViewer();
             ((System.ComponentModel.ISupportInitialize)(this.picWebcam)).BeginInit();
             this.SuspendLayout();
@@ -91,7 +91,7 @@
         #endregion
 
         private VAR.Toolbox.Controls.CtrImageViewer picWebcam;
-        private VAR.Toolbox.Controls.CButton btnStartStop;
-        private VAR.Toolbox.Controls.CComboBox cboWebcams;
+        private VAR.Toolbox.Controls.Button btnStartStop;
+        private VAR.Toolbox.Controls.ComboBox cboWebcams;
     }
 }

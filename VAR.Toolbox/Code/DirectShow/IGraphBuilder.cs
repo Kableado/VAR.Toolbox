@@ -9,7 +9,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// 
     [ComImport,
      Guid("56A868A9-0AD4-11CE-B03A-0020AF0BA770"),
-     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown),]
     internal interface IGraphBuilder
     {
         // --- IFilterGraph Methods
@@ -24,7 +24,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int AddFilter([In] IBaseFilter filter, [In, MarshalAs(UnmanagedType.LPWStr)] string name);
+        int AddFilter([In] IBaseFilter filter, [In, MarshalAs(UnmanagedType.LPWStr),] string name);
 
         /// <summary>
         /// Removes a filter from the graph.
@@ -58,7 +58,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int FindFilterByName([In, MarshalAs(UnmanagedType.LPWStr)] string name, [Out] out IBaseFilter filter);
+        int FindFilterByName([In, MarshalAs(UnmanagedType.LPWStr),] string name, [Out] out IBaseFilter filter);
 
         /// <summary>
         /// Connects two pins directly (without intervening filters).
@@ -72,7 +72,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int ConnectDirect([In] IPin pinOut, [In] IPin pinIn,
-            [In, MarshalAs(UnmanagedType.LPStruct)]
+            [In, MarshalAs(UnmanagedType.LPStruct),]
             AMMediaType mediaType);
 
         /// <summary>
@@ -142,8 +142,8 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int RenderFile(
-            [In, MarshalAs(UnmanagedType.LPWStr)] string file,
-            [In, MarshalAs(UnmanagedType.LPWStr)] string playList);
+            [In, MarshalAs(UnmanagedType.LPWStr),] string file,
+            [In, MarshalAs(UnmanagedType.LPWStr),] string playList);
 
         /// <summary>
         /// Adds a source filter to the filter graph for a specific file.
@@ -157,8 +157,8 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int AddSourceFilter(
-            [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
-            [In, MarshalAs(UnmanagedType.LPWStr)] string filterName,
+            [In, MarshalAs(UnmanagedType.LPWStr),] string fileName,
+            [In, MarshalAs(UnmanagedType.LPWStr),] string filterName,
             [Out] out IBaseFilter filter);
 
         /// <summary>

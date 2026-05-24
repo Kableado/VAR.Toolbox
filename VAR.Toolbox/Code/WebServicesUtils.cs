@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,11 +9,11 @@ namespace VAR.Toolbox.Code
 {
     public static class WebServicesUtils
     {
-        private static readonly CookieContainer _cookieJar = new CookieContainer();
+        private static readonly CookieContainer _cookieJar = new();
 
-        public static string CallApi(string urlService, string urlApiMethod, Dictionary<string, string> parameters,
-            object content, CookieContainer cookieJar = null, string stringContent = null,
-            Dictionary<string, string> customHeaders = null, string verb = "POST",
+        public static string CallApi(string? urlService, string urlApiMethod, Dictionary<string, string>? parameters,
+            object? content, CookieContainer? cookieJar = null, string? stringContent = null,
+            Dictionary<string, string>? customHeaders = null, string verb = "POST",
             bool disableCertificateValidation = false)
         {
             if (urlService?.StartsWith("!") == true)
@@ -22,97 +22,85 @@ namespace VAR.Toolbox.Code
                 disableCertificateValidation = true;
             }
 
-            if (cookieJar == null) { cookieJar = _cookieJar; }
+            cookieJar ??= _cookieJar;
 
-            try
+            StringBuilder sbRequestUrl = new();
+            sbRequestUrl.Append(urlService);
+            if (urlService != null && urlService.EndsWith("/") && urlApiMethod.StartsWith("/"))
             {
-                var sbRequestUrl = new StringBuilder();
-                sbRequestUrl.Append(urlService);
-                if (urlService != null && urlService.EndsWith("/") && urlApiMethod.StartsWith("/"))
-                {
-                    sbRequestUrl.Append(urlApiMethod.Substring(1));
-                }
-                else
-                {
-                    sbRequestUrl.Append(urlApiMethod);
-                }
+                sbRequestUrl.Append(urlApiMethod.Substring(1));
+            }
+            else
+            {
+                sbRequestUrl.Append(urlApiMethod);
+            }
 
-                if (parameters != null)
+            if (parameters != null)
+            {
+                foreach (KeyValuePair<string, string> pair in parameters)
                 {
-                    foreach (KeyValuePair<string, string> pair in parameters)
-                    {
-                        sbRequestUrl.AppendFormat("&{0}={1}", pair.Key,
-                            pair.Value == null ? string.Empty : HttpServer.HttpUtility.UrlEncode(pair.Value));
-                    }
+                    sbRequestUrl.Append($"&{pair.Key}={HttpServer.HttpUtility.UrlEncode(pair.Value)}");
                 }
+            }
 
-                if (sbRequestUrl.Length > 2048)
-                {
-                    throw new Exception($"CallApi: Request URL longer than 2048: url: \"{sbRequestUrl}\"");
-                }
+            if (sbRequestUrl.Length > 2048)
+            {
+                throw new Exception($"CallApi: Request URL longer than 2048: url: \"{sbRequestUrl}\"");
+            }
 
-                var http = (HttpWebRequest)WebRequest.Create(new Uri(sbRequestUrl.ToString()));
-
+            HttpClientHandler handler = new() { CookieContainer = cookieJar, };
 #if UNIFIKAS_COMMONS
                 if (disableCertificateValidation)
                 {
-                    http.ServerCertificateValidationCallback =
- (sender, certificate, chain, sslPolicyErrors) => { return true; };
+                    handler.ServerCertificateCustomValidationCallback = (_, _, _, _) => true;
                 }
 #else
-                if (disableCertificateValidation)
-                {
-                    throw new NotImplementedException("ApiHelper.CallApi: Can't disable certificate validation");
-                }
-#endif
-                http.CookieContainer = cookieJar;
-                http.Accept = "application/json";
-                http.ContentType = "application/json; charset=utf-8";
-                http.Method = verb;
-                if (customHeaders != null)
-                {
-                    foreach (KeyValuePair<string, string> customHeader in customHeaders)
-                    {
-                        http.Headers[customHeader.Key] = customHeader.Value;
-                    }
-                }
-
-                if (verb == "POST")
-                {
-                    string parsedContent = Json.JsonWriter.WriteObject(content);
-                    if (string.IsNullOrEmpty(stringContent) == false)
-                    {
-                        parsedContent = stringContent;
-                    }
-
-                    UTF8Encoding encoding = new UTF8Encoding();
-                    byte[] bytes = encoding.GetBytes(parsedContent);
-
-                    Task<Stream> requestStreamTask = http.GetRequestStreamAsync();
-                    requestStreamTask.Wait();
-                    Stream requestStream = requestStreamTask.Result;
-                    requestStream.Write(bytes, 0, bytes.Length);
-                    requestStream.Flush();
-                }
-
-                Task<WebResponse> responseTask = http.GetResponseAsync();
-                responseTask.Wait();
-                WebResponse response = responseTask.Result;
-                var stream = response.GetResponseStream();
-                if (stream == null) { return null; }
-
-                var sr = new StreamReader(stream);
-                return sr.ReadToEnd();
-            }
-            catch (Exception ex)
+            if (disableCertificateValidation)
             {
-                // ReSharper disable once PossibleIntendedRethrow
-                throw ex;
+                throw new NotImplementedException("ApiHelper.CallApi: Can't disable certificate validation");
             }
+#endif
+            using HttpClient client = new(handler);
+            client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
+            if (customHeaders != null)
+            {
+                foreach (KeyValuePair<string, string> customHeader in customHeaders)
+                {
+                    client.DefaultRequestHeaders.TryAddWithoutValidation(customHeader.Key, customHeader.Value);
+                }
+            }
+
+            HttpResponseMessage response;
+            Uri requestUri = new(sbRequestUrl.ToString());
+
+            if (verb == "POST")
+            {
+                string parsedContent = Json.JsonWriter.WriteObject(content ?? new object());
+                if (string.IsNullOrEmpty(stringContent) == false)
+                {
+                    parsedContent = stringContent;
+                }
+
+                StringContent httpContent = new(parsedContent, Encoding.UTF8, "application/json");
+                Task<HttpResponseMessage> responseTask = client.PostAsync(requestUri, httpContent);
+                responseTask.Wait();
+                response = responseTask.Result;
+            }
+            else
+            {
+                HttpRequestMessage request = new(new HttpMethod(verb), requestUri);
+                Task<HttpResponseMessage> responseTask = client.SendAsync(request);
+                responseTask.Wait();
+                response = responseTask.Result;
+            }
+
+            Task<string> readTask = response.Content.ReadAsStringAsync();
+            readTask.Wait();
+            return readTask.Result;
         }
 
         public static string CallSoapMethod(string url, string method, Dictionary<string, object> parameters,
-            string namespaceUrl = "http://tempuri.org", ICredentials credentials = null)
+            string namespaceUrl = "http://tempuri.org", ICredentials? credentials = null)
         {
             // Los servicios SOAP se llaman siempre a través de HTTP.
             if (url.ToLower().StartsWith("https://"))
@@ -121,50 +109,58 @@ namespace VAR.Toolbox.Code
             }
 
             // Construir petición
-            var sbData = new StringBuilder();
+            StringBuilder sbData = new();
             sbData.AppendFormat("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
             sbData.AppendFormat(
                 "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">");
             sbData.AppendFormat("<soap:Body>");
-            sbData.AppendFormat("<{0} xmlns=\"{1}\">", method, namespaceUrl);
+            sbData.Append($"<{method} xmlns=\"{namespaceUrl}\">");
             foreach (KeyValuePair<string, object> parameter in parameters)
             {
-                if (parameter.Value != null && !(parameter.Value is DBNull))
+                if (!(parameter.Value is DBNull))
                 {
                     sbData.AppendFormat("<{0}>{1}</{0}>", parameter.Key, parameter.Value);
                 }
                 else
                 {
-                    sbData.AppendFormat("<{0} i:nil=\"true\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" />",
-                        parameter.Key);
+                    sbData.Append(
+                        $"<{parameter.Key} i:nil=\"true\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" />");
                 }
             }
 
-            sbData.AppendFormat("</{0}>", method);
+            sbData.Append($"</{method}>");
             sbData.AppendFormat("</soap:Body>");
             sbData.AppendFormat("</soap:Envelope>");
             Console.WriteLine(sbData.ToString());
             byte[] postData = Encoding.UTF8.GetBytes(sbData.ToString());
 
             // Realizar petición
-            var client = new WebClient();
+            HttpClientHandler handler = new();
             if (credentials != null)
             {
-                client.Credentials = credentials;
+                handler.Credentials = credentials;
             }
 
-            client.Headers.Add("Accept", "text/xml");
-            client.Headers.Add("Accept-Charset", "UTF-8");
-            client.Headers.Add("Content-Type", "text/xml;  charset=UTF-8");
-            client.Headers.Add("SOAPAction",
+            using HttpClient client = new(handler);
+            client.DefaultRequestHeaders.Accept.ParseAdd("text/xml");
+            client.DefaultRequestHeaders.TryAddWithoutValidation("Accept-Charset", "UTF-8");
+            client.DefaultRequestHeaders.TryAddWithoutValidation("SOAPAction",
                 namespaceUrl.ToLower().StartsWith("http")
                     ? $"\"{namespaceUrl}/{method}\""
                     : $"\"{namespaceUrl}:{method}\"");
 
+            ByteArrayContent content = new(postData);
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("text/xml") { CharSet = "UTF-8", };
+
             byte[] data;
             try
             {
-                data = client.UploadData(url, "POST", postData);
+                Task<HttpResponseMessage> responseTask = client.PostAsync(url, content);
+                responseTask.Wait();
+                HttpResponseMessage response = responseTask.Result;
+                Task<byte[]> dataTask = response.Content.ReadAsByteArrayAsync();
+                dataTask.Wait();
+                data = dataTask.Result;
             }
             catch (Exception ex)
             {

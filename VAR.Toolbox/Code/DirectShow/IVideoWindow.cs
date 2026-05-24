@@ -11,7 +11,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// 
     [ComImport,
      Guid("56A868B4-0AD4-11CE-B03A-0020AF0BA770"),
-     InterfaceType(ComInterfaceType.InterfaceIsDual)]
+     InterfaceType(ComInterfaceType.InterfaceIsDual),]
     internal interface IVideoWindow
     {
         /// <summary>
@@ -89,7 +89,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_AutoShow([In, MarshalAs(UnmanagedType.Bool)] bool autoShow);
+        int put_AutoShow([In, MarshalAs(UnmanagedType.Bool),] bool autoShow);
 
         /// <summary>
         /// Queries whether the video renderer automatically shows the video window when it receives video data.
@@ -100,7 +100,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_AutoShow([Out, MarshalAs(UnmanagedType.Bool)] out bool autoShow);
+        int get_AutoShow([Out, MarshalAs(UnmanagedType.Bool),] out bool autoShow);
 
         /// <summary>
         /// Shows, hides, minimizes, or maximizes the video window.
@@ -133,7 +133,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_BackgroundPalette([In, MarshalAs(UnmanagedType.Bool)] bool backgroundPalette);
+        int put_BackgroundPalette([In, MarshalAs(UnmanagedType.Bool),] bool backgroundPalette);
 
         /// <summary>
         /// Queries whether the video window realizes its palette in the background.
@@ -144,7 +144,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_BackgroundPalette([Out, MarshalAs(UnmanagedType.Bool)] out bool backgroundPalette);
+        int get_BackgroundPalette([Out, MarshalAs(UnmanagedType.Bool),] out bool backgroundPalette);
 
         /// <summary>
         /// Shows or hides the video window.
@@ -155,7 +155,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_Visible([In, MarshalAs(UnmanagedType.Bool)] bool visible);
+        int put_Visible([In, MarshalAs(UnmanagedType.Bool),] bool visible);
 
         /// <summary>
         /// Queries whether the video window is visible.
@@ -166,7 +166,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int get_Visible([Out, MarshalAs(UnmanagedType.Bool)] out bool visible);
+        int get_Visible([Out, MarshalAs(UnmanagedType.Bool),] out bool visible);
 
         /// <summary>
         /// Sets the video window's x-coordinate.
@@ -332,7 +332,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int get_FullScreenMode(
-            [Out, MarshalAs(UnmanagedType.Bool)] out bool fullScreenMode);
+            [Out, MarshalAs(UnmanagedType.Bool),] out bool fullScreenMode);
 
         /// <summary>
         /// Enables or disables full-screen mode.
@@ -343,7 +343,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int put_FullScreenMode([In, MarshalAs(UnmanagedType.Bool)] bool fullScreenMode);
+        int put_FullScreenMode([In, MarshalAs(UnmanagedType.Bool),] bool fullScreenMode);
 
         /// <summary>
         /// Places the video window at the top of the Z order.
@@ -445,7 +445,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int HideCursor([In, MarshalAs(UnmanagedType.Bool)] bool hideCursor);
+        int HideCursor([In, MarshalAs(UnmanagedType.Bool),] bool hideCursor);
 
         /// <summary>
         /// Queries whether the cursor is hidden.
@@ -456,6 +456,6 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int IsCursorHidden([Out, MarshalAs(UnmanagedType.Bool)] out bool hideCursor);
+        int IsCursorHidden([Out, MarshalAs(UnmanagedType.Bool),] out bool hideCursor);
     }
 }

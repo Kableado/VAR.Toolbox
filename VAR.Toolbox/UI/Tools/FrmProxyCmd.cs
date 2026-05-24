@@ -1,103 +1,105 @@
-﻿#pragma warning disable IDE0019
-
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using System.Windows.Forms;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Layout;
+using Avalonia.Threading;
 using VAR.Toolbox.Code;
+using System.Diagnostics.CodeAnalysis;
 using VAR.Toolbox.Code.ProxyCmdExecutors;
 using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI.Tools
 {
-    public partial class FrmProxyCmd : Frame, IOutputHandler, IToolForm
+    public class FrmProxyCmd : Window, IOutputHandler, IToolForm
     {
         public string ToolName => "ProxyCmd";
-
         public bool HasIcon => false;
 
-        #region Declarations
-
-        private readonly object _executionLock = new object();
-
-        private readonly List<string> _cmdHistory = new List<string>();
+        private readonly object _executionLock = new();
+        private readonly List<string> _cmdHistory = [];
         private int _currentHistoryIndex = -1;
 
-        #endregion Declarations
-
-        #region Life cycle
+        private readonly CtrOutput _ctrOutput;
+        private readonly TextBox _txtInput;
+        private readonly ComboBox _ddlCurrentConfig;
 
         public FrmProxyCmd()
         {
-            InitializeComponent();
+            Title = "ProxyCmd";
+            Width = 600;
+            Height = 400;
+
+            _ctrOutput = new CtrOutput();
+            _txtInput = new TextBox { Classes = { "mono", }, };
+            _txtInput.KeyDown += TxtInput_KeyDown;
+
+            _ddlCurrentConfig = new ComboBox { Width = 200, };
+            _ddlCurrentConfig.SelectionChanged += DdlCurrentConfig_SelectionChanged;
+
+            Button btnEnable = new() { Content = "Enable", };
+            btnEnable.Click += BtnEnable_Click;
+            Button btnDisable = new() { Content = "Disable", };
+            btnDisable.Click += BtnDisable_Click;
+            Button btnConfig = new() { Content = "Config", };
+            btnConfig.Click += BtnConfig_Click;
+
+            StackPanel topRow = new() { Orientation = Orientation.Horizontal, Spacing = 5, };
+            topRow.Children.Add(_ddlCurrentConfig);
+            topRow.Children.Add(btnEnable);
+            topRow.Children.Add(btnDisable);
+            topRow.Children.Add(btnConfig);
+
+            DockPanel layout = new() { Margin = new Thickness(8), };
+            DockPanel.SetDock(topRow, Dock.Top);
+            DockPanel.SetDock(_txtInput, Dock.Bottom);
+            layout.Children.Add(topRow);
+            layout.Children.Add(_txtInput);
+            layout.Children.Add(_ctrOutput);
+
+            Content = layout;
+
             LoadConfig();
         }
 
-        #endregion Life cycle
-
-        #region UI events
-
-        private void TxtInput_KeyDown(object sender, KeyEventArgs e)
+        private void TxtInput_KeyDown(object? sender, KeyEventArgs e)
         {
             if (Monitor.IsEntered(_executionLock))
             {
                 e.Handled = true;
-                Application.DoEvents();
                 return;
             }
 
-            if (e.KeyCode == Keys.Return)
+            if (e.Key == Key.Return || e.Key == Key.Enter)
             {
                 e.Handled = true;
-                string cmd = txtInput.Text.TrimStart().Replace("\n", "").Replace("\r", "");
-                if (string.IsNullOrEmpty(cmd) == false)
+                string cmd = (_txtInput.Text ?? string.Empty).TrimStart().Replace("\n", "").Replace("\r", "");
+                if (!string.IsNullOrEmpty(cmd))
                 {
-                    txtInput.Text = string.Empty;
-                    Application.DoEvents();
-                    txtInput.Text = string.Empty;
+                    _txtInput.Text = string.Empty;
                     AddLine(cmd);
                     PrepareProxyCmdExecutor();
                     new Thread(() => ExecuteCmd(cmd)).Start();
                 }
-
                 return;
             }
 
-            if (e.KeyCode == Keys.Enter)
+            if (e.Key == Key.Up)
             {
                 e.Handled = true;
-                return;
-            }
-
-            if (e.KeyCode == Keys.LineFeed)
-            {
-                e.Handled = true;
-                return;
-            }
-
-            if (e.KeyCode == Keys.Up)
-            {
-                e.Handled = true;
-                if (_currentHistoryIndex == -1) { _currentHistoryIndex = _cmdHistory.Count; }
-
+                if (_currentHistoryIndex == -1) _currentHistoryIndex = _cmdHistory.Count;
                 _currentHistoryIndex--;
-                if (_currentHistoryIndex < 0)
-                {
-                    _currentHistoryIndex = 0;
-                }
-
+                if (_currentHistoryIndex < 0) _currentHistoryIndex = 0;
                 if (_currentHistoryIndex >= 0 && _currentHistoryIndex < _cmdHistory.Count)
                 {
-                    txtInput.Text = _cmdHistory[_currentHistoryIndex];
-                    txtInput.SelectionStart = txtInput.Text.Length;
-                    txtInput.SelectionLength = 0;
+                    _txtInput.Text = _cmdHistory[_currentHistoryIndex];
                 }
-
                 return;
             }
 
-            if (e.KeyCode == Keys.Down)
+            if (e.Key == Key.Down)
             {
                 e.Handled = true;
                 if (_currentHistoryIndex > -1)
@@ -105,49 +107,44 @@ namespace VAR.Toolbox.UI.Tools
                     _currentHistoryIndex++;
                     if (_currentHistoryIndex >= _cmdHistory.Count)
                     {
-                        txtInput.Text = string.Empty;
+                        _txtInput.Text = string.Empty;
                         _currentHistoryIndex = -1;
                     }
                     else
                     {
-                        txtInput.Text = _cmdHistory[_currentHistoryIndex];
-                        txtInput.SelectionStart = txtInput.Text.Length;
-                        txtInput.SelectionLength = 0;
+                        _txtInput.Text = _cmdHistory[_currentHistoryIndex];
                     }
                 }
             }
         }
 
-        private void btnEnable_Click(object sender, EventArgs e)
+        private void BtnEnable_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             PrepareProxyCmdExecutor();
             bool result = _proxyCmdExecutor.Enable();
             AddLine($"Enable: {result}");
         }
 
-        private void btnDisable_Click(object sender, EventArgs e)
+        private void BtnDisable_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             PrepareProxyCmdExecutor();
             bool result = _proxyCmdExecutor.Disable();
             AddLine($"Disable: {result}");
         }
 
-        private void DdlCurrentConfig_SelectedIndexChanged(object sender, EventArgs e)
+        private void DdlCurrentConfig_SelectionChanged(object? sender, SelectionChangedEventArgs e)
         {
             CleanProxyCmdExecutor();
         }
 
-        private void BtnConfig_Click(object sender, EventArgs e)
+        private void BtnConfig_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             FrmToolbox.StaticCreateWindow(typeof(FrmProxyCmdConfig));
         }
 
-        #endregion UI events
+        private IProxyCmdExecutor? _proxyCmdExecutor;
 
-        #region ProxyCmdExecutor
-
-        private IProxyCmdExecutor _proxyCmdExecutor;
-
+        [MemberNotNull(nameof(_proxyCmdExecutor))]
         private void PrepareProxyCmdExecutor()
         {
             if (_proxyCmdExecutor == null)
@@ -159,18 +156,9 @@ namespace VAR.Toolbox.UI.Tools
 
         private void CleanProxyCmdExecutor()
         {
-            // ReSharper disable once SuspiciousTypeConversion.Global
-            if (_proxyCmdExecutor is IDisposable disposableProxyCmdExecutor)
-            {
-                disposableProxyCmdExecutor.Dispose();
-            }
-
+            if (_proxyCmdExecutor is IDisposable disposable) disposable.Dispose();
             _proxyCmdExecutor = null;
         }
-
-        #endregion ProxyCmdExecutor
-
-        #region Private methods
 
         private void ExecuteCmd(string cmdString)
         {
@@ -179,6 +167,7 @@ namespace VAR.Toolbox.UI.Tools
             {
                 _cmdHistory.Add(cmdString);
                 _currentHistoryIndex = -1;
+                PrepareProxyCmdExecutor();
                 _proxyCmdExecutor.ExecuteCmd(cmdString, this);
             }
             catch (Exception ex)
@@ -186,58 +175,39 @@ namespace VAR.Toolbox.UI.Tools
                 Logger.Log(ex);
                 AddLine(ex.Message);
             }
-
             Monitor.Exit(_executionLock);
         }
 
-        #endregion Private methods
-
-        #region IOutputHandler
-        
         public void Clean()
         {
-            BeginInvoke(new MethodInvoker(delegate
-            {
-                ctrOutput.Clean();
-                Application.DoEvents();
-            }));
+            Dispatcher.UIThread.Post(() => { _ctrOutput.Clean(); });
         }
 
-        public void AddLine(string line, object data = null)
+        public void AddLine(string line, object? data = null)
         {
-            BeginInvoke(new MethodInvoker(delegate
-            {
-                ctrOutput.AddLine(line, data);
-                Application.DoEvents();
-            }));
+            _ctrOutput.AddLine(line, data);
         }
-
-        #endregion IOutputHandler
-        
-        #region Config
 
         public void LoadConfig()
         {
             CleanProxyCmdExecutor();
-
             List<ProxyCmdConfigItem> configItems = FrmProxyCmdConfig.GetConfigurationItems();
 
-            string previousSelectedName = null;
-            if (ddlCurrentConfig.SelectedItem is ProxyCmdConfigItem selectedConfig)
+            string? previousSelectedName = null;
+            if (_ddlCurrentConfig.SelectedItem is ProxyCmdConfigItem selectedConfig)
             {
                 previousSelectedName = selectedConfig.Name;
             }
 
-            ddlCurrentConfig.Items.Clear();
-            ddlCurrentConfig.Items.AddRange(configItems.ToArray<object>());
-            ddlCurrentConfig.SelectedIndex = 0;
-            if (string.IsNullOrEmpty(previousSelectedName) == false)
+            _ddlCurrentConfig.ItemsSource = configItems;
+            if (configItems.Count > 0) _ddlCurrentConfig.SelectedIndex = 0;
+            if (!string.IsNullOrEmpty(previousSelectedName))
             {
-                foreach (ProxyCmdConfigItem configItem in ddlCurrentConfig.Items)
+                foreach (ProxyCmdConfigItem configItem in configItems)
                 {
                     if (configItem.Name == previousSelectedName)
                     {
-                        ddlCurrentConfig.SelectedItem = configItem;
+                        _ddlCurrentConfig.SelectedItem = configItem;
                         break;
                     }
                 }
@@ -246,13 +216,9 @@ namespace VAR.Toolbox.UI.Tools
 
         private string GetCurrentConfig()
         {
-            var selectedConfig = ddlCurrentConfig.SelectedItem as ProxyCmdConfigItem;
-            if (selectedConfig == null) { return null; }
-
-            return selectedConfig.Config;
+            ProxyCmdConfigItem? selectedConfig = _ddlCurrentConfig.SelectedItem as ProxyCmdConfigItem;
+            return selectedConfig?.Config ?? string.Empty;
         }
-
-        #endregion Config
 
     }
 }

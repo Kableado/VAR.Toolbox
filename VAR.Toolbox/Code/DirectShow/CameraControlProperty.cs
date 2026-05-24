@@ -40,7 +40,7 @@
         /// <summary>
         /// Focus control.
         /// </summary>
-        Focus
+        Focus,
     }
 
     /// <summary>
@@ -62,6 +62,6 @@
         /// <summary>
         /// Manual control Flag.
         /// </summary>
-        Manual = 0x0002
+        Manual = 0x0002,
     }
 }

@@ -1,162 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Windows.Forms;
+using System.Collections.ObjectModel;
+using Avalonia.Controls;
+using Avalonia.Threading;
 using VAR.Toolbox.Code;
 
 namespace VAR.Toolbox.Controls
 {
-    public class CtrOutput : Control, IOutputHandler
+    public class CtrOutput : UserControl, IOutputHandler
     {
-        private ListBoxMonospace _listBox;
-
-        private Timer _timer;
+        private readonly ListBox _listBox;
+        private readonly DispatcherTimer _timer;
+        private readonly ObservableCollection<OutputItem> _items = [];
 
         private class OutputItem
         {
-            public string Text { get; set; }
-            public object Data { get; set; }
-
-            public override string ToString()
-            {
-                return Text;
-            }
+            public string Text { get; set; } = string.Empty;
+            public object? Data { get; set; }
+            public override string ToString() => Text;
         }
 
-        public new event EventHandler DoubleClick;
+        public event EventHandler? ItemDoubleClick;
 
         public CtrOutput()
         {
-            InitializeControls();
-        }
-
-        private void InitializeControls()
-        {
-            _listBox = new ListBoxMonospace
+            _listBox = new ListBox
             {
-                Dock = DockStyle.Fill,
+                Classes = { "mono", },
+                SelectionMode = SelectionMode.Multiple,
+                ItemsSource = _items,
             };
-            _listBox.MouseDoubleClick += ListBox_MouseDoubleClick;
-            _listBox.KeyDown += ListBox_KeyDown;
-            Controls.Add(_listBox);
+            Content = _listBox;
+            _listBox.DoubleTapped += (s, e) => ItemDoubleClick?.Invoke(s, e);
 
-            _timer = new Timer
-            {
-                Interval = 100,
-                Enabled = true
-            };
+            _timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(100), };
             _timer.Tick += Timer_Tick;
-
-            Disposed += CtrOutput_Disposed;
-        }
-
-        private void CtrOutput_Disposed(object sender, EventArgs e)
-        {
-            _timer.Stop();
-            _timer.Enabled = false;
-        }
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if ((keyData & Keys.Control) == Keys.Control && (keyData & Keys.C) == Keys.C)
-            {
-                CopyToClipboard();
-                return true;
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        private void ListBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control && e.KeyCode == Keys.C)
-            {
-                CopyToClipboard();
-            }
-        }
-
-        private void CopyToClipboard()
-        {
-            StringBuilder sbText = new StringBuilder();
-            foreach (OutputItem item in _listBox.SelectedItems)
-            {
-                sbText.AppendLine(item.Text);
-            }
-
-            if (sbText.Length > 0)
-            {
-                Clipboard.SetText(sbText.ToString());
-            }
-        }
-
-        private void ListBox_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            DoubleClick?.Invoke(sender, e);
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            if (_updated)
-            {
-                UpdatePosition();
-            }
+            _timer.Start();
         }
 
         private bool _updated;
-        private readonly List<OutputItem> _pendingOutput = new List<OutputItem>();
+        private readonly List<OutputItem> _pendingOutput = [];
+
+        private void Timer_Tick(object? sender, EventArgs e)
+        {
+            if (_updated) UpdatePosition();
+        }
 
         private void UpdatePosition()
         {
             lock (_pendingOutput)
             {
-                EnableRepaint(new HandleRef(_listBox, _listBox.Handle), false);
-                _listBox.SuspendLayout();
                 foreach (OutputItem item in _pendingOutput)
                 {
-                    _listBox.Items.Add(item);
+                    _items.Add(item);
                 }
 
                 _pendingOutput.Clear();
-                _listBox.ResumeLayout();
-
-                int visibleItems = _listBox.ClientSize.Height / _listBox.ItemHeight;
-                _listBox.TopIndex = Math.Max(_listBox.Items.Count - visibleItems + 1, 0);
                 _updated = false;
-                EnableRepaint(new HandleRef(_listBox, _listBox.Handle), true);
-                _listBox.Invalidate();
+
+                if (_items.Count > 0)
+                {
+                    _listBox.ScrollIntoView(_items[_items.Count - 1]);
+                }
             }
-        }
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
-        private static extern IntPtr SendMessage(HandleRef hWnd, Int32 msg, IntPtr wParam, IntPtr lParam);
-
-        private static void EnableRepaint(HandleRef handle, bool enable)
-        {
-            // ReSharper disable once InconsistentNaming
-            // ReSharper disable once IdentifierTypo
-            const int WM_SETREDRAW = 0x000B;
-            SendMessage(handle, WM_SETREDRAW, new IntPtr(enable ? 1 : 0), IntPtr.Zero);
         }
 
         public void Clean()
         {
-            if (_listBox.InvokeRequired)
-            {
-                _listBox.Invoke((MethodInvoker)(() =>
-                {
-                    _listBox.Items.Clear();
-                    _updated = true;
-                }));
-            }
-            else
-            {
-                _listBox.Items.Clear();
-                _updated = true;
-            }
+            Dispatcher.UIThread.Post(() => { _items.Clear(); });
         }
 
-        public void AddLine(string line, object data = null)
+        public void AddLine(string line, object? data = null)
         {
             lock (_pendingOutput)
             {
@@ -165,20 +79,14 @@ namespace VAR.Toolbox.Controls
             }
         }
 
-        public string GetCurrentText()
+        public string? GetCurrentText()
         {
-            if (_listBox.SelectedItems.Count == 0) { return null; }
-
-            OutputItem item = (OutputItem)_listBox.SelectedItems[0];
-            return item?.Text;
+            return (_listBox.SelectedItem as OutputItem)?.Text;
         }
 
-        public object GetCurrentData()
+        public object? GetCurrentData()
         {
-            if (_listBox.SelectedItems.Count == 0) { return null; }
-
-            OutputItem item = (OutputItem)_listBox.SelectedItems[0];
-            return item?.Data;
+            return (_listBox.SelectedItem as OutputItem)?.Data;
         }
     }
 }

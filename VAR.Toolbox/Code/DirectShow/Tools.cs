@@ -20,8 +20,9 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         /// <returns>Returns filter's pin.</returns>
         /// 
-        private static IPin GetPin(IBaseFilter filter, PinDirection dir, int num)
+        private static IPin? GetPin(IBaseFilter filter, PinDirection dir, int num)
         {
+            // Use a non-nullable array and null-forgive where required for COM interop
             IPin[] pin = new IPin[1];
 
             // enum filter pins
@@ -43,7 +44,8 @@ namespace VAR.Toolbox.Code.DirectShow
                         }
 
                         Marshal.ReleaseComObject(pin[0]);
-                        pin[0] = null;
+                        // clear slot for next iteration
+                        pin[0] = null!;
                     }
                 }
                 finally
@@ -64,7 +66,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         /// <returns>Returns filter's pin.</returns>
         /// 
-        public static IPin GetInPin(IBaseFilter filter, int num)
+        public static IPin? GetInPin(IBaseFilter filter, int num)
         {
             return GetPin(filter, PinDirection.Input, num);
         }
@@ -78,7 +80,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         /// <returns>Returns filter's pin.</returns>
         /// 
-        public static IPin GetOutPin(IBaseFilter filter, int num)
+        public static IPin? GetOutPin(IBaseFilter filter, int num)
         {
             return GetPin(filter, PinDirection.Output, num);
         }

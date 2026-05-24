@@ -9,7 +9,7 @@
     /// </summary>
     [ComVisible(true), ComImport,
      Guid("56a868c0-0ad4-11ce-b03a-0020af0ba770"),
-     InterfaceType(ComInterfaceType.InterfaceIsDual)]
+     InterfaceType(ComInterfaceType.InterfaceIsDual),]
     internal interface IMediaEventEx
     {
         /// <summary>
@@ -34,7 +34,7 @@
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int GetEvent([Out, MarshalAs(UnmanagedType.I4)] out DsEvCode lEventCode, [Out] out IntPtr lParam1,
+        int GetEvent([Out, MarshalAs(UnmanagedType.I4),] out DsEvCode lEventCode, [Out] out IntPtr lParam1,
             [Out] out IntPtr lParam2, int msTimeout);
 
         /// <summary>
@@ -80,7 +80,7 @@
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int FreeEventParams([In, MarshalAs(UnmanagedType.I4)] DsEvCode lEvCode, IntPtr lParam1, IntPtr lParam2);
+        int FreeEventParams([In, MarshalAs(UnmanagedType.I4),] DsEvCode lEvCode, IntPtr lParam1, IntPtr lParam2);
 
         /// <summary>
         /// Registers a window to process event notifications.

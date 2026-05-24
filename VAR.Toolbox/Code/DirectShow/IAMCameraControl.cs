@@ -8,7 +8,7 @@
     /// </summary>
     [ComImport,
      Guid("C6E13370-30AC-11d0-A18C-00A0C9118956"),
-     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown),]
     internal interface IAMCameraControl
     {
         /// <summary>

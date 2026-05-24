@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
 namespace VAR.Toolbox.UI.Tools
 {
@@ -31,8 +31,8 @@ namespace VAR.Toolbox.UI.Tools
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnStartStop = new VAR.Toolbox.Controls.CButton();
-            this.lsbInputs = new VAR.Toolbox.Controls.ListBoxMonospace();
+            this.btnStartStop = new VAR.Toolbox.Controls.Button();
+            this.lsbInputs = new VAR.Toolbox.Controls.ListBox();
             this.SuspendLayout();
             // 
             // btnStartStop
@@ -72,9 +72,9 @@ namespace VAR.Toolbox.UI.Tools
             this.ResumeLayout(false);
         }
 
-        private VAR.Toolbox.Controls.ListBoxMonospace lsbInputs;
+        private VAR.Toolbox.Controls.ListBox lsbInputs;
 
-        private VAR.Toolbox.Controls.CButton btnStartStop;
+        private VAR.Toolbox.Controls.Button btnStartStop;
 
         #endregion
     }

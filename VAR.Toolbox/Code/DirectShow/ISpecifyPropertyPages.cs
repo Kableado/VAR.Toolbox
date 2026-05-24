@@ -10,7 +10,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// 
     [ComImport,
      Guid("B196B28B-BAB4-101A-B69C-00AA00341D07"),
-     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown),]
     internal interface ISpecifyPropertyPages
     {
         /// <summary>

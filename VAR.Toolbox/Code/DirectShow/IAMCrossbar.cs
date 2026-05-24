@@ -9,7 +9,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// </summary>
     [ComImport, System.Security.SuppressUnmanagedCodeSecurity,
      Guid("C6E13380-30AC-11D0-A18C-00A0C9118956"),
-     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown),]
     internal interface IAMCrossbar
     {
         /// <summary>
@@ -73,7 +73,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int get_CrossbarPinInfo(
-            [In, MarshalAs(UnmanagedType.Bool)] bool isInputPin,
+            [In, MarshalAs(UnmanagedType.Bool),] bool isInputPin,
             [In] int pinIndex,
             [Out] out int pinIndexRelated,
             [Out] out PhysicalConnectorType physicalType);

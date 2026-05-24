@@ -12,7 +12,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// 
     [ComImport, System.Security.SuppressUnmanagedCodeSecurity,
      Guid("56a86899-0ad4-11ce-b03a-0020af0ba770"),
-     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown),]
     internal interface IMediaFilter : IPersist
     {
         #region IPersist Methods

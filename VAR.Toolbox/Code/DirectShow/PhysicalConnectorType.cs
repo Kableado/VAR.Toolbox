@@ -136,6 +136,6 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <summary>
         /// Specifies an audio decoder pin.
         /// </summary>
-        AudioDecoder
+        AudioDecoder,
     }
 }

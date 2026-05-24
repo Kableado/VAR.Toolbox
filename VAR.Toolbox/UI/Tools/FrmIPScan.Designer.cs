@@ -1,4 +1,4 @@
-﻿namespace VAR.Toolbox.UI.Tools
+namespace VAR.Toolbox.UI.Tools
 {
     partial class FrmIPScan
     {
@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.ctrOutput = new VAR.Toolbox.Controls.CtrOutput();
-            this.btnScan = new VAR.Toolbox.Controls.CButton();
+            this.btnScan = new VAR.Toolbox.Controls.Button();
             this.lblStatus = new System.Windows.Forms.Label();
-            this.btnStop = new VAR.Toolbox.Controls.CButton();
-            this.txtSubnet = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.btnStop = new VAR.Toolbox.Controls.Button();
+            this.txtSubnet = new VAR.Toolbox.Controls.TextBox();
             this.SuspendLayout();
             // 
             // lsvResult
@@ -105,9 +105,9 @@
         #endregion
 
         private VAR.Toolbox.Controls.CtrOutput ctrOutput;
-        private VAR.Toolbox.Controls.CButton btnScan;
+        private VAR.Toolbox.Controls.Button btnScan;
         private System.Windows.Forms.Label lblStatus;
-        private VAR.Toolbox.Controls.CButton btnStop;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtSubnet;
+        private VAR.Toolbox.Controls.Button btnStop;
+        private VAR.Toolbox.Controls.TextBox txtSubnet;
     }
 }

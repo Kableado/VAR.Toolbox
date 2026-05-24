@@ -7,11 +7,6 @@
 
         public ProxyCmdExecutorDummy(string config)
         {
-            if (config == null)
-            {
-                throw new System.ArgumentNullException(nameof(config));
-            }
-
             _config = config;
         }
 

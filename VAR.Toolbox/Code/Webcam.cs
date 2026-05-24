@@ -30,7 +30,7 @@ namespace VAR.Toolbox.Code
 
         private bool _active;
 
-        private static Dictionary<string, string> _deviceDescriptions;
+        private static Dictionary<string, string>? _deviceDescriptions;
 
         #endregion Declarations
 
@@ -75,14 +75,14 @@ namespace VAR.Toolbox.Code
             ISampleGrabber sampleGrabber = (ISampleGrabber)_sampleGrabberFilter;
 
             // Set media type
-            AMMediaType mediaType = new AMMediaType
+            AMMediaType mediaType = new()
             {
                 MajorType = MediaType.Video,
-                SubType = MediaSubType.RGB24
+                SubType = MediaSubType.RGB24,
             };
             sampleGrabber.SetMediaType(mediaType);
 
-            var grabber = new Grabber(this);
+            Grabber grabber = new(this);
             int result = sampleGrabber.SetCallback(grabber, 1);
             if (result < 0) throw new Exception("Failure creating Webcam device");
 
@@ -94,14 +94,13 @@ namespace VAR.Toolbox.Code
                 _nullRenderer);
             if (result < 0) throw new Exception("Failure creating Webcam device");
 
-            AMMediaType queryMediaType = new AMMediaType();
+            AMMediaType queryMediaType = new();
             result = sampleGrabber.GetConnectedMediaType(queryMediaType);
             if (result == 0)
             {
                 if (queryMediaType.FormatType == FormatType.VideoInfo)
                 {
-                    VideoInfoHeader videoInfo =
-                        (VideoInfoHeader)Marshal.PtrToStructure(queryMediaType.FormatPtr, typeof(VideoInfoHeader));
+                    VideoInfoHeader videoInfo = Marshal.PtrToStructure<VideoInfoHeader>(queryMediaType.FormatPtr);
                     _width = videoInfo.BmiHeader.Width;
                     _height = videoInfo.BmiHeader.Height;
                     _bpp = videoInfo.BmiHeader.BitCount;
@@ -144,7 +143,7 @@ namespace VAR.Toolbox.Code
         {
             if (_deviceDescriptions != null) { return _deviceDescriptions; }
 
-            Dictionary<string, string> devices = new Dictionary<string, string>();
+            Dictionary<string, string> devices = new();
             ICreateDevEnum devEnum = CreateInstanceFromClsid<ICreateDevEnum>(Clsid.SystemDeviceEnum);
 
             Guid category = FilterCategory.VideoInputDevice;
@@ -158,17 +157,18 @@ namespace VAR.Toolbox.Code
             {
                 // Get next filter
                 result = enumMon.Next(1, devMoniker, n);
-                if ((result != 0) || (devMoniker[0] == null))
+                if ((result != 0))
                     break;
 
                 // Add device description
-                string deviceName = new string(GetMonikerName(devMoniker[0]).ToCharArray());
-                string deviceString = new string(GetMonikerString(devMoniker[0]).ToCharArray());
+                IMoniker mon = devMoniker[0];
+                string deviceName = new(GetMonikerName(mon).ToCharArray());
+                string deviceString = new(GetMonikerString(mon).ToCharArray());
                 devices.Add(deviceName, deviceString);
 
                 // Release COM object
                 Marshal.ReleaseComObject(devMoniker[0]);
-                devMoniker[0] = null;
+                devMoniker[0] = null!;
             }
 
             _deviceDescriptions = devices;
@@ -185,11 +185,12 @@ namespace VAR.Toolbox.Code
 
         private static T CreateInstanceFromClsid<T>(Guid clsid)
         {
-            Type srvType = Type.GetTypeFromCLSID(clsid);
+            Type? srvType = Type.GetTypeFromCLSID(clsid);
             if (srvType == null)
                 throw new ApplicationException("Failed creating device enumerator");
 
-            object comObj = Activator.CreateInstance(srvType);
+            object? comObj = Activator.CreateInstance(srvType);
+            if (comObj == null) throw new ApplicationException("Failed creating COM instance");
             return (T)comObj;
         }
 
@@ -198,7 +199,7 @@ namespace VAR.Toolbox.Code
         //
         private static string GetMonikerString(IMoniker moniker)
         {
-            moniker.GetDisplayName(null, null, out string str);
+            moniker.GetDisplayName(null!, null, out string str);
             return str;
         }
 
@@ -207,13 +208,13 @@ namespace VAR.Toolbox.Code
         //
         private static string GetMonikerName(IMoniker moniker)
         {
-            Object bagObj = null;
+            object? bagObj = null;
 
             try
             {
                 Guid bagId = typeof(IPropertyBag).GUID;
                 // get property bag of the moniker
-                moniker.BindToStorage(null, null, ref bagId, out bagObj);
+                moniker.BindToStorage(null!, null!, ref bagId, out bagObj);
                 IPropertyBag bag = (IPropertyBag)bagObj;
 
                 // read FriendlyName
@@ -223,9 +224,8 @@ namespace VAR.Toolbox.Code
                     Marshal.ThrowExceptionForHR(hr);
 
                 // get it as string
-                string ret = (string)val;
-                if ((ret == null) || (ret.Length < 1))
-                    throw new ApplicationException();
+                string ret = Convert.ToString(val) ?? string.Empty;
+                if (ret.Length < 1) throw new ApplicationException();
 
                 return ret;
             }
@@ -247,9 +247,9 @@ namespace VAR.Toolbox.Code
 
         #region NewFrameEvent
 
-        public delegate void NewFrameEventHandler(object sender, Bitmap frame);
+        public delegate void NewFrameEventHandler(object? sender, Bitmap frame);
 
-        public event NewFrameEventHandler NewFrame;
+        public event NewFrameEventHandler? NewFrame;
 
         #endregion NewFrameEvent
 
@@ -259,20 +259,20 @@ namespace VAR.Toolbox.Code
         {
             private readonly Webcam _parent;
 
-            private readonly Bitmap[] _frames;
+            private readonly Bitmap?[] _frames;
             private readonly int _numFrames = 10;
             private int _currentFrameIndex = -1;
 
             public Grabber(Webcam parent)
             {
                 _parent = parent;
-                _frames = new Bitmap[_numFrames];
+                _frames = new Bitmap?[_numFrames];
             }
 
             private Bitmap GetNextFrame()
             {
                 _currentFrameIndex = (_currentFrameIndex + 1) % _numFrames;
-                Bitmap currentBitmap = _frames[_currentFrameIndex];
+                Bitmap? currentBitmap = _frames[_currentFrameIndex];
                 if (currentBitmap == null || currentBitmap.Width != _parent._width ||
                     currentBitmap.Height != _parent._height)
                 {
@@ -294,7 +294,7 @@ namespace VAR.Toolbox.Code
                 {
                     // create new image
                     Bitmap image = GetNextFrame();
-                    Rectangle imageRect = new Rectangle(0, 0, _parent._width, _parent._height);
+                    Rectangle imageRect = new(0, 0, _parent._width, _parent._height);
 
                     // lock bitmap data
                     BitmapData imageData = image.LockBits(

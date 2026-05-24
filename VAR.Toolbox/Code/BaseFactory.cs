@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace VAR.Toolbox.Code
 {
     public abstract class BaseFactory<T> where T : INamed
     {
         // ReSharper disable once StaticMemberInGenericType
-        private static Dictionary<string, Type> _dictTypes;
+        private static Dictionary<string, Type>? _dictTypes;
 
         private static Dictionary<string, Type> GetDict()
         {
@@ -20,7 +21,7 @@ namespace VAR.Toolbox.Code
             IEnumerable<Type> types = ReflectionUtils.GetTypesOfInterface(iType);
             _dictTypes = types.ToDictionary(t =>
             {
-                T type = (T)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(t);
+                T type = (T)RuntimeHelpers.GetUninitializedObject(t);
                 return type.Name;
             });
 
@@ -36,19 +37,17 @@ namespace VAR.Toolbox.Code
         public static T CreateFromName(string name)
         {
             Dictionary<string, Type> dict = GetDict();
-            if (dict.ContainsKey(name) == false)
+            if (dict.TryGetValue(name, out Type? type) == false)
             {
                 throw new NotImplementedException(string.Format("Cant create {1} with this name: {0}", name,
                     typeof(T).Name));
             }
 
-            Type type = dict[name];
-
-            T instance = (T)Activator.CreateInstance(type);
+            T instance = (T)Activator.CreateInstance(type)!;
             return instance;
         }
 
-        public static T CreateFromConfig(string config)
+        public static T? CreateFromConfig(string config)
         {
             Dictionary<string, Type> dict = GetDict();
             int indexOfColon = config.IndexOf(':');
@@ -56,18 +55,16 @@ namespace VAR.Toolbox.Code
             string nextConfig = config.Substring(indexOfColon + 1);
             if (string.IsNullOrEmpty(name))
             {
-                return (T)(object)null;
+                return default;
             }
 
-            if (dict.ContainsKey(name) == false)
+            if (dict.TryGetValue(name, out Type? type) == false)
             {
                 throw new NotImplementedException(string.Format("Cant create {1} with this config: {0}", config,
                     typeof(T).Name));
             }
 
-            Type type = dict[name];
-
-            T instance = (T)Activator.CreateInstance(type, new object[] { nextConfig });
+            T instance = (T)Activator.CreateInstance(type, new object[] { nextConfig, })!;
             return instance;
         }
     }

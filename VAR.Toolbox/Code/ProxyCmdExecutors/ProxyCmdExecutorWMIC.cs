@@ -17,7 +17,7 @@ namespace VAR.Toolbox.Code.ProxyCmdExecutors
         {
             string parameters =
                 $" /node:\"{_configWMIC.Replace("\"", "\\\"")}\" process call create \"cmd.exe /c \\\"{cmd.Replace("\"", "\\\"")}\\\"\"";
-            Process process = new Process();
+            Process process = new();
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.FileName = "WMIC";

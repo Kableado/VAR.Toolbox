@@ -1,32 +1,84 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Platform;
+
 using VAR.Toolbox.Code.Windows;
+
+using Image = System.Drawing.Image;
+using Point = Avalonia.Point;
 
 namespace VAR.Toolbox.Code
 {
     public static class Screenshoter
     {
-        public static Bitmap CaptureControl(Control ctrl, Bitmap bmp = null)
+        public static Bitmap? CaptureControl(Control? ctrl, Bitmap? bmp = null, Window? window = null)
         {
-            if (ctrl == null) { return bmp; }
+            if (ctrl == null || window == null) { return bmp; }
 
-            Point picCapturerOrigin = ctrl.PointToScreen(new Point(0, 0));
-            bmp = CaptureScreen(bmp, picCapturerOrigin.X, picCapturerOrigin.Y, ctrl.Width, ctrl.Height);
+            Point? relativeToWindow = ctrl.TranslatePoint(new Point(0, 0), window);
+            if (relativeToWindow.HasValue == false) { return bmp; }
+
+            PixelPoint screenPoint = window.PointToScreen(relativeToWindow.Value);
+            int absoluteLeft = screenPoint.X;
+            int absoluteTop = screenPoint.Y;
+
+            double scale = 1.0;
+            try
+            {
+                scale = window.RenderScaling;
+            }
+            catch
+            {
+                scale = 1.0;
+            }
+
+            int offsetLeft = (int)Math.Ceiling(1 * scale);
+            int offsetTop  = (int)Math.Ceiling(1 * scale);
+
+            absoluteLeft += offsetLeft;
+            absoluteTop  += offsetTop;
+
+            int pixelWidth  = Math.Max(1, (int)Math.Round(ctrl.Bounds.Width * scale));
+            int pixelHeight = Math.Max(1, (int)Math.Round(ctrl.Bounds.Height * scale));
+
+            bmp = CaptureScreen(bmp: bmp,
+                left: absoluteLeft,
+                top: absoluteTop,
+                width: pixelWidth,
+                height: pixelHeight,
+                window: window);
             return bmp;
         }
 
-        public static Bitmap CaptureScreen(Bitmap bmp = null, int? left = null, int? top = null, int? width = null,
-            int? height = null)
+        public static Bitmap? CaptureScreen(Bitmap? bmp = null, int? left = null, int? top = null, int? width = null,
+            int? height = null, Window? window = null)
         {
-            if (width <= 0 || height <= 0) { return bmp; }
+            if (window == null) { return bmp; }
 
+            if (width <= 0 || height <= 0) { return bmp; }
+            
+            // Pseudocódigo para calcular el rect virtual
+            int minLeft = int.MaxValue, minTop = int.MaxValue, maxRight = int.MinValue, maxBottom = int.MinValue;
+            if(left == null || top == null || width == null || height == null) 
+            {
+                foreach (Screen screen in
+                         window.Screens.All) // o screensService.Screens / screensService.Monitors según versión
+                {
+                    minLeft = Math.Min(minLeft, screen.Bounds.X);
+                    minTop = Math.Min(minTop, screen.Bounds.Y);
+                    maxRight = Math.Max(maxRight, screen.Bounds.X + screen.Bounds.Width);
+                    maxBottom = Math.Max(maxBottom, screen.Bounds.Y + screen.Bounds.Height);
+                }
+            }
+            
             // Determine the size of the "virtual screen", which includes all monitors.
-            left = left ?? SystemInformation.VirtualScreen.Left;
-            top = top ?? SystemInformation.VirtualScreen.Top;
-            width = width ?? SystemInformation.VirtualScreen.Width;
-            height = height ?? SystemInformation.VirtualScreen.Height;
+            left ??= minLeft;
+            top ??= minTop;
+            width ??= (maxRight - minLeft);
+            height ??= (maxBottom - minTop);
 
             // Create a bitmap of the appropriate size to receive the screenshot.
             if (bmp == null || bmp.Width != width || bmp.Height != height)
@@ -37,10 +89,8 @@ namespace VAR.Toolbox.Code
             try
             {
                 // Draw the screenshot into our bitmap.
-                using (Graphics g = Graphics.FromImage(bmp))
-                {
-                    g.CopyFromScreen((int)left, (int)top, 0, 0, bmp.Size);
-                }
+                using Graphics g = Graphics.FromImage(bmp);
+                g.CopyFromScreen((int)left, (int)top, 0, 0, bmp.Size);
             }
             catch (Exception)
             {
@@ -59,7 +109,7 @@ namespace VAR.Toolbox.Code
         }
 
         /// <summary>
-        /// Creates an Image object containing a screen shot of a specific window
+        /// Creates an Image object containing a screenshot of a specific window
         /// </summary>
         /// <param name="handle">The handle to the window. (In windows forms, this is obtained by the Handle property)</param>
         /// <returns></returns>
@@ -68,7 +118,7 @@ namespace VAR.Toolbox.Code
             // get te hDC of the target window
             IntPtr hdcSrc = User32.GetWindowDC(handle);
             // get the size
-            User32.RECT windowRect = new User32.RECT();
+            User32.RECT windowRect = new();
             User32.GetWindowRect(handle, ref windowRect);
             int left = windowRect.left;
             int top = windowRect.top;

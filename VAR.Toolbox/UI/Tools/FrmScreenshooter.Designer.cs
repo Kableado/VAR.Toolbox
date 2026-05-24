@@ -1,4 +1,4 @@
-﻿namespace VAR.Toolbox.UI.Tools
+namespace VAR.Toolbox.UI.Tools
 {
     partial class FrmScreenshooter
     {
@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnScreenshoot = new VAR.Toolbox.Controls.CButton();
+            this.btnScreenshoot = new VAR.Toolbox.Controls.Button();
             this.picViewer = new VAR.Toolbox.Controls.CtrImageViewer();
-            this.btnStartStop = new VAR.Toolbox.Controls.CButton();
+            this.btnStartStop = new VAR.Toolbox.Controls.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picViewer)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,7 +85,7 @@
         #endregion
 
         private VAR.Toolbox.Controls.CtrImageViewer picViewer;
-        private VAR.Toolbox.Controls.CButton btnScreenshoot;
-        private VAR.Toolbox.Controls.CButton btnStartStop;
+        private VAR.Toolbox.Controls.Button btnScreenshoot;
+        private VAR.Toolbox.Controls.Button btnStartStop;
     }
 }

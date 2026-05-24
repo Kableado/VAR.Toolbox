@@ -1,0 +1,220 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ===== Global dark theme resource overrides ===== -->
+
+    <!-- Window / Panel background -->
+    <Style Selector="Window">
+        <Setter Property="Background" Value="#282828" />
+        <Setter Property="Foreground" Value="#C0C0C0" />
+    </Style>
+    <Style Selector="UserControl">
+        <Setter Property="Foreground" Value="#C0C0C0" />
+    </Style>
+
+    <!-- ===== Button ===== -->
+    <Style Selector="Button">
+        <Style.Resources>
+            <SolidColorBrush x:Key="ButtonBackground" Color="#323232" />
+            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#CC0000" />
+            <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#990000" />
+            <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="#1A1A1A" />
+            <SolidColorBrush x:Key="ButtonForeground" Color="#C0C0C0" />
+            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White" />
+            <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White" />
+            <SolidColorBrush x:Key="ButtonForegroundDisabled" Color="#555555" />
+            <SolidColorBrush x:Key="ButtonBorderBrush" Color="#505050" />
+            <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#CC0000" />
+            <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#990000" />
+            <SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="#333333" />
+        </Style.Resources>
+        <Setter Property="Padding" Value="8,4" />
+    </Style>
+
+    <!-- ===== TextBox ===== -->
+    <Style Selector="TextBox">
+        <Style.Resources>
+            <SolidColorBrush x:Key="TextControlBackground" Color="#000000" />
+            <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#0A0A0A" />
+            <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#000000" />
+            <SolidColorBrush x:Key="TextControlBackgroundDisabled" Color="#1A1A1A" />
+            <SolidColorBrush x:Key="TextControlForeground" Color="#C0C0C0" />
+            <SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="#C0C0C0" />
+            <SolidColorBrush x:Key="TextControlForegroundFocused" Color="#C0C0C0" />
+            <SolidColorBrush x:Key="TextControlForegroundDisabled" Color="#555555" />
+            <SolidColorBrush x:Key="TextControlBorderBrush" Color="#505050" />
+            <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="#707070" />
+            <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#CC0000" />
+            <SolidColorBrush x:Key="TextControlPlaceholderForeground" Color="#666666" />
+            <SolidColorBrush x:Key="TextControlPlaceholderForegroundPointerOver" Color="#777777" />
+            <SolidColorBrush x:Key="TextControlPlaceholderForegroundFocused" Color="#555555" />
+            <SolidColorBrush x:Key="TextControlSelectionHighlightColor" Color="#CC0000" />
+        </Style.Resources>
+        <Setter Property="CaretBrush" Value="#C0C0C0" />
+    </Style>
+
+    <!-- Monospace text: use Classes="mono" on TextBox/ListBox -->
+    <Style Selector="TextBox.mono">
+        <Setter Property="FontFamily" Value="Consolas" />
+    </Style>
+
+    <!-- ===== ComboBox ===== -->
+    <Style Selector="ComboBox">
+        <Style.Resources>
+            <SolidColorBrush x:Key="ComboBoxBackground" Color="#000000" />
+            <SolidColorBrush x:Key="ComboBoxBackgroundPointerOver" Color="#0A0A0A" />
+            <SolidColorBrush x:Key="ComboBoxBackgroundPressed" Color="#000000" />
+            <SolidColorBrush x:Key="ComboBoxBackgroundFocused" Color="#000000" />
+            <SolidColorBrush x:Key="ComboBoxBackgroundDisabled" Color="#1A1A1A" />
+            <SolidColorBrush x:Key="ComboBoxForeground" Color="#C0C0C0" />
+            <SolidColorBrush x:Key="ComboBoxForegroundPointerOver" Color="#C0C0C0" />
+            <SolidColorBrush x:Key="ComboBoxForegroundPressed" Color="#C0C0C0" />
+            <SolidColorBrush x:Key="ComboBoxForegroundFocused" Color="#C0C0C0" />
+            <SolidColorBrush x:Key="ComboBoxForegroundDisabled" Color="#555555" />
+            <SolidColorBrush x:Key="ComboBoxBorderBrush" Color="#505050" />
+            <SolidColorBrush x:Key="ComboBoxBorderBrushPointerOver" Color="#707070" />
+            <SolidColorBrush x:Key="ComboBoxBorderBrushPressed" Color="#CC0000" />
+            <SolidColorBrush x:Key="ComboBoxDropDownBackground" Color="#1A1A1A" />
+        </Style.Resources>
+    </Style>
+
+    <!-- ===== ListBox ===== -->
+    <Style Selector="ListBox">
+        <Style.Resources>
+            <SolidColorBrush x:Key="ListBoxBackground" Color="#000000" />
+            <SolidColorBrush x:Key="ListBoxBorderBrush" Color="#505050" />
+        </Style.Resources>
+        <Setter Property="Background" Value="#000000" />
+        <Setter Property="BorderBrush" Value="#505050" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="#C0C0C0" />
+    </Style>
+
+    <!-- ListBox items -->
+    <Style Selector="ListBox ListBoxItem">
+        <Style.Resources>
+            <SolidColorBrush x:Key="ListBoxItemForeground" Color="#C0C0C0" />
+            <SolidColorBrush x:Key="ListBoxItemForegroundPointerOver" Color="White" />
+            <SolidColorBrush x:Key="ListBoxItemForegroundPressed" Color="White" />
+            <SolidColorBrush x:Key="ListBoxItemForegroundSelected" Color="White" />
+            <SolidColorBrush x:Key="ListBoxItemBackgroundPointerOver" Color="#333333" />
+            <SolidColorBrush x:Key="ListBoxItemBackgroundPressed" Color="#505050" />
+            <SolidColorBrush x:Key="ListBoxItemBackgroundSelected" Color="#CC0000" />
+            <SolidColorBrush x:Key="ListBoxItemBackgroundSelectedDisabled" Color="#660000" />
+        </Style.Resources>
+        <Setter Property="Foreground" Value="#C0C0C0" />
+    </Style>
+
+    <!-- Monospace listbox -->
+    <Style Selector="ListBox.mono">
+        <Setter Property="FontFamily" Value="Consolas" />
+        <Setter Property="Foreground" Value="#808080" />
+    </Style>
+    <Style Selector="ListBox.mono ListBoxItem">
+        <Setter Property="Foreground" Value="#808080" />
+        <Setter Property="Padding" Value="4,1" />
+        <Setter Property="MinHeight" Value="16" />
+    </Style>
+
+    <!-- ===== CheckBox ===== -->
+    <Style Selector="CheckBox">
+        <Style.Resources>
+            <SolidColorBrush x:Key="CheckBoxForegroundUnchecked" Color="#C0C0C0" />
+            <SolidColorBrush x:Key="CheckBoxForegroundUncheckedPointerOver" Color="White" />
+            <SolidColorBrush x:Key="CheckBoxForegroundChecked" Color="#C0C0C0" />
+            <SolidColorBrush x:Key="CheckBoxForegroundCheckedPointerOver" Color="White" />
+            <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillChecked" Color="#CC0000" />
+            <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillCheckedPointerOver" Color="#FF0000" />
+        </Style.Resources>
+    </Style>
+
+    <!-- ===== NumericUpDown ===== -->
+    <Style Selector="NumericUpDown">
+        <Style.Resources>
+            <SolidColorBrush x:Key="TextControlBackground" Color="#000000" />
+            <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#0A0A0A" />
+            <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#000000" />
+            <SolidColorBrush x:Key="TextControlForeground" Color="#C0C0C0" />
+            <SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="#C0C0C0" />
+            <SolidColorBrush x:Key="TextControlForegroundFocused" Color="#C0C0C0" />
+            <SolidColorBrush x:Key="TextControlBorderBrush" Color="#505050" />
+        </Style.Resources>
+        <Setter Property="ShowButtonSpinner" Value="False" />
+    </Style>
+
+    <!-- ===== CalendarDatePicker ===== -->
+    <Style Selector="CalendarDatePicker">
+        <Style.Resources>
+            <SolidColorBrush x:Key="CalendarDatePickerBackground" Color="#2F4F4F" />
+            <SolidColorBrush x:Key="CalendarDatePickerBackgroundPointerOver" Color="#3A5A5A" />
+            <SolidColorBrush x:Key="CalendarDatePickerBackgroundPressed" Color="#2F4F4F" />
+            <SolidColorBrush x:Key="CalendarDatePickerBackgroundFocused" Color="#2F4F4F" />
+            <SolidColorBrush x:Key="CalendarDatePickerForeground" Color="#808080" />
+            <SolidColorBrush x:Key="CalendarDatePickerBorderBrush" Color="#505050" />
+        </Style.Resources>
+    </Style>
+
+    <!-- ===== DatePicker ===== -->
+    <Style Selector="DatePicker">
+        <Style.Resources>
+            <SolidColorBrush x:Key="DatePickerButtonBackground" Color="#2F4F4F" />
+            <SolidColorBrush x:Key="DatePickerButtonBackgroundPointerOver" Color="#3A5A5A" />
+            <SolidColorBrush x:Key="DatePickerButtonBorderBrush" Color="#505050" />
+            <SolidColorBrush x:Key="DatePickerButtonForeground" Color="#808080" />
+        </Style.Resources>
+    </Style>
+
+    <!-- ===== TimePicker ===== -->
+    <Style Selector="TimePicker">
+        <Style.Resources>
+            <SolidColorBrush x:Key="TimePickerButtonBackground" Color="#2F4F4F" />
+            <SolidColorBrush x:Key="TimePickerButtonBackgroundPointerOver" Color="#3A5A5A" />
+            <SolidColorBrush x:Key="TimePickerButtonBorderBrush" Color="#505050" />
+            <SolidColorBrush x:Key="TimePickerButtonForeground" Color="#808080" />
+        </Style.Resources>
+        <Setter Property="Width" Value="50" />
+        <Setter Property="MaxWidth" Value="50" />
+        <Setter Property="MinWidth" Value="50" />
+    </Style>
+
+    <!-- ===== TabControl ===== -->
+    <Style Selector="TabControl">
+        <Style.Resources>
+            <SolidColorBrush x:Key="TabControlBackground" Color="#282828" />
+        </Style.Resources>
+    </Style>
+    <Style Selector="TabItem">
+        <Style.Resources>
+            <SolidColorBrush x:Key="TabItemHeaderBackgroundUnselected" Color="#1A1A1A" />
+            <SolidColorBrush x:Key="TabItemHeaderBackgroundUnselectedPointerOver" Color="#333333" />
+            <SolidColorBrush x:Key="TabItemHeaderBackgroundSelected" Color="#404040" />
+            <SolidColorBrush x:Key="TabItemHeaderForegroundUnselected" Color="#808080" />
+            <SolidColorBrush x:Key="TabItemHeaderForegroundUnselectedPointerOver" Color="#C0C0C0" />
+            <SolidColorBrush x:Key="TabItemHeaderForegroundSelected" Color="White" />
+        </Style.Resources>
+    </Style>
+
+    <!-- ===== ScrollBar ===== -->
+    <Style Selector="ScrollBar">
+        <Style.Resources>
+            <SolidColorBrush x:Key="ScrollBarTrackFill" Color="#1A1A1A" />
+            <SolidColorBrush x:Key="ScrollBarThumbFill" Color="#505050" />
+            <SolidColorBrush x:Key="ScrollBarThumbFillPointerOver" Color="#707070" />
+        </Style.Resources>
+    </Style>
+
+    <!-- ===== TextBlock ===== -->
+    <Style Selector="TextBlock">
+        <Setter Property="Foreground" Value="#C0C0C0" />
+    </Style>
+
+    <!-- ===== HeaderedContentControl (GroupBox) ===== -->
+    <Style Selector="HeaderedContentControl">
+        <Setter Property="Foreground" Value="#C0C0C0" />
+        <Setter Property="BorderBrush" Value="#505050" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="4" />
+    </Style>
+
+</Styles>
+

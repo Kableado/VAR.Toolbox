@@ -1,4 +1,4 @@
-﻿namespace VAR.Toolbox.UI.Tools
+namespace VAR.Toolbox.UI.Tools
 {
     partial class FrmProxyCmd
     {
@@ -30,11 +30,11 @@
         {
             this.splitMain = new VAR.Toolbox.Controls.CSplitContainer();
             this.ctrOutput = new VAR.Toolbox.Controls.CtrOutput();
-            this.txtInput = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.ddlCurrentConfig = new VAR.Toolbox.Controls.CComboBox();
-            this.btnConfig = new VAR.Toolbox.Controls.CButton();
-            this.btnDisable = new VAR.Toolbox.Controls.CButton();
-            this.btnEnable = new VAR.Toolbox.Controls.CButton();
+            this.txtInput = new VAR.Toolbox.Controls.TextBox();
+            this.ddlCurrentConfig = new VAR.Toolbox.Controls.ComboBox();
+            this.btnConfig = new VAR.Toolbox.Controls.Button();
+            this.btnDisable = new VAR.Toolbox.Controls.Button();
+            this.btnEnable = new VAR.Toolbox.Controls.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.Panel1.SuspendLayout();
             this.splitMain.Panel2.SuspendLayout();
@@ -160,11 +160,11 @@
         #endregion
 
         private VAR.Toolbox.Controls.CSplitContainer splitMain;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtInput;
-        private VAR.Toolbox.Controls.CComboBox ddlCurrentConfig;
-        private VAR.Toolbox.Controls.CButton btnConfig;
+        private VAR.Toolbox.Controls.TextBox txtInput;
+        private VAR.Toolbox.Controls.ComboBox ddlCurrentConfig;
+        private VAR.Toolbox.Controls.Button btnConfig;
         private Controls.CtrOutput ctrOutput;
-        private Controls.CButton btnDisable;
-        private Controls.CButton btnEnable;
+        private Controls.Button btnDisable;
+        private Controls.Button btnEnable;
     }
 }

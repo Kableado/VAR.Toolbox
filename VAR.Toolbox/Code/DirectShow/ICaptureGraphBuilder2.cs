@@ -11,7 +11,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// 
     [ComImport,
      Guid("93E5A4E0-2D50-11d2-ABFA-00A0C9C6E38D"),
-     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown),]
     internal interface ICaptureGraphBuilder2
     {
         /// <summary>
@@ -50,9 +50,9 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int SetOutputFileName(
-            [In, MarshalAs(UnmanagedType.LPStruct)]
+            [In, MarshalAs(UnmanagedType.LPStruct),]
             Guid type,
-            [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
+            [In, MarshalAs(UnmanagedType.LPWStr),] string fileName,
             [Out] out IBaseFilter baseFilter,
             [Out] out IntPtr fileSinkFilter
         );
@@ -71,14 +71,14 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int FindInterface(
-            [In, MarshalAs(UnmanagedType.LPStruct)]
+            [In, MarshalAs(UnmanagedType.LPStruct),]
             Guid category,
-            [In, MarshalAs(UnmanagedType.LPStruct)]
+            [In, MarshalAs(UnmanagedType.LPStruct),]
             Guid type,
             [In] IBaseFilter baseFilter,
-            [In, MarshalAs(UnmanagedType.LPStruct)]
+            [In, MarshalAs(UnmanagedType.LPStruct),]
             Guid interfaceID,
-            [Out, MarshalAs(UnmanagedType.IUnknown)]
+            [Out, MarshalAs(UnmanagedType.IUnknown),]
             out object retInterface
         );
 
@@ -96,11 +96,11 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int RenderStream(
-            [In, MarshalAs(UnmanagedType.LPStruct)]
+            [In, MarshalAs(UnmanagedType.LPStruct),]
             Guid category,
-            [In, MarshalAs(UnmanagedType.LPStruct)]
+            [In, MarshalAs(UnmanagedType.LPStruct),]
             Guid mediaType,
-            [In, MarshalAs(UnmanagedType.IUnknown)]
+            [In, MarshalAs(UnmanagedType.IUnknown),]
             object source,
             [In] IBaseFilter compressor,
             [In] IBaseFilter renderer
@@ -124,11 +124,11 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int ControlStream(
-            [In, MarshalAs(UnmanagedType.LPStruct)]
+            [In, MarshalAs(UnmanagedType.LPStruct),]
             Guid category,
-            [In, MarshalAs(UnmanagedType.LPStruct)]
+            [In, MarshalAs(UnmanagedType.LPStruct),]
             Guid mediaType,
-            [In, MarshalAs(UnmanagedType.Interface)]
+            [In, MarshalAs(UnmanagedType.Interface),]
             IBaseFilter filter,
             [In] long start,
             [In] long stop,
@@ -147,7 +147,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int AllocCapFile(
-            [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
+            [In, MarshalAs(UnmanagedType.LPWStr),] string fileName,
             [In] long size
         );
 
@@ -164,9 +164,9 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int CopyCaptureFile(
-            [In, MarshalAs(UnmanagedType.LPWStr)] string oldFileName,
-            [In, MarshalAs(UnmanagedType.LPWStr)] string newFileName,
-            [In, MarshalAs(UnmanagedType.Bool)] bool allowEscAbort,
+            [In, MarshalAs(UnmanagedType.LPWStr),] string oldFileName,
+            [In, MarshalAs(UnmanagedType.LPWStr),] string newFileName,
+            [In, MarshalAs(UnmanagedType.Bool),] bool allowEscAbort,
             [In] IntPtr callback
         );
 
@@ -186,16 +186,16 @@ namespace VAR.Toolbox.Code.DirectShow
         /// 
         [PreserveSig]
         int FindPin(
-            [In, MarshalAs(UnmanagedType.IUnknown)]
+            [In, MarshalAs(UnmanagedType.IUnknown),]
             object source,
             [In] PinDirection pinDirection,
-            [In, MarshalAs(UnmanagedType.LPStruct)]
+            [In, MarshalAs(UnmanagedType.LPStruct),]
             Guid category,
-            [In, MarshalAs(UnmanagedType.LPStruct)]
+            [In, MarshalAs(UnmanagedType.LPStruct),]
             Guid mediaType,
-            [In, MarshalAs(UnmanagedType.Bool)] bool unconnected,
+            [In, MarshalAs(UnmanagedType.Bool),] bool unconnected,
             [In] int index,
-            [Out, MarshalAs(UnmanagedType.Interface)]
+            [Out, MarshalAs(UnmanagedType.Interface),]
             out IPin pin
         );
     }

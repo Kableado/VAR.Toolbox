@@ -1,111 +1,91 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
+using System;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Media;
+using Avalonia.Platform;
+using Avalonia.Threading;
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Windows;
-using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI.Tools
 {
-    public class FrmCover : Frame
+    public class FrmCover : Window
     {
-        #region Declarations
-
-        private readonly Random _rnd = new Random();
-        private readonly Timer _timer = new Timer();
-
+        private readonly Random _rnd = new();
+        private readonly DispatcherTimer _timer;
         private uint _mouseX;
         private uint _mouseY;
 
-        #endregion Declarations
-
-        #region Form life cycle
-
         public FrmCover()
-        {
-            InitializeComponent();
-        }
-
-        private void InitializeComponent()
         {
             Mouse.GetPosition(out _mouseX, out _mouseY);
 
-            Text = User32.GetActiveWindowTitle();
+            Title = User32.GetActiveWindowTitle();
+            Topmost = true;
+            WindowDecorations = WindowDecorations.None;
+            Background = Brushes.Black;
 
-            TopMost = true;
-            FormBorderStyle = FormBorderStyle.None;
-            BackColor = Color.Black;
+            PointerPressed += FrmCover_PointerPressed;
+            KeyDown += FrmCover_KeyDown;
 
-            Load += FrmCover_Load;
-            Click += FrmCover_Click;
-            KeyPress += FrmCover_KeyPress;
-
-            _timer.Interval = 1000;
-            _timer.Enabled = true;
+            _timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1), };
             _timer.Tick += Timer_Tick;
+
+            Opened += FrmCover_Opened;
         }
 
-        private void FrmCover_Load(object sender, EventArgs e)
+        private void FrmCover_Opened(object? sender, EventArgs e)
         {
-            Rectangle r = new Rectangle();
-            foreach (Screen s in Screen.AllScreens)
+            Screens screens = Screens;
+            if (screens.All.Count > 0)
             {
-                r = Rectangle.Union(r, s.Bounds);
+                double left = double.MaxValue, top = double.MaxValue, right = double.MinValue, bottom = double.MinValue;
+                foreach (Screen s in screens.All)
+                {
+                    if (s.Bounds.X < left) left = s.Bounds.X;
+                    if (s.Bounds.Y < top) top = s.Bounds.Y;
+                    if (s.Bounds.X + s.Bounds.Width > right) right = s.Bounds.X + s.Bounds.Width;
+                    if (s.Bounds.Y + s.Bounds.Height > bottom) bottom = s.Bounds.Y + s.Bounds.Height;
+                }
+                Position = new PixelPoint((int)left, (int)top);
+                Width = right - left;
+                Height = bottom - top;
             }
-
-            Top = r.Top;
-            Left = r.Left;
-            Width = r.Width;
-            Height = r.Height;
-            Cursor.Hide();
+            Cursor = new Cursor(StandardCursorType.None);
             _timer.Start();
-            User32.SetForegroundWindow(Handle);
+            Activate();
         }
 
-        #endregion Form life cycle
-
-        #region UI events
-
-        private void FrmCover_Click(object sender, EventArgs e)
+        private void RestoreAndClose()
         {
-            Cursor.Show();
+            Cursor = Cursor.Default;
             _timer.Stop();
-            _timer.Enabled = false;
             Mouse.SetPosition(_mouseX, _mouseY);
-
             Close();
             EventDispatcher.EmitEvent(PnlCover.PostCoverEventName, null);
         }
 
-        private void FrmCover_KeyPress(object sender, KeyPressEventArgs e)
+        private void FrmCover_PointerPressed(object? sender, PointerPressedEventArgs e)
         {
-            Cursor.Show();
-            _timer.Stop();
-            _timer.Enabled = false;
-            Mouse.SetPosition(_mouseX, _mouseY);
-
-            Close();
-            EventDispatcher.EmitEvent(PnlCover.PostCoverEventName, null);
+            RestoreAndClose();
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void FrmCover_KeyDown(object? sender, KeyEventArgs e)
         {
-            User32.SetForegroundWindow(Handle);
+            RestoreAndClose();
+        }
+
+        private void Timer_Tick(object? sender, EventArgs e)
+        {
+            Activate();
             try
             {
-                Mouse.Move(
-                    (_rnd.Next() % 11) - 5,
-                    (_rnd.Next() % 11) - 5);
+                Mouse.Move((_rnd.Next() % 11) - 5, (_rnd.Next() % 11) - 5);
             }
-            catch (Exception)
-            {
-                // ignored exceptions moving mouse
-            }
-
+            catch (Exception) { /* Ignore */ }
             _timer.Stop();
             _timer.Start();
         }
-
-        #endregion UI events
     }
 }

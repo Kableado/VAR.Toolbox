@@ -8,14 +8,14 @@ namespace VAR.Toolbox.Code
     {
         public static void Move(int dx, int dy)
         {
-            User32.INPUT input = new User32.INPUT
+            User32.INPUT input = new()
             {
-                Type = User32.INPUT_MOUSE
+                Type = User32.INPUT_MOUSE,
             };
             input.Data.Mouse.X = dx;
             input.Data.Mouse.Y = dy;
             input.Data.Mouse.Flags = User32.MOUSEEVENTF_MOVE;
-            User32.INPUT[] inputs = new[] { input };
+            User32.INPUT[] inputs = [input,];
             if (User32.SendInput(1, inputs, Marshal.SizeOf(typeof(User32.INPUT))) == 0)
                 throw new Exception();
         }
@@ -24,14 +24,14 @@ namespace VAR.Toolbox.Code
         {
             Left,
             Middle,
-            Right
+            Right,
         }
 
         public static void SetButton(MouseButtons button, bool down)
         {
-            User32.INPUT input = new User32.INPUT
+            User32.INPUT input = new()
             {
-                Type = User32.INPUT_MOUSE
+                Type = User32.INPUT_MOUSE,
             };
             input.Data.Mouse.X = 0;
             input.Data.Mouse.Y = 0;
@@ -50,7 +50,7 @@ namespace VAR.Toolbox.Code
                 input.Data.Mouse.Flags = down ? User32.MOUSEEVENTF_RIGHTDOWN : User32.MOUSEEVENTF_RIGHTUP;
             }
 
-            User32.INPUT[] inputs = new[] { input };
+            User32.INPUT[] inputs = [input,];
             if (User32.SendInput(1, inputs, Marshal.SizeOf(typeof(User32.INPUT))) == 0)
                 throw new Exception();
         }

@@ -10,7 +10,7 @@ namespace VAR.Toolbox.Code.DirectShow
     /// 
     [ComImport,
      Guid("56A86895-0AD4-11CE-B03A-0020AF0BA770"),
-     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+     InterfaceType(ComInterfaceType.InterfaceIsIUnknown),]
     internal interface IBaseFilter
     {
         // --- IPersist Methods
@@ -114,7 +114,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int FindPin([In, MarshalAs(UnmanagedType.LPWStr)] string id, [Out] out IPin pin);
+        int FindPin([In, MarshalAs(UnmanagedType.LPWStr),] string id, [Out] out IPin pin);
 
         /// <summary>
         /// Retrieves information about the filter.
@@ -138,7 +138,7 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int JoinFilterGraph([In] IFilterGraph graph, [In, MarshalAs(UnmanagedType.LPWStr)] string name);
+        int JoinFilterGraph([In] IFilterGraph graph, [In, MarshalAs(UnmanagedType.LPWStr),] string name);
 
         /// <summary>
         /// Retrieves a string containing vendor information.
@@ -149,6 +149,6 @@ namespace VAR.Toolbox.Code.DirectShow
         /// <returns>Return's <b>HRESULT</b> error code.</returns>
         /// 
         [PreserveSig]
-        int QueryVendorInfo([Out, MarshalAs(UnmanagedType.LPWStr)] out string vendorInfo);
+        int QueryVendorInfo([Out, MarshalAs(UnmanagedType.LPWStr),] out string vendorInfo);
     }
 }

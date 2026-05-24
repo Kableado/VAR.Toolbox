@@ -1,34 +1,67 @@
-﻿using System.ComponentModel;
-using VAR.Toolbox.Controls;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Layout;
 
 namespace VAR.Toolbox.UI
 {
-    public partial class FrmDialogString : Frame
+    public class FrmDialogString : Window
     {
+        private readonly TextBlock _lblDescription;
+        private readonly TextBox _txtValue;
+
         public FrmDialogString()
         {
-            InitializeComponent();
+            Title = "DialogString";
+            Width = 440;
+            Height = 284;
+            CanResize = true;
+
+            _lblDescription = new TextBlock { TextWrapping = Avalonia.Media.TextWrapping.Wrap, };
+            _txtValue = new TextBox { AcceptsReturn = true, };
+
+            Button btnAccept = new() { Content = "Accept", };
+            Button btnCancel = new() { Content = "Cancel", };
+
+            btnAccept.Click += (_, _) => { DialogOk = true; Close(); };
+            btnCancel.Click += (_, _) => { DialogOk = false; Close(); };
+
+            StackPanel buttons = new()
+            {
+                Orientation = Orientation.Horizontal,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                Spacing = 5,
+            };
+            buttons.Children.Add(btnAccept);
+            buttons.Children.Add(btnCancel);
+
+            DockPanel layout = new() { Margin = new Thickness(12), };
+            DockPanel.SetDock(buttons, Dock.Bottom);
+            DockPanel.SetDock(_lblDescription, Dock.Top);
+            layout.Children.Add(buttons);
+            layout.Children.Add(_lblDescription);
+            layout.Children.Add(_txtValue);
+
+            Content = layout;
         }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string Title
+        public bool DialogOk { get; private set; }
+
+        public new string? Title
         {
-            get => base.Text;
-            set => Text = value;
+            get => base.Title;
+            set => base.Title = value;
         }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string Description
+        public string? Description
         {
-            get => lblDescription.Text;
-            set => lblDescription.Text = value;
+            get => _lblDescription.Text;
+            set => _lblDescription.Text = value;
         }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string Value
+        public string? Value
         {
-            get => txtValue.Text;
-            set => txtValue.Text = value;
+            get => _txtValue.Text;
+            set => _txtValue.Text = value;
         }
     }
 }

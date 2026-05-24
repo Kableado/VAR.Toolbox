@@ -1,4 +1,4 @@
-﻿namespace VAR.Toolbox.UI.Tools
+namespace VAR.Toolbox.UI.Tools
 {
     partial class FrmProxyCmdConfig
     {
@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lsvCmdProxyConfigs = new VAR.Toolbox.Controls.ListBoxNormal();
-            this.txtCmdProxyConfigName = new VAR.Toolbox.Controls.TextBoxNormal();
-            this.btnSave = new VAR.Toolbox.Controls.CButton();
-            this.btnDelete = new VAR.Toolbox.Controls.CButton();
-            this.btnNew = new VAR.Toolbox.Controls.CButton();
-            this.txtCmdProxyConfigContent = new VAR.Toolbox.Controls.TextBoxNormal();
+            this.lsvCmdProxyConfigs = new VAR.Toolbox.Controls.ListBox();
+            this.txtCmdProxyConfigName = new VAR.Toolbox.Controls.TextBox();
+            this.btnSave = new VAR.Toolbox.Controls.Button();
+            this.btnDelete = new VAR.Toolbox.Controls.Button();
+            this.btnNew = new VAR.Toolbox.Controls.Button();
+            this.txtCmdProxyConfigContent = new VAR.Toolbox.Controls.TextBox();
             this.SuspendLayout();
             // 
             // lsvCmdProxyConfigs
@@ -119,11 +119,11 @@
 
         #endregion
 
-        private VAR.Toolbox.Controls.ListBoxNormal lsvCmdProxyConfigs;
-        private VAR.Toolbox.Controls.TextBoxNormal txtCmdProxyConfigName;
-        private VAR.Toolbox.Controls.CButton btnSave;
-        private VAR.Toolbox.Controls.CButton btnDelete;
-        private VAR.Toolbox.Controls.CButton btnNew;
-        private VAR.Toolbox.Controls.TextBoxNormal txtCmdProxyConfigContent;
+        private VAR.Toolbox.Controls.ListBox lsvCmdProxyConfigs;
+        private VAR.Toolbox.Controls.TextBox txtCmdProxyConfigName;
+        private VAR.Toolbox.Controls.Button btnSave;
+        private VAR.Toolbox.Controls.Button btnDelete;
+        private VAR.Toolbox.Controls.Button btnNew;
+        private VAR.Toolbox.Controls.TextBox txtCmdProxyConfigContent;
     }
 }

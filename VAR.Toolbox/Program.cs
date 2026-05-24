@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Forms;
+using Avalonia;
 using VAR.Toolbox.Code;
-using VAR.Toolbox.UI;
 
 namespace VAR.Toolbox
 {
@@ -15,13 +14,11 @@ namespace VAR.Toolbox
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        private static void Main()
+        private static void Main(string[] args)
         {
-            Application.ThreadException += Application_ThreadException;
-
             // Load plug-ins
             string executingAssemblyPath = Assembly.GetExecutingAssembly().Location;
-            string dirName = Path.GetDirectoryName(executingAssemblyPath);
+            string? dirName = Path.GetDirectoryName(executingAssemblyPath);
             string execName = Path.GetFileNameWithoutExtension(executingAssemblyPath);
             if (dirName != null)
             {
@@ -29,38 +26,33 @@ namespace VAR.Toolbox
                 foreach (string assemblyPath in assemblyPaths) { AssemblyLoadFull(assemblyPath); }
             }
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             try
             {
-                Application.Run(new FrmToolbox());
+                BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
             }
             catch (Exception ex)
             {
                 Logger.Log(ex);
-                Application.Exit();
             }
         }
 
-        private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        public static AppBuilder BuildAvaloniaApp()
         {
-            Logger.Log(e.Exception);
-            Application.Exit();
+            return AppBuilder.Configure<App>()
+                .UsePlatformDetect()
+                .LogToTrace();
         }
 
-        private static void AssemblyLoadFull(string fullPath, List<string> allAssemblyNames = null)
+        private static void AssemblyLoadFull(string fullPath, List<string?>? allAssemblyNames = null)
         {
-            if (allAssemblyNames == null)
-            {
-                allAssemblyNames = AppDomain.CurrentDomain.GetAssemblies().Select(a => a.GetName().Name).ToList();
-            }
+            allAssemblyNames ??= AppDomain.CurrentDomain.GetAssemblies().Select(a => a.GetName().Name).ToList();
 
             if (File.Exists(fullPath) == false) { return; }
-            
-            AssemblyName asmNameCurrent = AssemblyName.GetAssemblyName(fullPath);
-            if (allAssemblyNames.Contains(asmNameCurrent.Name)) { return;  }
 
-                Assembly asm = null;
+            AssemblyName asmNameCurrent = AssemblyName.GetAssemblyName(fullPath);
+            if (allAssemblyNames.Contains(asmNameCurrent.Name)) { return; }
+
+            Assembly? asm = null;
             try
             {
                 asm = Assembly.LoadFrom(fullPath);
@@ -75,13 +67,13 @@ namespace VAR.Toolbox
             allAssemblyNames.Add(asm.GetName().Name);
 
             // Load dependencies
-            string dirPath = Path.GetDirectoryName(fullPath);
+            string? dirPath = Path.GetDirectoryName(fullPath);
             AssemblyName[] asmNames = asm.GetReferencedAssemblies();
             foreach (AssemblyName asmName in asmNames)
             {
                 if (allAssemblyNames.Contains(asmName.Name) == false)
                 {
-                    string fullPathAux = Path.Combine(dirPath, $"{asmName.Name}.dll");
+                    string fullPathAux = Path.Combine(dirPath ?? string.Empty, $"{asmName.Name}.dll");
                     AssemblyLoadFull(fullPathAux, allAssemblyNames);
                 }
             }

@@ -1,4 +1,4 @@
-﻿namespace VAR.Toolbox.UI.Tools
+namespace VAR.Toolbox.UI.Tools
 {
     partial class FrmTunnelTCP
     {
@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnRun = new VAR.Toolbox.Controls.CButton();
-            this.btnStop = new VAR.Toolbox.Controls.CButton();
+            this.btnRun = new VAR.Toolbox.Controls.Button();
+            this.btnStop = new VAR.Toolbox.Controls.Button();
             this.lblRemoteHost = new System.Windows.Forms.Label();
             this.lblRemotePort = new System.Windows.Forms.Label();
             this.lblLocalPort = new System.Windows.Forms.Label();
-            this.txtRemoteHost = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.txtRemotePort = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.txtLocalPort = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtRemoteHost = new VAR.Toolbox.Controls.TextBox();
+            this.txtRemotePort = new VAR.Toolbox.Controls.TextBox();
+            this.txtLocalPort = new VAR.Toolbox.Controls.TextBox();
             this.ctrOutput = new VAR.Toolbox.Controls.CtrOutput();
             this.SuspendLayout();
             // 
@@ -142,14 +142,14 @@
 
         #endregion
 
-        private VAR.Toolbox.Controls.CButton btnRun;
-        private VAR.Toolbox.Controls.CButton btnStop;
+        private VAR.Toolbox.Controls.Button btnRun;
+        private VAR.Toolbox.Controls.Button btnStop;
         private System.Windows.Forms.Label lblRemoteHost;
         private System.Windows.Forms.Label lblRemotePort;
         private System.Windows.Forms.Label lblLocalPort;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtRemoteHost;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtRemotePort;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtLocalPort;
+        private VAR.Toolbox.Controls.TextBox txtRemoteHost;
+        private VAR.Toolbox.Controls.TextBox txtRemotePort;
+        private VAR.Toolbox.Controls.TextBox txtLocalPort;
         private VAR.Toolbox.Controls.CtrOutput ctrOutput;
     }
 }

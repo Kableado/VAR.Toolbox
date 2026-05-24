@@ -1,40 +1,26 @@
 ﻿using System.Reflection;
-using System.Windows.Forms;
+using Avalonia.Controls;
+using Avalonia.Threading;
 
 namespace VAR.Toolbox.Controls
 {
     public static class ControlsUtils
     {
-        public static float GetFontSize(Control ctrl, float size)
+        public static float GetFontSize(object ctrl, float size)
         {
-            return size * 96f / ctrl.CreateGraphics().DpiX;
+            return size;
         }
-
-        private delegate void SetControlPropertyThreadSafeDelegate(
-            Control control,
-            string propertyName,
-            object propertyValue);
 
         public static void SetControlPropertyThreadSafe(
             Control control,
             string propertyName,
             object propertyValue)
         {
-            if (control.InvokeRequired)
+            Dispatcher.UIThread.Post(() =>
             {
-                control.Invoke(new SetControlPropertyThreadSafeDelegate
-                        (SetControlPropertyThreadSafe),
-                    new[] { control, propertyName, propertyValue });
-            }
-            else
-            {
-                control.GetType().InvokeMember(
-                    propertyName,
-                    BindingFlags.SetProperty,
-                    null,
-                    control,
-                    new[] { propertyValue });
-            }
+                PropertyInfo? prop = control.GetType().GetProperty(propertyName);
+                prop?.SetValue(control, propertyValue);
+            });
         }
     }
 }

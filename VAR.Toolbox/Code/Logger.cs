@@ -9,12 +9,13 @@ namespace VAR.Toolbox.Code
         /// Obtiene el StreamWriter de salida
         /// </summary>
         /// <returns></returns>
-        private static StreamWriter GetOutputStreamWriter()
+        private static StreamWriter? GetOutputStreamWriter()
         {
             try
             {
-                string location = System.Reflection.Assembly.GetEntryAssembly()?.Location;
-                string path = Path.GetDirectoryName(location);
+                string location = System.Reflection.Assembly.GetEntryAssembly()?.Location ??
+                                  System.Reflection.Assembly.GetExecutingAssembly().Location;
+                string? path = Path.GetDirectoryName(location);
                 string filenameWithoutExtension = Path.GetFileNameWithoutExtension(location);
 
                 string fileOut = $"{path}/{filenameWithoutExtension}.{DateTime.UtcNow:yyyy-MM}.txt";
@@ -30,7 +31,7 @@ namespace VAR.Toolbox.Code
         /// Cierra el StreamWriter de salida
         /// </summary>
         /// <param name="stream">The stream.</param>
-        private static void CloseOutputStreamWriter(StreamWriter stream)
+        private static void CloseOutputStreamWriter(StreamWriter? stream)
         {
             if (stream != null)
             {
@@ -43,7 +44,7 @@ namespace VAR.Toolbox.Code
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="line">The line.</param>
-        private static void WriteLine(StreamWriter stream, string line)
+        private static void WriteLine(StreamWriter? stream, string line)
         {
             if (stream != null)
             {
@@ -61,7 +62,7 @@ namespace VAR.Toolbox.Code
         {
             try
             {
-                StreamWriter outStream = GetOutputStreamWriter();
+                StreamWriter? outStream = GetOutputStreamWriter();
                 WriteLine(outStream, string.Empty);
                 WriteLine(outStream, $"---------------------------- {text} -----------------------");
                 WriteLine(outStream, $"\\- Date: {DateTime.UtcNow:s}");
@@ -82,7 +83,7 @@ namespace VAR.Toolbox.Code
         {
             try
             {
-                StreamWriter outStream = GetOutputStreamWriter();
+                StreamWriter? outStream = GetOutputStreamWriter();
                 WriteLine(outStream, $"{DateTime.UtcNow:s} -- {text}");
                 CloseOutputStreamWriter(outStream);
             }
@@ -101,17 +102,17 @@ namespace VAR.Toolbox.Code
         {
             try
             {
-                StreamWriter outStream = GetOutputStreamWriter();
+                StreamWriter? outStream = GetOutputStreamWriter();
                 WriteLine(outStream, string.Empty);
                 WriteLine(outStream,
                     "!!!!!!!!!!!!!!!!!!!!!!!!!!!! Exception !!!!!!!!!!!!!!!!!!!!!!!");
                 WriteLine(outStream, $"\\- Date: {DateTime.UtcNow:s}");
                 WriteLine(outStream, string.Empty);
-                Exception exAux = ex;
+                Exception? exAux = ex;
                 while (exAux != null)
                 {
                     WriteLine(outStream, $"Message: {exAux.Message}");
-                    WriteLine(outStream, $"Stacktrace: {exAux.StackTrace}");
+                    WriteLine(outStream, $"Stacktrace: {exAux.StackTrace ?? string.Empty}");
                     exAux = exAux.InnerException;
                 }
 

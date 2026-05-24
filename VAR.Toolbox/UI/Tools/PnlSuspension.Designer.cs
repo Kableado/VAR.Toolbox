@@ -1,14 +1,14 @@
-ï»¿namespace VAR.Toolbox.UI.Tools
+namespace VAR.Toolbox.UI.Tools
 {
     partial class PnlSuspension
     {
         /// <summary> 
-        /// Variable del diseÃ±ador necesaria.
+        /// Variable del diseñador necesaria.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary> 
-        /// Limpiar los recursos que se estÃ©n usando.
+        /// Limpiar los recursos que se estén usando.
         /// </summary>
         /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
@@ -20,22 +20,22 @@
             base.Dispose(disposing);
         }
 
-        #region CÃ³digo generado por el DiseÃ±ador de componentes
+        #region Código generado por el Diseñador de componentes
 
         /// <summary> 
-        /// MÃ©todo necesario para admitir el DiseÃ±ador. No se puede modificar
-        /// el contenido de este mÃ©todo con el editor de cÃ³digo.
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
         /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             this.chkSuspendAtCustom = new System.Windows.Forms.CheckBox();
             this.numOffset = new System.Windows.Forms.NumericUpDown();
-            this.btnRandOffset = new VAR.Toolbox.Controls.CButton();
+            this.btnRandOffset = new VAR.Toolbox.Controls.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnCustomSuspenedNow = new VAR.Toolbox.Controls.CButton();
-            this.ddlCustomHour = new VAR.Toolbox.Controls.CComboBox();
-            this.ddlCustomMinute = new VAR.Toolbox.Controls.CComboBox();
+            this.btnCustomSuspenedNow = new VAR.Toolbox.Controls.Button();
+            this.ddlCustomHour = new VAR.Toolbox.Controls.ComboBox();
+            this.ddlCustomMinute = new VAR.Toolbox.Controls.ComboBox();
             this.grpSuspension = new VAR.Toolbox.Controls.CGroupBox();
             this.lblCountdown = new System.Windows.Forms.Label();
             this.timTicker = new System.Windows.Forms.Timer(this.components);
@@ -180,11 +180,11 @@
 
         private System.Windows.Forms.CheckBox chkSuspendAtCustom;
         private System.Windows.Forms.NumericUpDown numOffset;
-        private VAR.Toolbox.Controls.CButton btnRandOffset;
+        private VAR.Toolbox.Controls.Button btnRandOffset;
         private System.Windows.Forms.Label label1;
-        private VAR.Toolbox.Controls.CButton btnCustomSuspenedNow;
-        private VAR.Toolbox.Controls.CComboBox ddlCustomHour;
-        private VAR.Toolbox.Controls.CComboBox ddlCustomMinute;
+        private VAR.Toolbox.Controls.Button btnCustomSuspenedNow;
+        private VAR.Toolbox.Controls.ComboBox ddlCustomHour;
+        private VAR.Toolbox.Controls.ComboBox ddlCustomMinute;
         private VAR.Toolbox.Controls.CGroupBox grpSuspension;
         private System.Windows.Forms.Label lblCountdown;
         private System.Windows.Forms.Timer timTicker;

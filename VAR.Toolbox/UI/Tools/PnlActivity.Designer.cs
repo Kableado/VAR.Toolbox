@@ -1,4 +1,4 @@
-﻿namespace VAR.Toolbox.UI.Tools
+namespace VAR.Toolbox.UI.Tools
 {
     partial class PnlActivity
     {
@@ -32,7 +32,7 @@
             this.grpActivity = new VAR.Toolbox.Controls.CGroupBox();
             this.lblActive = new System.Windows.Forms.Label();
             this.lblActiveWindowTitle = new System.Windows.Forms.Label();
-            this.txtCurrentActivity = new VAR.Toolbox.Controls.TextBoxNormal();
+            this.txtCurrentActivity = new VAR.Toolbox.Controls.TextBox();
             this.timTicker = new System.Windows.Forms.Timer(this.components);
             this.grpActivity.SuspendLayout();
             this.SuspendLayout();
@@ -100,7 +100,7 @@
         private VAR.Toolbox.Controls.CGroupBox grpActivity;
         private System.Windows.Forms.Label lblActive;
         private System.Windows.Forms.Label lblActiveWindowTitle;
-        private VAR.Toolbox.Controls.TextBoxNormal txtCurrentActivity;
+        private VAR.Toolbox.Controls.TextBox txtCurrentActivity;
         private System.Windows.Forms.Timer timTicker;
     }
 }

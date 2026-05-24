@@ -1,69 +1,72 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading;
-using System.Windows.Forms;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Layout;
+using Avalonia.Threading;
 using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI.Tools
 {
-    public partial class FrmIPScan : Frame, IToolForm
+    public class FrmIPScan : Window, IToolForm
     {
         public string ToolName => "IPScan";
-
         public bool HasIcon => false;
+
+        private readonly CtrOutput _ctrOutput;
+        private readonly Button _btnScan;
+        private readonly TextBox _txtSubnet;
+        private readonly TextBlock _lblStatus;
 
         public FrmIPScan()
         {
-            InitializeComponent();
-            Disposed += FrmIPScan_Disposed;
+            Title = "IPScan";
+            Width = 365;
+            Height = 307;
 
-            PrintStatus("Idle");
-        }
+            _btnScan = new Button { Content = "Scan", };
+            _btnScan.Click += BtnScan_Click;
 
-        private void FrmIPScan_Disposed(object sender, EventArgs e)
-        {
-            _running = false;
+            Button btnStop = new() { Content = "Stop", };
+            btnStop.Click += BtnStop_Click;
+
+            _lblStatus = new TextBlock { Text = "Status: Idle", VerticalAlignment = VerticalAlignment.Center, };
+            _txtSubnet = new TextBox { Classes = { "mono", }, Text = "192.168.0.", Width = 150, };
+            _ctrOutput = new CtrOutput();
+
+            StackPanel topRow = new() { Orientation = Orientation.Horizontal, Spacing = 5, };
+            topRow.Children.Add(_btnScan);
+            topRow.Children.Add(btnStop);
+            topRow.Children.Add(_lblStatus);
+
+            DockPanel layout = new() { Margin = new Thickness(8), };
+            DockPanel.SetDock(topRow, Dock.Top);
+            Border subnetBorder = new() { Child = _txtSubnet, Margin = new Thickness(0, 5), };
+            DockPanel.SetDock(subnetBorder, Dock.Top);
+            layout.Children.Add(topRow);
+            layout.Children.Add(subnetBorder);
+            layout.Children.Add(_ctrOutput);
+
+            Content = layout;
+            Closed += (_, _) => { _running = false; };
         }
 
         private void PrintStatus(string status)
         {
-            if (lblStatus.IsDisposed) { return; }
-
-            if (lblStatus.InvokeRequired)
-            {
-                lblStatus.Invoke((MethodInvoker)(() => { lblStatus.Text = $"Status: {status}"; }));
-            }
-            else
-            {
-                lblStatus.Text = $"Status: {status}";
-                Application.DoEvents();
-            }
+            Dispatcher.UIThread.Post(() => { _lblStatus.Text = $"Status: {status}"; });
         }
 
-        private void Control_SetEnabled(Control ctrl, bool enabled)
+        private void BtnScan_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            if (ctrl.IsDisposed) { return; }
-
-            if (ctrl.InvokeRequired)
-            {
-                ctrl.Invoke((MethodInvoker)(() => { ctrl.Enabled = enabled; }));
-            }
-            else
-            {
-                ctrl.Enabled = enabled;
-                Application.DoEvents();
-            }
-        }
-
-        private void BtnScan_Click(object sender, EventArgs e)
-        {
-            Thread thread = new Thread(() => { IPScan(txtSubnet.Text); });
+            string txtSubnet = _txtSubnet.Text ?? "192.168.0.";
+            Thread thread = new(() => { IPScan(txtSubnet); });
             thread.Start();
         }
 
-        private void BtnStop_Click(object sender, EventArgs e)
+        private void BtnStop_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             _running = false;
         }
@@ -72,16 +75,16 @@ namespace VAR.Toolbox.UI.Tools
 
         private void IPScan(string ipBase)
         {
-            Control_SetEnabled(btnScan, false);
+            Dispatcher.UIThread.Post(() => { _btnScan.IsEnabled = false; });
             _running = true;
-            ctrOutput.AddLine($"IPScan started at {DateTime.UtcNow:s}");
+            _ctrOutput.AddLine($"IPScan started at {DateTime.UtcNow:s}");
             for (int i = 1; i < 255 && _running; i++)
             {
                 string ip = ipBase + i.ToString();
                 PrintStatus($"Scanning {ip}");
-                Ping p = new Ping();
+                Ping p = new();
                 PingReply pingReply = p.Send(ip, 100);
-                if (pingReply != null && pingReply.Status == IPStatus.Success)
+                if (pingReply.Status == IPStatus.Success)
                 {
                     string name = "?";
                     try
@@ -91,15 +94,13 @@ namespace VAR.Toolbox.UI.Tools
                     }
                     catch (SocketException) { }
 
-                    ctrOutput.AddLine($"{ip} ({name}) is up: ({pingReply.RoundtripTime} ms)");
+                    _ctrOutput.AddLine($"{ip} ({name}) is up: ({pingReply.RoundtripTime} ms)");
                 }
-
-                Application.DoEvents();
             }
 
             PrintStatus("Idle");
-            ctrOutput.AddLine($"IPScan ended at {DateTime.UtcNow:s}");
-            Control_SetEnabled(btnScan, true);
+            _ctrOutput.AddLine($"IPScan ended at {DateTime.UtcNow:s}");
+            Dispatcher.UIThread.Post(() => { _btnScan.IsEnabled = true; });
         }
     }
 }

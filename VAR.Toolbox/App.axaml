@@ -1,0 +1,10 @@
+﻿<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="VAR.Toolbox.App"
+             RequestedThemeVariant="Dark">
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://VAR.Toolbox/Controls/DarkThemeStyles.axaml" />
+    </Application.Styles>
+</Application>
+

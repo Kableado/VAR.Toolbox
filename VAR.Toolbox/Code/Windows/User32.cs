@@ -181,7 +181,7 @@ namespace VAR.Toolbox.Code.Windows
         public static string GetActiveWindowTitle()
         {
             const int NChars = 256;
-            StringBuilder buff = new StringBuilder(NChars);
+            StringBuilder buff = new(NChars);
             IntPtr handle = GetForegroundWindow();
 
             if (GetWindowText(handle, buff, NChars) > 0)
@@ -189,11 +189,11 @@ namespace VAR.Toolbox.Code.Windows
                 return buff.ToString();
             }
 
-            return null;
+            return string.Empty;
         }
         
-        public static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
-        public static readonly IntPtr HWND_NOTOPMOST = new IntPtr(-2);
+        public static readonly IntPtr HWND_TOPMOST = new(-1);
+        public static readonly IntPtr HWND_NOTOPMOST = new(-2);
         public const UInt32 SWP_NOSIZE = 0x0001;
         public const UInt32 SWP_NOMOVE = 0x0002;
         public const UInt32 TOPMOST_FLAGS = SWP_NOMOVE | SWP_NOSIZE;

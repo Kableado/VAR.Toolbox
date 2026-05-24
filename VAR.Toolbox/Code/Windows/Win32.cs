@@ -100,7 +100,7 @@ namespace VAR.Toolbox.Code.Windows
         public static uint GetLastInputTime()
         {
             uint idleTime = 0;
-            User32.LASTINPUTINFO lastInputInfo = new User32.LASTINPUTINFO();
+            User32.LASTINPUTINFO lastInputInfo = new();
             lastInputInfo.cbSize = (uint)Marshal.SizeOf(lastInputInfo);
             lastInputInfo.dwTime = 0;
             uint envTicks = (uint)Environment.TickCount;

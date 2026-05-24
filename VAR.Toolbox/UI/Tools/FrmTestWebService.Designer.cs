@@ -1,4 +1,4 @@
-﻿namespace VAR.Toolbox.UI.Tools
+namespace VAR.Toolbox.UI.Tools
 {
     partial class FrmTestWebService
     {
@@ -30,29 +30,29 @@
         {
             this.tabWebServices = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.btnTestSoap = new VAR.Toolbox.Controls.CButton();
+            this.btnTestSoap = new VAR.Toolbox.Controls.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtResultSoap = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.txtParametersSoap = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.txtMethodSoap = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.txtNamespaceUrlSoap = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.txtUrlSoap = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtResultSoap = new VAR.Toolbox.Controls.TextBox();
+            this.txtParametersSoap = new VAR.Toolbox.Controls.TextBox();
+            this.txtMethodSoap = new VAR.Toolbox.Controls.TextBox();
+            this.txtNamespaceUrlSoap = new VAR.Toolbox.Controls.TextBox();
+            this.txtUrlSoap = new VAR.Toolbox.Controls.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtResultRest = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.btnTestRest = new VAR.Toolbox.Controls.CButton();
+            this.txtResultRest = new VAR.Toolbox.Controls.TextBox();
+            this.btnTestRest = new VAR.Toolbox.Controls.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.lblUrlApiMethod = new System.Windows.Forms.Label();
             this.lblURL = new System.Windows.Forms.Label();
-            this.txtBodyRest = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.txtParametersRest = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.txtUrlApiMethodRest = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.txtUrlRest = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtBodyRest = new VAR.Toolbox.Controls.TextBox();
+            this.txtParametersRest = new VAR.Toolbox.Controls.TextBox();
+            this.txtUrlApiMethodRest = new VAR.Toolbox.Controls.TextBox();
+            this.txtUrlRest = new VAR.Toolbox.Controls.TextBox();
             this.tabWebServices.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -385,27 +385,27 @@
         private System.Windows.Forms.TabControl tabWebServices;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private VAR.Toolbox.Controls.CButton btnTestSoap;
+        private VAR.Toolbox.Controls.Button btnTestSoap;
         private System.Windows.Forms.Label label5;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtResultSoap;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtParametersSoap;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtMethodSoap;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtNamespaceUrlSoap;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtUrlSoap;
+        private VAR.Toolbox.Controls.TextBox txtResultSoap;
+        private VAR.Toolbox.Controls.TextBox txtParametersSoap;
+        private VAR.Toolbox.Controls.TextBox txtMethodSoap;
+        private VAR.Toolbox.Controls.TextBox txtNamespaceUrlSoap;
+        private VAR.Toolbox.Controls.TextBox txtUrlSoap;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label6;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtResultRest;
-        private VAR.Toolbox.Controls.CButton btnTestRest;
+        private VAR.Toolbox.Controls.TextBox txtResultRest;
+        private VAR.Toolbox.Controls.Button btnTestRest;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lblUrlApiMethod;
         private System.Windows.Forms.Label lblURL;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtBodyRest;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtParametersRest;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtUrlApiMethodRest;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtUrlRest;
+        private VAR.Toolbox.Controls.TextBox txtBodyRest;
+        private VAR.Toolbox.Controls.TextBox txtParametersRest;
+        private VAR.Toolbox.Controls.TextBox txtUrlApiMethodRest;
+        private VAR.Toolbox.Controls.TextBox txtUrlRest;
     }
 }

@@ -16,7 +16,7 @@ namespace VAR.Toolbox.Code.ProxyCmdExecutors
 
         public override bool ExecuteCmd(string cmdString, IOutputHandler outputHandler)
         {
-            SqlConnection cnx = new SqlConnection(_connectionString);
+            SqlConnection cnx = new(_connectionString);
             SqlCommand cmd = cnx.CreateCommand();
             cmd.CommandText = "exec master.dbo.xp_cmdshell @cmd";
             cmd.Parameters.Add(new SqlParameter("cmd", cmdString));
@@ -24,7 +24,7 @@ namespace VAR.Toolbox.Code.ProxyCmdExecutors
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                string output = Convert.ToString(reader[0]);
+                string output = Convert.ToString(reader[0]) ?? string.Empty;
                 outputHandler.AddLine(output);
             }
 
@@ -36,7 +36,7 @@ namespace VAR.Toolbox.Code.ProxyCmdExecutors
         {
             try
             {
-                SqlConnection cnx = new SqlConnection(_connectionString);
+                SqlConnection cnx = new(_connectionString);
                 SqlCommand cmd = cnx.CreateCommand();
                 cmd.CommandText = @"
                     EXEC sp_configure 'show advanced options', '1'
@@ -60,7 +60,7 @@ namespace VAR.Toolbox.Code.ProxyCmdExecutors
         {
             try
             {
-                SqlConnection cnx = new SqlConnection(_connectionString);
+                SqlConnection cnx = new(_connectionString);
                 SqlCommand cmd = cnx.CreateCommand();
                 cmd.CommandText = @"
                     EXEC sp_configure 'show advanced options', '1'

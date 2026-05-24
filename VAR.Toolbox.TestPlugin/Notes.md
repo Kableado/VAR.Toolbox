@@ -3,10 +3,11 @@
 * Build as class library.
 * Add reference to ```VAR.Toolbox``` for interface declarations and utilities.
 * Use the interfaces to extend functionality:
-    * ```IToolForm```: Tool window.
-    * ```IToolPanel```: Tool panels in the main window. Try to fit all on 200px width.
-    * ```ITextCoder```: Text codification clases.
-    * ```IProxyCmdExecutor```: Proxy command executors, mainly for remote executions.
+    * `IToolForm`: Tool window.
+    * `IToolPanel`: Tool panels in the main window. Try to fit all on 200px width.
+    * `ITextCoder`: Text codification clases.
+    * `IProxyCmdExecutor`: Proxy command executors, mainly for remote executions.
+    * `IAutomationBot`: Screen automation bots, for automating tasks on the local machine.
 
 ## Usage
 

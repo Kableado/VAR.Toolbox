@@ -1,4 +1,4 @@
-﻿namespace VAR.Toolbox.UI.Tools
+namespace VAR.Toolbox.UI.Tools
 {
     partial class FrmNetworkInfo
     {
@@ -29,22 +29,22 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.ddlNetworkInterfaces = new VAR.Toolbox.Controls.CComboBox();
+            this.ddlNetworkInterfaces = new VAR.Toolbox.Controls.ComboBox();
             this.lblID = new System.Windows.Forms.Label();
-            this.txtID = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtID = new VAR.Toolbox.Controls.TextBox();
             this.lblName = new System.Windows.Forms.Label();
-            this.txtName = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.txtStatus = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.txtSpeed = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.txtDescription = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.txtInterface = new VAR.Toolbox.Controls.TextBoxMonospace();
-            this.txtMAC = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtName = new VAR.Toolbox.Controls.TextBox();
+            this.txtStatus = new VAR.Toolbox.Controls.TextBox();
+            this.txtSpeed = new VAR.Toolbox.Controls.TextBox();
+            this.txtDescription = new VAR.Toolbox.Controls.TextBox();
+            this.txtInterface = new VAR.Toolbox.Controls.TextBox();
+            this.txtMAC = new VAR.Toolbox.Controls.TextBox();
             this.lblStatus = new System.Windows.Forms.Label();
             this.lblSpeed = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
             this.lblInterface = new System.Windows.Forms.Label();
             this.lblMAC = new System.Windows.Forms.Label();
-            this.txtIPs = new VAR.Toolbox.Controls.TextBoxMonospace();
+            this.txtIPs = new VAR.Toolbox.Controls.TextBox();
             this.lblIPs = new System.Windows.Forms.Label();
             this.timRefresh = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
@@ -254,22 +254,22 @@
 
         #endregion
 
-        private VAR.Toolbox.Controls.CComboBox ddlNetworkInterfaces;
+        private VAR.Toolbox.Controls.ComboBox ddlNetworkInterfaces;
         private System.Windows.Forms.Label lblID;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtID;
+        private VAR.Toolbox.Controls.TextBox txtID;
         private System.Windows.Forms.Label lblName;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtName;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtStatus;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtSpeed;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtDescription;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtInterface;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtMAC;
+        private VAR.Toolbox.Controls.TextBox txtName;
+        private VAR.Toolbox.Controls.TextBox txtStatus;
+        private VAR.Toolbox.Controls.TextBox txtSpeed;
+        private VAR.Toolbox.Controls.TextBox txtDescription;
+        private VAR.Toolbox.Controls.TextBox txtInterface;
+        private VAR.Toolbox.Controls.TextBox txtMAC;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label lblSpeed;
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.Label lblInterface;
         private System.Windows.Forms.Label lblMAC;
-        private VAR.Toolbox.Controls.TextBoxMonospace txtIPs;
+        private VAR.Toolbox.Controls.TextBox txtIPs;
         private System.Windows.Forms.Label lblIPs;
         private System.Windows.Forms.Timer timRefresh;
     }

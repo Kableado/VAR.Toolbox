@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Misc/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+  </Folder>
+  <Project Path="VAR.Toolbox.TestPlugin/VAR.Toolbox.TestPlugin.csproj" />
+  <Project Path="VAR.Toolbox/VAR.Toolbox.csproj" />
+</Solution>

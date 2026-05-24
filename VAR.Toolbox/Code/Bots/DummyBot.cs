@@ -7,12 +7,12 @@ namespace VAR.Toolbox.Code.Bots
     {
         public string Name => "Dummy";
 
-        public IConfiguration GetDefaultConfiguration()
+        public IConfiguration? GetDefaultConfiguration()
         {
             return null;
         }
 
-        public void Init(IOutputHandler output, IConfiguration config)
+        public void Init(IOutputHandler output, IConfiguration? config)
         {
             output.Clean();
         }

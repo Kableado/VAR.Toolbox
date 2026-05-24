@@ -19,13 +19,13 @@ namespace VAR.Toolbox.Code
 
         public static bool ApplicationIsActivated()
         {
-            var activatedHandle = User32.GetForegroundWindow();
+            IntPtr activatedHandle = User32.GetForegroundWindow();
             if (activatedHandle == IntPtr.Zero)
             {
                 return false;
             }
 
-            var procId = Process.GetCurrentProcess().Id;
+            int procId = Process.GetCurrentProcess().Id;
             User32.GetWindowThreadProcessId(activatedHandle, out int activeProcId);
             return activeProcId == procId;
         }

@@ -7,11 +7,11 @@ namespace VAR.Toolbox.Code
     {
         public static byte[] HexStringToBytes(string input)
         {
-            int[] hexValues = new int[]
-            {
+            int[] hexValues =
+            [
                 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x00,
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F
-            };
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,
+            ];
             if (input.Length % 2 == 1)
             {
                 throw new Exception("Uneven number of hex digits");
@@ -32,14 +32,14 @@ namespace VAR.Toolbox.Code
 
         public static string BytesToHexString(byte[] toEncodeAsBytes)
         {
-            string HexAlphabet = "0123456789ABCDEF";
-            StringBuilder sbOutput = new StringBuilder();
+            string hexAlphabet = "0123456789ABCDEF";
+            StringBuilder sbOutput = new();
             int count = toEncodeAsBytes.Length;
             for (int i = 0; i < count; i++)
             {
                 byte b = toEncodeAsBytes[i];
-                sbOutput.Append(HexAlphabet[(b >> 4)]);
-                sbOutput.Append(HexAlphabet[(b & 0xF)]);
+                sbOutput.Append(hexAlphabet[(b >> 4)]);
+                sbOutput.Append(hexAlphabet[(b & 0xF)]);
             }
 
             return sbOutput.ToString();

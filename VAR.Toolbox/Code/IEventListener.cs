@@ -2,6 +2,6 @@
 {
     public interface IEventListener
     {
-        void ProcessEvent(string eventName, object eventData);
+        void ProcessEvent(string eventName, object? eventData);
     }
 }
