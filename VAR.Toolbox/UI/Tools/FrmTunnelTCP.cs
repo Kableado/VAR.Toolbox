@@ -39,6 +39,7 @@ namespace VAR.Toolbox.UI.Tools
             _running = false;
             btnStop.Enabled = false;
             btnRun.Enabled = true;
+            ctrOutput.AddLine($"{DateTime.Now:s} TunnelTCP stop");
         }
 
         private void BtnRun_Click(object sender, EventArgs e)
@@ -65,6 +66,7 @@ namespace VAR.Toolbox.UI.Tools
         {
             try
             {
+                ctrOutput.AddLine($"{DateTime.Now:s} TunnelTCP Start: {remoteHost} {remotePort} {localPort}");
                 Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 sock.Bind(new IPEndPoint(IPAddress.Any, localPort));
                 sock.Listen(1000);
@@ -117,14 +119,16 @@ namespace VAR.Toolbox.UI.Tools
                     ((IPEndPoint)clientSock.RemoteEndPoint).Address);
 
                 // Conectar al host remoto
-                IPHostEntry entryHostRemoto = Dns.GetHostEntry(client.RemoteHost);
-                IPAddress ipRemoteHost = null;
-                foreach (IPAddress address in entryHostRemoto.AddressList)
+                if(IPAddress.TryParse(client.RemoteHost, out IPAddress? ipRemoteHost) == false)
                 {
-                    if (address.AddressFamily == AddressFamily.InterNetwork)
+                    IPHostEntry entryHostRemoto = Dns.GetHostEntry(client.RemoteHost);
+                    foreach (IPAddress address in entryHostRemoto.AddressList)
                     {
-                        ipRemoteHost = address;
-                        break;
+                        if (address.AddressFamily == AddressFamily.InterNetwork)
+                        {
+                            ipRemoteHost = address;
+                            break;
+                        }
                     }
                 }
 
