@@ -1,6 +1,5 @@
-﻿namespace VAR.Toolbox.Code.Bots
+﻿namespace VAR.Toolbox.Code.Bots;
+
+public abstract class AutomationBotFactory: BaseFactory<IAutomationBot>
 {
-    public abstract class AutomationBotFactory: BaseFactory<IAutomationBot>
-    {
-    }
 }

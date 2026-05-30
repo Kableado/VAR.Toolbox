@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 
-namespace VAR.Toolbox.Code.Configuration
+namespace VAR.Toolbox.Code.Configuration;
+
+public interface IConfiguration
 {
-    public interface IConfiguration
-    {
-        IEnumerable<string> GetKeys();
-        void Clear();
-        bool Get(string key, bool defaultValue);
-        int Get(string key, int defaultValue);
-        string Get(string key, string defaultValue);
-        void Set(string key, bool value);
-        void Set(string key, int value);
-        void Set(string key, string value);
-    }
+    IEnumerable<string> GetKeys();
+    void Clear();
+    bool Get(string key, bool defaultValue);
+    int Get(string key, int defaultValue);
+    string Get(string key, string defaultValue);
+    void Set(string key, bool value);
+    void Set(string key, int value);
+    void Set(string key, string value);
 }

@@ -11,123 +11,122 @@ using VAR.Toolbox.Code.Windows;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Local
 
-namespace VAR.Toolbox.UI.Tools
+namespace VAR.Toolbox.UI.Tools;
+
+public class PnlActivity : UserControl, IToolPanel
 {
-    public class PnlActivity : UserControl, IToolPanel
+    private readonly TextBox _txtCurrentActivity;
+    private readonly TextBlock _lblActiveWindowTitle;
+    private readonly TextBlock _lblActive;
+    private readonly DispatcherTimer _timTicker;
+
+    public PnlActivity()
     {
-        private readonly TextBox _txtCurrentActivity;
-        private readonly TextBlock _lblActiveWindowTitle;
-        private readonly TextBlock _lblActive;
-        private readonly DispatcherTimer _timTicker;
+        _txtCurrentActivity = new TextBox { AcceptsReturn = true, Height = 58, };
+        _lblActiveWindowTitle = new TextBlock { Text = "ActiveWindowTitle", };
+        _lblActive = new TextBlock { Text = "Active", };
 
-        public PnlActivity()
+        HeaderedContentControl grp = new() { Header = "Activity", };
+        StackPanel stack = new() { Spacing = 4, };
+        stack.Children.Add(_txtCurrentActivity);
+        stack.Children.Add(_lblActiveWindowTitle);
+        stack.Children.Add(_lblActive);
+        grp.Content = stack;
+
+        Content = new Border { Padding = new Thickness(4), Child = grp, Width = 200, };
+
+        _timTicker = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1), };
+        _timTicker.Tick += TimTicker_Tick;
+        _timTicker.Start();
+    }
+
+    private void TimTicker_Tick(object? sender, EventArgs e)
+    {
+        _timTicker.Stop();
+
+        string activeWindowTitle = User32.GetActiveWindowTitle();
+        bool active = Win32.GetLastInputTime() < 2;
+        DateTime date = DateTime.UtcNow;
+
+        _lblActiveWindowTitle.Text = activeWindowTitle;
+        _lblActive.Text = active ? "Active" : "Inactive";
+
+        Activity_Register(activeWindowTitle, active, date);
+
+        _timTicker.Start();
+    }
+
+    private class ActivityPoint
+    {
+        public string ActiveWindowTitle { get; set; } = string.Empty;
+        public bool Active { get; set; }
+        public DateTime Date { get; set; }
+    }
+
+    private DateTime _currentDate = DateTime.MinValue;
+    private readonly List<ActivityPoint> _currentActivityPoints = [];
+    private const int SecondsPerFrame = 30;
+
+    private void Activity_Register(string activeWindowTitle, bool active, DateTime date)
+    {
+        TimeSpan diffTime = date - _currentDate;
+        if (diffTime.TotalSeconds > SecondsPerFrame)
         {
-            _txtCurrentActivity = new TextBox { AcceptsReturn = true, Height = 58, };
-            _lblActiveWindowTitle = new TextBlock { Text = "ActiveWindowTitle", };
-            _lblActive = new TextBlock { Text = "Active", };
-
-            HeaderedContentControl grp = new() { Header = "Activity", };
-            StackPanel stack = new() { Spacing = 4, };
-            stack.Children.Add(_txtCurrentActivity);
-            stack.Children.Add(_lblActiveWindowTitle);
-            stack.Children.Add(_lblActive);
-            grp.Content = stack;
-
-            Content = new Border { Padding = new Thickness(4), Child = grp, Width = 200, };
-
-            _timTicker = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1), };
-            _timTicker.Tick += TimTicker_Tick;
-            _timTicker.Start();
+            Activity_EndFrame();
+            _currentActivityPoints.Clear();
+            _currentDate = date;
         }
+        _currentActivityPoints.Add(new ActivityPoint { ActiveWindowTitle = activeWindowTitle, Active = active, Date = date, });
+    }
 
-        private void TimTicker_Tick(object? sender, EventArgs e)
+    private class ActivityFrame
+    {
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string CurrentActivity { get; set; } = string.Empty;
+        public List<string> ActiveWindowTitles { get; set; } = [];
+        public float ActivityFactor { get; set; }
+    }
+
+    private void Activity_EndFrame()
+    {
+        if (_currentActivityPoints.Count == 0) return;
+
+        ActivityFrame frame = new()
         {
-            _timTicker.Stop();
+            StartDate = _currentActivityPoints.Min(ap => ap.Date),
+            EndDate = _currentActivityPoints.Max(ap => ap.Date),
+            CurrentActivity = _txtCurrentActivity.Text ?? string.Empty,
+            ActiveWindowTitles = _currentActivityPoints.Select(ap => ap.ActiveWindowTitle).Distinct().ToList(),
+            ActivityFactor = _currentActivityPoints.Count(ap => ap.Active) / (float)_currentActivityPoints.Count,
+        };
 
-            string activeWindowTitle = User32.GetActiveWindowTitle();
-            bool active = Win32.GetLastInputTime() < 2;
-            DateTime date = DateTime.UtcNow;
-
-            _lblActiveWindowTitle.Text = activeWindowTitle;
-            _lblActive.Text = active ? "Active" : "Inactive";
-
-            Activity_Register(activeWindowTitle, active, date);
-
-            _timTicker.Start();
-        }
-
-        private class ActivityPoint
+        JsonWriter jsonWriter = new();
+        string line = jsonWriter.Write(frame);
+        try
         {
-            public string ActiveWindowTitle { get; set; } = string.Empty;
-            public bool Active { get; set; }
-            public DateTime Date { get; set; }
+            StreamWriter? outStream = GetOutputStreamWriter();
+            outStream?.WriteLine(line);
+            CloseOutputStreamWriter(outStream);
         }
+        catch (Exception) { /* Ignore */ }
+    }
 
-        private DateTime _currentDate = DateTime.MinValue;
-        private readonly List<ActivityPoint> _currentActivityPoints = [];
-        private const int SecondsPerFrame = 30;
-
-        private void Activity_Register(string activeWindowTitle, bool active, DateTime date)
+    private static StreamWriter? GetOutputStreamWriter()
+    {
+        try
         {
-            TimeSpan diffTime = date - _currentDate;
-            if (diffTime.TotalSeconds > SecondsPerFrame)
-            {
-                Activity_EndFrame();
-                _currentActivityPoints.Clear();
-                _currentDate = date;
-            }
-            _currentActivityPoints.Add(new ActivityPoint { ActiveWindowTitle = activeWindowTitle, Active = active, Date = date, });
+            string location = System.Reflection.Assembly.GetEntryAssembly()?.Location ??
+                              System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string? path = Path.GetDirectoryName(location);
+            string fileOut = $"{path}/Activity.{DateTime.UtcNow:yyyy-MM-dd}.txt";
+            return File.AppendText(fileOut);
         }
+        catch (Exception) { return null; }
+    }
 
-        private class ActivityFrame
-        {
-            public DateTime StartDate { get; set; }
-            public DateTime EndDate { get; set; }
-            public string CurrentActivity { get; set; } = string.Empty;
-            public List<string> ActiveWindowTitles { get; set; } = [];
-            public float ActivityFactor { get; set; }
-        }
-
-        private void Activity_EndFrame()
-        {
-            if (_currentActivityPoints.Count == 0) return;
-
-            ActivityFrame frame = new()
-            {
-                StartDate = _currentActivityPoints.Min(ap => ap.Date),
-                EndDate = _currentActivityPoints.Max(ap => ap.Date),
-                CurrentActivity = _txtCurrentActivity.Text ?? string.Empty,
-                ActiveWindowTitles = _currentActivityPoints.Select(ap => ap.ActiveWindowTitle).Distinct().ToList(),
-                ActivityFactor = _currentActivityPoints.Count(ap => ap.Active) / (float)_currentActivityPoints.Count,
-            };
-
-            JsonWriter jsonWriter = new();
-            string line = jsonWriter.Write(frame);
-            try
-            {
-                StreamWriter? outStream = GetOutputStreamWriter();
-                outStream?.WriteLine(line);
-                CloseOutputStreamWriter(outStream);
-            }
-            catch (Exception) { /* Ignore */ }
-        }
-
-        private static StreamWriter? GetOutputStreamWriter()
-        {
-            try
-            {
-                string location = System.Reflection.Assembly.GetEntryAssembly()?.Location ??
-                                  System.Reflection.Assembly.GetExecutingAssembly().Location;
-                string? path = Path.GetDirectoryName(location);
-                string fileOut = $"{path}/Activity.{DateTime.UtcNow:yyyy-MM-dd}.txt";
-                return File.AppendText(fileOut);
-            }
-            catch (Exception) { return null; }
-        }
-
-        private static void CloseOutputStreamWriter(StreamWriter? stream)
-        {
-            stream?.Close();
-        }
+    private static void CloseOutputStreamWriter(StreamWriter? stream)
+    {
+        stream?.Close();
     }
 }

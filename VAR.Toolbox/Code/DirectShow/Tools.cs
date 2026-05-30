@@ -2,87 +2,86 @@
 
 using System.Runtime.InteropServices;
 
-namespace VAR.Toolbox.Code.DirectShow
+namespace VAR.Toolbox.Code.DirectShow;
+
+/// <summary>
+/// Some miscellaneous functions.
+/// </summary>
+/// 
+internal static class Tools
 {
     /// <summary>
-    /// Some miscellaneous functions.
+    /// Get filter's pin.
     /// </summary>
     /// 
-    internal static class Tools
+    /// <param name="filter">Filter to get pin of.</param>
+    /// <param name="dir">Pin's direction.</param>
+    /// <param name="num">Pin's number.</param>
+    /// 
+    /// <returns>Returns filter's pin.</returns>
+    /// 
+    private static IPin? GetPin(IBaseFilter filter, PinDirection dir, int num)
     {
-        /// <summary>
-        /// Get filter's pin.
-        /// </summary>
-        /// 
-        /// <param name="filter">Filter to get pin of.</param>
-        /// <param name="dir">Pin's direction.</param>
-        /// <param name="num">Pin's number.</param>
-        /// 
-        /// <returns>Returns filter's pin.</returns>
-        /// 
-        private static IPin? GetPin(IBaseFilter filter, PinDirection dir, int num)
+        // Use a non-nullable array and null-forgive where required for COM interop
+        IPin[] pin = new IPin[1];
+
+        // enum filter pins
+        if (filter.EnumPins(out IEnumPins pinsEnum) == 0)
         {
-            // Use a non-nullable array and null-forgive where required for COM interop
-            IPin[] pin = new IPin[1];
-
-            // enum filter pins
-            if (filter.EnumPins(out IEnumPins pinsEnum) == 0)
+            try
             {
-                try
+                // get next pin
+                while (pinsEnum.Next(1, pin, out int _) == 0)
                 {
-                    // get next pin
-                    while (pinsEnum.Next(1, pin, out int _) == 0)
+                    // query pin`s direction
+                    pin[0].QueryDirection(out PinDirection pinDir);
+
+                    if (pinDir == dir)
                     {
-                        // query pin`s direction
-                        pin[0].QueryDirection(out PinDirection pinDir);
-
-                        if (pinDir == dir)
-                        {
-                            if (num == 0)
-                                return pin[0];
-                            num--;
-                        }
-
-                        Marshal.ReleaseComObject(pin[0]);
-                        // clear slot for next iteration
-                        pin[0] = null!;
+                        if (num == 0)
+                            return pin[0];
+                        num--;
                     }
-                }
-                finally
-                {
-                    Marshal.ReleaseComObject(pinsEnum);
+
+                    Marshal.ReleaseComObject(pin[0]);
+                    // clear slot for next iteration
+                    pin[0] = null!;
                 }
             }
-
-            return null;
+            finally
+            {
+                Marshal.ReleaseComObject(pinsEnum);
+            }
         }
 
-        /// <summary>
-        /// Get filter's input pin.
-        /// </summary>
-        /// 
-        /// <param name="filter">Filter to get pin of.</param>
-        /// <param name="num">Pin's number.</param>
-        /// 
-        /// <returns>Returns filter's pin.</returns>
-        /// 
-        public static IPin? GetInPin(IBaseFilter filter, int num)
-        {
-            return GetPin(filter, PinDirection.Input, num);
-        }
+        return null;
+    }
 
-        /// <summary>
-        /// Get filter's output pin.
-        /// </summary>
-        /// 
-        /// <param name="filter">Filter to get pin of.</param>
-        /// <param name="num">Pin's number.</param>
-        /// 
-        /// <returns>Returns filter's pin.</returns>
-        /// 
-        public static IPin? GetOutPin(IBaseFilter filter, int num)
-        {
-            return GetPin(filter, PinDirection.Output, num);
-        }
+    /// <summary>
+    /// Get filter's input pin.
+    /// </summary>
+    /// 
+    /// <param name="filter">Filter to get pin of.</param>
+    /// <param name="num">Pin's number.</param>
+    /// 
+    /// <returns>Returns filter's pin.</returns>
+    /// 
+    public static IPin? GetInPin(IBaseFilter filter, int num)
+    {
+        return GetPin(filter, PinDirection.Input, num);
+    }
+
+    /// <summary>
+    /// Get filter's output pin.
+    /// </summary>
+    /// 
+    /// <param name="filter">Filter to get pin of.</param>
+    /// <param name="num">Pin's number.</param>
+    /// 
+    /// <returns>Returns filter's pin.</returns>
+    /// 
+    public static IPin? GetOutPin(IBaseFilter filter, int num)
+    {
+        return GetPin(filter, PinDirection.Output, num);
     }
 }

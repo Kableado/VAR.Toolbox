@@ -1,83 +1,82 @@
 ﻿using System;
 using Microsoft.Data.SqlClient;
 
-namespace VAR.Toolbox.Code.ProxyCmdExecutors
+namespace VAR.Toolbox.Code.ProxyCmdExecutors;
+
+public class ProxyCmdExecutorThroughSQLServer : BaseProxyCmdExecutor
 {
-    public class ProxyCmdExecutorThroughSQLServer : BaseProxyCmdExecutor
+    public override string Name => "SqlServer";
+
+    private readonly string _connectionString;
+
+    public ProxyCmdExecutorThroughSQLServer(string connectionString)
     {
-        public override string Name => "SqlServer";
+        _connectionString = connectionString;
+    }
 
-        private readonly string _connectionString;
-
-        public ProxyCmdExecutorThroughSQLServer(string connectionString)
+    public override bool ExecuteCmd(string cmdString, IOutputHandler outputHandler)
+    {
+        SqlConnection cnx = new(_connectionString);
+        SqlCommand cmd = cnx.CreateCommand();
+        cmd.CommandText = "exec master.dbo.xp_cmdshell @cmd";
+        cmd.Parameters.Add(new SqlParameter("cmd", cmdString));
+        cnx.Open();
+        SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
         {
-            _connectionString = connectionString;
+            string output = Convert.ToString(reader[0]) ?? string.Empty;
+            outputHandler.AddLine(output);
         }
 
-        public override bool ExecuteCmd(string cmdString, IOutputHandler outputHandler)
+        cnx.Close();
+        return true;
+    }
+
+    public override bool Enable()
+    {
+        try
         {
             SqlConnection cnx = new(_connectionString);
             SqlCommand cmd = cnx.CreateCommand();
-            cmd.CommandText = "exec master.dbo.xp_cmdshell @cmd";
-            cmd.Parameters.Add(new SqlParameter("cmd", cmdString));
-            cnx.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                string output = Convert.ToString(reader[0]) ?? string.Empty;
-                outputHandler.AddLine(output);
-            }
-
-            cnx.Close();
-            return true;
-        }
-
-        public override bool Enable()
-        {
-            try
-            {
-                SqlConnection cnx = new(_connectionString);
-                SqlCommand cmd = cnx.CreateCommand();
-                cmd.CommandText = @"
+            cmd.CommandText = @"
                     EXEC sp_configure 'show advanced options', '1'
                     RECONFIGURE
                     EXEC sp_configure 'xp_cmdshell', '1' 
                     RECONFIGURE
                 ";
-                cnx.Open();
-                cmd.ExecuteNonQuery();
-                cnx.Close();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(ex);
-                return false;
-            }
+            cnx.Open();
+            cmd.ExecuteNonQuery();
+            cnx.Close();
+            return true;
         }
-
-        public override bool Disable()
+        catch (Exception ex)
         {
-            try
-            {
-                SqlConnection cnx = new(_connectionString);
-                SqlCommand cmd = cnx.CreateCommand();
-                cmd.CommandText = @"
+            Logger.Log(ex);
+            return false;
+        }
+    }
+
+    public override bool Disable()
+    {
+        try
+        {
+            SqlConnection cnx = new(_connectionString);
+            SqlCommand cmd = cnx.CreateCommand();
+            cmd.CommandText = @"
                     EXEC sp_configure 'show advanced options', '1'
                     RECONFIGURE
                     EXEC sp_configure 'xp_cmdshell', '0' 
                     RECONFIGURE
                 ";
-                cnx.Open();
-                cmd.ExecuteNonQuery();
-                cnx.Close();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(ex);
-                return false;
-            }
+            cnx.Open();
+            cmd.ExecuteNonQuery();
+            cnx.Close();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Logger.Log(ex);
+            return false;
         }
     }
 }

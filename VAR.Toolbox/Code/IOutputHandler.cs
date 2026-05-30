@@ -1,8 +1,7 @@
-﻿namespace VAR.Toolbox.Code
+﻿namespace VAR.Toolbox.Code;
+
+public interface IOutputHandler
 {
-    public interface IOutputHandler
-    {
-        void Clean();
-        void AddLine(string line, object? data = null);
-    }
+    void Clean();
+    void AddLine(string line, object? data = null);
 }

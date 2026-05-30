@@ -1,19 +1,18 @@
-﻿namespace VAR.Toolbox.Code.ProxyCmdExecutors
+﻿namespace VAR.Toolbox.Code.ProxyCmdExecutors;
+
+public class ProxyCmdExecutorDummy : BaseProxyCmdExecutor
 {
-    public class ProxyCmdExecutorDummy : BaseProxyCmdExecutor
+    private readonly string _config;
+    public override string Name => "Dummy";
+
+    public ProxyCmdExecutorDummy(string config)
     {
-        private readonly string _config;
-        public override string Name => "Dummy";
+        _config = config;
+    }
 
-        public ProxyCmdExecutorDummy(string config)
-        {
-            _config = config;
-        }
-
-        public override bool ExecuteCmd(string cmdString, IOutputHandler outputHandler)
-        {
-            outputHandler.AddLine($"DummyExecution: {cmdString} | {_config}");
-            return true;
-        }
+    public override bool ExecuteCmd(string cmdString, IOutputHandler outputHandler)
+    {
+        outputHandler.AddLine($"DummyExecution: {cmdString} | {_config}");
+        return true;
     }
 }

@@ -1,8 +1,7 @@
-namespace VAR.Toolbox.UI
+namespace VAR.Toolbox.UI;
+
+public interface IToolForm
 {
-    public interface IToolForm
-    {
-        string ToolName { get; }
-        bool HasIcon { get; }
-    }
+    string ToolName { get; }
+    bool HasIcon { get; }
 }

@@ -1,10 +1,9 @@
-﻿namespace VAR.Toolbox.Code.TextCoders
-{
-    public interface ITextCoder : INamed
-    {
-        bool NeedsKey { get; }
+﻿namespace VAR.Toolbox.Code.TextCoders;
 
-        string Encode(string input, string key);
-        string Decode(string input, string key);
-    }
+public interface ITextCoder : INamed
+{
+    bool NeedsKey { get; }
+
+    string Encode(string input, string key);
+    string Decode(string input, string key);
 }

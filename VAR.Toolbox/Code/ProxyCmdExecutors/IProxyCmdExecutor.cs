@@ -1,11 +1,10 @@
-﻿namespace VAR.Toolbox.Code.ProxyCmdExecutors
+﻿namespace VAR.Toolbox.Code.ProxyCmdExecutors;
+
+public interface IProxyCmdExecutor : INamed
 {
-    public interface IProxyCmdExecutor : INamed
-    {
-        bool ExecuteCmd(string cmd, IOutputHandler outputHandler);
+    bool ExecuteCmd(string cmd, IOutputHandler outputHandler);
 
-        bool Enable();
+    bool Enable();
 
-        bool Disable();
-    }
+    bool Disable();
 }
