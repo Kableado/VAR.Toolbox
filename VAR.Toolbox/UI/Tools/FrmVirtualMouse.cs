@@ -35,7 +35,12 @@ public class FrmVirtualMouse : Window, IToolForm
         _globalKeyboard.KeyDown += GlobalKeyboard_OnKeyDown;
     }
 
+    // Use the real WinForms KeyEventArgs on Windows; otherwise use the stubbed type so this file compiles on Linux.
+#if WINDOWS
     private void GlobalKeyboard_OnKeyDown(object? sender, System.Windows.Forms.KeyEventArgs keyEvent)
+#else
+    private void GlobalKeyboard_OnKeyDown(object? sender, VAR.Toolbox.Code.Windows.KeyEventArgs keyEvent)
+#endif
     {
         string key = keyEvent.KeyCode.ToString();
         Avalonia.Threading.Dispatcher.UIThread.Post(() => { _lsbInputs.Items.Add(key); });

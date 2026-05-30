@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net10.0-windows</TargetFramework>
-    <OutputType>WinExe</OutputType>
+    <!-- Use a cross-platform target framework and build a regular console/app executable
+         so the project can be built on Linux. Windows-specific APIs are stubbed where needed. -->
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
     <Nullable>enable</Nullable>
     <!-- Habilitar analizadores de .NET para ejecutar las mismas reglas durante la compilación
          Esto permitirá que dotnet build muestre los avisos que normalmente muestra el IDE. -->
@@ -61,10 +63,9 @@
     <PackageReference Include="Avalonia.Desktop" Version="12.0.3" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.3" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.1" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
     <!-- Analizadores de .NET: confiar en los analizadores integrados del SDK para evitar conflictos de versiones -->
   </ItemGroup>
-  <ItemGroup>
-    <!-- Keep WinForms types for Windows-specific P/Invoke utilities -->
-    <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
-  </ItemGroup>
+  <!-- Remove the Windows Forms framework reference so the project is cross-platform.
+       Windows-specific UI and P/Invoke code is conditionally compiled or stubbed. -->
 </Project>

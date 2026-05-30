@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Diagnostics;
+#if WINDOWS
 using System.Windows.Forms;
 using VAR.Toolbox.Code.Windows;
-
-// ReSharper disable InconsistentNaming
+#endif
 
 namespace VAR.Toolbox.Code;
 
+// ReSharper disable InconsistentNaming
+
 public static class WindowHandling
 {
+#if WINDOWS
+
     public static void WindowSetTopLevel(Form form, bool top = true)
     {
         User32.SetWindowPos(form.Handle, top
@@ -29,4 +33,17 @@ public static class WindowHandling
         User32.GetWindowThreadProcessId(activatedHandle, out int activeProcId);
         return activeProcId == procId;
     }
+#else
+    // No-op implementations for non-Windows platforms so project compiles on Linux.
+    public static void WindowSetTopLevel(object form, bool top = true)
+    {
+        // Not applicable on non-Windows platforms
+    }
+
+    public static bool ApplicationIsActivated()
+    {
+        // Assume activated on non-Windows for simplicity
+        return true;
+    }
+#endif
 }

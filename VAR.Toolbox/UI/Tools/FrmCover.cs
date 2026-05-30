@@ -71,7 +71,7 @@ public class FrmCover : Window
         RestoreAndClose();
     }
 
-    private void FrmCover_KeyDown(object? sender, KeyEventArgs e)
+    private void FrmCover_KeyDown(object? sender, Avalonia.Input.KeyEventArgs e)
     {
         RestoreAndClose();
     }
