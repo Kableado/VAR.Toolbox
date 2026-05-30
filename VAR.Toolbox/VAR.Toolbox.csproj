@@ -50,7 +50,11 @@
   <ItemGroup>
     <Content Include="Images\Toolbox.png" />
     <Content Include="Images\toolbox.svg" />
-    <Content Include="Toolbox.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Embed the icon into the assembly so it can be loaded as a resource at runtime -->
+    <EmbeddedResource Include="Toolbox.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="12.0.3" />
