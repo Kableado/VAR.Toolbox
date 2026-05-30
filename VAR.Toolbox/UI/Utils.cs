@@ -2,7 +2,9 @@
 
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
+using Avalonia.Media;
 
 namespace VAR.Toolbox.UI;
 
@@ -10,19 +12,19 @@ public static class Utils
 {
     public static async Task<bool> MsgConfirm(Window owner, string title, string message)
     {
-        // Simple confirmation - create a dialog
         Window dlg = new()
         {
             Title = title,
             Width = 300,
-            Height = 100,
+            MaxHeight = 300,
+            SizeToContent = SizeToContent.Height,
             WindowStartupLocation = WindowStartupLocation.CenterOwner,
             CanResize = false,
         };
 
         bool confirmed = false;
         StackPanel stack = new() { Margin = new Thickness(20), Spacing = 15, };
-        stack.Children.Add(new TextBlock { Text = message, });
+        stack.Children.Add(new TextBlock { Text = message, TextWrapping = TextWrapping.Wrap,});
 
         StackPanel buttons = new() { Orientation = Orientation.Horizontal, Spacing = 10, HorizontalAlignment = HorizontalAlignment.Right, };
         Button btnYes = new() { Content = "Yes", };
@@ -32,7 +34,15 @@ public static class Utils
         buttons.Children.Add(btnYes);
         buttons.Children.Add(btnNo);
         stack.Children.Add(buttons);
-        dlg.Content = stack;
+
+        ScrollViewer sv = new()
+        {
+            Content = stack,
+            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+            MaxHeight = dlg.MaxHeight,
+        };
+
+        dlg.Content = sv;
 
         await dlg.ShowDialog(owner);
         return confirmed;
@@ -44,7 +54,8 @@ public static class Utils
         {
             Title = title,
             Width = 300,
-            Height = 100,
+            MaxHeight = 300,
+            SizeToContent = SizeToContent.Height,
             WindowStartupLocation = WindowStartupLocation.CenterOwner,
             CanResize = false,
         };
@@ -57,7 +68,15 @@ public static class Utils
         btnOk.Click += (_, _) => { dlg.Close(); };
         buttons.Children.Add(btnOk);
         stack.Children.Add(buttons);
-        dlg.Content = stack;
+
+        ScrollViewer sv = new()
+        {
+            Content = stack,
+            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+            MaxHeight = dlg.MaxHeight,
+        };
+
+        dlg.Content = sv;
 
         await dlg.ShowDialog(owner);
     }
