@@ -107,21 +107,23 @@ namespace VAR.Toolbox.UI.Tools
             }
         }
 
-        private static StreamWriter GetOutputStreamWriter()
+    private static StreamWriter GetOutputStreamWriter()
+    {
+        try
         {
-            try
+            string location = System.Reflection.Assembly.GetEntryAssembly()?.Location ??
+                              System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string assemblyPath = Path.GetDirectoryName(location);
+            string path = Path.Combine(assemblyPath ?? string.Empty, "Activity");
+            if (Directory.Exists(path) == false)
             {
-                string location = System.Reflection.Assembly.GetEntryAssembly()?.Location;
-                string path = Path.GetDirectoryName(location);
-
-                string fileOut = $"{path}/Activity.{DateTime.UtcNow:yyyy-MM-dd}.txt";
-                return File.AppendText(fileOut);
+                Directory.CreateDirectory(path);
             }
-            catch (Exception)
-            {
-                return null;
-            }
+            string fileOut = $"{path}/Activity.{DateTime.UtcNow:yyyy-MM-dd}.txt";
+            return File.AppendText(fileOut);
         }
+        catch (Exception) { return null; }
+    }
 
         private static void CloseOutputStreamWriter(StreamWriter stream)
         {

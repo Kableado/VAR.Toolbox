@@ -22,6 +22,12 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         #endregion IToolForm
 
+        #region Declarations
+
+        private const string _worklogPath = "WorkLogs";
+
+        #endregion Declarations
+
         #region Form life cycle
 
         public FrmWorkLog()
@@ -400,7 +406,7 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
         private void WorkLog_LoadData()
         {
             _workLog = null;
-            string fileName = $"{txtName.Text}.WorkLog.json";
+            string fileName = $"{_worklogPath}/{txtName.Text}.WorkLog.json";
             if (File.Exists(fileName))
             {
                 string rawFile = File.ReadAllText(fileName);
@@ -432,7 +438,12 @@ namespace VAR.Toolbox.UI.Tools.WorkLog
 
         private void WorkLog_SaveData()
         {
-            string fileName = $"{txtName.Text}.WorkLog.json";
+            string fileName = $"{_worklogPath}/{txtName.Text}.WorkLog.json";
+            if (Directory.Exists(_worklogPath) == false)
+            {
+                Directory.CreateDirectory(_worklogPath);
+            }
+
             if (File.Exists(fileName))
             {
                 File.Delete(fileName);
