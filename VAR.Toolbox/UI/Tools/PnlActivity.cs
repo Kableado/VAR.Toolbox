@@ -118,7 +118,12 @@ public class PnlActivity : UserControl, IToolPanel
         {
             string location = System.Reflection.Assembly.GetEntryAssembly()?.Location ??
                               System.Reflection.Assembly.GetExecutingAssembly().Location;
-            string? path = Path.GetDirectoryName(location);
+            string? assemblyPath = Path.GetDirectoryName(location);
+            string path = Path.Combine(assemblyPath ?? string.Empty, "Activity");
+            if (Directory.Exists(path) == false)
+            {
+                Directory.CreateDirectory(path);
+            }
             string fileOut = $"{path}/Activity.{DateTime.UtcNow:yyyy-MM-dd}.txt";
             return File.AppendText(fileOut);
         }

@@ -25,7 +25,9 @@ public class FrmWorkLog : Window, IToolForm
     #endregion IToolForm
 
     #region Declarations
-        
+
+    private const string _worklogPath = "WorkLogs";
+    
     private readonly TextBox _txtName;
     private readonly Button _btnSave;
     private readonly ListBox _lsbWorkLog;
@@ -688,7 +690,7 @@ public class FrmWorkLog : Window, IToolForm
     private void WorkLog_LoadData()
     {
         _workLog.Clear();
-        string fileName = $"{_txtName.Text ?? string.Empty}.WorkLog.json";
+        string fileName = $"{_worklogPath}/{_txtName.Text ?? string.Empty}.WorkLog.json";
         if (File.Exists(fileName))
         {
             string rawFile = File.ReadAllText(fileName);
@@ -709,8 +711,13 @@ public class FrmWorkLog : Window, IToolForm
 
     private void WorkLog_SaveData()
     {
-        string fileName = $"{_txtName.Text}.WorkLog.json";
-        if (File.Exists(fileName)) File.Delete(fileName);
+        string fileName = $"{_worklogPath}/{_txtName.Text}.WorkLog.json";
+        if (Directory.Exists(_worklogPath) == false)
+        {
+            Directory.CreateDirectory(_worklogPath);
+        }
+        
+        if (File.Exists(fileName)) { File.Delete(fileName); }
         JsonWriter jsonWriter = new(new JsonWriterConfiguration(indent: true));
         using (StreamWriter streamWriter = new(fileName))
         {
