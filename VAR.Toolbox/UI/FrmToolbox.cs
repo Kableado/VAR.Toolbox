@@ -176,11 +176,10 @@ public class FrmToolbox : Window
             {
                 ToolTipText = "VAR.Toolbox",
                 IsVisible = true,
-                // If the Window has an Icon set, use it; otherwise leave null
-                Icon = this.Icon
+                Icon = Icon,
             };
 
-            _trayIcon.Clicked += (_, _) => NiTray_MouseClick();
+            _trayIcon.Clicked += (_, _) => TrayIcon_MouseClick();
         }
         catch (Exception ex)
         {
@@ -307,7 +306,7 @@ public class FrmToolbox : Window
         }
     }
 
-    private void NiTray_MouseClick()
+    private void TrayIcon_MouseClick()
     {
 
         // If visible, hide; otherwise show (and bring to front)

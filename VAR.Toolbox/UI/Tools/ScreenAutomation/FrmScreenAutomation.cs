@@ -186,7 +186,7 @@ public class FrmScreenAutomation : Window, IToolForm
         {
             _ddlAutomationBot.SelectedItem = selectedBot;
         }
-        if (_ddlAutomationBot is { SelectedIndex: < 0, ItemCount: > 0 })
+        if (_ddlAutomationBot is { SelectedIndex: < 0, ItemCount: > 0, })
         {
             _ddlAutomationBot.SelectedIndex = 0;
         }

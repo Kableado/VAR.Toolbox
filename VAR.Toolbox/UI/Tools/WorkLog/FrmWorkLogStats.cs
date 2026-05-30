@@ -28,7 +28,7 @@ public class FrmWorkLogStats : Window
             
         Grid activityGrid = new()
         {
-            ColumnDefinitions = new ColumnDefinitions("*, Auto")
+            ColumnDefinitions = new ColumnDefinitions("*, Auto"),
         };
         Grid.SetRow(activityGrid, 0);
         _txtActivity = new TextBox { PlaceholderText = "Activity", };
