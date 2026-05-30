@@ -17,6 +17,10 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <!-- Define WINDOWS compilation symbol when building on Windows so #if WINDOWS blocks are included -->
+  <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
+    <DefineConstants>$(DefineConstants);WINDOWS</DefineConstants>
+  </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Toolbox.ico</ApplicationIcon>
   </PropertyGroup>
@@ -68,4 +72,8 @@
   </ItemGroup>
   <!-- Remove the Windows Forms framework reference so the project is cross-platform.
        Windows-specific UI and P/Invoke code is conditionally compiled or stubbed. -->
+  <!-- Re-add WindowsForms framework reference when building on Windows so types like Form/KeyEventArgs are available -->
+  <ItemGroup Condition=" '$(OS)' == 'Windows_NT' ">
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
+  </ItemGroup>
 </Project>

@@ -21,7 +21,7 @@ public class FrmCover : Window
     {
         Mouse.GetPosition(out _mouseX, out _mouseY);
 
-        Title = User32.GetActiveWindowTitle();
+        Title = VAR.Toolbox.Code.Platform.Platform.Current.GetActiveWindowTitle();
         Topmost = true;
         WindowDecorations = WindowDecorations.None;
         Background = Brushes.Black;

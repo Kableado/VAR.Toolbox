@@ -100,12 +100,10 @@ public static class Screenshoter
         return bmp;
     }
 
-    [DllImport("user32.dll", SetLastError = false)]
-    private static extern IntPtr GetDesktopWindow();
-
+    // Use platform-safe User32 wrapper instead of direct P/Invoke here
     public static Image CaptureDesktop()
     {
-        return CaptureWindow(GetDesktopWindow());
+        return CaptureWindow(User32.GetDesktopWindow());
     }
 
     /// <summary>
@@ -115,35 +113,11 @@ public static class Screenshoter
     /// <returns></returns>
     public static Image CaptureWindow(IntPtr handle)
     {
-        // get te hDC of the target window
-        IntPtr hdcSrc = User32.GetWindowDC(handle);
-        // get the size
-        User32.RECT windowRect = new();
-        User32.GetWindowRect(handle, ref windowRect);
-        int left = windowRect.left;
-        int top = windowRect.top;
-        int width = windowRect.right - left;
-        int height = windowRect.bottom - top;
-        // create a device context we can copy to
-        IntPtr hdcDest = GDI32.CreateCompatibleDC(hdcSrc);
-        // create a bitmap we can copy it to,
-        // using GetDeviceCaps to get the width/height
-        IntPtr hBitmap = GDI32.CreateCompatibleBitmap(hdcSrc, width, height);
-        // select the bitmap object
-        IntPtr hOld = GDI32.SelectObject(hdcDest, hBitmap);
-        // bitblt over
-        GDI32.BitBlt(hdcDest, 0, 0, width, height, hdcSrc, 0, 0, GDI32.SRCCOPY);
-        // restore selection
-        GDI32.SelectObject(hdcDest, hOld);
-        // clean up 
-        GDI32.DeleteDC(hdcDest);
-        User32.ReleaseDC(handle, hdcSrc);
+        // Delegate to platform-specific implementation. On Linux this may return null.
+        System.Drawing.Image? img = VAR.Toolbox.Code.Platform.Platform.Current.CaptureWindow(handle);
+        if (img != null) return img;
 
-        // get a .NET image object for it
-        Image img = Image.FromHbitmap(hBitmap);
-        // free up the Bitmap object
-        GDI32.DeleteObject(hBitmap);
-
-        return img;
+        // Fallback: create empty bitmap if capture not supported on platform
+        return new System.Drawing.Bitmap(1, 1);
     }
 }

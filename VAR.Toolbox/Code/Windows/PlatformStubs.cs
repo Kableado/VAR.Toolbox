@@ -2,6 +2,7 @@
 // platforms. These types intentionally live in VAR.Toolbox.Code.Windows to avoid name conflicts with
 // Avalonia and other libraries.
 
+#if !WINDOWS
 namespace VAR.Toolbox.Code.Windows
 {
     // Minimal Keys enum used only for compilation; values are placeholders.
@@ -19,4 +20,5 @@ namespace VAR.Toolbox.Code.Windows
 
     public delegate void KeyEventHandler(object sender, KeyEventArgs e);
 }
+#endif
 

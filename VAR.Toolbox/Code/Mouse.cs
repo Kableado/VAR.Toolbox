@@ -20,58 +20,14 @@ public static class Mouse
     // Cross-platform Move
     public static void Move(int dx, int dy)
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-            WindowsMove(dx, dy);
-            return;
-        }
-
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-        {
-            // If running on Wayland, prefer portal path (requires xdg-desktop-portal)
-            string sessionType = Environment.GetEnvironmentVariable("XDG_SESSION_TYPE") ?? string.Empty;
-            if (sessionType.Equals("wayland", StringComparison.OrdinalIgnoreCase) || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WAYLAND_DISPLAY")))
-            {
-                var info = WaylandProbePortal();
-                if (!info.IsAvailable)
-                    throw new PlatformNotSupportedException("Wayland detected but xdg-desktop-portal not available: " + info.Error);
-                // Portal present; injection implementation via xdg-desktop-portal not yet implemented in this version.
-                throw new NotImplementedException("Wayland portal detected (" + string.Join(',', info.Interfaces) + ") but input injection via portal is not yet implemented. Run Mouse.WaylandProbePortal() to inspect available interfaces and request implementation.");
-            }
-
-            // Fallback to X11 implementation
-            LinuxMove(dx, dy);
-            return;
-        }
-
-        throw new PlatformNotSupportedException("Mouse operations are supported on Windows and Linux only.");
+        // Delegate to platform abstraction which encapsulates platform-specific details.
+        VAR.Toolbox.Code.Platform.Platform.Current.MoveMouseRelative(dx, dy);
     }
 
     // Cross-platform button press/release
     public static void SetButton(MouseButtons button, bool down)
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-            WindowsSetButton(button, down);
-            return;
-        }
-
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-        {
-            string sessionType = Environment.GetEnvironmentVariable("XDG_SESSION_TYPE") ?? string.Empty;
-            if (sessionType.Equals("wayland", StringComparison.OrdinalIgnoreCase) || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WAYLAND_DISPLAY")))
-            {
-                var info = WaylandProbePortal();
-                if (!info.IsAvailable)
-                    throw new PlatformNotSupportedException("Wayland detected but xdg-desktop-portal not available: " + info.Error);
-                throw new NotImplementedException("Wayland portal detected (" + string.Join(',', info.Interfaces) + ") but input injection via portal is not yet implemented. Run Mouse.WaylandProbePortal() to inspect available interfaces and request implementation.");
-            }
-
-            LinuxSetButton(button, down);
-            return;
-        }
-
-        throw new PlatformNotSupportedException("Mouse operations are supported on Windows and Linux only.");
+        VAR.Toolbox.Code.Platform.Platform.Current.SetMouseButton(button, down);
     }
 
     public static void Click(MouseButtons button)
@@ -83,140 +39,15 @@ public static class Mouse
 
     public static void GetPosition(out UInt32 x, out UInt32 y)
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-            User32.GetCursorPos(out User32.POINT lpPoint);
-            x = (UInt32)lpPoint.X;
-            y = (UInt32)lpPoint.Y;
-            return;
-        }
-
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-        {
-            IntPtr d = X11.XOpenDisplay(IntPtr.Zero);
-            if (d == IntPtr.Zero)
-                throw new Exception("Unable to open X display");
-            try
-            {
-                IntPtr root = X11.XRootWindow(d, X11.XDefaultScreen(d));
-                if (!X11.XQueryPointer(d, root, out _, out _, out int root_x, out int root_y, out _, out _, out _))
-                    throw new Exception("XQueryPointer failed");
-                x = (UInt32)root_x;
-                y = (UInt32)root_y;
-            }
-            finally
-            {
-                X11.XFlush(d);
-                X11.XCloseDisplay(d);
-            }
-            return;
-        }
-
-        throw new PlatformNotSupportedException("Mouse operations are supported on Windows and Linux only.");
+        VAR.Toolbox.Code.Platform.Platform.Current.GetCursorPosition(out x, out y);
     }
 
     public static void SetPosition(UInt32 x, UInt32 y)
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-            User32.SetCursorPos(x, y);
-            return;
-        }
-
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-        {
-            IntPtr d = X11.XOpenDisplay(IntPtr.Zero);
-            if (d == IntPtr.Zero)
-                throw new Exception("Unable to open X display");
-            try
-            {
-                int screen = X11.XDefaultScreen(d);
-                // XTestFakeMotionEvent takes absolute coordinates
-                if (X11.XTestFakeMotionEvent(d, screen, (int)x, (int)y, 0) == 0)
-                    throw new Exception("XTestFakeMotionEvent failed");
-                X11.XFlush(d);
-            }
-            finally
-            {
-                X11.XCloseDisplay(d);
-            }
-            return;
-        }
-
-        throw new PlatformNotSupportedException("Mouse operations are supported on Windows and Linux only.");
+        VAR.Toolbox.Code.Platform.Platform.Current.SetCursorPosition(x, y);
     }
 
-    // Windows-specific implementations (reuse existing User32 wrapper)
-    private static void WindowsMove(int dx, int dy)
-    {
-        User32.INPUT input = new()
-        {
-            Type = User32.INPUT_MOUSE,
-        };
-        input.Data.Mouse.X = dx;
-        input.Data.Mouse.Y = dy;
-        input.Data.Mouse.Flags = User32.MOUSEEVENTF_MOVE;
-        User32.INPUT[] inputs = new User32.INPUT[] { input };
-        if (User32.SendInput(1, inputs, Marshal.SizeOf(typeof(User32.INPUT))) == 0)
-            throw new Exception("SendInput failed");
-    }
-
-    private static void WindowsSetButton(MouseButtons button, bool down)
-    {
-        User32.INPUT input = new()
-        {
-            Type = User32.INPUT_MOUSE,
-        };
-        input.Data.Mouse.X = 0;
-        input.Data.Mouse.Y = 0;
-        if (button == MouseButtons.Left)
-            input.Data.Mouse.Flags = down ? User32.MOUSEEVENTF_LEFTDOWN : User32.MOUSEEVENTF_LEFTUP;
-        else if (button == MouseButtons.Middle)
-            input.Data.Mouse.Flags = down ? User32.MOUSEEVENTF_MIDDLEDOWN : User32.MOUSEEVENTF_MIDDLEUP;
-        else if (button == MouseButtons.Right)
-            input.Data.Mouse.Flags = down ? User32.MOUSEEVENTF_RIGHTDOWN : User32.MOUSEEVENTF_RIGHTUP;
-
-        User32.INPUT[] inputs = new User32.INPUT[] { input };
-        if (User32.SendInput(1, inputs, Marshal.SizeOf(typeof(User32.INPUT))) == 0)
-            throw new Exception("SendInput failed");
-    }
-
-    // Linux (X11 + XTest) implementations
-    private static void LinuxMove(int dx, int dy)
-    {
-        IntPtr d = X11.XOpenDisplay(IntPtr.Zero);
-        if (d == IntPtr.Zero)
-            throw new Exception("Unable to open X display");
-        try
-        {
-            // use relative motion
-            if (X11.XTestFakeRelativeMotionEvent(d, dx, dy, 0) == 0)
-                throw new Exception("XTestFakeRelativeMotionEvent failed");
-            X11.XFlush(d);
-        }
-        finally
-        {
-            X11.XCloseDisplay(d);
-        }
-    }
-
-    private static void LinuxSetButton(MouseButtons button, bool down)
-    {
-        IntPtr d = X11.XOpenDisplay(IntPtr.Zero);
-        if (d == IntPtr.Zero)
-            throw new Exception("Unable to open X display");
-        try
-        {
-            uint btn = button == MouseButtons.Left ? 1u : button == MouseButtons.Middle ? 2u : 3u;
-            if (X11.XTestFakeButtonEvent(d, btn, down ? 1 : 0, 0) == 0)
-                throw new Exception("XTestFakeButtonEvent failed");
-            X11.XFlush(d);
-        }
-        finally
-        {
-            X11.XCloseDisplay(d);
-        }
-    }
+    // Platform-specific implementations are provided by Platform.Current
 
     private static class X11
     {
