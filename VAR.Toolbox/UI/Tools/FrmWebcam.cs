@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
@@ -42,19 +43,29 @@ public class FrmWebcam : Window, IToolForm
 
         Content = layout;
 
-        Opened += (_, _) => CboWebcams_LoadData();
-        Closed += (_, _) => _webcam?.Stop();
+        Opened += async (_, _) => await CboWebcams_LoadDataAsync();
+        Closed += (_, _) =>
+        {
+            if (_webcam != null)
+            {
+                try { _webcam.NewFrame -= Webcam_NewFrame; } catch { }
+                try { _webcam.Stop(); } catch { }
+                _webcam = null;
+            }
+        };
     }
 
     private void Webcam_NewFrame(object? sender, Bitmap frame)
     {
         Avalonia.Threading.Dispatcher.UIThread.Post(() =>
         {
+            // Convert to Avalonia bitmap (copies data) and dispose the System.Drawing.Bitmap to avoid leaks
             _picWebcam.ImageShow = BitmapConverter.ConvertToAvalonia(frame);
+            try { frame.Dispose(); } catch { }
         });
     }
 
-    private void BtnStartStop_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private async void BtnStartStop_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (_webcam == null) { InitWebcam(); }
 
@@ -62,6 +73,7 @@ public class FrmWebcam : Window, IToolForm
         {
             if (_webcam.Active)
             {
+                try { _webcam.NewFrame -= Webcam_NewFrame; } catch { }
                 _webcam.Stop();
                 _btnStartStop.Content = "Start";
                 _picWebcam.ImageShow = null;
@@ -69,8 +81,34 @@ public class FrmWebcam : Window, IToolForm
             }
             else
             {
-                _webcam.Start();
-                _btnStartStop.Content = "Stop";
+                // disable button to avoid repeated clicks
+                _btnStartStop.IsEnabled = false;
+                bool ok = false;
+                try
+                {
+                    ok = await _webcam.StartAsync();
+                }
+                catch (Exception)
+                {
+                    ok = false;
+                }
+                finally
+                {
+                    _btnStartStop.IsEnabled = true;
+                }
+
+                if (ok)
+                {
+                    _btnStartStop.Content = "Stop";
+                }
+                else
+                {
+                    // failed to start
+                    _picWebcam.ImageShow = null;
+                    try { _webcam.NewFrame -= Webcam_NewFrame; } catch { }
+                    _webcam = null;
+                    _btnStartStop.Content = "Start";
+                }
             }
         }
     }
@@ -94,11 +132,11 @@ public class FrmWebcam : Window, IToolForm
         }
     }
 
-    private void CboWebcams_LoadData()
+    private async Task CboWebcams_LoadDataAsync()
     {
         try
         {
-            Dictionary<string, string> devices = Webcam.ListDevices();
+            Dictionary<string, string> devices = await Webcam.ListDevicesAsync();
             List<WebcamObject> items = new();
             foreach (KeyValuePair<string, string> pair in devices)
             {

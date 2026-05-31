@@ -7,26 +7,28 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Threading;
+using System.Threading.Tasks;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using OpenCvSharp;
 using VAR.Toolbox.Code.DirectShow;
-using VAR.Toolbox.Code.Windows;
-
 
 namespace VAR.Toolbox.Code;
 
-public class Webcam
+public class Webcam : IDisposable
 {
     #region Declarations
 
-    private readonly IMediaControl _control;
-    private readonly IBaseFilter _sourceFilter;
-    private readonly IBaseFilter _sampleGrabberFilter;
-    private readonly IBaseFilter _nullRenderer;
+    private VideoCapture? _capture;
+    private Task? _captureTask;
+    private CancellationTokenSource? _cts;
+    private readonly int _deviceIndex;
 
-    private readonly int _width;
-    private readonly int _height;
-    private readonly int _bpp;
+    private int _width;
+    private int _height;
+    private int _bpp;
 
     private bool _active;
 
@@ -48,67 +50,24 @@ public class Webcam
 
     #region Lifecycle
 
+    // The constructor accepts a "moniker" which for this OpenCvSharp implementation is
+    // the device index as string ("0", "1", ...). We delay opening the device until Start()
     public Webcam(string monikerString)
     {
-        IFilterGraph2 graph = CreateInstanceFromClsid<IFilterGraph2>(Clsid.FilterGraph);
-        ICaptureGraphBuilder2 capture = CreateInstanceFromClsid<ICaptureGraphBuilder2>(Clsid.CaptureGraphBuilder2);
-        _control = (IMediaControl)graph;
-        capture.SetFiltergraph((IGraphBuilder)graph);
-
-        int n = 0;
-
-        if (Win32.CreateBindCtx(0, out IBindCtx bindCtx) != 0)
+        if (!int.TryParse(monikerString, out _deviceIndex))
         {
-            throw new Exception("Failed to create binding context");
+            throw new ArgumentException("Moniker must be the device index (e.g. \"0\").", nameof(monikerString));
         }
 
-        if (Win32.MkParseDisplayName(bindCtx, monikerString, ref n, out IMoniker moniker) != 0)
-        {
-            throw new Exception("Failed to create binding moniker");
-        }
+        // default values until first frame
+        _width = 0;
+        _height = 0;
+        _bpp = 24;
+    }
 
-        graph.AddSourceFilterForMoniker(moniker, bindCtx, monikerString, out _sourceFilter);
-
-        _sampleGrabberFilter = CreateInstanceFromClsid<IBaseFilter>(Clsid.SampleGrabber);
-        graph.AddFilter(_sampleGrabberFilter, $"SampleGrabber {monikerString}");
-
-        ISampleGrabber sampleGrabber = (ISampleGrabber)_sampleGrabberFilter;
-
-        // Set media type
-        AMMediaType mediaType = new()
-        {
-            MajorType = MediaType.Video,
-            SubType = MediaSubType.RGB24,
-        };
-        sampleGrabber.SetMediaType(mediaType);
-
-        Grabber grabber = new(this);
-        int result = sampleGrabber.SetCallback(grabber, 1);
-        if (result < 0) throw new Exception("Failure creating Webcam device");
-
-        //set the null renderer
-        _nullRenderer = CreateInstanceFromClsid<IBaseFilter>(Clsid.NullRenderer);
-        graph.AddFilter(_nullRenderer, $"NullRenderer {monikerString}");
-
-        result = capture.RenderStream(PinCategory.Preview, MediaType.Video, _sourceFilter, _sampleGrabberFilter,
-            _nullRenderer);
-        if (result < 0) throw new Exception("Failure creating Webcam device");
-
-        AMMediaType queryMediaType = new();
-        result = sampleGrabber.GetConnectedMediaType(queryMediaType);
-        if (result == 0)
-        {
-            if (queryMediaType.FormatType == FormatType.VideoInfo)
-            {
-                VideoInfoHeader videoInfo = Marshal.PtrToStructure<VideoInfoHeader>(queryMediaType.FormatPtr);
-                _width = videoInfo.BmiHeader.Width;
-                _height = videoInfo.BmiHeader.Height;
-                _bpp = videoInfo.BmiHeader.BitCount;
-            }
-        }
-
-        _control.Run();
-        Stop();
+    ~Webcam()
+    {
+        Dispose(false);
     }
 
     #endregion Lifecycle
@@ -117,72 +76,223 @@ public class Webcam
 
     public void Start()
     {
-        _control.Run();
-        int result = _nullRenderer.Run(0);
-        if (result < 0) throw new Exception("Webcam Start failure");
-        result = _sampleGrabberFilter.Run(0);
-        if (result < 0) throw new Exception("Webcam Start failure");
-        result = _sourceFilter.Run(0);
-        if (result < 0) throw new Exception("Webcam Start failure");
-        _active = true;
+        // Start in background to avoid blocking UI. Prefer using StartAsync for result.
+        _ = StartAsync();
+    }
+
+    // Asynchronously open the camera and start capture loop. Returns true on success.
+    public async Task<bool> StartAsync(int openTimeoutMs = 5000)
+    {
+        if (_active) return true;
+
+        // ensure previous cancellation is cleaned
+        try { _cts?.Dispose(); } catch { }
+        _cts = new CancellationTokenSource();
+        CancellationToken token = _cts.Token;
+
+        VideoCapture? openedCapture = null;
+        try
+        {
+            // Open capture on a threadpool thread to avoid blocking caller
+            Task<VideoCapture?> openTask = Task.Run(() =>
+            {
+                // Try a set of backends that commonly work on Windows.
+                VideoCapture cap = new();
+                try
+                {
+                    // Prefer DirectShow on Windows
+                    try
+                    {
+                        if (cap.Open(_deviceIndex, OpenCvSharp.VideoCaptureAPIs.DSHOW))
+                        {
+                            return cap;
+                        }
+                    }
+                    catch { }
+
+                    // Try Media Foundation
+                    try
+                    {
+                        if (cap.Open(_deviceIndex, OpenCvSharp.VideoCaptureAPIs.MSMF))
+                        {
+                            return cap;
+                        }
+                    }
+                    catch { }
+
+                    // Fallback to default open
+                    try
+                    {
+                        if (cap.Open(_deviceIndex))
+                        {
+                            return cap;
+                        }
+                    }
+                    catch { }
+                }
+                catch { }
+
+                try { cap.Dispose(); } catch { }
+                return null;
+            }, token);
+
+            Task completed = await Task.WhenAny(openTask, Task.Delay(openTimeoutMs, token)).ConfigureAwait(false);
+            if (completed != openTask)
+            {
+                // timeout or cancelled
+                try { _cts.Cancel(); } catch { }
+                return false;
+            }
+
+            openedCapture = await openTask.ConfigureAwait(false);
+            if (openedCapture == null || !openedCapture.IsOpened())
+            {
+                try { openedCapture?.Dispose(); } catch { }
+                return false;
+            }
+
+            // assign capture and start loop
+            _capture = openedCapture;
+            _active = true;
+            _captureTask = Task.Run(async () => await CaptureLoop(token), token);
+            return true;
+        }
+        catch (OperationCanceledException)
+        {
+            try { openedCapture?.Dispose(); } catch { }
+            return false;
+        }
+        catch (Exception)
+        {
+            try { openedCapture?.Dispose(); } catch { }
+            return false;
+        }
     }
 
     public void Stop()
     {
-        int result = _sourceFilter.Stop();
-        if (result < 0) throw new Exception("Webcam Stop failure");
-        result = _sampleGrabberFilter.Stop();
-        if (result < 0) throw new Exception("Webcam Stop failure");
-        result = _nullRenderer.Stop();
-        if (result < 0) throw new Exception("Webcam Stop failure");
-        _control.Stop();
-        _active = false;
-    }
+        if (!_active) return;
 
-    public static Dictionary<string, string> ListDevices()
-    {
-        if (_deviceDescriptions != null) { return _deviceDescriptions; }
-
-        Dictionary<string, string> devices = new();
-        ICreateDevEnum devEnum = CreateInstanceFromClsid<ICreateDevEnum>(Clsid.SystemDeviceEnum);
-
-        Guid category = FilterCategory.VideoInputDevice;
-        int result = devEnum.CreateClassEnumerator(ref category, out IEnumMoniker enumMon, 0);
-        if (result != 0)
-            throw new ApplicationException("No devices of the category");
-
-        IMoniker[] devMoniker = new IMoniker[1];
-        IntPtr n = IntPtr.Zero;
-        while (true)
+        try
         {
-            // Get next filter
-            result = enumMon.Next(1, devMoniker, n);
-            if ((result != 0))
-                break;
+            _cts?.Cancel();
+            if (_captureTask != null)
+            {
+                _captureTask.Wait(1000);
+            }
+        }
+        catch (AggregateException) { }
+        catch (Exception) { }
 
-            // Add device description
-            IMoniker mon = devMoniker[0];
-            string deviceName = new(GetMonikerName(mon).ToCharArray());
-            string deviceString = new(GetMonikerString(mon).ToCharArray());
-            devices.Add(deviceName, deviceString);
-
-            // Release COM object
-            Marshal.ReleaseComObject(devMoniker[0]);
-            devMoniker[0] = null!;
+        try
+        {
+            _capture?.Release();
+            _capture?.Dispose();
+        }
+        catch (Exception) { }
+        finally
+        {
+            _capture = null;
         }
 
-        _deviceDescriptions = devices;
+        try
+        {
+            _cts?.Dispose();
+        }
+        catch (Exception) { }
+        finally
+        {
+            _cts = null;
+            _captureTask = null;
+            _active = false;
+        }
+    }
 
-        Marshal.ReleaseComObject(devEnum);
-        Marshal.ReleaseComObject(enumMon);
+    // Asynchronous enumeration of cameras that returns friendly names -> moniker (index as string)
+    public static Task<Dictionary<string, string>> ListDevicesAsync(CancellationToken ct = default)
+    {
+        if (_deviceDescriptions != null) return Task.FromResult(_deviceDescriptions);
 
-        return devices;
+        return Task.Run(() =>
+        {
+            Dictionary<string, string> devices = new();
+
+#if WINDOWS
+            try
+            {
+                ICreateDevEnum devEnum = CreateInstanceFromClsid<ICreateDevEnum>(Clsid.SystemDeviceEnum);
+
+                Guid category = FilterCategory.VideoInputDevice;
+                int result = devEnum.CreateClassEnumerator(ref category, out IEnumMoniker enumMon, 0);
+                if (result != 0)
+                {
+                    Marshal.ReleaseComObject(devEnum);
+                    return devices;
+                }
+
+                IMoniker[] devMoniker = new IMoniker[1];
+                IntPtr n = IntPtr.Zero;
+                int index = 0;
+                while (true)
+                {
+                    // Get next filter
+                    result = enumMon.Next(1, devMoniker, n);
+                    if ((result != 0))
+                        break;
+
+                    // Add device description (use enumerator order as index)
+                    IMoniker mon = devMoniker[0];
+                    string deviceName = new(GetMonikerName(mon).ToCharArray());
+                    string deviceString = index.ToString();
+                    devices.Add(deviceName, deviceString);
+                    index++;
+
+                    // Release COM object
+                    Marshal.ReleaseComObject(devMoniker[0]);
+                    devMoniker[0] = null!;
+                }
+
+                _deviceDescriptions = devices;
+
+                Marshal.ReleaseComObject(devEnum);
+                Marshal.ReleaseComObject(enumMon);
+            }
+            catch (Exception)
+            {
+                // swallow and fall back
+            }
+#else
+            // Non-Windows fallback: probe indices (done off UI thread)
+            const int maxProbe = 10;
+            for (int i = 0; i <= maxProbe; i++)
+            {
+                using VideoCapture probe = new VideoCapture(i);
+                if (probe.IsOpened())
+                {
+                    string name = $"Camera {i}";
+                    string moniker = i.ToString();
+                    devices.Add(name, moniker);
+                    probe.Release();
+                }
+            }
+            _deviceDescriptions = devices;
+#endif
+
+            return devices;
+        }, ct);
+    }
+
+    // Synchronous wrapper for compatibility (calls async enumerator and waits)
+    public static Dictionary<string, string> ListDevices()
+    {
+        return ListDevicesAsync().GetAwaiter().GetResult();
     }
 
     #endregion Public methods
 
     #region Private methods
 
+#if WINDOWS
     private static T CreateInstanceFromClsid<T>(Guid clsid)
     {
         Type? srvType = Type.GetTypeFromCLSID(clsid);
@@ -194,18 +304,14 @@ public class Webcam
         return (T)comObj;
     }
 
-    //
     // Get moniker string of the moniker
-    //
     private static string GetMonikerString(IMoniker moniker)
     {
         moniker.GetDisplayName(null!, null, out string str);
         return str;
     }
 
-    //
-    // Get moniker name represented
-    //
+    // Get moniker friendly name
     private static string GetMonikerName(IMoniker moniker)
     {
         object? bagObj = null;
@@ -242,6 +348,71 @@ public class Webcam
             }
         }
     }
+#endif
+
+    private async Task CaptureLoop(CancellationToken token)
+    {
+        Mat mat = new();
+        try
+        {
+            while (!token.IsCancellationRequested)
+            {
+                if (_capture == null || !_capture.IsOpened())
+                {
+                    await Task.Delay(50, token).ConfigureAwait(false);
+                    continue;
+                }
+
+                bool ok = _capture.Read(mat);
+                if (!ok || mat.Empty())
+                {
+                    // short delay to avoid busy loop
+                    await Task.Delay(10, token).ConfigureAwait(false);
+                    continue;
+                }
+
+                // Convert Mat (BGR) to System.Drawing.Bitmap using ImEncode -> Bitmap stream.
+                Bitmap bitmap;
+                try
+                {
+                    Cv2.ImEncode(".bmp", mat, out byte[] buf);
+                    using MemoryStream ms = new(buf);
+                    using Bitmap tmp = new Bitmap(ms);
+                    // clone the bitmap to detach from the underlying stream
+                    bitmap = new Bitmap(tmp);
+                }
+                catch (Exception)
+                {
+                    // conversion failed, skip frame
+                    await Task.Delay(10, token).ConfigureAwait(false);
+                    continue;
+                }
+
+                // update cached properties
+                _width = bitmap.Width;
+                _height = bitmap.Height;
+                _bpp = Image.GetPixelFormatSize(bitmap.PixelFormat);
+
+                // Raise event (subscribers should handle UI thread marshaling)
+                try
+                {
+                    NewFrame?.Invoke(this, bitmap);
+                }
+                catch (Exception)
+                {
+                    // swallow subscriber exceptions to keep capture loop alive
+                }
+
+                // small pause - keep responsive but avoid spinning too fast
+                await Task.Delay(1, token).ConfigureAwait(false);
+            }
+        }
+        catch (OperationCanceledException) { }
+        finally
+        {
+            mat.Dispose();
+        }
+    }
 
     #endregion Private methods
 
@@ -253,82 +424,21 @@ public class Webcam
 
     #endregion NewFrameEvent
 
-    #region Grabber
+    #region IDisposable
 
-    private class Grabber : ISampleGrabberCB
+    public void Dispose()
     {
-        private readonly Webcam _parent;
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 
-        private readonly Bitmap?[] _frames;
-        private readonly int _numFrames = 10;
-        private int _currentFrameIndex = -1;
-
-        public Grabber(Webcam parent)
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            _parent = parent;
-            _frames = new Bitmap?[_numFrames];
-        }
-
-        private Bitmap GetNextFrame()
-        {
-            _currentFrameIndex = (_currentFrameIndex + 1) % _numFrames;
-            Bitmap? currentBitmap = _frames[_currentFrameIndex];
-            if (currentBitmap == null || currentBitmap.Width != _parent._width ||
-                currentBitmap.Height != _parent._height)
-            {
-                currentBitmap = new Bitmap(_parent._width, _parent._height, PixelFormat.Format24bppRgb);
-                _frames[_currentFrameIndex] = currentBitmap;
-            }
-
-            return currentBitmap;
-        }
-
-        public int SampleCB(double sampleTime, IntPtr sample)
-        {
-            return 0;
-        }
-
-        public int BufferCB(double sampleTime, IntPtr buffer, int bufferLen)
-        {
-            if (_parent.NewFrame != null)
-            {
-                // create new image
-                Bitmap image = GetNextFrame();
-                Rectangle imageRect = new(0, 0, _parent._width, _parent._height);
-
-                // lock bitmap data
-                BitmapData imageData = image.LockBits(
-                    imageRect,
-                    ImageLockMode.ReadWrite,
-                    PixelFormat.Format24bppRgb);
-
-                // copy image data
-                int srcStride = imageData.Stride;
-                int dstStride = imageData.Stride;
-
-                unsafe
-                {
-                    byte* dst = (byte*)imageData.Scan0.ToPointer() + dstStride * (_parent._height - 1);
-                    byte* src = (byte*)buffer.ToPointer();
-
-                    for (int y = 0; y < _parent._height; y++)
-                    {
-                        Win32.memcpy(dst, src, srcStride);
-                        dst -= dstStride;
-                        src += srcStride;
-                    }
-                }
-
-                // unlock bitmap data
-                image.UnlockBits(imageData);
-
-                // notify parent
-                _parent.NewFrame?.Invoke(this, image);
-            }
-
-            return 0;
+            Stop();
         }
     }
 
-    #endregion Grabber
+    #endregion IDisposable
 }
