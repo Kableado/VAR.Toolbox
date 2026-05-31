@@ -5,7 +5,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Platform;
 
-using VAR.Toolbox.Code.Windows;
+using VAR.Toolbox.Code.Platforms.Windows;
 
 using Image = System.Drawing.Image;
 using Point = Avalonia.Point;

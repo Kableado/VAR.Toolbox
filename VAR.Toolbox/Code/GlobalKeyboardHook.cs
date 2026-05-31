@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using VAR.Toolbox.Code.Windows;
+
+using VAR.Toolbox.Code.Platforms.Windows;
 
 namespace VAR.Toolbox.Code;
 

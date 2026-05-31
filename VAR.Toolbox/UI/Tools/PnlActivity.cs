@@ -7,7 +7,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Threading;
 using VAR.Json;
-using VAR.Toolbox.Code.Windows;
+using VAR.Toolbox.Code.Platforms.Windows;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Local
 

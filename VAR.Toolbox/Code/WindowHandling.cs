@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
-using VAR.Toolbox.Code.Windows;
+
+using VAR.Toolbox.Code.Platforms.Windows;
 
 // ReSharper disable InconsistentNaming
 

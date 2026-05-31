@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using VAR.Toolbox.Code.Windows;
+
+using VAR.Toolbox.Code.Platforms.Windows;
 
 namespace VAR.Toolbox.Code;
 

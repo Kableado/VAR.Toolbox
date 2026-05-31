@@ -9,8 +9,9 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
-using VAR.Toolbox.Code.DirectShow;
-using VAR.Toolbox.Code.Windows;
+
+using VAR.Toolbox.Code.Platforms.Windows;
+using VAR.Toolbox.Code.Platforms.Windows.DirectShow;
 
 
 namespace VAR.Toolbox.Code;
