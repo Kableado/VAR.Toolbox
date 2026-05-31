@@ -6,3 +6,4 @@
 *.suo
 .vs
 *.user
+.idea/*
