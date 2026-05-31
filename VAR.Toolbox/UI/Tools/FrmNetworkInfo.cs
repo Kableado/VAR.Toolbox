@@ -1,4 +1,4 @@
-#pragma warning disable IDE0019
+﻿#pragma warning disable IDE0019
 
 using System;
 using System.Collections.ObjectModel;
