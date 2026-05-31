@@ -1,70 +1,59 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net10.0-windows</TargetFramework>
-    <OutputType>WinExe</OutputType>
-    <Nullable>enable</Nullable>
-    <!-- Habilitar analizadores de .NET para ejecutar las mismas reglas durante la compilación
-         Esto permitirá que dotnet build muestre los avisos que normalmente muestra el IDE. -->
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <AnalysisLevel>latest</AnalysisLevel>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>Toolbox.ico</ApplicationIcon>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="..\VAR.HttpServer\VAR.HttpServer\HttpProcessor.cs">
-      <Link>Code\HttpServer\HttpProcessor.cs</Link>
-    </Compile>
-    <Compile Include="..\VAR.HttpServer\VAR.HttpServer\HttpServer.cs">
-      <Link>Code\HttpServer\HttpServer.cs</Link>
-    </Compile>
-    <Compile Include="..\VAR.HttpServer\VAR.HttpServer\HttpUtility.cs">
-      <Link>Code\HttpServer\HttpUtility.cs</Link>
-    </Compile>
-    <Compile Include="..\VAR.HttpServer\VAR.HttpServer\IHttpHandler.cs">
-      <Link>Code\HttpServer\IHttpHandler.cs</Link>
-    </Compile>
-    <Compile Include="..\VAR.Json\VAR.Json\JsonParser.cs">
-      <Link>Code\Json\JsonParser.cs</Link>
-    </Compile>
-    <Compile Include="..\VAR.Json\VAR.Json\JsonWriter.cs">
-      <Link>Code\Json\JsonWriter.cs</Link>
-    </Compile>
-    <Compile Include="..\VAR.Json\VAR.Json\ObjectActivator.cs">
-      <Link>Code\Json\ObjectActivator.cs</Link>
-    </Compile>
-    <Compile Include="..\VAR.Json\VAR.Json\ParserContext.cs">
-      <Link>Code\Json\ParserContext.cs</Link>
-    </Compile>
-    <!-- Exclude all WinForms Designer files -->
-    <Compile Remove="**\*.Designer.cs" />
-    <Compile Remove="**\*.resx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Images\Toolbox.png" />
-    <Content Include="Images\toolbox.svg" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <OutputType>WinExe</OutputType>
+        <Nullable>enable</Nullable>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <AnalysisLevel>latest</AnalysisLevel>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+    <PropertyGroup>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+    </PropertyGroup>
+    <PropertyGroup>
+        <ApplicationIcon>Toolbox.ico</ApplicationIcon>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="..\VAR.HttpServer\VAR.HttpServer\HttpProcessor.cs">
+            <Link>Code\HttpServer\HttpProcessor.cs</Link>
+        </Compile>
+        <Compile Include="..\VAR.HttpServer\VAR.HttpServer\HttpServer.cs">
+            <Link>Code\HttpServer\HttpServer.cs</Link>
+        </Compile>
+        <Compile Include="..\VAR.HttpServer\VAR.HttpServer\HttpUtility.cs">
+            <Link>Code\HttpServer\HttpUtility.cs</Link>
+        </Compile>
+        <Compile Include="..\VAR.HttpServer\VAR.HttpServer\IHttpHandler.cs">
+            <Link>Code\HttpServer\IHttpHandler.cs</Link>
+        </Compile>
+        <Compile Include="..\VAR.Json\VAR.Json\JsonParser.cs">
+            <Link>Code\Json\JsonParser.cs</Link>
+        </Compile>
+        <Compile Include="..\VAR.Json\VAR.Json\JsonWriter.cs">
+            <Link>Code\Json\JsonWriter.cs</Link>
+        </Compile>
+        <Compile Include="..\VAR.Json\VAR.Json\ObjectActivator.cs">
+            <Link>Code\Json\ObjectActivator.cs</Link>
+        </Compile>
+        <Compile Include="..\VAR.Json\VAR.Json\ParserContext.cs">
+            <Link>Code\Json\ParserContext.cs</Link>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="Images\Toolbox.png"/>
+        <Content Include="Images\toolbox.svg"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <!-- Embed the icon into the assembly so it can be loaded as a resource at runtime -->
-    <EmbeddedResource Include="Toolbox.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Avalonia" Version="12.0.3" />
-    <PackageReference Include="Avalonia.Desktop" Version="12.0.3" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.3" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.1" />
-    <!-- Analizadores de .NET: confiar en los analizadores integrados del SDK para evitar conflictos de versiones -->
-  </ItemGroup>
-  <ItemGroup>
-    <!-- Keep WinForms types for Windows-specific P/Invoke utilities -->
-    <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
-  </ItemGroup>
+    <ItemGroup>
+        <!-- Embed the icon into the assembly so it can be loaded as a resource at runtime -->
+        <EmbeddedResource Include="Toolbox.ico"/>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="12.0.3"/>
+        <PackageReference Include="Avalonia.Desktop" Version="12.0.3"/>
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.3"/>
+        <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.1"/>
+        <PackageReference Include="System.Drawing.Common" Version="10.0.8" />
+    </ItemGroup>
 </Project>

@@ -20,7 +20,7 @@ namespace VAR.Toolbox.TestPlugin
                 Children =
                 {
                     new TextBlock { Text = "Test Plugin", FontWeight = Avalonia.Media.FontWeight.Bold, FontSize = 18, },
-                    new TextBlock { Text = "This plugin has been migrated to Avalonia.", },
+                    new TextBlock { Text = "Hello world", },
                 },
             };
         }
