@@ -5,20 +5,21 @@ namespace VAR.Toolbox.Code.Platforms;
 
 public interface IPlatform
 {
-    string GetActiveWindowTitle();
-    uint GetLastInputTime();
-    bool SetSuspendState(bool hibernate, bool forceCritical, bool disableWakeEvent);
+    // System
+    string System_GetActiveWindowTitle();
+    uint System_GetLastInputTime();
+    bool System_SetSuspendState(bool hibernate, bool forceCritical, bool disableWakeEvent);
     
     // Mouse
-    void Move(int dx, int dy);
-    void GetPosition(out uint x, out uint y);
-    void SetPosition(uint x, uint y);
+    void Mouse_Move(int dx, int dy);
+    void Mouse_GetPosition(out uint x, out uint y);
+    void Mouse_SetPosition(uint x, uint y);
     
-    // Screenshoter
-    Bitmap CaptureScreenRegion(Bitmap? bmp, int left, int top, int width, int height);
+    // Screen
+    Bitmap Screen_CaptureRegion(Bitmap? bmp, int left, int top, int width, int height);
 
     // Webcam
-    IWebcam CreateWebcam(string moniker);
-    Dictionary<string, string> ListDevices();
+    IWebcam Webcam_Create(string moniker);
+    Dictionary<string, string> Webcam_ListDevices();
     
 }

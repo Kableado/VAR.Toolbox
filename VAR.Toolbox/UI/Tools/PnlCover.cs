@@ -49,7 +49,7 @@ public class PnlCover : UserControl, IToolPanel
     private void TimTicker_Tick(object? sender, EventArgs e)
     {
         _timTicker.Stop();
-        uint inactiveTime = Platform.Current.GetLastInputTime();
+        uint inactiveTime = Platform.Current.System_GetLastInputTime();
         _lblInactive.Text = $"Inactive by {inactiveTime} seconds";
 
         if (_chkAutoCover.IsChecked == true)

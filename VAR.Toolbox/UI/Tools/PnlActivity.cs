@@ -44,8 +44,8 @@ public class PnlActivity : UserControl, IToolPanel
     {
         _timTicker.Stop();
 
-        string activeWindowTitle = Platform.Current.GetActiveWindowTitle();
-        bool active = Platform.Current.GetLastInputTime() < 2;
+        string activeWindowTitle = Platform.Current.System_GetActiveWindowTitle();
+        bool active = Platform.Current.System_GetLastInputTime() < 2;
         DateTime date = DateTime.UtcNow;
 
         _lblActiveWindowTitle.Text = activeWindowTitle;

@@ -80,7 +80,7 @@ public class FrmWebcam : Window, IToolForm
         if (_cboWebcams.SelectedIndex < 0) return;
         WebcamObject? webcamObject = _cboWebcams.SelectedItem as WebcamObject;
         if (webcamObject == null || string.IsNullOrEmpty(webcamObject.Moniker)) return;
-        _webcam = Platform.Current.CreateWebcam(webcamObject.Moniker);
+        _webcam = Platform.Current.Webcam_Create(webcamObject.Moniker);
         _webcam.NewFrame += Webcam_NewFrame;
     }
 
@@ -98,7 +98,7 @@ public class FrmWebcam : Window, IToolForm
     {
         try
         {
-            Dictionary<string, string> devices = Platform.Current.ListDevices();
+            Dictionary<string, string> devices = Platform.Current.Webcam_ListDevices();
             List<WebcamObject> items = new();
             foreach (KeyValuePair<string, string> pair in devices)
             {

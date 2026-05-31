@@ -159,6 +159,6 @@ public class PnlSuspension : UserControl, IToolPanel
     private void SuspendSystem()
     {
         EventDispatcher.EmitEvent(PreSuspendEventName, null);
-        Platform.Current.SetSuspendState(false, true, false);
+        Platform.Current.System_SetSuspendState(false, true, false);
     }
 }

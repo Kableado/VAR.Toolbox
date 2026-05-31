@@ -110,7 +110,7 @@ public class FrmScreenshooter : Window, IToolForm
         width ??= (maxRight - minLeft);
         height ??= (maxBottom - minTop);
 
-        return Platform.Current.CaptureScreenRegion(bmp, left.Value, top.Value, width.Value, height.Value);
+        return Platform.Current.Screen_CaptureRegion(bmp, left.Value, top.Value, width.Value, height.Value);
     }
 
     

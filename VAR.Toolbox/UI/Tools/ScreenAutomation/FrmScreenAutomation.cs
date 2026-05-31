@@ -324,7 +324,7 @@ public class FrmScreenAutomation : Window, IToolForm
         int pixelWidth  = Math.Max(1, (int)Math.Round(ctrl.Bounds.Width * scale));
         int pixelHeight = Math.Max(1, (int)Math.Round(ctrl.Bounds.Height * scale));
 
-        bmp = Platform.Current.CaptureScreenRegion(bmp: bmp,
+        bmp = Platform.Current.Screen_CaptureRegion(bmp: bmp,
             left: absoluteLeft,
             top: absoluteTop,
             width: pixelWidth,

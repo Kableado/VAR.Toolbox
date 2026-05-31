@@ -19,9 +19,9 @@ public class FrmCover : Window
 
     public FrmCover()
     {
-        Platform.Current.GetPosition(out _mouseX, out _mouseY);
+        Platform.Current.Mouse_GetPosition(out _mouseX, out _mouseY);
 
-        Title = Platform.Current.GetActiveWindowTitle();
+        Title = Platform.Current.System_GetActiveWindowTitle();
         Topmost = true;
         WindowDecorations = WindowDecorations.None;
         Background = Brushes.Black;
@@ -61,7 +61,7 @@ public class FrmCover : Window
     {
         Cursor = Cursor.Default;
         _timer.Stop();
-        Platform.Current.SetPosition(_mouseX, _mouseY);
+        Platform.Current.Mouse_SetPosition(_mouseX, _mouseY);
         Close();
         EventDispatcher.EmitEvent(PnlCover.PostCoverEventName, null);
     }
@@ -81,7 +81,7 @@ public class FrmCover : Window
         Activate();
         try
         {
-            Platform.Current.Move((_rnd.Next() % 11) - 5, (_rnd.Next() % 11) - 5);
+            Platform.Current.Mouse_Move((_rnd.Next() % 11) - 5, (_rnd.Next() % 11) - 5);
         }
         catch (Exception) { /* Ignore */ }
         _timer.Stop();
