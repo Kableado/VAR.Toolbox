@@ -144,16 +144,16 @@ public class FrmScreenAutomation : Window, IToolForm
         Opened += FrmScreenAutomation_Opened;
         Closing += FrmScreenAutomation_Closing;
 
-        _ctrHole.PropertyChanged += (s, e) =>
+        _ctrHole.PropertyChanged += (_, e) =>
         {
-            if (e.Property == Control.BoundsProperty)
+            if (e.Property == BoundsProperty)
             {
                 CtrHole_SyncMask();
             }
         };
-        this.PropertyChanged += (s, e) =>
+        PropertyChanged += (_, e) =>
         {
-            if (e.Property == Window.BoundsProperty)
+            if (e.Property == BoundsProperty)
             {
                 CtrHole_SyncMask();
             }

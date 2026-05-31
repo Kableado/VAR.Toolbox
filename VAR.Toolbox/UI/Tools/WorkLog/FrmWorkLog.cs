@@ -8,8 +8,8 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
-using VAR.Json;
 using Avalonia.Threading;
+using VAR.Json;
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.WorkLog;
 
@@ -122,9 +122,9 @@ public class FrmWorkLog : Window, IToolForm
         _lsbWorkLog.SelectionChanged += lsbWorkLog_SelectionChanged;
         // Use AddHandler with handledEventsToo = true so we receive pointer events
         // even when a ListBoxItem captures or marks them handled during interaction.
-        _lsbWorkLog.AddHandler(InputElement.PointerPressedEvent, lsbWorkLog_PointerPressed, handledEventsToo: true);
-        _lsbWorkLog.AddHandler(InputElement.PointerMovedEvent, lsbWorkLog_PointerMoved, handledEventsToo: true);
-        _lsbWorkLog.AddHandler(InputElement.PointerReleasedEvent, lsbWorkLog_PointerReleased, handledEventsToo: true);
+        _lsbWorkLog.AddHandler(PointerPressedEvent, lsbWorkLog_PointerPressed, handledEventsToo: true);
+        _lsbWorkLog.AddHandler(PointerMovedEvent, lsbWorkLog_PointerMoved, handledEventsToo: true);
+        _lsbWorkLog.AddHandler(PointerReleasedEvent, lsbWorkLog_PointerReleased, handledEventsToo: true);
 
         // === Panel2 (RIGHT) controls ===
 

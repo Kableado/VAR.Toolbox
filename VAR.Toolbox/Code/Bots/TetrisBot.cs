@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using VAR.Toolbox.Code.Configuration;
-using System.Diagnostics.CodeAnalysis;
 
 namespace VAR.Toolbox.Code.Bots;
 

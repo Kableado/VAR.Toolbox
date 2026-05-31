@@ -2,16 +2,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
-using Avalonia.Controls.Primitives;
 using Avalonia.Platform;
 using Avalonia.Threading;
 using VAR.Toolbox.Code;
@@ -147,19 +147,19 @@ public class FrmToolbox : Window
         Content = scroll;
 
         // Load the application icon from embedded resource (Toolbox.ico) if the Window.Icon is not already set
-        if (this.Icon == null)
+        if (Icon == null)
         {
             try
             {
-                var asm = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+                Assembly asm = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
                 string? resName = asm.GetManifestResourceNames()
                     .FirstOrDefault(n => n.EndsWith("Toolbox.ico", StringComparison.OrdinalIgnoreCase));
                 if (!string.IsNullOrEmpty(resName))
                 {
-                    using var rs = asm.GetManifestResourceStream(resName);
+                    using Stream? rs = asm.GetManifestResourceStream(resName);
                     if (rs != null)
                     {
-                        this.Icon = new WindowIcon(rs);
+                        Icon = new WindowIcon(rs);
                     }
                 }
             }
@@ -248,7 +248,7 @@ public class FrmToolbox : Window
                         _trayIcon = null;
                     }
                 }
-                catch { }
+                catch { /* Ignore */ }
                 if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
                 {
                     desktop.Shutdown();
@@ -322,7 +322,7 @@ public class FrmToolbox : Window
         Activate();
         foreach (Window wnd in _windows)
         {
-            try { wnd.Show(); wnd.Activate(); } catch { }
+            try { wnd.Show(); wnd.Activate(); } catch { /* Ignore */ }
         }
         WindowState = WindowState.Normal;
     }

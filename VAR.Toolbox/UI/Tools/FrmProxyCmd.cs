@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using Avalonia;
 using Avalonia.Controls;
@@ -7,7 +8,6 @@ using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Threading;
 using VAR.Toolbox.Code;
-using System.Diagnostics.CodeAnalysis;
 using VAR.Toolbox.Code.ProxyCmdExecutors;
 using VAR.Toolbox.Controls;
 

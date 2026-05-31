@@ -110,7 +110,7 @@ public class FrmProxyCmdConfig : Window
 
     private void SaveConfig()
     {
-        List<ProxyCmdConfigItem>? items = _lsvCmdProxyConfigs.ItemsSource as List<ProxyCmdConfigItem> ?? [];
+        List<ProxyCmdConfigItem> items = _lsvCmdProxyConfigs.ItemsSource as List<ProxyCmdConfigItem> ?? [];
 
         ProxyCmdConfigItem? selectedConfig = _lsvCmdProxyConfigs.SelectedItem as ProxyCmdConfigItem;
         if (selectedConfig == null)

@@ -25,7 +25,7 @@ public static class Screenshoter
         int absoluteLeft = screenPoint.X;
         int absoluteTop = screenPoint.Y;
 
-        double scale = 1.0;
+        double scale;
         try
         {
             scale = window.RenderScaling;
