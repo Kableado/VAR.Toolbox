@@ -5,7 +5,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Threading;
 using VAR.Toolbox.Code;
-using VAR.Toolbox.Code.Platforms.Windows;
+using VAR.Toolbox.Code.Platforms;
 
 namespace VAR.Toolbox.UI.Tools;
 
@@ -49,7 +49,7 @@ public class PnlCover : UserControl, IToolPanel
     private void TimTicker_Tick(object? sender, EventArgs e)
     {
         _timTicker.Stop();
-        uint inactiveTime = Win32.GetLastInputTime();
+        uint inactiveTime = Platform.Current.GetLastInputTime();
         _lblInactive.Text = $"Inactive by {inactiveTime} seconds";
 
         if (_chkAutoCover.IsChecked == true)

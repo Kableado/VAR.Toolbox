@@ -94,8 +94,7 @@ public static class Win32
         IntPtr lpvReserved);
 
     [DllImport("PowrProf.dll")]
-    public static extern Boolean
-        SetSuspendState(Boolean hibernate, Boolean forceCritical, Boolean disableWakeEvent);
+    public static extern Boolean SetSuspendState(Boolean hibernate, Boolean forceCritical, Boolean disableWakeEvent);
 
     public static uint GetLastInputTime()
     {

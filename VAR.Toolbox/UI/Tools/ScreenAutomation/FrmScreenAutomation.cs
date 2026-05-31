@@ -1,14 +1,19 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Threading;
-using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Bots;
 using VAR.Toolbox.Code.Configuration;
+using VAR.Toolbox.Code.Platforms;
 using VAR.Toolbox.Controls;
+
+using Brushes = Avalonia.Media.Brushes;
+using Color = Avalonia.Media.Color;
+using Point = Avalonia.Point;
 
 namespace VAR.Toolbox.UI.Tools.ScreenAutomation;
 
@@ -20,7 +25,7 @@ public class FrmScreenAutomation : Window, IToolForm
     private bool _running;
     private IAutomationBot? _automationBot;
     private DispatcherTimer? _timTicker;
-    private System.Drawing.Bitmap? _bmpScreen;
+    private Bitmap? _bmpScreen;
 
     private readonly CtrImageViewer _picPreview;
     private readonly CtrOutput _ctrOutput;
@@ -219,7 +224,7 @@ public class FrmScreenAutomation : Window, IToolForm
     {
         _timTicker?.Stop();
 
-        _bmpScreen = Screenshoter.CaptureControl(_ctrHole, _bmpScreen, window: this);
+        _bmpScreen = CaptureControl(_ctrHole, _bmpScreen, window: this);
             
         if (_automationBot != null && _bmpScreen != null)
         {
@@ -287,4 +292,44 @@ public class FrmScreenAutomation : Window, IToolForm
     {
         Topmost = _chkKeepToplevel.IsChecked == true;
     }
+    
+    
+    public static Bitmap? CaptureControl(Control? ctrl, Bitmap? bmp = null, Window? window = null)
+    {
+        if (ctrl == null || window == null) { return bmp; }
+
+        Point? relativeToWindow = ctrl.TranslatePoint(new Point(0, 0), window);
+        if (relativeToWindow.HasValue == false) { return bmp; }
+
+        PixelPoint screenPoint = window.PointToScreen(relativeToWindow.Value);
+        int absoluteLeft = screenPoint.X;
+        int absoluteTop = screenPoint.Y;
+
+        double scale;
+        try
+        {
+            scale = window.RenderScaling;
+        }
+        catch
+        {
+            scale = 1.0;
+        }
+
+        int offsetLeft = (int)Math.Ceiling(1 * scale);
+        int offsetTop  = (int)Math.Ceiling(1 * scale);
+
+        absoluteLeft += offsetLeft;
+        absoluteTop  += offsetTop;
+
+        int pixelWidth  = Math.Max(1, (int)Math.Round(ctrl.Bounds.Width * scale));
+        int pixelHeight = Math.Max(1, (int)Math.Round(ctrl.Bounds.Height * scale));
+
+        bmp = Platform.Current.CaptureScreenRegion(bmp: bmp,
+            left: absoluteLeft,
+            top: absoluteTop,
+            width: pixelWidth,
+            height: pixelHeight);
+        return bmp;
+    }
+
 }

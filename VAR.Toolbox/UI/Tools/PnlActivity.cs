@@ -7,7 +7,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Threading;
 using VAR.Json;
-using VAR.Toolbox.Code.Platforms.Windows;
+using VAR.Toolbox.Code.Platforms;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Local
 
@@ -44,8 +44,8 @@ public class PnlActivity : UserControl, IToolPanel
     {
         _timTicker.Stop();
 
-        string activeWindowTitle = User32.GetActiveWindowTitle();
-        bool active = Win32.GetLastInputTime() < 2;
+        string activeWindowTitle = Platform.Current.GetActiveWindowTitle();
+        bool active = Platform.Current.GetLastInputTime() < 2;
         DateTime date = DateTime.UtcNow;
 
         _lblActiveWindowTitle.Text = activeWindowTitle;

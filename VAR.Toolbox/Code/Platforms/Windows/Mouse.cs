@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-using VAR.Toolbox.Code.Platforms.Windows;
-
-namespace VAR.Toolbox.Code;
+namespace VAR.Toolbox.Code.Platforms.Windows;
 
 public static class Mouse
 {

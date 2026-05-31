@@ -4,7 +4,7 @@ using System.Drawing;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
-using VAR.Toolbox.Code;
+using VAR.Toolbox.Code.Platforms;
 using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI.Tools;
@@ -14,7 +14,7 @@ public class FrmWebcam : Window, IToolForm
     public string ToolName => "Webcam";
     public bool HasIcon => false;
 
-    private Webcam? _webcam;
+    private IWebcam? _webcam;
     private readonly CtrImageViewer _picWebcam;
     private readonly ComboBox _cboWebcams;
     private readonly Button _btnStartStop;
@@ -80,7 +80,7 @@ public class FrmWebcam : Window, IToolForm
         if (_cboWebcams.SelectedIndex < 0) return;
         WebcamObject? webcamObject = _cboWebcams.SelectedItem as WebcamObject;
         if (webcamObject == null || string.IsNullOrEmpty(webcamObject.Moniker)) return;
-        _webcam = new Webcam(webcamObject.Moniker);
+        _webcam = Platform.Current.CreateWebcam(webcamObject.Moniker);
         _webcam.NewFrame += Webcam_NewFrame;
     }
 
@@ -98,7 +98,7 @@ public class FrmWebcam : Window, IToolForm
     {
         try
         {
-            Dictionary<string, string> devices = Webcam.ListDevices();
+            Dictionary<string, string> devices = Platform.Current.ListDevices();
             List<WebcamObject> items = new();
             foreach (KeyValuePair<string, string> pair in devices)
             {

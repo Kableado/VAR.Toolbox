@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
+using Avalonia.Platform;
 using Avalonia.Threading;
-using VAR.Toolbox.Code;
+using VAR.Toolbox.Code.Platforms;
 using VAR.Toolbox.Controls;
 
 namespace VAR.Toolbox.UI.Tools;
@@ -16,7 +18,7 @@ public class FrmScreenshooter : Window, IToolForm
 
     private bool _repetitiveScreenshots;
     private readonly DispatcherTimer _timTicker;
-    private System.Drawing.Bitmap? _bmpScreen;
+    private Bitmap? _bmpScreen;
     private readonly CtrImageViewer _picViewer;
     private readonly Button _btnStartStop;
 
@@ -51,14 +53,14 @@ public class FrmScreenshooter : Window, IToolForm
 
     private void BtnScreenshot_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        _bmpScreen = Screenshoter.CaptureScreen(_bmpScreen, window: this);
+        _bmpScreen = CaptureScreen(_bmpScreen, window: this);
         _picViewer.ImageShow = BitmapConverter.ConvertToAvalonia(_bmpScreen);
     }
 
     private void TimTicker_Tick(object? sender, EventArgs e)
     {
         _timTicker.Stop();
-        _bmpScreen = Screenshoter.CaptureScreen(_bmpScreen, window: this);
+        _bmpScreen = CaptureScreen(_bmpScreen, window: this);
         _picViewer.ImageShow = BitmapConverter.ConvertToAvalonia(_bmpScreen);
         _timTicker.Start();
     }
@@ -79,11 +81,44 @@ public class FrmScreenshooter : Window, IToolForm
             _timTicker.Start();
         }
     }
+    
+    
+    public static Bitmap? CaptureScreen(Bitmap? bmp = null, int? left = null, int? top = null, int? width = null,
+        int? height = null, Window? window = null)
+    {
+        if (window == null) { return bmp; }
+
+        if (width <= 0 || height <= 0) { return bmp; }
+            
+        // Calculare virtual rect
+        int minLeft = int.MaxValue, minTop = int.MaxValue, maxRight = int.MinValue, maxBottom = int.MinValue;
+        if(left == null || top == null || width == null || height == null) 
+        {
+            foreach (Screen screen in
+                     window.Screens.All) // o screensService.Screens / screensService.Monitors según versión
+            {
+                minLeft = Math.Min(minLeft, screen.Bounds.X);
+                minTop = Math.Min(minTop, screen.Bounds.Y);
+                maxRight = Math.Max(maxRight, screen.Bounds.X + screen.Bounds.Width);
+                maxBottom = Math.Max(maxBottom, screen.Bounds.Y + screen.Bounds.Height);
+            }
+        }
+            
+        // Determine the size of the "virtual screen", which includes all monitors.
+        left ??= minLeft;
+        top ??= minTop;
+        width ??= (maxRight - minLeft);
+        height ??= (maxBottom - minTop);
+
+        return Platform.Current.CaptureScreenRegion(bmp, left.Value, top.Value, width.Value, height.Value);
+    }
+
+    
 }
 
 internal static class BitmapConverter
 {
-    public static Avalonia.Media.Imaging.Bitmap? ConvertToAvalonia(System.Drawing.Bitmap? bmp)
+    public static Avalonia.Media.Imaging.Bitmap? ConvertToAvalonia(Bitmap? bmp)
     {
         if (bmp == null) return null;
         using MemoryStream stream = new();

@@ -6,7 +6,7 @@ using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.Threading;
 using VAR.Toolbox.Code;
-using VAR.Toolbox.Code.Platforms.Windows;
+using VAR.Toolbox.Code.Platforms;
 
 namespace VAR.Toolbox.UI.Tools;
 
@@ -19,9 +19,9 @@ public class FrmCover : Window
 
     public FrmCover()
     {
-        Mouse.GetPosition(out _mouseX, out _mouseY);
+        Platform.Current.GetPosition(out _mouseX, out _mouseY);
 
-        Title = User32.GetActiveWindowTitle();
+        Title = Platform.Current.GetActiveWindowTitle();
         Topmost = true;
         WindowDecorations = WindowDecorations.None;
         Background = Brushes.Black;
@@ -61,7 +61,7 @@ public class FrmCover : Window
     {
         Cursor = Cursor.Default;
         _timer.Stop();
-        Mouse.SetPosition(_mouseX, _mouseY);
+        Platform.Current.SetPosition(_mouseX, _mouseY);
         Close();
         EventDispatcher.EmitEvent(PnlCover.PostCoverEventName, null);
     }
@@ -81,7 +81,7 @@ public class FrmCover : Window
         Activate();
         try
         {
-            Mouse.Move((_rnd.Next() % 11) - 5, (_rnd.Next() % 11) - 5);
+            Platform.Current.Move((_rnd.Next() % 11) - 5, (_rnd.Next() % 11) - 5);
         }
         catch (Exception) { /* Ignore */ }
         _timer.Stop();

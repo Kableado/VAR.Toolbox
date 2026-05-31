@@ -6,7 +6,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Threading;
 using VAR.Toolbox.Code;
-using VAR.Toolbox.Code.Platforms.Windows;
+using VAR.Toolbox.Code.Platforms;
 
 namespace VAR.Toolbox.UI.Tools;
 
@@ -159,6 +159,6 @@ public class PnlSuspension : UserControl, IToolPanel
     private void SuspendSystem()
     {
         EventDispatcher.EmitEvent(PreSuspendEventName, null);
-        Win32.SetSuspendState(false, true, false);
+        Platform.Current.SetSuspendState(false, true, false);
     }
 }

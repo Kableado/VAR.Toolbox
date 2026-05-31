@@ -10,13 +10,11 @@ using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 
-using VAR.Toolbox.Code.Platforms.Windows;
 using VAR.Toolbox.Code.Platforms.Windows.DirectShow;
 
+namespace VAR.Toolbox.Code.Platforms.Windows;
 
-namespace VAR.Toolbox.Code;
-
-public class Webcam
+public class Webcam : IWebcam
 {
     #region Declarations
 
@@ -248,9 +246,7 @@ public class Webcam
 
     #region NewFrameEvent
 
-    public delegate void NewFrameEventHandler(object? sender, Bitmap frame);
-
-    public event NewFrameEventHandler? NewFrame;
+    public event IWebcam.NewFrameEventHandler? NewFrame;
 
     #endregion NewFrameEvent
 
