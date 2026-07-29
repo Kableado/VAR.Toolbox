@@ -2,6 +2,7 @@
   <Folder Name="/Misc/">
     <File Path=".editorconfig" />
     <File Path=".gitignore" />
+    <File Path="publish.win-x64.ps1" />
   </Folder>
   <Project Path="VAR.Toolbox.TestPlugin/VAR.Toolbox.TestPlugin.csproj" />
   <Project Path="VAR.Toolbox/VAR.Toolbox.csproj" />
