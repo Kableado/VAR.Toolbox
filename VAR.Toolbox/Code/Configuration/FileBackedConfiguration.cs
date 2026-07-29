@@ -19,23 +19,7 @@ public class FileBackedConfiguration : IConfiguration
 
     private static string GetConfigFileName(string? name = null)
     {
-        Assembly? entry = Assembly.GetEntryAssembly();
-        string? location = entry?.Location;
-
-        string path;
-        string filenameWithoutExtension;
-
-        if (string.IsNullOrEmpty(location))
-        {
-            // Fallback to base directory and process/app domain name when entry assembly is not available
-            path = AppContext.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-            filenameWithoutExtension = AppDomain.CurrentDomain.FriendlyName;
-        }
-        else
-        {
-            path = Path.GetDirectoryName(location) ?? AppContext.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-            filenameWithoutExtension = Path.GetFileNameWithoutExtension(location);
-        }
+        (string path, string filenameWithoutExtension) = ReflectionUtils.GetCurrentPathAndExecName();
 
         string configFile = string.IsNullOrEmpty(name)
             ? Path.Combine(path, filenameWithoutExtension + ".cfg")

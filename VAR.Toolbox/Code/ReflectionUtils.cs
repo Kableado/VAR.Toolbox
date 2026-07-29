@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace VAR.Toolbox.Code;
 
@@ -28,4 +29,13 @@ public static class ReflectionUtils
                 x is { IsAbstract: false, IsInterface: false, } &&
                 interfaceType.IsAssignableFrom(x));
     }
+    
+    public static (string path, string filenameWithoutExtension) GetCurrentPathAndExecName()
+    {
+        string path = AppContext.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        string filenameWithoutExtension = AppDomain.CurrentDomain.FriendlyName;
+        
+        return (path, filenameWithoutExtension);
+    }
+    
 }

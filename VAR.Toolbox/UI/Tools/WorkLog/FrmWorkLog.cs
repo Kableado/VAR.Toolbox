@@ -690,7 +690,9 @@ public class FrmWorkLog : Window, IToolForm
     private void WorkLog_LoadData()
     {
         _workLog.Clear();
-        string fileName = $"{_worklogPath}/{_txtName.Text ?? string.Empty}.WorkLog.json";
+        (string currentPath, string _) = ReflectionUtils.GetCurrentPathAndExecName();
+        string worklogPath = Path.Combine(currentPath, _worklogPath);
+        string fileName = $"{worklogPath}/{_txtName.Text ?? string.Empty}.WorkLog.json";
         if (File.Exists(fileName))
         {
             string rawFile = File.ReadAllText(fileName);
@@ -711,10 +713,12 @@ public class FrmWorkLog : Window, IToolForm
 
     private void WorkLog_SaveData()
     {
-        string fileName = $"{_worklogPath}/{_txtName.Text}.WorkLog.json";
-        if (Directory.Exists(_worklogPath) == false)
+        (string currentPath, string _) = ReflectionUtils.GetCurrentPathAndExecName();
+        string worklogPath = Path.Combine(currentPath, _worklogPath);
+        string fileName = $"{worklogPath}/{_txtName.Text}.WorkLog.json";
+        if (Directory.Exists(worklogPath) == false)
         {
-            Directory.CreateDirectory(_worklogPath);
+            Directory.CreateDirectory(worklogPath);
         }
         
         if (File.Exists(fileName)) { File.Delete(fileName); }

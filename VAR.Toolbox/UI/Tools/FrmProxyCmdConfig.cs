@@ -6,6 +6,8 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
 
+using VAR.Toolbox.Code;
+
 namespace VAR.Toolbox.UI.Tools;
 
 public class FrmProxyCmdConfig : Window
@@ -156,10 +158,7 @@ public class FrmProxyCmdConfig : Window
 
     private static string GetConfigFileName()
     {
-        string location = System.Reflection.Assembly.GetEntryAssembly()?.Location ??
-                          System.Reflection.Assembly.GetExecutingAssembly().Location;
-        string? path = Path.GetDirectoryName(location);
-        string filenameWithoutExtension = Path.GetFileNameWithoutExtension(location);
+        (string path, string filenameWithoutExtension) = ReflectionUtils.GetCurrentPathAndExecName();
         return $"{path}/{filenameWithoutExtension}.ProxyCmd.cfg";
     }
 

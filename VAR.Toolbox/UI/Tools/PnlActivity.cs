@@ -7,6 +7,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Threading;
 using VAR.Json;
+using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Platforms;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Local
@@ -116,10 +117,8 @@ public class PnlActivity : UserControl, IToolPanel
     {
         try
         {
-            string location = System.Reflection.Assembly.GetEntryAssembly()?.Location ??
-                              System.Reflection.Assembly.GetExecutingAssembly().Location;
-            string? assemblyPath = Path.GetDirectoryName(location);
-            string path = Path.Combine(assemblyPath ?? string.Empty, "Activity");
+            (string currentPath, string _) = ReflectionUtils.GetCurrentPathAndExecName();
+            string path = Path.Combine(currentPath, "Activity");
             if (Directory.Exists(path) == false)
             {
                 Directory.CreateDirectory(path);

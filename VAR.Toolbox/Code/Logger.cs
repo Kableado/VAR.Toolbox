@@ -13,10 +13,7 @@ public static class Logger
     {
         try
         {
-            string location = System.Reflection.Assembly.GetEntryAssembly()?.Location ??
-                              System.Reflection.Assembly.GetExecutingAssembly().Location;
-            string? path = Path.GetDirectoryName(location);
-            string filenameWithoutExtension = Path.GetFileNameWithoutExtension(location);
+            (string path, string filenameWithoutExtension) = ReflectionUtils.GetCurrentPathAndExecName();
 
             string fileOut = $"{path}/{filenameWithoutExtension}.{DateTime.UtcNow:yyyy-MM}.txt";
             return File.AppendText(fileOut);

@@ -16,14 +16,16 @@ public static class Program
     [STAThread]
     private static void Main(string[] args)
     {
+        Logger.Marker("Starting application...");
+        
         // Load plug-ins
-        string executingAssemblyPath = Assembly.GetExecutingAssembly().Location;
-        string? dirName = Path.GetDirectoryName(executingAssemblyPath);
-        string execName = Path.GetFileNameWithoutExtension(executingAssemblyPath);
-        if (dirName != null)
+        Logger.Log("Loading plug-ins...");
+        (string dirName, string execName) = ReflectionUtils.GetCurrentPathAndExecName();
+        string[] assemblyPaths = Directory.GetFiles(dirName, $"{execName}.*.dll");
+        foreach (string assemblyPath in assemblyPaths)
         {
-            string[] assemblyPaths = Directory.GetFiles(dirName, $"{execName}*.dll");
-            foreach (string assemblyPath in assemblyPaths) { AssemblyLoadFull(assemblyPath); }
+            Logger.Log($"Loading assembly {assemblyPath}");
+            AssemblyLoadFull(assemblyPath);
         }
 
         try
