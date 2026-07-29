@@ -18,7 +18,6 @@ if (Test-Path $publishDir) {
 # Publish self-contained for Windows x64
 dotnet publish $projectFile `
     -c Release `
-    -r win-x64 `
     -p:SelfContained=true `
     -p:PublishSingleFile=true `
     -p:PublishTrimmed=false `

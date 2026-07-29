@@ -7,4 +7,5 @@
 .vs
 *.user
 .idea/*
-publish
+publish*
+!publish*.ps1
