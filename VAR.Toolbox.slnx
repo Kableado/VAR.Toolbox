@@ -2,6 +2,7 @@
   <Folder Name="/Misc/">
     <File Path=".editorconfig" />
     <File Path=".gitignore" />
+    <File Path="install.sh" />
     <File Path="publish-TestPlugin.ps1" />
     <File Path="publish.ps1" />
     <File Path="publish.sh" />
