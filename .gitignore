@@ -8,4 +8,5 @@
 *.user
 .idea/*
 publish*
+!publish*.sh
 !publish*.ps1

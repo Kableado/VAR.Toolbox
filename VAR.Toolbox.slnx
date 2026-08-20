@@ -4,6 +4,7 @@
     <File Path=".gitignore" />
     <File Path="publish-TestPlugin.ps1" />
     <File Path="publish.ps1" />
+    <File Path="publish.sh" />
   </Folder>
   <Project Path="VAR.Toolbox.TestPlugin/VAR.Toolbox.TestPlugin.csproj" />
   <Project Path="VAR.Toolbox/VAR.Toolbox.csproj" />
