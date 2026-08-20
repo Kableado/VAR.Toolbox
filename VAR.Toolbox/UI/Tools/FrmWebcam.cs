@@ -4,6 +4,7 @@ using SkiaSharp;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
+using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Platforms;
 using VAR.Toolbox.Controls;
 
@@ -46,11 +47,29 @@ public class FrmWebcam : Window, IToolForm
         Closed += (_, _) => _webcam?.Stop();
     }
 
+    private bool _processingFrame = false;
     private void Webcam_NewFrame(object? sender, SKBitmap frame)
     {
+        if (_processingFrame)
+        {
+            frame.Dispose();
+            return;
+        }
+
+        _processingFrame = true;
         Avalonia.Threading.Dispatcher.UIThread.Post(() =>
         {
-            _picWebcam.ImageShow = BitmapConverter.ConvertToAvalonia(frame);
+            try
+            {
+                var oldImage = _picWebcam.ImageShow;
+                _picWebcam.ImageShow = BitmapConverter.ConvertToAvalonia(frame);
+                oldImage?.Dispose();
+            }
+            finally
+            {
+                frame.Dispose();
+                _processingFrame = false;
+            }
         });
     }
 
@@ -70,7 +89,15 @@ public class FrmWebcam : Window, IToolForm
             else
             {
                 _webcam.Start();
-                _btnStartStop.Content = "Stop";
+                if (_webcam.Active)
+                {
+                    _btnStartStop.Content = "Stop";
+                }
+                else
+                {
+                    _btnStartStop.Content = "Start";
+                    _webcam = null;
+                }
             }
         }
     }

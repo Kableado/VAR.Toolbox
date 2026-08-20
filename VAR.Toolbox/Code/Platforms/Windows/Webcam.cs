@@ -246,11 +246,11 @@ public class Webcam : IWebcam
 
     #endregion Private methods
 
-    #region NewFrameEvent
+    #region Events
 
     public event IWebcam.NewFrameEventHandler? NewFrame;
 
-    #endregion NewFrameEvent
+    #endregion Events
 
     #region Grabber
 

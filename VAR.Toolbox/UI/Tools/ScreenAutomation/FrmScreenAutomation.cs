@@ -6,6 +6,7 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Threading;
+using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Bots;
 using VAR.Toolbox.Code.Configuration;
 using VAR.Toolbox.Code.Platforms;
@@ -231,7 +232,9 @@ public class FrmScreenAutomation : Window, IToolForm
             _bmpScreen = _automationBot.Process(_bmpScreen, _ctrOutput);
         }
 
+        var oldImage = _picPreview.ImageShow;
         _picPreview.ImageShow = _bmpScreen != null ? BitmapConverter.ConvertToAvalonia(_bmpScreen) : null;
+        oldImage?.Dispose();
 
         if (_timTicker != null)
         {

@@ -6,6 +6,7 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Platform;
 using Avalonia.Threading;
+using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Platforms;
 using VAR.Toolbox.Controls;
 
@@ -54,14 +55,18 @@ public class FrmScreenshooter : Window, IToolForm
     private void BtnScreenshot_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         _bmpScreen = CaptureScreen(_bmpScreen, window: this);
+        var oldImage = _picViewer.ImageShow;
         _picViewer.ImageShow = BitmapConverter.ConvertToAvalonia(_bmpScreen);
+        oldImage?.Dispose();
     }
 
     private void TimTicker_Tick(object? sender, EventArgs e)
     {
         _timTicker.Stop();
         _bmpScreen = CaptureScreen(_bmpScreen, window: this);
+        var oldImage = _picViewer.ImageShow;
         _picViewer.ImageShow = BitmapConverter.ConvertToAvalonia(_bmpScreen);
+        oldImage?.Dispose();
         _timTicker.Start();
     }
 
@@ -113,17 +118,5 @@ public class FrmScreenshooter : Window, IToolForm
         return Platform.Current.Screen_CaptureRegion(bmp, left.Value, top.Value, width.Value, height.Value);
     }
 
-    
-}
 
-internal static class BitmapConverter
-{
-    public static Avalonia.Media.Imaging.Bitmap? ConvertToAvalonia(SKBitmap? bmp)
-    {
-        if (bmp == null) return null;
-        using SKImage image = SKImage.FromBitmap(bmp);
-        using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);
-        using Stream stream = data.AsStream();
-        return new Avalonia.Media.Imaging.Bitmap(stream);
-    }
 }
