@@ -1,6 +1,7 @@
-﻿using System.Drawing;
 
 namespace VAR.Toolbox.Code.Platforms;
+
+using SkiaSharp;
 
 public interface IWebcam
 {
@@ -9,7 +10,7 @@ public interface IWebcam
 
     bool Active { get; }
     
-    public delegate void NewFrameEventHandler(object? sender, Bitmap frame);
+    public delegate void NewFrameEventHandler(object? sender, SKBitmap frame);
 
     event NewFrameEventHandler? NewFrame;
 }

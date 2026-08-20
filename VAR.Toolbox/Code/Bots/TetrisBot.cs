@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
+using SkiaSharp;
 using System.Linq;
 using System.Text;
 using VAR.Toolbox.Code.Configuration;
@@ -62,7 +62,7 @@ public class TetrisBot : IAutomationBot
         output.AddLine($"TetrisBot: Starting {DateTime.UtcNow:s}");
     }
 
-    public Bitmap Process(Bitmap bmpInput, IOutputHandler output)
+    public SKBitmap Process(SKBitmap bmpInput, IOutputHandler output)
     {
         EnsureInitialized();
         _grid.SampleFromBitmap(bmpInput);
@@ -645,7 +645,7 @@ public class TetrisGrid
         _grid[y][x] = value;
     }
 
-    public void SampleFromBitmap(Bitmap bmp)
+    public void SampleFromBitmap(SKBitmap bmp)
     {
         float xStep = bmp.Width / (float)_gridWidth;
         float yStep = bmp.Height / (float)_gridHeight;
@@ -659,28 +659,28 @@ public class TetrisGrid
         {
             for (int x = 0; x < _gridWidth; x++)
             {
-                Color color = bmp.GetPixel(
+                SKColor color = bmp.GetPixel(
                     x: (int)((x * xStep) + xOff0),
                     y: (int)((y * yStep) + yOff0));
-                if (color.R > 128 || color.G > 128 || color.B > 128)
+                if (color.Red > 128 || color.Green > 128 || color.Blue > 128)
                 {
-                    Color color0 = bmp.GetPixel(
+                    SKColor color0 = bmp.GetPixel(
                         x: (int)((x * xStep) + xOff1),
                         y: (int)((y * yStep) + yOff1));
-                    Color color1 = bmp.GetPixel(
+                    SKColor color1 = bmp.GetPixel(
                         x: (int)((x * xStep) + xOff1),
                         y: (int)((y * yStep) + yOff2));
-                    Color color2 = bmp.GetPixel(
+                    SKColor color2 = bmp.GetPixel(
                         x: (int)((x * xStep) + xOff2),
                         y: (int)((y * yStep) + yOff1));
-                    Color color3 = bmp.GetPixel(
+                    SKColor color3 = bmp.GetPixel(
                         x: (int)((x * xStep) + xOff2),
                         y: (int)((y * yStep) + yOff2));
                     if (
-                        (color0.R > 128 || color0.G > 128 || color0.B > 128) &&
-                        (color1.R > 128 || color1.G > 128 || color1.B > 128) &&
-                        (color2.R > 128 || color2.G > 128 || color2.B > 128) &&
-                        (color3.R > 128 || color3.G > 128 || color3.B > 128) &&
+                        (color0.Red > 128 || color0.Green > 128 || color0.Blue > 128) &&
+                        (color1.Red > 128 || color1.Green > 128 || color1.Blue > 128) &&
+                        (color2.Red > 128 || color2.Green > 128 || color2.Blue > 128) &&
+                        (color3.Red > 128 || color3.Green > 128 || color3.Blue > 128) &&
                         true)
                     {
                         _grid[y][x] = 1;
@@ -853,7 +853,7 @@ public class TetrisGrid
         return evaluationValue;
     }
 
-    public void Draw(Bitmap bmp, float dotWith = 0.5f)
+    public void Draw(SKBitmap bmp, float dotWith = 0.5f)
     {
         float xStep = bmp.Width / (float)_gridWidth;
         float yStep = bmp.Height / (float)_gridHeight;
@@ -862,35 +862,36 @@ public class TetrisGrid
         float offX = (xStep - halfXStep) / 2;
         float offY = (yStep - halfYStep) / 2;
 
-        using Pen borderPen = new(Color.DarkGray);
-        using Graphics g = Graphics.FromImage(bmp);
+        using SKPaint borderPen = new SKPaint { Color = SKColors.DarkGray, IsStroke = true };
+        using SKPaint fillPaint = new SKPaint { IsStroke = false };
+        using SKCanvas canvas = new SKCanvas(bmp);
         for (int y = 0; y < _gridHeight; y++)
         {
             for (int x = 0; x < _gridWidth; x++)
             {
-                Brush? br = null;
+                SKColor? color = null;
                 if (_grid[y][x] == CellEmpty)
                 {
-                    br = Brushes.Black;
+                    color = SKColors.Black;
                 }
                 else if (_grid[y][x] == CellSolid)
                 {
-                    br = Brushes.Blue;
+                    color = SKColors.Blue;
                 }
                 else if (_grid[y][x] == CellShapeA)
                 {
-                    br = Brushes.Red;
+                    color = SKColors.Red;
                 }
                 else if (_grid[y][x] == CellShapeB)
                 {
-                    br = Brushes.Green;
+                    color = SKColors.Green;
                 }
 
-                if (br == null) { continue; }
+                if (color == null) { continue; }
+                fillPaint.Color = color.Value;
 
-                g.DrawRectangle(borderPen, (int)((xStep * x) + offX - 1), (int)((yStep * y) + offY - 1), (int)(halfXStep + 2),
-                    (int)(halfYStep + 2));
-                g.FillRectangle(br, (xStep * x) + offX, (yStep * y) + offY, halfXStep, halfYStep);
+                canvas.DrawRect((xStep * x) + offX - 1, (yStep * y) + offY - 1, halfXStep + 2, halfYStep + 2, borderPen);
+                canvas.DrawRect((xStep * x) + offX, (yStep * y) + offY, halfXStep, halfYStep, fillPaint);
             }
         }
     }

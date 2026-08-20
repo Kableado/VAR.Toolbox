@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using SkiaSharp;
 using VAR.Toolbox.Code.Configuration;
 
 namespace VAR.Toolbox.Code.Bots;
@@ -17,7 +17,7 @@ public class DummyBot : IAutomationBot
         output.Clean();
     }
 
-    public Bitmap Process(Bitmap bmpInput, IOutputHandler output)
+    public SKBitmap Process(SKBitmap bmpInput, IOutputHandler output)
     {
         return bmpInput;
     }

@@ -1,5 +1,5 @@
-﻿using System;
-using System.Drawing;
+using System;
+using SkiaSharp;
 using System.IO;
 using Avalonia;
 using Avalonia.Controls;
@@ -18,7 +18,7 @@ public class FrmScreenshooter : Window, IToolForm
 
     private bool _repetitiveScreenshots;
     private readonly DispatcherTimer _timTicker;
-    private Bitmap? _bmpScreen;
+    private SKBitmap? _bmpScreen;
     private readonly CtrImageViewer _picViewer;
     private readonly Button _btnStartStop;
 
@@ -83,7 +83,7 @@ public class FrmScreenshooter : Window, IToolForm
     }
     
     
-    public static Bitmap? CaptureScreen(Bitmap? bmp = null, int? left = null, int? top = null, int? width = null,
+    public static SKBitmap? CaptureScreen(SKBitmap? bmp = null, int? left = null, int? top = null, int? width = null,
         int? height = null, Window? window = null)
     {
         if (window == null) { return bmp; }
@@ -118,12 +118,12 @@ public class FrmScreenshooter : Window, IToolForm
 
 internal static class BitmapConverter
 {
-    public static Avalonia.Media.Imaging.Bitmap? ConvertToAvalonia(Bitmap? bmp)
+    public static Avalonia.Media.Imaging.Bitmap? ConvertToAvalonia(SKBitmap? bmp)
     {
         if (bmp == null) return null;
-        using MemoryStream stream = new();
-        bmp.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-        stream.Seek(0, SeekOrigin.Begin);
+        using SKImage image = SKImage.FromBitmap(bmp);
+        using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);
+        using Stream stream = data.AsStream();
         return new Avalonia.Media.Imaging.Bitmap(stream);
     }
 }

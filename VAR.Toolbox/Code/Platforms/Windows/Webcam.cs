@@ -7,8 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using SkiaSharp;
 
 using VAR.Toolbox.Code.Platforms.Windows.DirectShow;
 
@@ -320,7 +322,11 @@ public class Webcam : IWebcam
                 image.UnlockBits(imageData);
 
                 // notify parent
-                _parent.NewFrame?.Invoke(this, image);
+                using MemoryStream ms = new();
+                image.Save(ms, ImageFormat.Bmp);
+                ms.Seek(0, SeekOrigin.Begin);
+                SKBitmap skBmp = SKBitmap.Decode(ms);
+                _parent.NewFrame?.Invoke(this, skBmp);
             }
 
             return 0;

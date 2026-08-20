@@ -1,5 +1,5 @@
-﻿using System;
-using System.Drawing;
+using System;
+using SkiaSharp;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
@@ -25,7 +25,7 @@ public class FrmScreenAutomation : Window, IToolForm
     private bool _running;
     private IAutomationBot? _automationBot;
     private DispatcherTimer? _timTicker;
-    private Bitmap? _bmpScreen;
+    private SKBitmap? _bmpScreen;
 
     private readonly CtrImageViewer _picPreview;
     private readonly CtrOutput _ctrOutput;
@@ -294,7 +294,7 @@ public class FrmScreenAutomation : Window, IToolForm
     }
     
     
-    public static Bitmap? CaptureControl(Control? ctrl, Bitmap? bmp = null, Window? window = null)
+    public static SKBitmap? CaptureControl(Control? ctrl, SKBitmap? bmp = null, Window? window = null)
     {
         if (ctrl == null || window == null) { return bmp; }
 

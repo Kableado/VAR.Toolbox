@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
+using SkiaSharp;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
@@ -46,7 +46,7 @@ public class FrmWebcam : Window, IToolForm
         Closed += (_, _) => _webcam?.Stop();
     }
 
-    private void Webcam_NewFrame(object? sender, Bitmap frame)
+    private void Webcam_NewFrame(object? sender, SKBitmap frame)
     {
         Avalonia.Threading.Dispatcher.UIThread.Post(() =>
         {

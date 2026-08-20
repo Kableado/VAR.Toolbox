@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+using System.Collections.Generic;
+using SkiaSharp;
 
 namespace VAR.Toolbox.Code.Platforms.Stub;
 
@@ -30,9 +30,9 @@ internal class StubPlatform : IPlatform
     
     public void Mouse_SetPosition(uint x, uint y) { }
     
-    public Bitmap Screen_CaptureRegion(Bitmap? bmp, int left, int top, int width, int height)
+    public SKBitmap Screen_CaptureRegion(SKBitmap? bmp, int left, int top, int width, int height)
     {
-        return bmp ?? new Bitmap(width, height);
+        return bmp ?? new SKBitmap(width, height);
     }
 
     public IWebcam Webcam_Create(string moniker)

@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+using System.Collections.Generic;
+
+using SkiaSharp;
 
 namespace VAR.Toolbox.Code.Platforms;
 
@@ -16,7 +17,7 @@ public interface IPlatform
     void Mouse_SetPosition(uint x, uint y);
     
     // Screen
-    Bitmap Screen_CaptureRegion(Bitmap? bmp, int left, int top, int width, int height);
+    SKBitmap Screen_CaptureRegion(SKBitmap? bmp, int left, int top, int width, int height);
 
     // Webcam
     IWebcam Webcam_Create(string moniker);
