@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
+using VAR.Toolbox.Code.Platforms.Linux;
 using VAR.Toolbox.Code.Platforms.Stub;
 using VAR.Toolbox.Code.Platforms.Windows;
 
@@ -12,7 +13,7 @@ public static class Platform
     private static IPlatform CreatePlatformService()
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) { return new WindowsPlatform(); }
-        // if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) { return new LinuxPlatform(); }
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) { return new LinuxPlatform(); }
 
         return new StubPlatform();
     }
