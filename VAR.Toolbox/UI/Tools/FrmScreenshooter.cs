@@ -1,9 +1,10 @@
 using System;
 using SkiaSharp;
-using System.IO;
+
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
+using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Threading;
 using VAR.Toolbox.Code;
@@ -55,7 +56,7 @@ public class FrmScreenshooter : Window, IToolForm
     private void BtnScreenshot_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         _bmpScreen = CaptureScreen(_bmpScreen, window: this);
-        var oldImage = _picViewer.ImageShow;
+        Bitmap? oldImage = _picViewer.ImageShow;
         _picViewer.ImageShow = BitmapConverter.ConvertToAvalonia(_bmpScreen);
         oldImage?.Dispose();
     }
@@ -64,7 +65,7 @@ public class FrmScreenshooter : Window, IToolForm
     {
         _timTicker.Stop();
         _bmpScreen = CaptureScreen(_bmpScreen, window: this);
-        var oldImage = _picViewer.ImageShow;
+        Bitmap? oldImage = _picViewer.ImageShow;
         _picViewer.ImageShow = BitmapConverter.ConvertToAvalonia(_bmpScreen);
         oldImage?.Dispose();
         _timTicker.Start();

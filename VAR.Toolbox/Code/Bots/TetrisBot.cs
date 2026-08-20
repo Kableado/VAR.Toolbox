@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using SkiaSharp;
@@ -862,9 +862,12 @@ public class TetrisGrid
         float offX = (xStep - halfXStep) / 2;
         float offY = (yStep - halfYStep) / 2;
 
-        using SKPaint borderPen = new SKPaint { Color = SKColors.DarkGray, IsStroke = true };
-        using SKPaint fillPaint = new SKPaint { IsStroke = false };
-        using SKCanvas canvas = new SKCanvas(bmp);
+        using SKPaint borderPen = new();
+        borderPen.Color = SKColors.DarkGray;
+        borderPen.IsStroke = true;
+        using SKPaint fillPaint = new();
+        fillPaint.IsStroke = false;
+        using SKCanvas canvas = new(bmp);
         for (int y = 0; y < _gridHeight; y++)
         {
             for (int x = 0; x < _gridWidth; x++)

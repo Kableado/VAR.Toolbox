@@ -71,7 +71,7 @@ public class FrmWorkLogSummary : Window
         Grid.SetColumn(btnClose, 2);
         bottomGrid.Children.Add(btnClose);
 
-        Grid mainGrid = new Grid
+        Grid mainGrid = new()
         {
             Margin = new Thickness(8),
             RowDefinitions = new RowDefinitions("Auto, Auto, Auto, *, Auto"),

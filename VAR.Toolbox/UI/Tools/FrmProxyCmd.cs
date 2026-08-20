@@ -147,11 +147,8 @@ public class FrmProxyCmd : Window, IOutputHandler, IToolForm
     [MemberNotNull(nameof(_proxyCmdExecutor))]
     private void PrepareProxyCmdExecutor()
     {
-        if (_proxyCmdExecutor == null)
-        {
-            _proxyCmdExecutor = ProxyCmdExecutorFactory.CreateFromConfig(GetCurrentConfig()) ??
-                                new ProxyCmdExecutorDummy(string.Empty);
-        }
+        _proxyCmdExecutor ??= ProxyCmdExecutorFactory.CreateFromConfig(GetCurrentConfig()) ??
+                              new ProxyCmdExecutorDummy(string.Empty);
     }
 
     private void CleanProxyCmdExecutor()

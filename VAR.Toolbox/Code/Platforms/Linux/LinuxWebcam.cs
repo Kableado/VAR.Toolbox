@@ -32,7 +32,7 @@ public class LinuxWebcam : IWebcam
 
         foreach (string args in attemptArgs)
         {
-            var psi = new ProcessStartInfo("ffmpeg", args)
+            ProcessStartInfo psi = new("ffmpeg", args)
             {
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -50,7 +50,7 @@ public class LinuxWebcam : IWebcam
                 if (!_process.HasExited)
                 {
                     _active = true;
-                    _readerThread = new Thread(ReaderLoop) { IsBackground = true };
+                    _readerThread = new Thread(ReaderLoop) { IsBackground = true, };
                     _readerThread.Start();
                     return;
                 }
@@ -73,7 +73,7 @@ public class LinuxWebcam : IWebcam
 
         try
         {
-            using var stream = _process.StandardOutput.BaseStream;
+            using Stream stream = _process.StandardOutput.BaseStream;
             byte[] buffer = new byte[2 * 1024 * 1024]; // 2MB buffer to hold at least one full HD frame
             int bufferCount = 0;
 
@@ -103,9 +103,9 @@ public class LinuxWebcam : IWebcam
                         if (eoiPos != -1)
                         {
                             // Found a full MJPEG frame
-                            using (var ms = new MemoryStream(buffer, pos, eoiPos - pos))
+                            using (MemoryStream ms = new(buffer, pos, eoiPos - pos))
                             {
-                                var bitmap = SKBitmap.Decode(ms);
+                                SKBitmap? bitmap = SKBitmap.Decode(ms);
                                 if (bitmap != null)
                                 {
                                     NewFrame?.Invoke(this, bitmap);
@@ -195,23 +195,23 @@ public class LinuxWebcam : IWebcam
         Dictionary<string, string> devices = new();
         try
         {
-            var psi = new ProcessStartInfo("ffmpeg", "-sources v4l2")
+            ProcessStartInfo psi = new("ffmpeg", "-sources v4l2")
             {
                 RedirectStandardOutput = true,
                 RedirectStandardError = false,
                 UseShellExecute = false,
                 CreateNoWindow = true,
             };
-            using var process = Process.Start(psi);
+            using Process? process = Process.Start(psi);
             if (process != null)
             {
                 string output = process.StandardOutput.ReadToEnd();
                 process.WaitForExit();
 
                 // Parse output
-                var lines = output.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] lines = output.Split(new[] { '\r', '\n', }, StringSplitOptions.RemoveEmptyEntries);
                 bool startParsing = false;
-                foreach (var line in lines)
+                foreach (string line in lines)
                 {
                     if (line.Contains("Auto-detected sources"))
                     {
@@ -221,7 +221,7 @@ public class LinuxWebcam : IWebcam
 
                     if (startParsing && line.Trim().StartsWith("/dev/video"))
                     {
-                        var parts = line.Trim().Split(new[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries);
+                        string[] parts = line.Trim().Split(new[] { ' ', }, 2, StringSplitOptions.RemoveEmptyEntries);
                         string path = parts[0];
 
                         // Probe if it's a capture device
@@ -261,7 +261,7 @@ public class LinuxWebcam : IWebcam
         // Fallback to simple listing if no devices found or ffmpeg failed
         if (devices.Count == 0)
         {
-            string[] videoDevices = System.IO.Directory.GetFiles("/dev", "video*");
+            string[] videoDevices = Directory.GetFiles("/dev", "video*");
             foreach (string videoDevice in videoDevices)
             {
                 if (!devices.ContainsValue(videoDevice) && IsCaptureDevice(videoDevice))
@@ -278,14 +278,14 @@ public class LinuxWebcam : IWebcam
     {
         try
         {
-            var psi = new ProcessStartInfo("ffmpeg", $"-f v4l2 -list_formats all -i \"{device}\"")
+            ProcessStartInfo psi = new("ffmpeg", $"-f v4l2 -list_formats all -i \"{device}\"")
             {
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
                 CreateNoWindow = true,
             };
-            using var process = Process.Start(psi);
+            using Process? process = Process.Start(psi);
             if (process == null) return false;
             string error = process.StandardError.ReadToEnd();
             process.WaitForExit();

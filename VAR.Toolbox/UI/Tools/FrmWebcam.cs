@@ -4,6 +4,8 @@ using SkiaSharp;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
+using Avalonia.Media.Imaging;
+
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Platforms;
 using VAR.Toolbox.Controls;
@@ -47,7 +49,7 @@ public class FrmWebcam : Window, IToolForm
         Closed += (_, _) => _webcam?.Stop();
     }
 
-    private bool _processingFrame = false;
+    private bool _processingFrame;
     private void Webcam_NewFrame(object? sender, SKBitmap frame)
     {
         if (_processingFrame)
@@ -61,7 +63,7 @@ public class FrmWebcam : Window, IToolForm
         {
             try
             {
-                var oldImage = _picWebcam.ImageShow;
+                Bitmap? oldImage = _picWebcam.ImageShow;
                 _picWebcam.ImageShow = BitmapConverter.ConvertToAvalonia(frame);
                 oldImage?.Dispose();
             }

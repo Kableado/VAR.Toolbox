@@ -1,4 +1,5 @@
-using System;
+using System.IO;
+
 using SkiaSharp;
 using Avalonia;
 using Avalonia.Media.Imaging;
@@ -15,15 +16,14 @@ public static class BitmapConverter
         PixelFormat pixelFormat = skiaBitmap.ColorType switch
         {
             SKColorType.Bgra8888 => PixelFormat.Bgra8888,
-            SKColorType.Rgba8888 => PixelFormat.Rgba8888,
-            _ => PixelFormat.Rgba8888
+            _ => PixelFormat.Rgba8888,
         };
 
         AlphaFormat alphaFormat = skiaBitmap.AlphaType switch
         {
             SKAlphaType.Premul => AlphaFormat.Premul,
             SKAlphaType.Opaque => AlphaFormat.Opaque,
-            _ => AlphaFormat.Unpremul
+            _ => AlphaFormat.Unpremul,
         };
 
         try
@@ -39,7 +39,7 @@ public static class BitmapConverter
         catch
         {
             // Fallback for safety, though direct copy is preferred
-            using var ms = new System.IO.MemoryStream();
+            using MemoryStream ms = new();
             skiaBitmap.Encode(ms, SKEncodedImageFormat.Bmp, 100);
             ms.Position = 0;
             return new Bitmap(ms);

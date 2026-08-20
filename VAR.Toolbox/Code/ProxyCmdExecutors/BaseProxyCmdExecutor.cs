@@ -2,7 +2,7 @@
 
 namespace VAR.Toolbox.Code.ProxyCmdExecutors;
 
-public abstract class BaseProxyCmdExecutor : IProxyCmdExecutor
+public abstract class BaseProxyCmdExecutor : IProxyCmdExecutor, IDisposable
 {
     public abstract string Name { get; }
 
@@ -17,4 +17,6 @@ public abstract class BaseProxyCmdExecutor : IProxyCmdExecutor
     }
 
     public abstract bool ExecuteCmd(string cmd, IOutputHandler outputHandler);
+
+    public void Dispose() { }
 }

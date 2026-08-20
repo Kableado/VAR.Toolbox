@@ -46,7 +46,7 @@ internal class LinuxPlatform : IPlatform
             File.WriteAllText(scriptFile, scriptContent);
             string loadResult = RunCommand("gdbus",
                 $"call --session --dest org.kde.KWin --object-path /Scripting --method org.kde.kwin.Scripting.loadScript \"{scriptFile}\"");
-            
+
             // Extract ID from (ID,)
             int start = loadResult.IndexOf('(');
             int end = loadResult.IndexOf(',');
@@ -58,7 +58,7 @@ internal class LinuxPlatform : IPlatform
 
                 // Read from journal
                 string journal = RunCommand("journalctl", $"--user -t kwin_wayland -n 50");
-                int markerIndex = journal.LastIndexOf(marker);
+                int markerIndex = journal.LastIndexOf(marker, StringComparison.Ordinal);
                 if (markerIndex >= 0)
                 {
                     string line = journal.Substring(markerIndex);
@@ -261,8 +261,8 @@ internal class LinuxPlatform : IPlatform
             {
                 using SKBitmap capturedBmp = SKBitmap.Decode(tempFile);
                 SKBitmap resultBmp = bmp ?? new SKBitmap(width, height);
-                using SKCanvas canvas = new SKCanvas(resultBmp);
-                
+                using SKCanvas canvas = new(resultBmp);
+
                 if (IsWayland() && IsKde())
                 {
                     // Crop from the full screenshot

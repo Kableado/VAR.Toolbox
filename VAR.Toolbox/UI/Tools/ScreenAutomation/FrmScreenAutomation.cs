@@ -5,6 +5,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using VAR.Toolbox.Code;
 using VAR.Toolbox.Code.Bots;
@@ -36,10 +37,8 @@ public class FrmScreenAutomation : Window, IToolForm
     private readonly CheckBox _chkClick;
     private readonly Button _btnStartEnd;
 
-    private readonly Panel _panelCover;
     private readonly Control _ctrHole;
 
-    private readonly CombinedGeometry _geometryMask;
     private readonly RectangleGeometry _geometryWindow;
     private readonly RectangleGeometry _geometryHole;
 
@@ -53,17 +52,17 @@ public class FrmScreenAutomation : Window, IToolForm
 
         _geometryWindow = new RectangleGeometry();
         _geometryHole = new  RectangleGeometry();
-        _geometryMask = new CombinedGeometry
+        CombinedGeometry geometryMask = new()
         {
             GeometryCombineMode = GeometryCombineMode.Exclude,
             Geometry1 = _geometryWindow,
             Geometry2 = _geometryHole,
         };
 
-        _panelCover = new Panel
+        Panel panelCover = new()
         {
             Background = new SolidColorBrush(Color.FromArgb(128, 0, 0, 0)),
-            Clip = _geometryMask,
+            Clip = geometryMask,
         };
 
         _ctrHole = new Border
@@ -83,7 +82,7 @@ public class FrmScreenAutomation : Window, IToolForm
         Button btnConfig = new() { Content = "Config", };
         btnConfig.Click += BtnAutomationBotConfig_Click;
         toolbar.Children.Add(btnConfig);
-            
+
         StackPanel toolbar2 = new() { Orientation = Orientation.Horizontal, Spacing = 4, };
         Grid.SetRow(toolbar2, 1);
         toolbar2.Children.Add(new TextBlock { Text = "FPS:", VerticalAlignment = VerticalAlignment.Center, });
@@ -98,11 +97,11 @@ public class FrmScreenAutomation : Window, IToolForm
         _btnStartEnd.Click += BtnStartEnd_Click;
         toolbar2.Children.Add(_btnStartEnd);
 
-            
-            
+
+
         _picPreview = new CtrImageViewer();
         Grid.SetRow(_picPreview, 2);
-            
+
         GridSplitter splitterToolbars = new()
         {
             Height = 4,
@@ -111,10 +110,10 @@ public class FrmScreenAutomation : Window, IToolForm
             ResizeDirection = GridResizeDirection.Rows,
         };
         Grid.SetRow(splitterToolbars, 3);
-            
+
         _ctrOutput = new CtrOutput();
         Grid.SetRow(_ctrOutput, 4);
-            
+
         Grid toolGrid = new();
         Grid.SetColumn(toolGrid, 0);
         toolGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
@@ -135,12 +134,12 @@ public class FrmScreenAutomation : Window, IToolForm
             VerticalAlignment = VerticalAlignment.Stretch,
         };
         Grid.SetColumn(splitterMain, 1);
-            
+
         Grid mainGrid = new();
         mainGrid.ColumnDefinitions.Add(new ColumnDefinition(1, GridUnitType.Star));
         mainGrid.ColumnDefinitions.Add(new ColumnDefinition(4, GridUnitType.Pixel));
         mainGrid.ColumnDefinitions.Add(new ColumnDefinition(1, GridUnitType.Star));
-        mainGrid.Children.Add(_panelCover);
+        mainGrid.Children.Add(panelCover);
         mainGrid.Children.Add(toolGrid);
         mainGrid.Children.Add(splitterMain);
         mainGrid.Children.Add(_ctrHole);
@@ -226,13 +225,13 @@ public class FrmScreenAutomation : Window, IToolForm
         _timTicker?.Stop();
 
         _bmpScreen = CaptureControl(_ctrHole, _bmpScreen, window: this);
-            
+
         if (_automationBot != null && _bmpScreen != null)
         {
             _bmpScreen = _automationBot.Process(_bmpScreen, _ctrOutput);
         }
 
-        var oldImage = _picPreview.ImageShow;
+        Bitmap? oldImage = _picPreview.ImageShow;
         _picPreview.ImageShow = _bmpScreen != null ? BitmapConverter.ConvertToAvalonia(_bmpScreen) : null;
         oldImage?.Dispose();
 
@@ -295,8 +294,8 @@ public class FrmScreenAutomation : Window, IToolForm
     {
         Topmost = _chkKeepToplevel.IsChecked == true;
     }
-    
-    
+
+
     public static SKBitmap? CaptureControl(Control? ctrl, SKBitmap? bmp = null, Window? window = null)
     {
         if (ctrl == null || window == null) { return bmp; }
